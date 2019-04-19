@@ -1,17 +1,17 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿//using System;
+//using Microsoft.Extensions.DependencyInjection;
 
-using System.Collections.Generic;
-using System.Text;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace App.Modules.Core.Application.Initialization
-{
-    public class InitializeServices
-    {
+//namespace App.Modules.Core.Application.Initialization
+//{
+//    public class InitializeServices
+//    {
 
-        public Execute(IServiceCollection services)
-        {
+//        public Execute(IServiceCollection services)
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}

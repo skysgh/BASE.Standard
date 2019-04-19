@@ -8,7 +8,7 @@ namespace App.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class Values2Controller : ControllerBase
     {
         // GET api/values
         [HttpGet]
