@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Infrastructure", "App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj", "{F4C931DB-7F15-48C0-B9F8-DA9D497425F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Host", "App.Host\App.Host.csproj", "{73A633CA-859E-4A32-81D2-312D9475506D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Domain", "App.Modules.Core.Domain\App.Modules.Core.Domain.csproj", "{90ADE437-6E9E-4EE5-99A7-06B7375B12BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Core.AppFacade", "App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj", "{FFBFC2AD-5074-4EA2-B80A-4B069E94BBBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Application", "App.Modules.Core.Application\App.Modules.Core.Application.csproj", "{34B3093E-8BA8-4BD7-8D8D-3240BB0BBE6B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Domain", "App.Modules.Core.Domain\App.Modules.Core.Domain.csproj", "{90ADE437-6E9E-4EE5-99A7-06B7375B12BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Infrastructure", "App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj", "{F4C931DB-7F15-48C0-B9F8-DA9D497425F3}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Shared", "App.Modules.Core.Shared\App.Modules.Core.Shared.csproj", "{E9743C18-B05B-401A-8E5A-C77437AC26F8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Host", "App.Host\App.Host.csproj", "{73A633CA-859E-4A32-81D2-312D9475506D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Core.AppFacade", "App.Modules.Core.Facade\App.Modules.Core.AppFacade.csproj", "{FFBFC2AD-5074-4EA2-B80A-4B069E94BBBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
