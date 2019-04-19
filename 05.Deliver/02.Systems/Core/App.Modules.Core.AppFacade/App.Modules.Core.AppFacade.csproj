@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Modules.Core.Application\App.Modules.Core.Application.csproj" />
+    <ProjectReference Include="..\App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
   </ItemGroup>
 

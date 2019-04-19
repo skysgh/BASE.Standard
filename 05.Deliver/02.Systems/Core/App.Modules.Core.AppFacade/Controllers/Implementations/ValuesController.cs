@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Host.Controllers
@@ -10,6 +11,13 @@ namespace App.Host.Controllers
     [ApiController]
     public class Values2Controller : ControllerBase
     {
+        private readonly IExampleInfrastructureService _exampleInfrastructureService;
+
+        public Values2Controller(IExampleInfrastructureService exampleInfrastructureService)
+        {
+            _exampleInfrastructureService = exampleInfrastructureService;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
