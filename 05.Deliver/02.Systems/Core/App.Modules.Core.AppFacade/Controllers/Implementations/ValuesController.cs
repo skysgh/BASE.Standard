@@ -16,6 +16,8 @@ namespace App.Host.Controllers
         public Values2Controller(IExampleInfrastructureService exampleInfrastructureService)
         {
             _exampleInfrastructureService = exampleInfrastructureService;
+
+
         }
 
         // GET api/values

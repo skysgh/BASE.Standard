@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Services.Implementations;
+﻿using App.Host.Initialization.DependencyResolution;
+using Lamar;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-using Lamar.Microsoft.DependencyInjection;
-using Lamar;
 
 namespace App.Host
 {
+    /// <summary>
+    /// <para>
+    /// Invoked from Program.cs
+    /// </para>
+    /// </summary>
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -28,27 +22,19 @@ namespace App.Host
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        // But it is not longer needed now that we use ConfigureContainer method further down.
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddMvc()
+        //        .AddControllersAsServices()
+        //        .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+        //        ;
+        //    //services.AddSingleton<IExampleInfrastructureService,ExampleInfrastructureService>();
+        //}
+
+        public void ConfigureContainer(ServiceRegistry serviceRegistry)
         {
-            services.AddMvc()
-                .AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                ;
-
-       
-            //services.AddSingleton<IExampleInfrastructureService,ExampleInfrastructureService>();
-
-        }
-
-        public void ConfigureContainer(ServiceRegistry services)
-        {
-            services.Scan(s =>
-            {
-
-                s.TheCallingAssembly();
-                s.AssembliesFromApplicationBaseDirectory(x=>x.GetName().Name.StartsWith(App.Modules.Core.Shared.Constants.Application.APPPREFIX));
-                s.WithDefaultConventions();
-            });
+            DependencyResolution.Initialize(serviceRegistry);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +43,13 @@ namespace App.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                var container = (IContainer)app.ApplicationServices;
+
+                Modules.Core.Shared.Factories.ServiceLocator.SetLocatorProvider(container);
+
+                string s1 = container.WhatDidIScan();
+                string s2 = container.WhatDoIHave();
             }
             else
             {
@@ -64,10 +57,23 @@ namespace App.Host
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(
 
+                routes =>
+                {
+                    routes.MapRoute(
+                        name: "MyArea",
+                        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-               
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+                });
         }
+
+
+
+
     }
 }
+

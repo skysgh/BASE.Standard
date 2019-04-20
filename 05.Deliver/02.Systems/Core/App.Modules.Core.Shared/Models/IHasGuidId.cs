@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Modules.Core.Shared.Models
+﻿namespace App.Modules.Core.Shared.Models
 {
-    public interface IHasGuidId
+    using System;
+
+    public interface IHasGuidId : IHasId<Guid>
+
     {
-        Guid Id { get; set; }
+
     }
 }

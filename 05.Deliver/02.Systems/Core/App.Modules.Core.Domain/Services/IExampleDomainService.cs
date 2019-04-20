@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App.Modules.Core.Domain.Services
 {
-    interface IExampleDomainService
+    public interface IExampleDomainService
     {
     }
 }

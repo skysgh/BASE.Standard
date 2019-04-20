@@ -15,12 +15,23 @@ namespace App.Host
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+           return WebHost.CreateDefaultBuilder(args)
+                // Look how early we define that Dependency Injection is First Class Citizen:
                 .UseLamar()
+                //.UseKestrel()
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddConsole();
+                }
+               )
                 .UseStartup<Startup>();
+        }
     }
 }

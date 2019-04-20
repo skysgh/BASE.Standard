@@ -4,11 +4,22 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Lamar" Version="3.0.1" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Domain\App.Modules.Core.Domain.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
