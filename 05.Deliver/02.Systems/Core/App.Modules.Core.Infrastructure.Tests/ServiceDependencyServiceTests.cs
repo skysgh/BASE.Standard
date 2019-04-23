@@ -1,4 +1,6 @@
-﻿using System;
+﻿using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Implementations;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,8 +20,8 @@ namespace App.Modules.Core.Infrastructure.Tests
             Common.SetupDI.Initialize();
 
             var result = 
-                App.Modules.Core.Shared.Factories.ServiceLocator.Current
-                .GetInstance<Services.IExampleInfrastructureService>();
+                DependencyLocator.Current
+                .GetInstance<IExampleInfrastructureService>();
 
             Xunit.Assert.NotNull(result);
         }

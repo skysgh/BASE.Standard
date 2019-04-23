@@ -1,11 +1,13 @@
-﻿using System;
-
-namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    public class ExampleInfrastructureService : IExampleInfrastructureService
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IExampleInfrastructureService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.Implementations.AppCoreServiceBase" />
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IExampleInfrastructureService" />
+    public class ExampleInfrastructureService : AppCoreServiceBase, IExampleInfrastructureService
     {
-        public ExampleInfrastructureService()
-        {
-        }
     }
 }

@@ -2,9 +2,9 @@
 
 //using Microsoft.Web.OData.Builder;
 
-//namespace App.Core.Application.Initialization.DependencyResolution
+//namespace App.Modules.Core.Application.Initialization.DependencyResolution
 //{
-//    using App.Core.Application.Initialization.OData;
+//    using App.Modules.Core.Application.Initialization.OData;
 //    using StructureMap;
 //    using StructureMap.Graph;
 
@@ -47,7 +47,7 @@
 //            // It no longer sees everything.
 //            //return;
 
-//            // Note that because we are in App.Core.Infrastructure, we can't see the
+//            // Note that because we are in App.Modules.Core.Infrastructure, we can't see the
 //            // Typed version of this interface (as this assembly does not know anything 
 //            // about OData as it does not have a Ref to OData Assemblies...nor should it, as that
 //            // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
@@ -64,7 +64,7 @@
 
 //        private void ScanForAllModulesODataBuilderTypes(IAssemblyScanner assemblyScanner)
 //        {
-//            // Note that because we are in App.Core.Infrastructure, we can't see the
+//            // Note that because we are in App.Modules.Core.Infrastructure, we can't see the
 //            // Typed version of this interface (as this assembly does not know anything 
 //            // about OData as it does not have a Ref to OData Assemblies...nor should it, as that
 //            // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)

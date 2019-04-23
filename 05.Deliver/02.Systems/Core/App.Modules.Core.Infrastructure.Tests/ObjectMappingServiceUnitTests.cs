@@ -37,7 +37,7 @@ namespace App.Modules.Core.Infrastructure.Tests
 
 
             var service =
-    App.Modules.Core.Shared.Factories.ServiceLocator.Current
+    DependencyLocator.Current
     .GetInstance<Services.IObjectMappingService>();
 
 

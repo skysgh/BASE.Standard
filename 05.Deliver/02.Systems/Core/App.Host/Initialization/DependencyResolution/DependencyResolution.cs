@@ -29,7 +29,7 @@ namespace App.Host.Initialization.DependencyResolution
             // The rest can be moved down to a lower assembly that doesn't have
             // any Reference dependency on HTML.
             // This is so that UnitTesting can take advantage of the same setup:
-            new CommonInitializer().Initialize(serviceRegistry);
+            new ApplicationDependencyResolutionInitializer().Initialize(serviceRegistry);
 
 
 

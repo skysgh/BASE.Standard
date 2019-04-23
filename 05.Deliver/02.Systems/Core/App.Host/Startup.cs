@@ -1,9 +1,12 @@
 ﻿using App.Host.Initialization.DependencyResolution;
+using App.Modules.Core.Infrastructure.Services;
 using Lamar;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Text;
 
 namespace App.Host
 {
@@ -40,13 +43,25 @@ namespace App.Host
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //env.ContentRootPath
+            //env.EnvironmentName
+            app.UseAppDbContextSaveAllMiddleware();
+
+            // Register Container so we can reuse
+            IServiceProvider serviceProvider = app.ApplicationServices;
+            // Which in this case is the Lamar container:
+            IContainer container = (IContainer)serviceProvider;
+            //Which we can register for so that everybody can get to it later:
+            container.GetInstance<IDependencyResolutionService>().Initialize(container);
+            // The question I have is: how does one get to the same container from other locations
+            // in the applications (eg, from unit tests) which don't have access to app?
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                // Get hands on container
 
-                var container = (IContainer)app.ApplicationServices;
-
-                Modules.Core.Shared.Factories.ServiceLocator.SetLocatorProvider(container);
 
                 string s1 = container.WhatDidIScan();
                 string s2 = container.WhatDoIHave();
@@ -55,10 +70,13 @@ namespace App.Host
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
-            app.UseMvc(
+            app.UseCors();
 
+            app.UseStaticFiles();
+
+
+            app.UseMvc(
                 routes =>
                 {
                     routes.MapRoute(

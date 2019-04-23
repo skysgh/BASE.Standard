@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Modules.Core.Infrastructure.Services
+﻿namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IExampleInfrastructureService
+    using App.Modules.Core.Shared.Services;
+
+    public interface IExampleInfrastructureService : IHasAppCoreService
     {
     }
 }

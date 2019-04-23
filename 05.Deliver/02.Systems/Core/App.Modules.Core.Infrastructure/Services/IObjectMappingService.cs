@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Modules.Core.Infrastructure.Services
+﻿namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IObjectMappingService /// TODO: IHasAppCoreService
+    using App.Modules.Core.Shared.Services;
+
+    public interface IObjectMappingService : IHasAppCoreService
     {
         TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new();
         TTarget Map<TSource, TTarget>(TSource source, TTarget target) where TSource : class where TTarget : class;
     }
-
 }

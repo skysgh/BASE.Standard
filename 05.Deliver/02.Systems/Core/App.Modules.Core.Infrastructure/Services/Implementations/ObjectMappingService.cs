@@ -8,7 +8,7 @@
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IObjectMappingService" />
-    public class ObjectMappingService : /*AppCoreServiceBase,*/ IObjectMappingService
+    public class ObjectMappingService : AppCoreServiceBase, IObjectMappingService
     {
         public TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new()
         {

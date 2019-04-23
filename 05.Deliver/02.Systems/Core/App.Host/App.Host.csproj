@@ -1,17 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\images\system_description\base_objectmodel.png" />
+    <None Remove="Assets\images\system_description\ddd_overview.png" />
+    <None Remove="Assets\images\system_description\iso-25010.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\images\system_description\base_objectmodel.png" />
+    <Content Include="Assets\images\system_description\ddd_overview.png" />
+    <Content Include="Assets\images\system_description\iso-25010.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Lamar.Microsoft.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup> 
