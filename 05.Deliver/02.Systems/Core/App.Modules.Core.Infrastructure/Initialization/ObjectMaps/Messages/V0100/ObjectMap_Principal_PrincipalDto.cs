@@ -26,7 +26,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.ObjectMaps.Messages.V01
                 .ForMember(t => t.DisplayName, opt => opt.MapFrom(s => s.DisplayName))
                 .ForMember(t => t.DataClassification, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.DataClassification); })
                 .ForMember(t => t.Category, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Category); })
-                .ForMember(t => t.Tags, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Tags); })
+                .ForMember(t => t.Tags, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.TagAssignment); })
                 .ForMember(t => t.Properties, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Properties); })
                 .ForMember(t => t.Claims, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Claims); })
                 ;
@@ -55,7 +55,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.ObjectMaps.Messages.V01
             mappingExpression
                 .ForMember(t => t.Logins, opt => opt.MapFrom(s => s.Logins))
                 .ForMember(t => t.Roles, opt => opt.MapFrom(s => s.Roles))
-                .ForMember(t => t.Tags, opt => opt.MapFrom(s => s.Tags))
+                .ForMember(t => t.TagAssignment, opt => opt.MapFrom(s => s.Tags))
                 .ForMember(t => t.Properties, opt => opt.MapFrom(s => s.Properties))
                 .ForMember(t => t.Claims, opt => opt.MapFrom(s => s.Claims));
         }

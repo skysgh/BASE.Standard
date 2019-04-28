@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
+    <Folder Include="Models\Entities\TenancySpecific\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

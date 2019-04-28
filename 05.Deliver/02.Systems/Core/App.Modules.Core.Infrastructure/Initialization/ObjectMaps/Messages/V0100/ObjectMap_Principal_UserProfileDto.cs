@@ -52,7 +52,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.ObjectMaps.Messages.V01
             mappingExpression
                 .ForMember(t => t.Logins, opt => opt.Ignore())
                 .ForMember(t => t.Roles, opt => opt.Ignore())
-                .ForMember(t => t.Tags, opt => opt.Ignore())
+                .ForMember(t => t.TagAssignment, opt => opt.Ignore())
                 .ForMember(t => t.Properties, opt => opt.Ignore())
                 .ForMember(t => t.Claims, opt => opt.Ignore());
         }

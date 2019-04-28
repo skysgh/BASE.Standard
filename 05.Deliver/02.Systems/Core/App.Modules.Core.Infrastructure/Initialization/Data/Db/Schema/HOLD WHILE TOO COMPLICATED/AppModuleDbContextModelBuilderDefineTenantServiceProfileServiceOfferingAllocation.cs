@@ -90,7 +90,7 @@
             // without offering a means to navigate back up to this 
             // Complex, Join Object or the parent:
             modelBuilder.Entity<PrincipalServiceProfileServiceOfferingAllocation>()
-                 .HasRequired(x => x.ServiceOffering)
+                .HasOne(x => x.ServiceOffering)
                  // Notice how on the other side we are not specifying any collection:
                  .WithMany()
                  .HasForeignKey(x => x.ServiceOfferingFK)

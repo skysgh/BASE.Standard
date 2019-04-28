@@ -4,14 +4,16 @@ using App.Modules.Core.Infrastructure.Data.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Modules.Core.Infrastructure.Migrations
 {
     [DbContext(typeof(CoreModuleDbContext))]
-    partial class CoreModuleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190428055051_TenantSecurityProfile")]
+    partial class TenantSecurityProfile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -976,8 +978,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
 
                     b.Property<int>("RecordState");
 
-                    b.Property<Guid>("SecurityProfileFK");
-
                     b.Property<Guid>("TenantFK");
 
                     b.Property<byte[]>("Timestamp")
@@ -998,8 +998,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
 
                     b.HasIndex("RecordState")
                         .HasName("IX_TenantMemberProfile_RecordState");
-
-                    b.HasIndex("SecurityProfileFK");
 
                     b.HasIndex("TenantFK")
                         .HasName("IX_TenantMemberProfile_TenantFK");
@@ -1287,344 +1285,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
                     b.ToTable("TenantMemberProfileTags","Core");
                 });
 
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberSecurityProfile", b =>
-                {
-                    b.Property<Guid>("Id");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<bool>("Enabled");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<Guid>("SecurityProfileFK");
-
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantMemberSecurityProfile_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantMemberSecurityProfile_LastModifiedOnUtc");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantMemberSecurityProfile_RecordState");
-
-                    b.HasIndex("SecurityProfileFK");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantMemberSecurityProfile_TenantFK");
-
-                    b.ToTable("TenantMemberSecurityProfiles","Core");
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberSecurityProfile2PermissionAssignment", b =>
-                {
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<Guid>("MemberFK");
-
-                    b.Property<Guid>("PermissionFK");
-
-                    b.Property<int>("AssignmentType");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("TenantFK", "MemberFK", "PermissionFK");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantMemberSecurityProfile2PermissionAssignment_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantMemberSecurityProfile2PermissionAssignment_LastModifiedOnUtc");
-
-                    b.HasIndex("MemberFK");
-
-                    b.HasIndex("PermissionFK");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantMemberSecurityProfile2PermissionAssignment_RecordState");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantMemberSecurityProfile2PermissionAssignment_TenantFK");
-
-                    b.ToTable("TenantMemberSecurityProfile2PermissionAssignments","Core");
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", b =>
-                {
-                    b.Property<Guid>("Id");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(32768);
-
-                    b.Property<bool>("Enabled");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantSecurityProfile_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantSecurityProfile_LastModifiedOnUtc");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantSecurityProfile_RecordState");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantSecurityProfile_TenantFK");
-
-                    b.HasIndex("Title")
-                        .HasName("IX_TenantSecurityProfile_Title");
-
-                    b.ToTable("TenantSecurityProfiles","Core");
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2PermissionAssignment", b =>
-                {
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<Guid>("ProfileFK");
-
-                    b.Property<Guid>("PermissionFK");
-
-                    b.Property<int>("AssignmentType");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("TenantFK", "ProfileFK", "PermissionFK");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantSecurityProfile2PermissionAssignment_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantSecurityProfile2PermissionAssignment_LastModifiedOnUtc");
-
-                    b.HasIndex("PermissionFK");
-
-                    b.HasIndex("ProfileFK");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantSecurityProfile2PermissionAssignment_RecordState");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantSecurityProfile2PermissionAssignment_TenantFK");
-
-                    b.ToTable("TenantSecurityProfile2PermissionAssignments","Core");
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2RoleAssignment", b =>
-                {
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<Guid>("ProfileFK");
-
-                    b.Property<Guid>("RoleFK");
-
-                    b.Property<int>("AssignmentType");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("TenantFK", "ProfileFK", "RoleFK");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantSecurityProfile2RoleAssignment_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantSecurityProfile2RoleAssignment_LastModifiedOnUtc");
-
-                    b.HasIndex("ProfileFK");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantSecurityProfile2RoleAssignment_RecordState");
-
-                    b.HasIndex("RoleFK");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantSecurityProfile2RoleAssignment_TenantFK");
-
-                    b.ToTable("TenantSecurityProfile2RoleAssignments","Core");
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2RoleGroupAssignment", b =>
-                {
-                    b.Property<Guid>("TenantFK");
-
-                    b.Property<Guid>("ProfileFK");
-
-                    b.Property<Guid>("RoleGroupFK");
-
-                    b.Property<int>("AssignmentType");
-
-                    b.Property<string>("CreatedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("CreatedOnUtc")
-                        .IsRequired();
-
-                    b.Property<string>("DeletedByPrincipalId")
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("DeletedOnUtc");
-
-                    b.Property<string>("LastModifiedByPrincipalId")
-                        .IsRequired()
-                        .HasMaxLength(36);
-
-                    b.Property<DateTime?>("LastModifiedOnUtc")
-                        .IsRequired();
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("TenantFK", "ProfileFK", "RoleGroupFK");
-
-                    b.HasIndex("LastModifiedByPrincipalId")
-                        .HasName("IX_TenantSecurityProfile2RoleGroupAssignment_LastModifiedByPrincipalId");
-
-                    b.HasIndex("LastModifiedOnUtc")
-                        .HasName("IX_TenantSecurityProfile2RoleGroupAssignment_LastModifiedOnUtc");
-
-                    b.HasIndex("ProfileFK");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_TenantSecurityProfile2RoleGroupAssignment_RecordState");
-
-                    b.HasIndex("RoleGroupFK");
-
-                    b.HasIndex("TenantFK")
-                        .HasName("IX_TenantSecurityProfile2RoleGroupAssignment_TenantFK");
-
-                    b.ToTable("TenantSecurityProfile2RoleGroupAssignments","Core");
-                });
-
             modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfilePermission", b =>
                 {
                     b.Property<Guid>("Id");
@@ -1643,8 +1303,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(32768);
-
-                    b.Property<bool>("Enabled");
 
                     b.Property<string>("LastModifiedByPrincipalId")
                         .IsRequired()
@@ -1703,8 +1361,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(32768);
-
-                    b.Property<bool>("Enabled");
 
                     b.Property<string>("LastModifiedByPrincipalId")
                         .IsRequired()
@@ -1819,8 +1475,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(32768);
-
-                    b.Property<bool>("Enabled");
 
                     b.Property<string>("LastModifiedByPrincipalId")
                         .IsRequired()
@@ -2209,11 +1863,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
                     b.HasOne("App.Modules.Core.Shared.Models.Entities.DataClassification", "DataClassification")
                         .WithMany()
                         .HasForeignKey("DataClassificationFK");
-
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", "SecurityProfile")
-                        .WithMany()
-                        .HasForeignKey("SecurityProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberProfile2TagAssignment", b =>
@@ -2242,66 +1891,6 @@ namespace App.Modules.Core.Infrastructure.Migrations
                     b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberProfile")
                         .WithMany("Properties")
                         .HasForeignKey("PrincipalProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberSecurityProfile", b =>
-                {
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", "SecurityProfile")
-                        .WithMany()
-                        .HasForeignKey("SecurityProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberSecurityProfile2PermissionAssignment", b =>
-                {
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantMemberSecurityProfile", "Member")
-                        .WithMany("PermissionsAssignments")
-                        .HasForeignKey("MemberFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfilePermission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2PermissionAssignment", b =>
-                {
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfilePermission", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", "Profile")
-                        .WithMany("PermissionsAssignments")
-                        .HasForeignKey("ProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2RoleAssignment", b =>
-                {
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", "Profile")
-                        .WithMany("RoleAssignents")
-                        .HasForeignKey("ProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfileRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile2RoleGroupAssignment", b =>
-                {
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfile", "Profile")
-                        .WithMany("RoleGroupAssignments")
-                        .HasForeignKey("ProfileFK")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("App.Modules.Core.Shared.Models.Entities.TenancySpecific.TenantSecurityProfileRoleGroup", "RoleGroup")
-                        .WithMany()
-                        .HasForeignKey("RoleGroupFK")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

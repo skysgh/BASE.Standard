@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text;
+using App.Modules.Core.AppFacade.ActionFilters;
 using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Modules.Core.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -119,7 +120,9 @@ namespace App.Host
             // later the UnitTesting Test assemblies can leverage
             // the same initialization sequence.
 
-            serviceRegistry.AddMvc()
+            serviceRegistry.AddMvc(
+                    options => options.Filters.Add(typeof(SamepleActionFilterAttribute))
+                    )
                 .AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 ;
@@ -136,10 +139,10 @@ namespace App.Host
     public class SomeCustomConfig
     {
         public string Foo { get; set; }
-        public int  Biz { get; set; }
+        public int Biz { get; set; }
         public string Uno { get; set; }
     }
-    
+
 
 }
 
