@@ -2,7 +2,7 @@
 {
     using App.Modules.Core.Shared.Models.Entities;
     using App.Modules.Core.Shared.Models.Messages.API.V0100;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     ///     A service contract to manage Tenants.
@@ -11,7 +11,7 @@
     ///         and the Principal's Session Tenant. A Principal can be within
     ///     </para>
     /// </summary>
-    public interface ITenantService : IHasAppCoreService
+    public interface ITenantService : IAppModuleCoreService
     {
         /// <summary>
         ///     The Tenant the current Request's Resource belongs to (ie, the start of the Url)

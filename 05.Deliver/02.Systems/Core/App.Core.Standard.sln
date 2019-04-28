@@ -25,7 +25,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Domain.Tests", "App.Modules.Core.Domain.Tests\App.Modules.Core.Domain.Tests.csproj", "{98E7E8A7-4B8B-49BD-98CD-80E4AE73986F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Core.Common.Tests", "App.Modules.Core.Common\App.Modules.Core.Common.Tests.csproj", "{4738AC8A-2C94-4E87-9735-89644BF42053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.Common.Tests", "App.Modules.Core.Common\App.Modules.Core.Common.Tests.csproj", "{4738AC8A-2C94-4E87-9735-89644BF42053}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8205351-16AF-4954-AA15-F5869BA4E034}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

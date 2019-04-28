@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
-    <Folder Include="Services\Implementations\" />
   </ItemGroup>
 
   <ItemGroup>

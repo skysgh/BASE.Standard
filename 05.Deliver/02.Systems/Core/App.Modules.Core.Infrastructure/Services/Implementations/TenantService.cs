@@ -1,4 +1,5 @@
-﻿using App.Modules.Core.Shared.Models.Entities;
+﻿using App.Modules.Core.Infrastructure.Data.Db;
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -23,7 +24,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static readonly string _ResourceListCacheKey = "_TenantCache";
         //private readonly ICacheItemService _cacheItemService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
         private readonly IAppHostNamesService _hostNamesService;
@@ -31,14 +32,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static string _defaultTenantString; 
 
         public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IAzureRedisCacheService azureRedisCacheService, IRepositoryService repositoryService,
+            IAzureRedisCacheService azureRedisCacheService, CoreModuleDbContext repositoryService,
             IAppHostNamesService appHostNamesService)
         {
             this._operationContextService = operationContextService;
             this._principalService = principalService;
 
             this._azureRedisCacheService = azureRedisCacheService;
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
             this._hostNamesService = appHostNamesService;
             _id = Guid.NewGuid();
         }
@@ -83,8 +84,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 if (result != null) { return result; }
             }
            
-            result = this._repositoryService
-                .GetQueryableSet<Tenant>(Constants.Db.CoreModuleDbContextNames.Core)
+            result = this._coreRepositoryService
+                .GetQueryableSet<Tenant>()
                 .Where(x => (x.IsDefault == true))
                 .ProjectTo<TenantDto>((object)null, x => x.Properties)
                 .FirstOrDefault();
@@ -181,8 +182,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
-                result = this._repositoryService
-                    .GetQueryableSet<Tenant>(Constants.Db.CoreModuleDbContextNames.Core)
+                result = this._coreRepositoryService
+                    .GetQueryableSet<Tenant>()
                     .Where(x => (x.Key == searchKey))
                     .ProjectTo<TenantDto>((object)null, x => x.Properties)
                     .FirstOrDefault();

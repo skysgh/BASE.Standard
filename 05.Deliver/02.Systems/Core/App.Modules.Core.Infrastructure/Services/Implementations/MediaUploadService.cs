@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Data.Db;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using App.Modules.Core.Shared.Models.Entities;
@@ -16,19 +18,19 @@
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IMediaMalwareDetectionService _mediaMalwareVerificationService;
         private readonly IMediaMetadataService _mediaMetadataService;
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
         private readonly IUniversalDateTimeService _universalDateTimeService;
         private readonly IStorageService _storageService;
 
         public MediaUploadService(IDiagnosticsTracingService diagnosticsTracingService, IUniversalDateTimeService universalDateTimeService,
             IStorageService storageService,
             IMediaMalwareDetectionService mediaMalwareVerificationService,
-            IMediaMetadataService mediaMetadataService, IRepositoryService repositoryService)
+            IMediaMetadataService mediaMetadataService, CoreModuleDbContext repositoryService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._mediaMalwareVerificationService = mediaMalwareVerificationService;
             this._mediaMetadataService = mediaMetadataService;
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
             this._universalDateTimeService = universalDateTimeService;
             this._storageService = storageService;
         }
@@ -54,7 +56,7 @@
                 this._storageService.Persist(uploadedMedia.Stream, mediaMetadata.LocalName);
             }
 
-            this._repositoryService.AddOnCommit(Constants.Db.CoreModuleDbContextNames.Core, mediaMetadata);
+            this._coreRepositoryService.AddOnCommit(mediaMetadata);
         }
 
         private void ScanFile(ref UploadedMedia uploadedMedia, ref MediaMetadata mediaMetadata)

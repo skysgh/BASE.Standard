@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface ISecureAPIMessageAttributeService : IHasAppCoreService
+    public interface ISecureAPIMessageAttributeService : IAppModuleCoreService
     {
         bool NeedsProcessing(Type type);
 

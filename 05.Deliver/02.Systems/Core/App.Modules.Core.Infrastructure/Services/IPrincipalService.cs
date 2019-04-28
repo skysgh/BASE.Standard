@@ -2,7 +2,7 @@
 {
     using System;
     using System.Security.Claims;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     /// Contract for an infrastructure service to 
@@ -11,7 +11,7 @@
     /// retrieve a Principal record from the database). For that, use the
     /// PrincipalRecordService.
     /// </summary>
-    public interface IPrincipalService : IHasAppCoreService
+    public interface IPrincipalService : IAppModuleCoreService
     {
 
         /// <summary>

@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Initialization;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Logging;
 
 namespace App.Host
@@ -31,25 +36,42 @@ namespace App.Host
             // environment variables, command line arguments, 
             //and other configuration sources.
             // But you can add your own.
-            var config = new ConfigurationBuilder()
-                .AddJsonFile(path:"hostsettings.json", optional:true)
-                .Build();
+            //var config = new ConfigurationBuilder()
+            //    .AddJsonFile(path:"customSettings.json", optional:true,reloadOnChange:true)
+            //    .Build();
 
-           return WebHost.CreateDefaultBuilder(args)
-                // Look how early we define that Dependency Injection is First Class Citizen:
-                .UseSetting(WebHostDefaults.DetailedErrorsKey,"true")
-                //.CaptureStartupErrors(true)
-                .UseShutdownTimeout(TimeSpan.FromSeconds(1))
-                .UseLamar()
-                .UseKestrel()
+
+
+
+            var result =
+                WebHost.CreateDefaultBuilder(args)
+                 // Look how early we define that Dependency Injection is First Class Citizen:
+                 .UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
+                 //.CaptureStartupErrors(true)
+                 .UseShutdownTimeout(TimeSpan.FromSeconds(1))
+                 // Enable extended DependencyLocation as soon as possible:
+                 .UseLamar()
+                 .UseKestrel()
                 //.UseKestrel()
                 //.ConfigureLogging(logging =>
                 //{
                 //    logging.AddConsole();
                 //}
-               
-                .UseConfiguration(config)
+                ;
+
+            result
+                .ConfigureAppConfiguration((context, config) =>
+           {
+                   //Use the app defined extension method to wire up a keyvault.
+                   config.AddKeyVaultSettingsConfig(enabled:context.HostingEnvironment.IsProduction());
+           });
+
+            result
+                //.UseConfiguration(config)
                 .UseStartup<Startup>();
+
+
+            return result;
         }
     }
 }

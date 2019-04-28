@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Data.Db;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Attributes;
 using App.Modules.Core.Shared.Models.Entities;
@@ -20,17 +21,17 @@ namespace App.Modules.Core.Infrastructure.Cache
     public class DefaultTenancyCacheItem : CacheItemBase, IAppCoreCacheItem
     {
         private readonly IAzureRedisCacheService _azureRedisCacheService;
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="azureRedisCacheService"></param>
-        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, IRepositoryService repositoryService)
+        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, CoreModuleDbContext repositoryService)
         {
             _azureRedisCacheService = azureRedisCacheService;
 
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
 
             this._duration = TimeSpan.FromMinutes(1);
         }
@@ -41,8 +42,8 @@ namespace App.Modules.Core.Infrastructure.Cache
 
             if (result.IsDefaultOrNotInitialized())
             {
-                result = _repositoryService
-                    .GetQueryableSet<Tenant>(Constants.Db.CoreModuleDbContextNames.Core)
+                result = _coreRepositoryService
+                    .GetQueryableSet<Tenant>()
                     .Where(x => x.IsDefault == true)
                     .ProjectTo<TenantDto>((object)null, x => x.Properties)
                     .FirstOrDefault(x => true);

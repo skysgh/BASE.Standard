@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAzureADService
+    public interface IAzureADService : IAppModuleCoreService, IAzureService
     {
     }
 }

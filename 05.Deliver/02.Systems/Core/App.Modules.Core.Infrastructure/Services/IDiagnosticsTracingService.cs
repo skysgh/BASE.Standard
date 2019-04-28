@@ -1,7 +1,7 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
     using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     /// Contract for an Infrastructure Service to 
@@ -11,8 +11,8 @@
     /// Blob storage.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface IDiagnosticsTracingService : IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface IDiagnosticsTracingService : IAppModuleCoreService
     {
         void Trace(TraceLevel traceLevel, string message, params object[] arguments);
     }

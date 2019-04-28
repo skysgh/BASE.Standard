@@ -10,7 +10,7 @@ namespace App.Modules.Core.Infrastructure.Tests
         {
             Type type = typeof(Application.Services.IExampleService);
 
-            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.APPPREFIX),
+            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.AssemblyPrefix),
                 "ISO-25010/Portability: ensure assembly names are generic.");
         }
     }

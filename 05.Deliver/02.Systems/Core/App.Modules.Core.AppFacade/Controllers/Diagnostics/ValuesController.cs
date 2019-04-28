@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Data.Db;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Shared;
+using App.Modules.Core.Shared.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Host.Controllers
@@ -14,9 +17,13 @@ namespace App.Host.Controllers
     {
         private readonly IExampleInfrastructureService _exampleInfrastructureService;
 
-        public DependencyResolutionController(IExampleInfrastructureService exampleInfrastructureService)
+        public DependencyResolutionController(IExampleInfrastructureService exampleInfrastructureService, CoreModuleDbContext dbContext)
         {
+
+
             _exampleInfrastructureService = exampleInfrastructureService;
+
+            int x = dbContext.Set<DataClassification>().Count();
         }
 
         // GET api/values

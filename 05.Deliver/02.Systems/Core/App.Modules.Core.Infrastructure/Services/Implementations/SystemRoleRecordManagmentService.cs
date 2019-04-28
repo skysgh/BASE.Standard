@@ -1,4 +1,5 @@
 ﻿using System;
+using App.Modules.Core.Infrastructure.Data.Db;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -12,23 +13,23 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISystemRoleRecordManagmentService" />
     public class SystemRoleRecordManagmentService : AppCoreServiceBase, ISystemRoleRecordManagmentService
     {
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
 
-        public SystemRoleRecordManagmentService(IRepositoryService repositoryService)
+        public SystemRoleRecordManagmentService(CoreModuleDbContext repositoryService)
         {
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
         }
 
 
         public SystemRole GetSystemRoleByDataStoreId(Guid id)
         {
-            var result = this._repositoryService.GetSingle<SystemRole>(Constants.Db.CoreModuleDbContextNames.Core, x => x.Id == id);
+            var result = this._coreRepositoryService.GetSingle<SystemRole>(x => x.Id == id);
             return result;
         }
 
         public SystemRole GetByKey(string key)
         {
-            var result = this._repositoryService.GetSingle<SystemRole>(Constants.Db.CoreModuleDbContextNames.Core, x => x.Key == key);
+            var result = this._coreRepositoryService.GetSingle<SystemRole>(x => x.Key == key);
             return result;
         }
     }

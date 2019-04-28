@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     ///  Contract for an Infrastructure Service to
@@ -10,8 +10,8 @@
     /// log that will be Committed at the end of the 
     /// Request (delayed so that it can record the Response Code).
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface ISessionOperationLogService : IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface ISessionOperationLogService : IAppModuleCoreService
     {
         /// <summary>
         ///     Return the current Request Context's OperationLog record.

@@ -3,15 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Modules.Core.Infrastructure.Data.Db;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     public class AppDbContextManagementService : IAppDbContextManagementService
     {
 
-        Queue<AppDbContextBase> _openedContexts = new Queue<AppDbContextBase>();
+        Queue<AppModuleDbContextBase> _openedContexts = new Queue<AppModuleDbContextBase>();
 
-        public void Register(AppDbContextBase dbContext)
+        public void Register(AppModuleDbContextBase dbContext)
         {
             if (_openedContexts.Contains(dbContext))
             {
@@ -24,7 +25,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             while (_openedContexts.Count > 0)
             {
-                AppDbContextBase dbContext = _openedContexts.Dequeue();
+                AppModuleDbContextBase dbContext = _openedContexts.Dequeue();
 
                 dbContext.PrepareToSave();
                 dbContext.SaveChanges();

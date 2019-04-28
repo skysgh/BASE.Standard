@@ -9,8 +9,8 @@
     /// that can later be queried by Application and Infrastructure
     /// Support Speialists, via appropriate APIs.
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface IConfigurationStepService : IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface IConfigurationStepService : IAppModuleCoreService
     {
         /// <summary>
         /// Registers the specified <see cref="ConfigurationStepRecord"/>.

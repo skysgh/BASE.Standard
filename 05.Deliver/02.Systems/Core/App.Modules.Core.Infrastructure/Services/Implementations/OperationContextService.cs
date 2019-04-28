@@ -1,33 +1,39 @@
-﻿//namespace App.Modules.Core.Infrastructure.Services.Implementations
-//{
-//    using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 
-//    /// <summary>
-//    ///     Implementation of the
-//    ///     <see cref="IOperationContextService" />
-//    ///     Infrastructure Service Contract
-//    /// </summary>
-//    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IOperationContextService" />
-//    public class OperationContextService : AppCoreServiceBase, IOperationContextService
-//    {
-//        private readonly IConversionService _conversionService;
+namespace App.Modules.Core.Infrastructure.Services.Implementations
+{
+    using System.Web;
 
-//        public OperationContextService(IConversionService conversionService)
-//        {
-//            this._conversionService = conversionService;
-//        }
+    /// <summary>
+    ///     Implementation of the
+    ///     <see cref="IOperationContextService" />
+    ///     Infrastructure Service Contract
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IOperationContextService" />
+    public class OperationContextService : AppCoreServiceBase, IOperationContextService
+    {
+        private readonly IHttpContextService _httpContextService;
+        private readonly IConversionService _conversionService;
 
-//        public T Get<T>(string key, T defaultValue = default(T))
-//        {
-//            if (HttpContext.Current == null) { return defaultValue; }
-//            var result = this._conversionService.ConvertTo(HttpContext.Current.Items[key], defaultValue);
-//            return result;
-//        }
+        public OperationContextService(IHttpContextService httpContextService, IConversionService conversionService)
+        {
+            _httpContextService = httpContextService;
+            this._conversionService = conversionService;
+        }
 
-//        public void Set<T>(string key, T value)
-//        {
-//            if (HttpContext.Current == null) { return; }
-//            HttpContext.Current.Items[key] = value;
-//        }
-//    }
-//}
+        public T Get<T>(string key, T defaultValue = default(T))
+        {
+            if (_httpContextService.Current == null) { return defaultValue; }
+            var result = this._conversionService.ConvertTo(_httpContextService.Current.Items[key], defaultValue);
+            return result;
+        }
+
+        public void Set<T>(string key, T value)
+        {
+            if (_httpContextService.Current == null) { return; }
+            _httpContextService.Current.Items[key] = value;
+        }
+    }
+}
+
+

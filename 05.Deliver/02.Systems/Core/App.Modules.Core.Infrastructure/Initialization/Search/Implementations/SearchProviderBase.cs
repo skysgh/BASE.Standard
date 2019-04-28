@@ -1,3 +1,5 @@
+using App.Modules.Core.Infrastructure.Data.Db;
+
 namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
 {
     using System.Linq;
@@ -9,10 +11,10 @@ namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
     {
         protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
         protected readonly IPrincipalService _principalService;
-        protected readonly IRepositoryService _repositoryService;
+        protected readonly AppModuleDbContextBase _repositoryService;
 
         protected SearchProviderBase(IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalService principalService, IRepositoryService repositoryService)
+            IPrincipalService principalService, AppModuleDbContextBase repositoryService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._principalService = principalService;

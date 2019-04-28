@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using App.Modules.Core.Infrastructure.Data.Db;
 using App.Modules.Core.Infrastructure.Db.Migrations.Seeding;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
@@ -17,15 +18,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class PrincipalManagmentService : AppCoreServiceBase, IPrincipalManagmentService
     {
         private static readonly string _resourceListCacheKey = "_PrincipalManagmentCache";
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
 
-        public PrincipalManagmentService(IRepositoryService repositoryService,
+        public PrincipalManagmentService(CoreModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService)
         {
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
         }
@@ -89,14 +90,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public Principal Get(Guid id)
         {
-            Principal result = this._repositoryService.GetSingle
-                <Principal>(Constants.Db.CoreModuleDbContextNames.Core, x => x.Id == id);
+            Principal result = this._coreRepositoryService.GetSingle<Principal>(x => x.Id == id);
             return result;
         }
 
         public Principal GetFromRepositoryAndCache(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId = null, TimeSpan? timespanToCache = null)
         {
-            Principal result = this._repositoryService.GetQueryableSingle<Principal>(Constants.Db.CoreModuleDbContextNames.Core,
+            Principal result = 
+                this._coreRepositoryService
+                    .GetQueryableSingle<Principal>(
                     x => x.Logins.Any(y => y.IdPLogin == idpPrincipalKey && y.SubLogin == subPrincipalKey))
                 .Include(x => x.Claims)
                 .FirstOrDefault();

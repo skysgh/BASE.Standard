@@ -3,7 +3,11 @@
     using App.Modules.Core.Shared.Contracts;
     using Microsoft.EntityFrameworkCore;
 
-    public interface IHasAppModuleDbContextModelBuilderInitializer //: IHasInitialize
+    /// <summary>
+    /// Contract for Db ModelBuilders,
+    /// common to all Modules.
+    /// </summary>
+    public interface IHasAppModuleDbContextModelBuilderInitializer : IHasAppModuleInitializer
     {
         void Define(ModelBuilder modelBuilder);
     }

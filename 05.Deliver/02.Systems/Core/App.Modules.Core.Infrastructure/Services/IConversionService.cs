@@ -1,7 +1,7 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
     using System;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     /// Contract for an Infrastructure Service to 
@@ -14,7 +14,7 @@
     /// places too (front end conversion).
     ///     </para>
     /// </summary>
-    public interface IConversionService : IHasAppCoreService
+    public interface IConversionService : IAppModuleCoreService
     {
         /// <summary>
         ///     Convert one type to another, falling back to the

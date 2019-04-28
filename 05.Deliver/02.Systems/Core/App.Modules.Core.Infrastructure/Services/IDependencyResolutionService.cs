@@ -14,7 +14,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// reference to the Microsoft Common ServiceLocator
     /// or even the singleton AppDependencyLocator.
     /// </summary>
-    public interface IDependencyResolutionService : IHasAppCoreService, IHasInitialize<IServiceProvider>
+    public interface IDependencyResolutionService : IAppModuleCoreService, IHasInitialize<IServiceProvider>
     {
         IServiceProvider ServiceProvider { get; }
 

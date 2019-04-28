@@ -2,10 +2,10 @@
 {
     using App.Modules.Core.Shared.Models.Entities;
     using App.Modules.Core.Shared.Models.Messages;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
 
-    public interface IMediaUploadService : IHasAppCoreService
+    public interface IMediaUploadService : IAppModuleCoreService
     {
         void Process(UploadedMedia mediaStream, NZDataClassification dataClassification);
 

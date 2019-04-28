@@ -22,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// will be automatically developed when the AppService was first installed.
     /// </para>
     /// </summary>
-    public interface IAuthenticationMsiTokenService
+    public interface IAuthenticationMsiTokenService : IAppModuleCoreService
     {
         string GetToken();
         Task<string> GetTokenAsync();

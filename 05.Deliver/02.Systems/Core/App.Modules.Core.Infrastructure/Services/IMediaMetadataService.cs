@@ -3,9 +3,9 @@
     using App.Modules.Core.Shared.Models.Entities;
     using App.Modules.Core.Shared.Models.Entities.TenancySpecific;
     using App.Modules.Core.Shared.Models.Messages;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface IMediaMetadataService : IHasAppCoreService
+    public interface IMediaMetadataService : IAppModuleCoreService
     {
         MediaMetadata Create(UploadedMedia uploadedMedia, NZDataClassification dataClassification);
     }

@@ -5,8 +5,8 @@
     /// Query whether the current Thread's Principal
     /// is Authorised to perform specific Operations.
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface IAuthorisationService: IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface IAuthorisationService: IAppModuleCoreService
     {
         /// <summary>
         /// Determines whether the current thread Principal has roles claims.

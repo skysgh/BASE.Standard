@@ -8,7 +8,7 @@ namespace App.Modules.Core.Infrastructure.Services
 {
     // Contract to manage scheduled services without requiring 
     // a separate device (webworker, etc.)
-    interface ISchedulingService
+    public interface ISchedulingService : IAppModuleCoreService
     {
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IDependencyRegistrationService
+    public interface IDependencyRegistrationService : IAppModuleCoreService
     {
     }
 }

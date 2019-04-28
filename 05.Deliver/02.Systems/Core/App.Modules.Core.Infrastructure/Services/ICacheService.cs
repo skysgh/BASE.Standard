@@ -1,7 +1,7 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
     using App.Modules.Core.Infrastructure.Services.Enums;
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>
     /// Base contract for an Infrastructure Service to 
@@ -12,8 +12,8 @@
     /// shared between devices.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface ICacheItemService : IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface ICacheItemService : IAppModuleCoreService
     {
         void Get<T>(CacheType cacheType, string key, string subKey = null);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IGeoIPService
+    public interface IGeoIPService : IAppModuleCoreService
     {
 
         GeoInformation Get(string ip);

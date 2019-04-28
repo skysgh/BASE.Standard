@@ -9,19 +9,41 @@ namespace App
     public static class ModelBuilderExtensions
     {
 
-        public static void AssignIndex<T>(this ModelBuilder modelBuilder, Expression<Func<T, object>> identifierExpression, bool isUnique=false)
+        public static void AssignIndex<T>(this ModelBuilder modelBuilder, Expression<Func<T, object>> identifierExpression, bool isUnique=false,string indexIdentifier=null)
             where T : class
         {
+            if (string.IsNullOrEmpty(indexIdentifier))
+            {
+                MemberExpression body = identifierExpression.Body as MemberExpression;
 
-            string propertyName = ((MemberExpression)identifierExpression.Body).Member.Name;
+                if (body == null)
+                {
+                    UnaryExpression ubody = identifierExpression.Body as UnaryExpression;
+                    if (ubody == null)
+                    {
+                        NewExpression nbody = identifierExpression.Body as NewExpression;
+                        indexIdentifier = "CompositeIndex";
+                    }
+                    else
+                    {
+                        body = ubody.Operand as MemberExpression;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(indexIdentifier))
+                {
+                    indexIdentifier = body.Member.Name;
+                }
+            }
+
 
             if (!isUnique)
             {
-                modelBuilder.Entity<T>().HasIndex(identifierExpression).HasName($"IX_{typeof(T).Name}_{propertyName}");
+                modelBuilder.Entity<T>().HasIndex(identifierExpression).HasName($"IX_{typeof(T).Name}_{indexIdentifier}");
             }
             else
             {
-                modelBuilder.Entity<T>().HasAlternateKey(identifierExpression).HasName($"IX_{typeof(T).Name}_{propertyName}");
+                modelBuilder.Entity<T>().HasAlternateKey(identifierExpression).HasName($"IX_{typeof(T).Name}_{indexIdentifier}");
             }
 
         }

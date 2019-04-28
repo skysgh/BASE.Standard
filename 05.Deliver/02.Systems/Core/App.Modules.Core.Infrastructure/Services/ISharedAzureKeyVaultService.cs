@@ -6,7 +6,7 @@
 //    /// (ie, external to the System's Resource Group)
 //    /// KeyVault. 
 //    /// </summary>
-//    public interface ISharedAzureKeyVaultService : IAzureKeyVaultServiceBase
+//    public interface ISharedAzureKeyVaultService : IAzureKeyVaultServiceBase, : IHasAppCoreService
 //    {
 //    }
 //}

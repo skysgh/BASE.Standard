@@ -9,7 +9,7 @@
     ///     Consider using Redis Cache after recording changes using the RepositoryService. 
     /// </para>
     /// </summary>
-    public interface IApplicationSettingsService : IMutableSettingsService, IHasAppCoreService
+    public interface IApplicationSettingsService : IMutableSettingsService, IAppModuleCoreService
     {
     }
 }

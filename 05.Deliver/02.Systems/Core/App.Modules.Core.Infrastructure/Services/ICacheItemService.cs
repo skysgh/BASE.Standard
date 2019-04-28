@@ -1,7 +1,7 @@
 ﻿//namespace App.Modules.Core.Infrastructure.Services
 //{
 //    using App.Modules.Core.Infrastructure.Services.Enums;
-//    using App.Modules.Core.Shared.Services;
+//    using App.Modules.Core.Shared.Contracts.Services;
 
 //    /// <summary>
 //    /// Base contract for an Infrastructure Service to 

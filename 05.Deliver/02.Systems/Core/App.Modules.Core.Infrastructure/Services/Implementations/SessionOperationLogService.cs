@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Data.Db;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System.Collections.Generic;
     using App.Modules.Core.Infrastructure.Constants;
@@ -14,13 +16,13 @@
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISessionOperationLogService" />
     public class SessionOperationLogService : AppCoreServiceBase, ISessionOperationLogService
     {
-        private readonly IContextService _contextService;
-        private readonly IRepositoryService _repositoryService;
+        private readonly IOperationContextService _operationContextService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
  
-        public SessionOperationLogService(IContextService contextService, IRepositoryService repositoryService)
+        public SessionOperationLogService(IOperationContextService operationContextService, CoreModuleDbContext repositoryService)
         {
-            this._contextService = contextService;
-            this._repositoryService = repositoryService;
+            this._operationContextService = operationContextService;
+            this._coreRepositoryService = repositoryService;
         }
 
 
@@ -29,7 +31,7 @@
         {
             get
             {
-                var r = this._contextService.Get(AppContextKeys.SessionOperation) as SessionOperation;
+                var r = this._operationContextService.Get< SessionOperation>(AppContextKeys.SessionOperation);
 
                 if (r != null)
                 {
@@ -37,7 +39,7 @@
                 }
 
                 r = new SessionOperation();
-                this._contextService.Set(AppContextKeys.SessionOperation, r);
+                this._operationContextService.Set(AppContextKeys.SessionOperation, r);
                 
 
                 return r;
@@ -75,13 +77,14 @@
         {
             get
             {
-                var r = this._contextService.Get(AppContextKeys.SessionOperationDetails) as Dictionary<string,object>;
+                var r = this._operationContextService.Get<Dictionary<string, object>>(AppContextKeys.SessionOperationDetails);
+
                 if (r != null)
                 {
                     return r;
                 }
                 r = new Dictionary<string,object>();
-                this._contextService.Set(AppContextKeys.SessionOperationDetails, r);
+                this._operationContextService.Set(AppContextKeys.SessionOperationDetails, r);
                 return r;
             }
 

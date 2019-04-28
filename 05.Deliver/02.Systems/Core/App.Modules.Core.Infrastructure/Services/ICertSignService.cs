@@ -2,8 +2,8 @@
 {
     using System.Security.Cryptography;
     using System.Security.Cryptography.X509Certificates;
-    using App.Modules.Core.Shared.Services;
 
+    
     /// <summary>
     /// Contract for an Infrastructure Service to 
     /// Sign data.
@@ -11,7 +11,7 @@
     ///         Use to sign OperationLog entries.
     ///     </para>
     /// </summary>
-    public interface ICertSignService : IHasAppCoreService
+    public interface ICertSignService : IAppModuleCoreService
     {
         byte[] Sign(byte[] data, RSACryptoServiceProvider cryptoServiceProvider);
         byte[] Sign(byte[] data, X509FindType certFindType, string certSearchTerm);

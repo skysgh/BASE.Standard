@@ -1,8 +1,8 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface IExampleInfrastructureService : IHasAppCoreService
+    public interface IExampleInfrastructureService : IAppModuleCoreService
     {
     }
 }

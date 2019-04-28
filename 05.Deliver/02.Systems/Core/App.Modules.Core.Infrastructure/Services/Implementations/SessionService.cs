@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Data.Db;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
@@ -19,15 +20,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         //private static readonly string _currentRequestCacheKey = "_CurrentSessionKey";
         private static readonly string _resourceListCacheKey = "_SessionCache";
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
 
-        public SessionService(IRepositoryService repositoryService,
+        public SessionService(CoreModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService)
         {
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
         }
@@ -56,7 +57,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public Session CreateAndSave(Principal principal, string uniqueCacheId, TimeSpan? timespanToCache = null)
         {
             var session = Create(principal, uniqueCacheId, timespanToCache);
-            _repositoryService.SaveChanges(Constants.Db.CoreModuleDbContextNames.Core);
+            _coreRepositoryService.SaveChanges();
             return session;
         }
 
@@ -68,7 +69,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 UniqueIdentifier = uniqueCacheId
             };
 
-            this._repositoryService.AddOnCommit<Session>(Constants.Db.CoreModuleDbContextNames.Core, session);
+            this._coreRepositoryService.AddOnCommit<Session>(session);
             AddToCache(uniqueCacheId, session, timespanToCache);
 
             return session;
@@ -93,8 +94,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public Session GetFromRepositoryAndCache(string uniqueCacheId, TimeSpan? timespanToCache = null)
         {
-            var session = _repositoryService.GetQueryableSingle<Session>(
-                    Constants.Db.CoreModuleDbContextNames.Core, x => x.UniqueIdentifier == uniqueCacheId)
+            var session = _coreRepositoryService.GetQueryableSingle<Session>(
+                    x => x.UniqueIdentifier == uniqueCacheId)
                 .Include(x => x.Principal)
                 .FirstOrDefault();
 

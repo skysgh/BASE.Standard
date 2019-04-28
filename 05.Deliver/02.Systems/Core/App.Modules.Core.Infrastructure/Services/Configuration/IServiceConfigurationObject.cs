@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Shared.Contracts.Lifecycles;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
@@ -35,7 +36,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration
     /// which would be rather slow.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Shared.Contracts.IHasSingletonLifecycle" />
+    /// <seealso cref="IHasSingletonLifecycle" />
     public interface IServiceConfigurationObject: IHasSingletonLifecycle
     {
 

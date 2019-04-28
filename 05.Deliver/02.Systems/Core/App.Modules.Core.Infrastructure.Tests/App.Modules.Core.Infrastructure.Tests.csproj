@@ -21,4 +21,10 @@
     <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

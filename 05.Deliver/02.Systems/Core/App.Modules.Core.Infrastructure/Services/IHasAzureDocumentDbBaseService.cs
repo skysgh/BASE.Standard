@@ -7,7 +7,7 @@
 
 //namespace App.Modules.Core.Infrastructure.Services
 //{
-//    public interface IHasAzureDocumentDbBaseService
+//    public interface IHasAzureDocumentDbBaseService: IHasAppCoreService
 //    {
 //        IQueryable<TDocument> GetDocuments<TDocument>(string databaseId, string collectionId);
 

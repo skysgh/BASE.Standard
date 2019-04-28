@@ -1,4 +1,6 @@
 ﻿
+using App.Modules.Core.Infrastructure.Data.Db;
+
 namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
 {
     using System;
@@ -14,7 +16,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
     public class TenantSearchProvider : SearchProviderBase<Tenant>
     {
         public TenantSearchProvider(IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalService principalService, IRepositoryService repositoryService) : base(diagnosticsTracingService,
+            IPrincipalService principalService, CoreModuleDbContext repositoryService) : base(diagnosticsTracingService,
             principalService, repositoryService)
         {
             

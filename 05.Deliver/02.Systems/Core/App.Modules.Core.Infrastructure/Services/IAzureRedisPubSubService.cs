@@ -2,7 +2,7 @@
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAzureRedisPubSubService : IHasAppCoreService
+    public interface IAzureRedisPubSubService : IAppModuleCoreService, IAzureService
     {
         // See: https://www.codeproject.com/Articles/846564/Azure-Redis-Cache
 

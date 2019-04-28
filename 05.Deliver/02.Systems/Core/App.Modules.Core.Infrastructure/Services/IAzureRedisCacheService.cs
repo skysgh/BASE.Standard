@@ -2,7 +2,7 @@
 {
     using System;
 
-    public interface IAzureRedisCacheService : IHasAppCoreService
+    public interface IAzureRedisCacheService : IAppModuleCoreService, IAzureService
     {
 
         void Set<T>(string key, T value, TimeSpan? duration=null);

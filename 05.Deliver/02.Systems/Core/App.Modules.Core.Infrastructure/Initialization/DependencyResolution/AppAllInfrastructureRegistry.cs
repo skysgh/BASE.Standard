@@ -25,6 +25,13 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
     {
         public AppAllInfrastructureRegistry()
         {
+      Scan();
+
+
+        }
+
+        private void Scan()
+        {
             Scan(
                 assemblyScanner =>
                 {
@@ -34,7 +41,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
                     // sticks to the convention of "App...." 
                     assemblyScanner.AssembliesFromApplicationBaseDirectory(
                         x => x.GetName().Name.StartsWith(
-                            App.Modules.Core.Shared.Constants.Application.APPPREFIX
+                            App.Modules.Core.Shared.Constants.Application.AssemblyPrefix
                         ));
 
                     ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);
@@ -48,15 +55,13 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
                     //ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);
                     //InfrastructureCoreMappings(assemblyScanner);
 
- 
+
                     //// As well as the default scanner, find any custom scanners 
                     //// (eg: our custom MVC5 Controller scanner) and use them as well :
                     //AppDomain.CurrentDomain
                     //    .InvokeImplementing<ICustomRegistrationConvention>(assemblyScanner.With);
                 }
             );
-
-
         }
 
         private void ScanAllModulesForAllModulesAutoMapperInitializers(IAssemblyScanner assemblyScanner)

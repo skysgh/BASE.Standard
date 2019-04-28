@@ -11,8 +11,8 @@
     /// shared between devices.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface IMemoryCachingService : IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface IMemoryCachingService : IAppModuleCoreService
     {
         T Get<T>(string key);
 

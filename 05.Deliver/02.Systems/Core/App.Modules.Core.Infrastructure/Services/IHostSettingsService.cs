@@ -1,6 +1,6 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Services;
+    using App.Modules.Core.Shared.Contracts.Services;
 
 
 
@@ -12,8 +12,8 @@
     /// Build Engine).
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IImmutableSetingsService" />
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IHasAppCoreService" />
-    public interface IHostSettingsService : IImmutableSetingsService, IHasAppCoreService
+    /// <seealso cref="IAppModuleCoreService" />
+    public interface IHostSettingsService : IImmutableSetingsService, IAppModuleCoreService
     {
         /// <summary>
         ///     Create a Configuration object and fill properties from Host Settings with the same name.

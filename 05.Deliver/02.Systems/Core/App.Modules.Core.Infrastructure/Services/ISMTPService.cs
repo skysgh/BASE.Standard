@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface ISmtpService
+    public interface ISmtpService : IAppModuleCoreService
     {
         void SendMessage(string toAddress, string subject, string body);
     }

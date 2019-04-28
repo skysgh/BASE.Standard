@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Data.Db;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using App.Modules.Core.Infrastructure.Constants;
@@ -13,16 +15,16 @@
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISecureDataTokenService" />
     public class SecureDataTokenService : AppCoreServiceBase, ISecureDataTokenService
     {
-        private readonly IRepositoryService _repositoryService;
+        private readonly CoreModuleDbContext _coreRepositoryService;
 
-        public SecureDataTokenService(IRepositoryService repositoryService)
+        public SecureDataTokenService(CoreModuleDbContext repositoryService)
         {
-            this._repositoryService = repositoryService;
+            this._coreRepositoryService = repositoryService;
         }
 
         public string Get(Guid tokenKey)
         {
-            var result = this._repositoryService.GetSingle<DataToken>(CoreModuleDbContextNames.Core, x => x.Id == tokenKey)?.Value;
+            var result = this._coreRepositoryService.GetSingle<DataToken>(x => x.Id == tokenKey)?.Value;
 
             return result;
         }
@@ -31,7 +33,7 @@
         {
             var dataToken = new DataToken();
             dataToken.Value = value;
-            this._repositoryService.AddOnCommit(CoreModuleDbContextNames.Core, dataToken);
+            this._coreRepositoryService.AddOnCommit(dataToken);
 
             return dataToken.Id.ToString("D").ToLower();
         }
