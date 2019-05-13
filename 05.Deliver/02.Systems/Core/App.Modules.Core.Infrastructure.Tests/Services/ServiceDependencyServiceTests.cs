@@ -11,7 +11,6 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
 
         public ServiceDependencyServiceTests()
         {
-            Common.UnitTestDependencyInjectionInitializer.Initialize();
         }
 
         [Xunit.Fact]

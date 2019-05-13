@@ -7,7 +7,7 @@
         /// <summary>
         ///     Gets or sets the created on.
         /// </summary>
-        DateTime? CreatedOnUtc { get; set; }
+        DateTimeOffset? CreatedOnUtc { get; set; }
 
 
         /// <summary>
@@ -18,7 +18,7 @@
         /// <summary>
         ///     Gets or sets the last modified on.
         /// </summary>
-        DateTime? LastModifiedOnUtc { get; set; }
+        DateTimeOffset? LastModifiedOnUtc { get; set; }
 
         /// <summary>
         ///     Gets or sets the last modified by.
@@ -28,7 +28,7 @@
         /// <summary>
         ///     Gets or sets the last modified on.
         /// </summary>
-        DateTime? DeletedOnUtc { get; set; }
+        DateTimeOffset? DeletedOnUtc { get; set; }
 
         /// <summary>
         ///     Gets or sets the last modified by.

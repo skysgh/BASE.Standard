@@ -8,7 +8,7 @@
     /// <summary>
     /// The profile of a Principal within a Tenancy.
     /// </summary>
-    public class TenantMemberProfile : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled {
+    public class TenantMemberProfile : TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasEnabledBeginningUtc, IHasEndDateUtc {
 
         public DateTime? EnabledBeginningUtc { get; set; }
         public DateTime? EnabledEndingUtc { get; set; }

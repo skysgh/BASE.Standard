@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{1CD73994-7A28-41CB-BC24-534F1A397E92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Diagrams.PlantUml", "MB.Diagrams.PlantUml\App.Diagrams.PlantUml.csproj", "{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +86,10 @@ Global
 		{4738AC8A-2C94-4E87-9735-89644BF42053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4738AC8A-2C94-4E87-9735-89644BF42053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4738AC8A-2C94-4E87-9735-89644BF42053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,7 @@ Global
 		{12B3A647-8E8C-4C4C-8AB6-0132EFC28F2B} = {B97B962D-DBE8-483A-ADFF-E707D6988976}
 		{98E7E8A7-4B8B-49BD-98CD-80E4AE73986F} = {B97B962D-DBE8-483A-ADFF-E707D6988976}
 		{4738AC8A-2C94-4E87-9735-89644BF42053} = {B97B962D-DBE8-483A-ADFF-E707D6988976}
+		{4E9CB56C-E279-4728-A1DA-0C8FDDED86EB} = {1CD73994-7A28-41CB-BC24-534F1A397E92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BDAC3C07-3542-4993-9328-FEDEFDD8AADF}

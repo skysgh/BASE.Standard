@@ -18,7 +18,7 @@ namespace App.Modules.Core.Shared.Models.Messages
         public Guid Id { get; set; }
         public ConfigurationStepType Type { get; set; }
         public ConfigurationStepStatus Status { get; set; }
-        public DateTimeOffset DateTime { get; set; }
+        public DateTimeOffset? DateTime { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }

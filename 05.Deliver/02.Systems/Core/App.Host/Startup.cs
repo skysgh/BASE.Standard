@@ -5,13 +5,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using App.Modules.Core.AppFacade.ActionFilters;
+using App.Modules.Core.AppFacade.Initialization.Mvc;
 using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
 using App.Modules.Core.Shared;
+using App.Modules.Core.Shared.Contracts;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 namespace App.Host
 {
@@ -84,16 +92,13 @@ namespace App.Host
 
 
             app.UseMvc(
-                routes =>
+                routeBuilder =>
                 {
-                    routes.MapRoute(
-                        name: "MyArea",
-                        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                    routes.MapRoute(
-                        name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                    container.GetAllInstances<IModuleRoutes>().ForEach(x=>x.Initialize(routeBuilder));
                 });
+
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -109,6 +114,13 @@ namespace App.Host
             //    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             //    ;
             //services.AddSingleton<IExampleInfrastructureService,ExampleInfrastructureService>();
+
+
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.FileProviders.Add(
+                    new EmbeddedFileProvider(typeof(App.Modules.Core.AppFacade.Controllers.DescribeTypesController).GetTypeInfo().Assembly));
+            });
         }
 
         public void ConfigureContainer(ServiceRegistry serviceRegistry)
@@ -120,12 +132,16 @@ namespace App.Host
             // later the UnitTesting Test assemblies can leverage
             // the same initialization sequence.
 
+            serviceRegistry.AddOData();
+
             serviceRegistry.AddMvc(
                     options => options.Filters.Add(typeof(SamepleActionFilterAttribute))
                     )
                 .AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 ;
+
+            
 
             // All initialization up to this point was specific to ASP Framework
             // The rest can be moved down to a lower assembly that doesn't have
@@ -142,7 +158,6 @@ namespace App.Host
         public int Biz { get; set; }
         public string Uno { get; set; }
     }
-
 
 }
 

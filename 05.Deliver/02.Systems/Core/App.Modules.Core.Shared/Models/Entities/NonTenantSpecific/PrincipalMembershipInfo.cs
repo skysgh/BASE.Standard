@@ -30,6 +30,6 @@
 
         // Used to count incorrect attempts, and lock out the Principal
         public int IncorrectAttemptCount { get; set; }
-        public DateTime? LockedOutUntillUtc { get; set; }
+        public DateTimeOffset? LockedOutUntillUtc { get; set; }
     }
 }

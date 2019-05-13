@@ -12,7 +12,7 @@
         public virtual Guid PrincipalFK { get; set; }
 
         public virtual DateTime DateTimeCreatedUtc { get; set; }
-        public virtual DateTime? DateTimeReadUtc { get; set; }
+        public virtual DateTimeOffset? DateTimeReadUtc { get; set; }
 
 
 //Source User or System identifier

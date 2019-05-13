@@ -24,7 +24,7 @@
         public virtual string LocalName { get; set; } /*name in storage container*/
 
         // Results of scanning, whenever done:
-        public virtual DateTime? LatestScanDateTimeUtc { get; set; } /*can be scanned regularly*/
+        public virtual DateTimeOffset? LatestScanDateTimeUtc { get; set; } /*can be scanned regularly*/
 
         public virtual bool? LatestScanMalwareDetetected { get; set; }
         public virtual string LatestScanResults { get; set; }

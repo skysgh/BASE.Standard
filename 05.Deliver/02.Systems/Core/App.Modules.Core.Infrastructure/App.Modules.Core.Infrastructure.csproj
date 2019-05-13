@@ -106,6 +106,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
+    <ProjectReference Include="..\MB.Diagrams.PlantUml\App.Diagrams.PlantUml.csproj" />
   </ItemGroup>
 
   <ItemGroup>

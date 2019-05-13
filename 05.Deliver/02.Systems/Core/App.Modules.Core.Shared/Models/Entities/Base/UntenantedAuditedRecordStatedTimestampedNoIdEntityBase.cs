@@ -19,12 +19,12 @@
         public virtual RecordPersistenceState RecordState { get; set; }
 
 
-        //TODO: Convert to DateTimeOffset
-        public virtual DateTime? CreatedOnUtc { get; set; }
+        //TODO: Convert to DateTimeOffset?
+        public virtual DateTimeOffset? CreatedOnUtc { get; set; }
         public virtual string CreatedByPrincipalId { get; set; }
-        public virtual DateTime? LastModifiedOnUtc { get; set; }
+        public virtual DateTimeOffset? LastModifiedOnUtc { get; set; }
         public virtual string LastModifiedByPrincipalId { get; set; }
-        public virtual DateTime? DeletedOnUtc { get; set; }
+        public virtual DateTimeOffset? DeletedOnUtc { get; set; }
         public virtual string DeletedByPrincipalId { get; set; }
 
 

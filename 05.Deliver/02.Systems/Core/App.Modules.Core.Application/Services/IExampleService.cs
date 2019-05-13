@@ -3,7 +3,7 @@
 namespace App.Modules.Core.Application.Services
 
 {
-    public interface IExampleService
+    public interface IExampleApplicationService
     {
     }
 }

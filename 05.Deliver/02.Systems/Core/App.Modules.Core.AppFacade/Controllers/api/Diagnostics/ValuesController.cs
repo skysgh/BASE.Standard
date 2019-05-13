@@ -15,12 +15,12 @@ namespace App.Host.Controllers
     [ApiController]
     public class DependencyResolutionController : ControllerBase
     {
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IExampleInfrastructureService _exampleInfrastructureService;
 
-        public DependencyResolutionController(IExampleInfrastructureService exampleInfrastructureService, CoreModuleDbContext dbContext)
+        public DependencyResolutionController(IDiagnosticsTracingService diagnosticsTracingService, IExampleInfrastructureService exampleInfrastructureService, CoreModuleDbContext dbContext)
         {
-
-
+            _diagnosticsTracingService = diagnosticsTracingService;
             _exampleInfrastructureService = exampleInfrastructureService;
 
             int x = dbContext.Set<DataClassification>().Count();

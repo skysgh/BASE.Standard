@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>App.Diagrams.PlantUml</AssemblyName>
+    <RootNamespace>App.Diagrams.PlantUml</RootNamespace>
+  </PropertyGroup>
+
+</Project>

@@ -12,7 +12,7 @@ namespace App.Modules.Core.AppFacade.ActionFilters
         {
 
         }
-        private string _message;
+   
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

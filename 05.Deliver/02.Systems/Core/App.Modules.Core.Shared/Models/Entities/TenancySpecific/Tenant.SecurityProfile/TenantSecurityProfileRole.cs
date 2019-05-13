@@ -37,6 +37,20 @@
         }
         public ICollection<TenantSecurityProfileRole2PermissionAssignment> _permissionsAssignments;
 
+
+
+        public ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> ResponsibilityAssignments
+        {
+            get
+            {
+                return _responsibilityAssignments ?? (_responsibilityAssignments = new Collection<TenantSecurityProfileRole2ResponsibilityAssignment>());
+            }
+            set
+            {
+                _responsibilityAssignments = value;
+            }
+        }
+        public ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> _responsibilityAssignments;
     }
 
 }

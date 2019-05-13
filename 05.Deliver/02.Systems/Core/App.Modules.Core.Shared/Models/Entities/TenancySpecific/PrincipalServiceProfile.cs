@@ -26,7 +26,7 @@ namespace App.Modules.Core.Shared.Models.Entities.TenancySpecific
         // Not needed: Already part of the base class:
         ////public virtual Guid TenantFK { get; set; }
 
-        public virtual Tenant Tenant { get; set; }
+        public virtual Entities.Tenant Tenant { get; set; }
 
 
         /// <summary>

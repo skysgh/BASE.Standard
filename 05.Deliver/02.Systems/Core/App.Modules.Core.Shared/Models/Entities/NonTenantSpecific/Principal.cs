@@ -7,8 +7,8 @@
     // It's *not* called User because a security Principal can be a User, but also a Device or Service.
     public class Principal : UntenantedAuditedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled
     {
-        public DateTime? EnabledBeginningUtc { get; set; }
-        public DateTime? EnabledEndingUtc { get; set; }
+        public DateTimeOffset? EnabledBeginningUtc { get; set; }
+        public DateTimeOffset? EnabledEndingUtc { get; set; }
         public virtual bool Enabled { get; set; }
 
         public virtual string FullName { get; set; }

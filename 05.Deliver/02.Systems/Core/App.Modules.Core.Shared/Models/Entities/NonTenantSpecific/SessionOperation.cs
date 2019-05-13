@@ -14,8 +14,8 @@
         public virtual string ControllerName { get; set; }
         public virtual string ActionName { get; set; }
         public virtual string ActionArguments { get; set; }
-        public virtual DateTimeOffset BeginDateTimeUtc { get; set; }
-        public virtual DateTimeOffset EndDateTimeUtc { get; set; }
+        public virtual DateTimeOffset? BeginDateTimeUtc { get; set; }
+        public virtual DateTimeOffset? EndDateTimeUtc { get; set; }
         public virtual TimeSpan Duration { get; set; }
         public virtual string ResponseCode { get; set; }
 

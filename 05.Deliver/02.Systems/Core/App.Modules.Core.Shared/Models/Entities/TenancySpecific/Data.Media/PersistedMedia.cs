@@ -87,13 +87,13 @@
         /////     Gets the date the attachment was created.
         ///// </summary>
         ///// <value>The date created.</value>
-        //public virtual DateTime? CreatedOnUtc { get; set; }
+        //public virtual DateTimeOffset? CreatedOnUtc { get; set; }
 
         ///// <summary>
         /////     Gets the date the attachment was last modified.
         ///// </summary>
         ///// <value>The date modified.</value>
-        //public virtual DateTime? LastModifiedOnUtc { get; set; }
+        //public virtual DateTimeOffset? LastModifiedOnUtc { get; set; }
 
 
         /// <summary>

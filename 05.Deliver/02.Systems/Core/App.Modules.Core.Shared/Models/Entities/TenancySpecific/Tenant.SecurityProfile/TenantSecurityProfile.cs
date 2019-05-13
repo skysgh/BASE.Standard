@@ -67,5 +67,7 @@ namespace App.Modules.Core.Shared.Models.Entities.TenancySpecific
 
 
 
+
+
     }
 }

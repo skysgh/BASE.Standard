@@ -21,7 +21,7 @@
         public virtual string Class { get; set; }
 
         public virtual DateTime DateTimeCreatedUtc { get; set; }
-        public virtual DateTime? DateTimeReadUtc { get; set; }
+        public virtual DateTimeOffset? DateTimeReadUtc { get; set; }
 
         /// <summary>
         ///     Status whether Message has been read.
