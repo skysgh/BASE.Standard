@@ -11,10 +11,10 @@ namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
     {
         protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
         protected readonly IPrincipalService _principalService;
-        protected readonly AppModuleDbContextBase _repositoryService;
+        protected readonly ModuleDbContextBase _repositoryService;
 
         protected SearchProviderBase(IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalService principalService, AppModuleDbContextBase repositoryService)
+            IPrincipalService principalService, ModuleDbContextBase repositoryService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._principalService = principalService;

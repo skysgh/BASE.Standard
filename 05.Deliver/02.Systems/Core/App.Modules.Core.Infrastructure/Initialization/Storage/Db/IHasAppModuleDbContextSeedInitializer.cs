@@ -10,6 +10,6 @@ namespace App.Modules.Core.Infrastructure.Initialization.Db
     // Invoked 
     public interface IHasAppModuleDbContextSeedInitializer : IHasAppModuleInitializer
     {
-        void Seed(AppModuleDbContextBase context);
+        void Seed(ModuleDbContextBase context);
     }
 } 

@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace App.Modules.Core.Infrastructure.Data.Db
 {
-    public class CoreModuleDbContext : AppModuleDbContextBase
+    public class CoreModuleDbContext : ModuleDbContextBase
     {
 
 
@@ -22,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db
         public DbSet<DataClassification> DataClassifications;
         //public DbSet<ExampleModel> Examples;
 
-        public CoreModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<AppModuleDbContextBase> options) : base(configuration, appDbContextManagementService, options)
+        public CoreModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options) : base(configuration, appDbContextManagementService, options)
         {
         }
 

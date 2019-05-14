@@ -10,9 +10,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class AppDbContextManagementService : IAppDbContextManagementService
     {
 
-        Queue<AppModuleDbContextBase> _openedContexts = new Queue<AppModuleDbContextBase>();
+        Queue<ModuleDbContextBase> _openedContexts = new Queue<ModuleDbContextBase>();
 
-        public void Register(AppModuleDbContextBase dbContext)
+        public void Register(ModuleDbContextBase dbContext)
         {
             if (_openedContexts.Contains(dbContext))
             {
@@ -25,7 +25,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             while (_openedContexts.Count > 0)
             {
-                AppModuleDbContextBase dbContext = _openedContexts.Dequeue();
+                ModuleDbContextBase dbContext = _openedContexts.Dequeue();
 
                 dbContext.PrepareToSave();
                 dbContext.SaveChanges();

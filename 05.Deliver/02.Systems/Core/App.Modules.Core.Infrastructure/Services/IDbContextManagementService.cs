@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.Services
 {
     public interface IAppDbContextManagementService : IAppModuleCoreService
     {
-        void Register(AppModuleDbContextBase dbContext);
+        void Register(ModuleDbContextBase dbContext);
 
     }
 }

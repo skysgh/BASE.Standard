@@ -111,6 +111,7 @@
 
   <ItemGroup>
     <Folder Include="Constants\Constants\" />
+    <Folder Include="Data\Db\CommitInterceptions\" />
     <Folder Include="ExtensionMethods\NewFolder\" />
     <Folder Include="Initialization\Data\Db\Migrations.Seeding\HOLD WHILE TOO COMPLICATED\" />
     <Folder Include="Initialization\Data\Db\Migrations\Core\" />

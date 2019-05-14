@@ -39,7 +39,6 @@ namespace App.Modules.Core.Application.Initialization.DependencyResolution
             });
         }
 
-
         // Scan across all known assemblies for DbContext related model definitions
         // And seeding definitions, and define the DbContext lifespan:
         private void Example(IAssemblyScanner assemblyScanner)

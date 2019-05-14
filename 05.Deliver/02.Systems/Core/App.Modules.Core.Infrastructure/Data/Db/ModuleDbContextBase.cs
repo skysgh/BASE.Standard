@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace App.Modules.Core.Infrastructure.Data.Db
 {
-    public abstract class AppModuleDbContextBase : DbContext
+    public abstract class ModuleDbContextBase : DbContext
     {
         private static IConfiguration Config
         {
@@ -66,7 +66,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db
         IAppDbContextManagementService _appDbContextManagementService;
   
 
-        protected AppModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<AppModuleDbContextBase> options) : base(options)
+        protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options) : base(options)
         {
 
 
@@ -92,13 +92,13 @@ namespace App.Modules.Core.Infrastructure.Data.Db
             }
         }
 
-        protected AppModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService) : base()
+        protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService) : base()
         {
             _configuration = configuration;
             _appDbContextManagementService = appDbContextManagementService;
             _appDbContextManagementService.Register(this);
         }
-        protected AppModuleDbContextBase(DbContextOptions options) : base(options) { }
+        protected ModuleDbContextBase(DbContextOptions options) : base(options) { }
 
         //protected AppModuleDbContextBase()
         //{
@@ -128,15 +128,36 @@ namespace App.Modules.Core.Infrastructure.Data.Db
             //IDbContextSchemaModelInitializationService dbContextSchemaModelInitializationService =
             //    new DbContextSchemaModelInitializationService();
 
+            InvokeDatabaseModelBuildersInThisAssemblies(modelBuilder);
+            InvokeDatabaseSeedersInThisAssembly(modelBuilder);
+        }
 
-            var types3 = this.GetType().Assembly.GetTypes()
+
+        private void InvokeDatabaseModelBuildersInThisAssemblies(ModelBuilder modelBuilder)
+        {
+
+            // This contract was registered for this module only
+            // from within the Module's Infrastructure ServiceRegistry
+            var modelBuilderTypes = this.GetType().Assembly.GetTypes()
                 .Where(x => (x.IsConcrete() && typeof(IHasAppModuleDbContextModelBuilderInitializer).IsAssignableFrom(x)));
 
-            types3.ForEach(x=>
+            modelBuilderTypes.ForEach(x =>
             {
-                ((IHasAppModuleDbContextModelBuilderInitializer)Activator.CreateInstance(x)).Define(modelBuilder);
+                ((IHasAppModuleDbContextModelBuilderInitializer) Activator.CreateInstance(x)).Define(modelBuilder);
             });
         }
+
+        private void InvokeDatabaseSeedersInThisAssembly(ModelBuilder modelBuilder)
+        {
+            var seederTypes = this.GetType().Assembly.GetTypes()
+                .Where(x => (x.IsConcrete() && typeof(IHasAppModuleDbContextSeedInitializer).IsAssignableFrom(x)));
+
+            seederTypes.ForEach(x =>
+            {
+                ((IHasAppModuleDbContextSeedInitializer)Activator.CreateInstance(x)).Seed(this);
+            });
+        }
+
 
 
         public override int SaveChanges()
@@ -155,6 +176,13 @@ namespace App.Modules.Core.Infrastructure.Data.Db
                 return 0;
             }
             _okToSave = false;
+
+            //CreatedByPrincipalId = "...",
+            //CreatedOnUtc = DateTime.UtcNow,
+            //DeletedByPrincipalId = null,
+            //DeletedOnUtc = null,
+            //LastModifiedByPrincipalId = "...",
+            //LastModifiedOnUtc = DateTime.UtcNow,
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
