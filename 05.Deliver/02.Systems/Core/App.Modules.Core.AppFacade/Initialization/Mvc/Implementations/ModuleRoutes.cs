@@ -6,7 +6,6 @@ using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
 
 namespace App.Modules.Core.AppFacade.Initialization.Mvc.Implementations
 {

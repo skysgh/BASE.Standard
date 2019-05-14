@@ -9,6 +9,7 @@ namespace App.Modules.Core.Shared.Constants
 
         public const string AssemblyModulesPrefix = AssemblyPrefix + "Modules.";
         
+
         /// <summary>
         /// App Settings Key for retrieving the name of remote configuration KeyVault.
         /// </summary>

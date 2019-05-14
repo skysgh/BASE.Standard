@@ -21,9 +21,9 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
     /// had an 'LookForRegistries' statement.
     /// </para>
     /// </summary>
-    public class AppAllInfrastructureRegistry : Lamar.ServiceRegistry
+    public class AllModulesInfrastructureServiceRegistry : Lamar.ServiceRegistry
     {
-        public AppAllInfrastructureRegistry()
+        public AllModulesInfrastructureServiceRegistry()
         {
       Scan();
 
