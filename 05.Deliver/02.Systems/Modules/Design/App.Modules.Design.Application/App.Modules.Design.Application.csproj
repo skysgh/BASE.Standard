@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\App.Modules.Core.Application\App.Modules.Core.Application.csproj" />
+    <ProjectReference Include="..\App.Modules.Design.Domain\App.Modules.Design.Domain.csproj" />
+    <ProjectReference Include="..\App.Modules.Design.Infrastructure\App.Modules.Design.Infrastructure.csproj" />
+    <ProjectReference Include="..\App.Modules.Design.Shared\App.Modules.Design.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
