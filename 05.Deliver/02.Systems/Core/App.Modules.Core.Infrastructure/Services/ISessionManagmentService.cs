@@ -8,7 +8,7 @@ using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface ISessionManagmentService : IAppModuleCoreService
+    public interface ISessionManagmentService : IModuleSpecificService
     {
         void SaveSessionOperationAsync(SessionOperation sessionOperation, IPrincipalService principalService);
     }

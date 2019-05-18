@@ -18,11 +18,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class PrincipalManagmentService : AppCoreServiceBase, IPrincipalManagmentService
     {
         private static readonly string _resourceListCacheKey = "_PrincipalManagmentCache";
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
 
-        public PrincipalManagmentService(CoreModuleDbContext repositoryService,
+        public PrincipalManagmentService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService)
         {

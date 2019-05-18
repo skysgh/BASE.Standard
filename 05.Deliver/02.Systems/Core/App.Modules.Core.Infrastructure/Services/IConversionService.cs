@@ -14,7 +14,7 @@
     /// places too (front end conversion).
     ///     </para>
     /// </summary>
-    public interface IConversionService : IAppModuleCoreService
+    public interface IConversionService : IModuleSpecificService
     {
         /// <summary>
         ///     Convert one type to another, falling back to the

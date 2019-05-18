@@ -5,7 +5,7 @@
     using App.Modules.Core.Shared.Models.Messages;
     using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface IMediaMetadataService : IAppModuleCoreService
+    public interface IMediaMetadataService : IModuleSpecificService
     {
         MediaMetadata Create(UploadedMedia uploadedMedia, NZDataClassification dataClassification);
     }

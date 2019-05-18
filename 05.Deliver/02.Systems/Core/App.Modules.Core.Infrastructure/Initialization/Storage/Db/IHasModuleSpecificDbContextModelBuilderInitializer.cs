@@ -7,7 +7,7 @@
     /// Contract for Db ModelBuilders,
     /// common to all Modules.
     /// </summary>
-    public interface IHasAppModuleDbContextModelBuilderInitializer : IHasAppModuleInitializer
+    public interface IHasModuleSpecificDbContextModelBuilderInitializer : IHasModuleSpecificInitializer
     {
         void Define(ModelBuilder modelBuilder);
     }

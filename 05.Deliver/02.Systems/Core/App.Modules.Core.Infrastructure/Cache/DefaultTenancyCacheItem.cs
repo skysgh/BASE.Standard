@@ -21,13 +21,13 @@ namespace App.Modules.Core.Infrastructure.Cache
     public class DefaultTenancyCacheItem : CacheItemBase, IAppCoreCacheItem
     {
         private readonly IAzureRedisCacheService _azureRedisCacheService;
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="azureRedisCacheService"></param>
-        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, CoreModuleDbContext repositoryService)
+        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, ModuleDbContext repositoryService)
         {
             _azureRedisCacheService = azureRedisCacheService;
 

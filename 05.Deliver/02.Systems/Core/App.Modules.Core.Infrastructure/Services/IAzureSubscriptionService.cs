@@ -11,7 +11,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// Contract for a service to retrieve information about 
     /// the current deployment environment.
     /// </summary>
-    public interface IAzureDeploymentEnvironmentService : IAppModuleCoreService, IAzureService
+    public interface IAzureDeploymentEnvironmentService : IModuleSpecificService, IAzureService
     {
 
         /// <summary>

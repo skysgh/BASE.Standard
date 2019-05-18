@@ -5,8 +5,8 @@
     /// <summary>
     /// Abstract base classs for all Core Infrastructure Services.
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public abstract class AppCoreServiceBase : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public abstract class AppCoreServiceBase : IModuleSpecificService
     {
     }
 }

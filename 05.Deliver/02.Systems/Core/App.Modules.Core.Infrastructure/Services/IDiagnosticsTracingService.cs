@@ -11,8 +11,8 @@
     /// Blob storage.
     /// </para>
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IDiagnosticsTracingService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IDiagnosticsTracingService : IModuleSpecificService
     {
         void Trace(TraceLevel traceLevel, string message, params object[] arguments);
     }

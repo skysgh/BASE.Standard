@@ -27,7 +27,7 @@ namespace App.Modules.Core.AppFacade.Controllers
 
 
         [AcceptVerbs("GET")]
-        public async Task<IActionResult> Get(string id, string type=null)
+        public IActionResult Get(string id, string type=null)
         {
 
             var results = _netClassPlantUmlDiagramService.Document(id, "https://localhost:5001/describetypes/get?id={0}");

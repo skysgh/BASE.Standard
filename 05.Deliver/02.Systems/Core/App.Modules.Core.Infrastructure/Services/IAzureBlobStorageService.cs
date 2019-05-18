@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.Services
         /// manage access to Azure Storage Accounts
         /// and the Storage Containers and Blobs within.
         /// </summary>
-        public interface IAzureBlobStorageService : IAppModuleCoreService, IAzureService
+        public interface IAzureBlobStorageService : IModuleSpecificService, IAzureService
     {
 
         //AzureBlobStorageServiceConfiguration Configuration

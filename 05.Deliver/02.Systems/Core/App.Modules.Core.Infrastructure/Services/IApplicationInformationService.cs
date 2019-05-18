@@ -12,7 +12,7 @@
     /// in the header of application interfaces.
     /// </para>
     /// </summary>
-    public interface IApplicationInformationService : IAppModuleCoreService
+    public interface IApplicationInformationService : IModuleSpecificService
     {
         ApplicationDescriptionConfigurationSettings GetApplicationInformation();
         ApplicationCreatorInformationConfigurationSettings GetApplicationCreatorInformation();

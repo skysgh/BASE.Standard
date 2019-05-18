@@ -25,7 +25,7 @@
             // You can initialize manually or by Convention over Configuration
             // using a combination of common interface and reflection.
             var modelBuilderInitializers =
-                DependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextModelBuilderInitializer>().ToArray();
+                DependencyLocator.Current.GetAllInstances<IHasModuleSpecificDbContextModelBuilderInitializer>().ToArray();
 
             modelBuilderInitializers.ForEach(x =>
             {

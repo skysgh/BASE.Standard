@@ -2,7 +2,7 @@
 {
     using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface ILocalisationService : IAppModuleCoreService
+    public interface ILocalisationService : IModuleSpecificService
     {
         bool ThreadCultureSet { get; }
         void SetThreadCulture(string localisationCode);

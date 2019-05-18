@@ -1,2 +1,2 @@
 ﻿Controllers are not in this assembly.
-Controllers are in Module AppFacade directories.
+Controllers are in each Logical Module's AppFacade assemblies ONLY.

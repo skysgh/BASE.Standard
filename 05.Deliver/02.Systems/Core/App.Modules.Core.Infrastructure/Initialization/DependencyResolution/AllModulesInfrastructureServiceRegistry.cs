@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions;
 using App.Modules.Core.Infrastructure.Initialization.ObjectMaps;
 using Lamar;
 using Lamar.Scanning.Conventions;
@@ -48,7 +49,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
 
                     //ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
-                    //ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
+                    ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
 
                     //ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
@@ -86,13 +87,13 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
         //}
 
 
-        //private void ScanAllModulesForAllModulesPrecommitStrategies(IAssemblyScanner assemblyScanner)
-        //{
-        //    // Add all Pre-Commit Processors (these kick in just as you
-        //    // Commit a DbContext, and ensure specific fields are 
-        //    // automatically filled in)
-        //    assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
-        //}
+        private void ScanAllModulesForAllModulesPrecommitStrategies(IAssemblyScanner assemblyScanner)
+        {
+            // Add all Pre-Commit Processors (these kick in just as you
+            // Commit a DbContext, and ensure specific fields are 
+            // automatically filled in)
+            assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
+        }
 
 
         ////SKYOUT: private void ScanAllModulesForModuleSpecificODataBuilderTypes(IAssemblyScanner assemblyScanner)

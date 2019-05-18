@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Modules.Core.Infrastructure.Migrations
 {
-    [DbContext(typeof(CoreModuleDbContext))]
+    [DbContext(typeof(ModuleDbContext))]
     [Migration("20190428013534_PrincipalTagAssignment")]
     partial class PrincipalTagAssignment
     {

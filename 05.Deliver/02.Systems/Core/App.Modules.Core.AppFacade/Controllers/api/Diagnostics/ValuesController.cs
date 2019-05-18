@@ -11,14 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace App.Host.Controllers
 {
     [Area("Diagnostics")]
-    [Route("api/diagnostics/[controller]")]
+    [Route("api/core/diagnostics/[controller]")]
     [ApiController]
     public class DependencyResolutionController : ControllerBase
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IExampleInfrastructureService _exampleInfrastructureService;
 
-        public DependencyResolutionController(IDiagnosticsTracingService diagnosticsTracingService, IExampleInfrastructureService exampleInfrastructureService, CoreModuleDbContext dbContext)
+        public DependencyResolutionController(IDiagnosticsTracingService diagnosticsTracingService, IExampleInfrastructureService exampleInfrastructureService, ModuleDbContext dbContext)
         {
             _diagnosticsTracingService = diagnosticsTracingService;
             _exampleInfrastructureService = exampleInfrastructureService;

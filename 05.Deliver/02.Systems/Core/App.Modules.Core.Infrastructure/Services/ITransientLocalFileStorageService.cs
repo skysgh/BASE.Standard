@@ -13,7 +13,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// DO NOT GUARANTEE THAT THE APP IS RESTARTED ON THE SAME
     /// SERVER (both a source of bug and security issues)
     /// </summary>
-    public interface ITransientLocalFileStorageService : IAppModuleCoreService
+    public interface ITransientLocalFileStorageService : IModuleSpecificService
     {
         void Persist(byte[] bytes, string fileName);
     }

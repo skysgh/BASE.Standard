@@ -10,8 +10,8 @@
     /// log that will be Committed at the end of the 
     /// Request (delayed so that it can record the Response Code).
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface ISessionOperationLogService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface ISessionOperationLogService : IModuleSpecificService
     {
         /// <summary>
         ///     Return the current Request Context's OperationLog record.

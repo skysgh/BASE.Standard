@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Modules.Core.Infrastructure.Migrations
 {
-    [DbContext(typeof(CoreModuleDbContext))]
+    [DbContext(typeof(ModuleDbContext))]
     [Migration("20190428055051_TenantSecurityProfile")]
     partial class TenantSecurityProfile
     {

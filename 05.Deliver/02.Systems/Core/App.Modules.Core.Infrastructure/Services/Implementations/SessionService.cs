@@ -20,11 +20,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         //private static readonly string _currentRequestCacheKey = "_CurrentSessionKey";
         private static readonly string _resourceListCacheKey = "_SessionCache";
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
 
-        public SessionService(CoreModuleDbContext repositoryService,
+        public SessionService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService)
         {

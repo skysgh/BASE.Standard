@@ -8,7 +8,7 @@ namespace App.Modules.Core.Infrastructure.Db.Schema
     using App.Modules.Core.Shared.Models.Entities.TenancySpecific;
     using Microsoft.EntityFrameworkCore;
 
-    public class AppModuleDbContextModelBuilderDefineTenantMemberProfile2Tags : IHasAppModuleDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefineTenantMemberProfile2Tags : IHasModuleSpecificDbContextModelBuilderInitializer
     {
         public void Define(ModelBuilder modelBuilder)
         {

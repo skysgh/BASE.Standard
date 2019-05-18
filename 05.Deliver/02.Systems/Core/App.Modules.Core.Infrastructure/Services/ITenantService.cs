@@ -11,7 +11,7 @@
     ///         and the Principal's Session Tenant. A Principal can be within
     ///     </para>
     /// </summary>
-    public interface ITenantService : IAppModuleCoreService
+    public interface ITenantService : IModuleSpecificService
     {
         /// <summary>
         ///     The Tenant the current Request's Resource belongs to (ie, the start of the Url)

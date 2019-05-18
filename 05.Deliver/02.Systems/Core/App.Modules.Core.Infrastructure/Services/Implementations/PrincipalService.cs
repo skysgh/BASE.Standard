@@ -44,8 +44,10 @@
             {
                 //http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier (ie ID)
                 // not 'Name' (ie: "SSmith").
-                var signedInUserID = this.CurrentPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+                var signedInUserID = this.CurrentPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (signedInUserID == null) {
+                    signedInUserID = "UNNOWN";
+                }
                 return signedInUserID;
             }
         }
@@ -85,7 +87,7 @@
         {
             get
             {
-                var owner = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.UserIdentifier)?.Value;
+                var owner = ClaimsPrincipal.Current?.FindFirst(Constants.IDA.ClaimTitles.UserIdentifier)?.Value;
                 return owner;
             }
         }

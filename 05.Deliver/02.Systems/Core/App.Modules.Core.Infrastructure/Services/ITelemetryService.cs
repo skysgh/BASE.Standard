@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface ITelemetryService : IAppModuleCoreService
+    public interface ITelemetryService : IModuleSpecificService
     {
         void TrackEvent(string message);
     }

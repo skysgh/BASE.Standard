@@ -11,8 +11,8 @@
     /// you are hosting some infrastructure in one timezone, 
     /// and other pieces in another).
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IUniversalDateTimeService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IUniversalDateTimeService : IModuleSpecificService
     {
         /// <summary>
         /// Return the DateTime, in UTC.

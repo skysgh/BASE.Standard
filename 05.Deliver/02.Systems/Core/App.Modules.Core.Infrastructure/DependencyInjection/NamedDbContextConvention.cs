@@ -24,8 +24,8 @@ namespace App.Modules.Core.Infrastructure.DependencyInjection
                 ))
             {
                 string tag = GetName(type);
-                services.For(typeof(DbContext)).Use(type).Named(tag).Scoped();
-                services.For(type).Use(type).Scoped();
+                services.For(typeof(DbContext)).Use(type).Named(tag).Singleton();
+                services.For(type).Use(type).Singleton();
             };
         }
 

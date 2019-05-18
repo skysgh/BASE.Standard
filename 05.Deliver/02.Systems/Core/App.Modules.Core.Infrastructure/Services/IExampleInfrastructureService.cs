@@ -2,7 +2,7 @@
 {
     using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface IExampleInfrastructureService : IAppModuleCoreService
+    public interface IExampleInfrastructureService : IModuleSpecificService
     {
     }
 }

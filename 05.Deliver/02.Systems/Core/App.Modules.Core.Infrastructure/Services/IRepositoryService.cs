@@ -27,7 +27,7 @@
 
 
 //    // The contract for a generic repository service
-//    public interface IRepositoryService : IAppModuleCoreService
+//    public interface IRepositoryService : IModuleSpecificService
 //    {
 //        bool HasChanges(string contextKey);
 

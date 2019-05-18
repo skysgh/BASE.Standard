@@ -7,7 +7,7 @@
     using App.Modules.Core.Shared.Models.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class AppModuleDbContextModelBuilderDefinePrincipalTag : IHasAppModuleDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefinePrincipalTag : IHasModuleSpecificDbContextModelBuilderInitializer
     {
         public void Define(ModelBuilder modelBuilder)
         {

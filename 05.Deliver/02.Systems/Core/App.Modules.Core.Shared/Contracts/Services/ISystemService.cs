@@ -14,7 +14,7 @@ namespace App.Modules.Core.Shared.Contracts.Services
     /// </para>
     /// </summary>
     /// <seealso cref="IHasSingletonLifecycle" />
-    public interface IAppService : IHasSingletonLifecycle
+    public interface ISystemService : IHasSingletonLifecycle
     {
         // It is important to understand that 'Shared' 
         // will *not* have any Service *implementations*.

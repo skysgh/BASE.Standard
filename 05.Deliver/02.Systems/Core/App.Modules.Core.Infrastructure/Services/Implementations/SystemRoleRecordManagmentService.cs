@@ -13,9 +13,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISystemRoleRecordManagmentService" />
     public class SystemRoleRecordManagmentService : AppCoreServiceBase, ISystemRoleRecordManagmentService
     {
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
 
-        public SystemRoleRecordManagmentService(CoreModuleDbContext repositoryService)
+        public SystemRoleRecordManagmentService(ModuleDbContext repositoryService)
         {
             this._coreRepositoryService = repositoryService;
         }

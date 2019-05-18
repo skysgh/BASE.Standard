@@ -3,7 +3,7 @@
     using System;
     using App.Modules.Core.Shared.Contracts.Services;
 
-    internal interface ISecureDataTokenService : IAppModuleCoreService
+    internal interface ISecureDataTokenService : IModuleSpecificService
     {
         string Get(Guid tokenKey);
         string Save(string value);

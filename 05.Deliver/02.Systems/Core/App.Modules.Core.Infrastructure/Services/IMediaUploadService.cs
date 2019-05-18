@@ -5,7 +5,7 @@
     using App.Modules.Core.Shared.Contracts.Services;
 
 
-    public interface IMediaUploadService : IAppModuleCoreService
+    public interface IMediaUploadService : IModuleSpecificService
     {
         void Process(UploadedMedia mediaStream, NZDataClassification dataClassification);
 

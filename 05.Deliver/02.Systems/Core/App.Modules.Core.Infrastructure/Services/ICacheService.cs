@@ -12,8 +12,8 @@
     /// shared between devices.
     /// </para>
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface ICacheItemService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface ICacheItemService : IModuleSpecificService
     {
         void Get<T>(CacheType cacheType, string key, string subKey = null);
 

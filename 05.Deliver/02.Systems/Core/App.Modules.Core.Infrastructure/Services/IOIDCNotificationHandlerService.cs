@@ -5,7 +5,7 @@ namespace App.Modules.Core.Infrastructure.Services
     using App.Modules.Core.Shared.Models.Messages;
 
 
-    public interface IOIDCNotificationHandlerService : IAppModuleCoreService
+    public interface IOIDCNotificationHandlerService : IModuleSpecificService
     {
         /// <summary>
         /// shared logic between 

@@ -8,7 +8,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.Db
     // Contract for Seeders that are invoked at the end of 
     // a Db CodeFirst Migration process.
     // Invoked 
-    public interface IHasAppModuleDbContextSeedInitializer : IHasAppModuleInitializer
+    public interface IHasModuleSpecificDbContextSeedInitializer : IHasModuleSpecificInitializer
     {
         void Seed(ModuleDbContextBase context);
     }

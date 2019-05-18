@@ -7,7 +7,7 @@
     using App.Modules.Core.Shared.Models.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class AppModuleDbContextModelBuilderDefinePrincipalLogin : IHasAppModuleDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefinePrincipalLogin : IHasModuleSpecificDbContextModelBuilderInitializer
     {
         public void Define(ModelBuilder modelBuilder)
         {

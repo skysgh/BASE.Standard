@@ -9,7 +9,7 @@
     /// Base Contract for an Infrastructure Service to 
     /// to manage access to an Azure KeyVault.
     /// </summary>
-    public interface IAzureKeyVaultService : IAppModuleCoreService, IAzureService
+    public interface IAzureKeyVaultService : IModuleSpecificService, IAzureService
     {
 
         /// <summary>

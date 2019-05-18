@@ -66,6 +66,7 @@ namespace App.Host
                    config.AddKeyVaultSettingsConfig(enabled:context.HostingEnvironment.IsProduction());
            });
 
+
             result
                 //.UseConfiguration(config)
                 .UseStartup<Startup>();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IStorageService : IAppModuleCoreService
+    public interface IStorageService : IModuleSpecificService
     {
         void Persist(byte[] bytes, string fileName);
     }

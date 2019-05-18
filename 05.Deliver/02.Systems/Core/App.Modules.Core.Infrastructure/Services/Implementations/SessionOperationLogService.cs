@@ -17,9 +17,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class SessionOperationLogService : AppCoreServiceBase, ISessionOperationLogService
     {
         private readonly IOperationContextService _operationContextService;
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
  
-        public SessionOperationLogService(IOperationContextService operationContextService, CoreModuleDbContext repositoryService)
+        public SessionOperationLogService(IOperationContextService operationContextService, ModuleDbContext repositoryService)
         {
             this._operationContextService = operationContextService;
             this._coreRepositoryService = repositoryService;

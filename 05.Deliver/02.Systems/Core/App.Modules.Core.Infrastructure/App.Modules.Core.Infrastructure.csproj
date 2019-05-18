@@ -4,6 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Initialization\Data\Db\Migrations.Seeding\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
     <Compile Remove="Initialization\Data\Db\Migrations.Seeding\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
@@ -117,7 +122,6 @@
     <Folder Include="Initialization\Data\Db\Migrations\Core\" />
     <Folder Include="Initialization\Data\Db\Schema\Conventions\Fragments\" />
     <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
-    <Folder Include="Initialization\Storage\Db\" />
     <Folder Include="Services\Configuration\Implementations\Base\" />
   </ItemGroup>
 

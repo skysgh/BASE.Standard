@@ -7,9 +7,13 @@ using App.Modules.Core.Infrastructure.Data.Db;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAppDbContextManagementService : IAppModuleCoreService
+    public interface IAppDbContextManagementService : IModuleSpecificService
     {
         void Register(ModuleDbContextBase dbContext);
+
+        DbContext[] DbContexts { get; }
+
+        void SaveChanges();
 
     }
 }

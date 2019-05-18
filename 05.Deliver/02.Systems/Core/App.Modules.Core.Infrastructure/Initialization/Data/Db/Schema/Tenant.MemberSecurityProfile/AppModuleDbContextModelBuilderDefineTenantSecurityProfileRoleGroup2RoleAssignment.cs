@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.Db.Schema
     using App.Modules.Core.Shared.Models.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile2PermissionsAssignment : IHasAppModuleDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile2PermissionsAssignment : IHasModuleSpecificDbContextModelBuilderInitializer
     {
         public void Define(ModelBuilder modelBuilder)
         {

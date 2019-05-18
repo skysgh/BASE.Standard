@@ -2,5 +2,4 @@
 {
     public interface IHasTitleAndDescription : IHasTitle, IHasDescription {
     }
-
 }

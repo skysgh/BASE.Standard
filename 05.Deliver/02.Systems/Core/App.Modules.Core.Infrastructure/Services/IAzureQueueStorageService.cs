@@ -14,7 +14,7 @@ namespace App.Modules.Core.Infrastructure.Services
     ///A single queue message can be up to 64 KB in size, and a queue can contain millions of messages.
     /// </para>
     /// </summary>
-    public interface IAzureQueueStorageService : IAppModuleCoreService, IAzureService
+    public interface IAzureQueueStorageService : IModuleSpecificService, IAzureService
     {
 
     }

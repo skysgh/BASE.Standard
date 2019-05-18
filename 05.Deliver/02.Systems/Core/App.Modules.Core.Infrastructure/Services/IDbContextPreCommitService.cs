@@ -14,8 +14,8 @@
     /// TODO: currently it's not automatically handled from the IUnitOfWorkService implementation.
     /// </para>
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IDbContextPreCommitService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IDbContextPreCommitService : IModuleSpecificService
     {
         /// <summary>
         /// Pass all entities belonging to the specified DbContext

@@ -17,6 +17,7 @@ namespace App.Modules.Core.AppFacade.Initialization.DependencyResolution
     /// </summary>
     public abstract class ModuleServiceRegistryBase : ServiceRegistry
     {
+        protected string ModuleName => App.Modules.Core.Shared.Constants.Module.Id;
 
         protected ModuleServiceRegistryBase()
         {

@@ -3,7 +3,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// <summary>
     ///     Base class for <see cref="IMutableSettingsService" />
     /// </summary>
-    public interface IImmutableSetingsService : IAppModuleCoreService
+    public interface IImmutableSetingsService : IModuleSpecificService
     {
         /// <summary>
         ///     Return a single Host Setting, typed.

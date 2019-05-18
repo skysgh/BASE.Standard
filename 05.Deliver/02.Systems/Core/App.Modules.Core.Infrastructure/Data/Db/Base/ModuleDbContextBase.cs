@@ -17,6 +17,9 @@ namespace App.Modules.Core.Infrastructure.Data.Db
 {
     public abstract class ModuleDbContextBase : DbContext
     {
+
+        protected string ModuleName => App.Modules.Core.Shared.Constants.Module.Id;
+
         private static IConfiguration Config
         {
             get
@@ -32,13 +35,21 @@ namespace App.Modules.Core.Infrastructure.Data.Db
 
 
         private static List<Type> Migrated = new List<Type>();
+        private static List<Type> Seeded = new List<Type>();
 
+        /// <summary>
+        /// Returns the default name of the ConnectionString
+        /// used within config settings.
+        /// </summary>
         public string DefaultConnectionStringName
         {
             get
             {
+                // Note that the default Name combines the
+                // Module Name + Type Name and comes out
+                // something like 'CoreDbContext':
                 return _defaultConnectionStringName
-                       ?? (_defaultConnectionStringName = this.GetType().Name);
+                       ?? (_defaultConnectionStringName =  $"{ModuleName}{this.GetType().Name}" );
             }
         }
         private string _defaultConnectionStringName;
@@ -64,41 +75,47 @@ namespace App.Modules.Core.Infrastructure.Data.Db
         }
 
         IAppDbContextManagementService _appDbContextManagementService;
-  
+
 
         protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options) : base(options)
         {
 
 
-           // _configuration = configuration;
+            // _configuration = configuration;
             _appDbContextManagementService = appDbContextManagementService;
 
-            _appDbContextManagementService.Register(this);
-
-            EnsureDbContextIsMigrated();
+            Initialize();
         }
 
-        private void EnsureDbContextIsMigrated()
-        {
-            Type type = this.GetType();
-            if (Migrated.Contains(type))
-            {
-                return;
-            }
-            lock (this)
-            {
-                this.Database.Migrate();
-                Migrated.Add(type);
-            }
-        }
 
+        /// <summary>
+        /// This is the constructor invoked by the system's dependency injector/creator.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="appDbContextManagementService"></param>
         protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService) : base()
         {
             _configuration = configuration;
             _appDbContextManagementService = appDbContextManagementService;
-            _appDbContextManagementService.Register(this);
+            Initialize();
         }
-        protected ModuleDbContextBase(DbContextOptions options) : base(options) { }
+        /// <summary>
+        /// This is the contructor invoked from commandline when making migrations.
+        /// </summary>
+        /// <param name="options"></param>
+        protected ModuleDbContextBase(DbContextOptions options) : base(options) {
+               // Does not need Migration to be kicked off (should not) 
+               // Nor Seeding.
+               // So do not invoke Initialize() from here.
+        }
+
+
+        private void Initialize()
+        {
+            _appDbContextManagementService.Register(this);
+            EnsureDbContextIsMigrated();
+            EnsureSeeded();
+        }
 
         //protected AppModuleDbContextBase()
         //{
@@ -129,32 +146,68 @@ namespace App.Modules.Core.Infrastructure.Data.Db
             //    new DbContextSchemaModelInitializationService();
 
             InvokeDatabaseModelBuildersInThisAssemblies(modelBuilder);
-            InvokeDatabaseSeedersInThisAssembly(modelBuilder);
+
+            // The way Seeding is done has changed since .NET Framework
+            // So don't invoke optional seeding at this point (Immutable data is seen as part of the Model);
         }
 
 
-        private void InvokeDatabaseModelBuildersInThisAssemblies(ModelBuilder modelBuilder)
+
+
+        protected virtual void InvokeDatabaseModelBuildersInThisAssemblies(ModelBuilder modelBuilder)
         {
 
             // This contract was registered for this module only
             // from within the Module's Infrastructure ServiceRegistry
             var modelBuilderTypes = this.GetType().Assembly.GetTypes()
-                .Where(x => (x.IsConcrete() && typeof(IHasAppModuleDbContextModelBuilderInitializer).IsAssignableFrom(x)));
+                .Where(x => (x.IsConcrete() && typeof(IHasModuleSpecificDbContextModelBuilderInitializer).IsAssignableFrom(x)));
 
             modelBuilderTypes.ForEach(x =>
             {
-                ((IHasAppModuleDbContextModelBuilderInitializer) Activator.CreateInstance(x)).Define(modelBuilder);
+                ((IHasModuleSpecificDbContextModelBuilderInitializer) Activator.CreateInstance(x))
+                .Define(modelBuilder);
             });
         }
 
-        private void InvokeDatabaseSeedersInThisAssembly(ModelBuilder modelBuilder)
+
+
+        private void EnsureDbContextIsMigrated()
+        {
+            Type type = this.GetType();
+            if (Migrated.Contains(type))
+            {
+                return;
+            }
+            lock (this)
+            {
+                this.Database.Migrate();
+                Migrated.Add(type);
+            }
+        }
+
+        protected virtual void EnsureSeeded()
+        {
+            Type type = this.GetType();
+            if (Seeded.Contains(type))
+            {
+                return;
+            }
+            lock (this)
+            {
+                InvokeDatabaseSeedersInThisAssembly();
+                Seeded.Add(type);
+            }
+        }
+
+        protected virtual void InvokeDatabaseSeedersInThisAssembly()
         {
             var seederTypes = this.GetType().Assembly.GetTypes()
-                .Where(x => (x.IsConcrete() && typeof(IHasAppModuleDbContextSeedInitializer).IsAssignableFrom(x)));
+                .Where(x => (x.IsConcrete() && typeof(IHasModuleSpecificDbContextSeedInitializer).IsAssignableFrom(x)));
 
             seederTypes.ForEach(x =>
             {
-                ((IHasAppModuleDbContextSeedInitializer)Activator.CreateInstance(x)).Seed(this);
+                ((IHasModuleSpecificDbContextSeedInitializer)Activator.CreateInstance(x))
+                .Seed(this);
             });
         }
 
@@ -162,20 +215,25 @@ namespace App.Modules.Core.Infrastructure.Data.Db
 
         public override int SaveChanges()
         {
-            if (_okToSave)
+
+            if (!_okToSave)
             {
                 return 0;
             }
+
+            bool hasChanges = base.ChangeTracker.HasChanges();
+            var changed = base.SaveChanges();
+            bool hasChanges2 = base.ChangeTracker.HasChanges();
+
             _okToSave = false;
-            return base.SaveChanges();
+            return changed;
         }
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            if (_okToSave)
+            if (!_okToSave)
             {
                 return 0;
             }
-            _okToSave = false;
 
             //CreatedByPrincipalId = "...",
             //CreatedOnUtc = DateTime.UtcNow,
@@ -183,7 +241,22 @@ namespace App.Modules.Core.Infrastructure.Data.Db
             //DeletedOnUtc = null,
             //LastModifiedByPrincipalId = "...",
             //LastModifiedOnUtc = DateTime.UtcNow,
-            return base.SaveChanges(acceptAllChangesOnSuccess);
+            bool hasChanges = base.ChangeTracker.HasChanges();
+            int changed;
+            try
+            {
+                changed = base.SaveChanges(acceptAllChangesOnSuccess);
+            }catch(System.Exception e)
+            {
+                changed = 0;
+#pragma warning disable IDE0059 // Value assigned to symbol is never used
+                var s = e.Message;
+#pragma warning restore IDE0059 // Value assigned to symbol is never used
+            }
+            bool hasChanges2 = base.ChangeTracker.HasChanges();
+
+            _okToSave = false;
+            return changed;
         }
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {

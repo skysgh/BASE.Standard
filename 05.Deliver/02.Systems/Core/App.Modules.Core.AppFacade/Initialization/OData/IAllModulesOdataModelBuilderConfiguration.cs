@@ -5,8 +5,8 @@ using Microsoft.AspNet.OData.Builder;
 
 namespace App.Modules.Core.AppFacade.Initialization.OData
 {
-    public interface IAppCoreOdataModelBuilderConfiguration : IModelConfiguration
+    public interface IAllModulesOdataModelBuilderConfiguration : IModelConfiguration
     {
-        //void Apply(ODataModelBuilder builder, ApiVersion apiVersion);
+        //void Apply(ODataConventionModelBuilder builder, ApiVersion apiVersion);
     }
 }

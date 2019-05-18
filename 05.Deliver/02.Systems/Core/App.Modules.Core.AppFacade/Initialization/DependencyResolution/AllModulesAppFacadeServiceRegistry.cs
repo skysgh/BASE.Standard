@@ -37,7 +37,7 @@ namespace App.Modules.Core.AppFacade
 
         private void ScanAllModulesForODataModelDefinitions(IAssemblyScanner assemblyScanner)
         {
-            assemblyScanner.AddAllTypesOf<IAppCoreOdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IAllModulesOdataModelBuilderConfiguration>();
         }
     }
 }

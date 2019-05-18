@@ -22,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// with `[JsonProperty(PropertyName = "id")]`
     /// </para>
     /// </summary>
-    public interface IAzureDocumentDBService : IAppModuleCoreService, IAzureService
+    public interface IAzureDocumentDBService : IModuleSpecificService, IAzureService
     {
 
 

@@ -8,7 +8,7 @@
     using App.Modules.Core.Shared.Models.Entities;
     using App.Modules.Core.Shared.Models.Entities.TenancySpecific;
 
-    public class AppModuleDbContextModelBuilderDefineTenantMemberProfileTag : IHasAppModuleDbContextModelBuilderInitializer
+    public class AppModuleDbContextModelBuilderDefineTenantMemberProfileTag : IHasModuleSpecificDbContextModelBuilderInitializer
     {
         public void Define(ModelBuilder modelBuilder)
         {

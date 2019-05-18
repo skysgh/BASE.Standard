@@ -12,8 +12,8 @@
     /// Build Engine).
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IImmutableSetingsService" />
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IHostSettingsService : IImmutableSetingsService, IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IHostSettingsService : IImmutableSetingsService, IModuleSpecificService
     {
         /// <summary>
         ///     Create a Configuration object and fill properties from Host Settings with the same name.

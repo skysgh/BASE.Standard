@@ -26,7 +26,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Data.Db
         [Fact]
         public void Get_DbContext_By_Reflection()
         {
-            var result = DependencyLocator.Current.GetInstance<CoreModuleDbContext>();
+            var result = DependencyLocator.Current.GetInstance<ModuleDbContext>();
 
             Assert.NotNull(result);
         }
@@ -34,7 +34,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Data.Db
         [Fact]
         public void DbContext_Can_Be_Migrated()
         {
-            var result = DependencyLocator.Current.GetInstance<CoreModuleDbContext>();
+            var result = DependencyLocator.Current.GetInstance<ModuleDbContext>();
 
             result.Database.Migrate();
 

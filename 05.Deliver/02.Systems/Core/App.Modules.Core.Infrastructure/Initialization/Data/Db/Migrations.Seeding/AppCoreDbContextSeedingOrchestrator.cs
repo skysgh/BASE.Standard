@@ -34,7 +34,7 @@ namespace App.Modules.Core.Infrastructure.Db.Migrations.Seeding
         }
 
         // This method will be called after migrating to the latest version.
-        public void Initialize(CoreModuleDbContext context)
+        public void Initialize(ModuleDbContext context)
         {
             using (ElapsedTime elapsedTime = new ElapsedTime())
             {
@@ -74,9 +74,9 @@ namespace App.Modules.Core.Infrastructure.Db.Migrations.Seeding
         // In one way it's better. There's an order which must be followed
         // when seeding, that can be done via Attributes ([After/Before])
         // but for now this is ok.
-        private void SeedByReflection(CoreModuleDbContext context)
+        private void SeedByReflection(ModuleDbContext context)
         {
-            DependencyLocator.Current.GetAllInstances<IHasAppModuleDbContextSeedInitializer>()
+            DependencyLocator.Current.GetAllInstances<IHasModuleSpecificDbContextSeedInitializer>()
                 .ForEach(x => { if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType()))) { x.Seed(context); } });
         }
 

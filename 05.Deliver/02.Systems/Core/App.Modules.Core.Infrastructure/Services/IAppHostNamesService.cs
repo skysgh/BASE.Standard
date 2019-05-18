@@ -1,6 +1,6 @@
 ﻿namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAppHostNamesService : IAppModuleCoreService
+    public interface IAppHostNamesService : IModuleSpecificService
     {
 
         string[] GetAppHostNamesList();

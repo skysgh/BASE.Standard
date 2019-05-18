@@ -15,9 +15,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISecureDataTokenService" />
     public class SecureDataTokenService : AppCoreServiceBase, ISecureDataTokenService
     {
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
 
-        public SecureDataTokenService(CoreModuleDbContext repositoryService)
+        public SecureDataTokenService(ModuleDbContext repositoryService)
         {
             this._coreRepositoryService = repositoryService;
         }

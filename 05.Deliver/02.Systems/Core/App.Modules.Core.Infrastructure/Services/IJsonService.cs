@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// <summary>
     /// Instead of dragging references to Newtonsoft all over your app...
     /// </summary>
-    public interface IJsonService : IAppModuleCoreService
+    public interface IJsonService : IModuleSpecificService
     {
 
         T Parse<T>(string input);

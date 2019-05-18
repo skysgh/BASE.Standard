@@ -9,8 +9,8 @@
     /// Of use by MediaUploadServices as well as SMTP (attachment) services.
     /// </para>
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IDictionaryBasedMimeTypeService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IDictionaryBasedMimeTypeService : IModuleSpecificService
     {
         //IDictionaryBasedMimeTypeServiceConfiguration Configuration { get; }
 

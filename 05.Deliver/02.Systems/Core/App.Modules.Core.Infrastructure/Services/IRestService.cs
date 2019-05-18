@@ -4,7 +4,7 @@ using System;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IRestService : IAppModuleCoreService
+    public interface IRestService : IModuleSpecificService
     {
         string Get(Uri uri, String bearerToken=null, params RestResponseHandler[] alternateResponseHandlers);
         T Get<T>(Uri uri, string bearerToken = null, params RestResponseHandler[] alternateResponseHandlers) where T : class;

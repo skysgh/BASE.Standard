@@ -8,8 +8,8 @@
     /// that in most apps, this is usually just wrapping
     /// one -- the DbContext client). 
     /// </summary>
-    /// <seealso cref="IAppModuleCoreService" />
-    public interface IUnitOfWorkService : IAppModuleCoreService
+    /// <seealso cref="IModuleSpecificService" />
+    public interface IUnitOfWorkService : IModuleSpecificService
     {
         /// <summary>
         ///     Commits a single specific named repository, or all of pending changes.

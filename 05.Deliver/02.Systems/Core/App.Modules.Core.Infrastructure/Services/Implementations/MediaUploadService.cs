@@ -18,14 +18,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IMediaMalwareDetectionService _mediaMalwareVerificationService;
         private readonly IMediaMetadataService _mediaMetadataService;
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IUniversalDateTimeService _universalDateTimeService;
         private readonly IStorageService _storageService;
 
         public MediaUploadService(IDiagnosticsTracingService diagnosticsTracingService, IUniversalDateTimeService universalDateTimeService,
             IStorageService storageService,
             IMediaMalwareDetectionService mediaMalwareVerificationService,
-            IMediaMetadataService mediaMetadataService, CoreModuleDbContext repositoryService)
+            IMediaMetadataService mediaMetadataService, ModuleDbContext repositoryService)
         {
             this._diagnosticsTracingService = diagnosticsTracingService;
             this._mediaMalwareVerificationService = mediaMalwareVerificationService;

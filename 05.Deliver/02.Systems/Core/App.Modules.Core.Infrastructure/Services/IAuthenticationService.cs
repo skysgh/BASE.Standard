@@ -11,7 +11,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// Authenticate a User
     /// against an internal Store.
     /// </summary>
-    public interface IAuthenticationService :  IAppModuleCoreService
+    public interface IAuthenticationService :  IModuleSpecificService
     {
         /// <summary>
         /// Authenticate a user's credentials - but only if the 

@@ -27,7 +27,7 @@ namespace App.Modules.Core.Shared.Models.ConfigurationSettings
         ///         across services with the same scope name.
         ///     </para>
         /// </summary>
-        [Alias(AppModuleApiScopes.ServiceUrl)]
+        [Alias(ModuleSpecificApiScopes.ServiceUrl)]
         public string ServiceIdentifier
         {
             get

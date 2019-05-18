@@ -12,8 +12,8 @@
     /// and allowing for filtering per Core/Module.
     /// </para>
     /// </summary>
-    /// <seealso cref="IAppService" />
-    public interface IAppModuleCoreService : IAppService
+    /// <seealso cref="ISystemService" />
+    public interface IModuleSpecificService : ISystemService
     {
     }
 }

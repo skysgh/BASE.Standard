@@ -2,7 +2,7 @@
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    internal class HttpContextService : AppCoreServiceBase, IHttpContextService
+    public class HttpContextService : AppCoreServiceBase, IHttpContextService
     {
         private readonly IHttpContextAccessor _contextAccessor;
 

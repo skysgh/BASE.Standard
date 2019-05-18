@@ -11,7 +11,7 @@
     ///         Use to sign OperationLog entries.
     ///     </para>
     /// </summary>
-    public interface ICertSignService : IAppModuleCoreService
+    public interface ICertSignService : IModuleSpecificService
     {
         byte[] Sign(byte[] data, RSACryptoServiceProvider cryptoServiceProvider);
         byte[] Sign(byte[] data, X509FindType certFindType, string certSearchTerm);

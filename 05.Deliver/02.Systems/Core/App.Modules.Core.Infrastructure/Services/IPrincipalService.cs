@@ -11,7 +11,7 @@
     /// retrieve a Principal record from the database). For that, use the
     /// PrincipalRecordService.
     /// </summary>
-    public interface IPrincipalService : IAppModuleCoreService
+    public interface IPrincipalService : IModuleSpecificService
     {
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// which is really only concerned with managing the Principal
     /// on the current Thread.
     /// </summary>
-    public interface IPrincipalManagmentService : IAppModuleCoreService
+    public interface IPrincipalManagmentService : IModuleSpecificService
     {
         Principal Get(Guid id);
 

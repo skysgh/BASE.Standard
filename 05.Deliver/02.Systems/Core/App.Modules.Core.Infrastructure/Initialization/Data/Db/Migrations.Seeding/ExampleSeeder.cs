@@ -8,13 +8,13 @@ using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Initialization.Data.Db.Migrations.Seeding
 {
-    public class ExampleSeeder : IHasAppModuleDbContextSeedInitializer
+    public class ExampleSeeder : IHasModuleSpecificDbContextSeedInitializer
     {
         public void Seed(ModuleDbContextBase context)
         {
             if (!context.Set<ExceptionRecord>().Any(x => x.Id == 1.ToGuid()))
             {
-
+                SeedExampleRecord(context);
             }
         }
 
@@ -29,6 +29,19 @@ namespace App.Modules.Core.Infrastructure.Initialization.Data.Db.Migrations.Seed
                     Stack = "...some stack...",
                     Title = "...sometitle"
                 });
+
+            bool hasChanges = context.ChangeTracker.HasChanges();
+
+            context.Add(new ExceptionRecord()
+            {
+                Id = 2.ToGuid(),
+                Level = TraceLevel.Info,
+                RecordState = RecordPersistenceState.Active,
+                Stack = "...some stack...",
+                Title = "...sometitle"
+            });
+
+            bool hasChanges2 = context.ChangeTracker.HasChanges();
 
         }
     }

@@ -75,8 +75,11 @@ namespace App.Modules.Core.Shared.Models.Messages
         [JsonProperty("freeformAddress")]
         public string FreeFormAddress { get; set; }
 
-        public string ExtendedFreeFormAddress { get {
-            return this.FreeFormAddress  + ", " + this.Country;
+        public string ExtendedFreeFormAddress
+        {
+            get
+            {
+                return this.FreeFormAddress + ", " + this.Country;
             }
         }
 

@@ -10,7 +10,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.Integration
     using App.Modules.Core.Infrastructure.Constants.Storage;
     using App.Modules.Core.Infrastructure.Services;
 
-    public class IntegrationSpikes : IHasAppModuleInitializer
+    public class IntegrationSpikes : IHasModuleSpecificInitializer
     {
         private readonly IAzureBlobStorageService _azureStorageAccountBlobStorageService;
         private readonly IAzureMapsService _azureMapsService;

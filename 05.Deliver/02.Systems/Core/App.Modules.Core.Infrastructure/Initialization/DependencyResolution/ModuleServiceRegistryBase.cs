@@ -51,9 +51,9 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
         private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // First, define the Model by looking for Module specific model definers:
-            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextModelBuilderInitializer>();
             // Then when the model is defined, look for Module specific DB Seeders:
-            assemblyScanner.AddAllTypesOf<IHasAppModuleDbContextSeedInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextSeedInitializer>();
             // Find all DbContexts in this Module (only) and register them *by name* as well as by Type.
             //assemblyScanner.AddAllTypesOf<DbContext>();
             assemblyScanner.Convention<NamedDbContextConvention>();

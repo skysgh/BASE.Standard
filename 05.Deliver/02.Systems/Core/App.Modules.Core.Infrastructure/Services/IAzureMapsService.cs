@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAzureMapsService : IAppModuleCoreService, IAzureService
+    public interface IAzureMapsService : IModuleSpecificService, IAzureService
     {
         AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true);
         AzureMapsReverseSearchResponse ReverseAddressSearch(decimal latitude, decimal longtitude);

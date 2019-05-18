@@ -24,7 +24,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static readonly string _ResourceListCacheKey = "_TenantCache";
         //private readonly ICacheItemService _cacheItemService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
-        private readonly CoreModuleDbContext _coreRepositoryService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
         private readonly IAppHostNamesService _hostNamesService;
@@ -32,7 +32,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static string _defaultTenantString; 
 
         public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IAzureRedisCacheService azureRedisCacheService, CoreModuleDbContext repositoryService,
+            IAzureRedisCacheService azureRedisCacheService, ModuleDbContext repositoryService,
             IAppHostNamesService appHostNamesService)
         {
             this._operationContextService = operationContextService;

@@ -4,7 +4,7 @@
     using System.Collections;
     using App.Modules.Core.Shared.Contracts.Services;
 
-    public interface ISecureAPIMessageAttributeService : IAppModuleCoreService
+    public interface ISecureAPIMessageAttributeService : IModuleSpecificService
     {
         bool NeedsProcessing(Type type);
 
