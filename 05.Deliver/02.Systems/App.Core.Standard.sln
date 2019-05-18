@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Host", "Modules\Core\App.Host\App.Host.csproj", "{73A633CA-859E-4A32-81D2-312D9475506D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Host", "Host\App.Host\App.Host.csproj", "{73A633CA-859E-4A32-81D2-312D9475506D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.AppFacade", "Modules\Core\App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj", "{FFBFC2AD-5074-4EA2-B80A-4B069E94BBBD}"
 EndProject
