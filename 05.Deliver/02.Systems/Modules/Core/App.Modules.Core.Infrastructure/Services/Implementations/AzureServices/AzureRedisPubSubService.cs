@@ -1,4 +1,5 @@
 ﻿using System;
+using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using StackExchange.Redis;
 
@@ -6,10 +7,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     public class AzureRedisPubSubService : IAzureRedisPubSubService
     {
-        private readonly IAzureRedisConnection _azureRedisConnection;
+        private readonly IAzureRedisServiceAgent _azureRedisConnection;
 
         
-        public AzureRedisPubSubService(IAzureRedisConnection azureRedisConnection)
+        public AzureRedisPubSubService(IAzureRedisServiceAgent azureRedisConnection)
         {
             _azureRedisConnection = azureRedisConnection;
         }

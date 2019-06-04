@@ -1,5 +1,4 @@
 ﻿using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-using App.Modules.Core.Shared.Models.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>App.Modules</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,10 +12,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Contracts\" />
-    <Folder Include="Models\Entities\TenancySpecific\NewFolder\" />
-    <Folder Include="Modules\" />
-    <Folder Include="All\" />
+    <Compile Remove="Core\Models\Messages\API\V0100\Dtos\**" />
+    <Compile Remove="Core\Models\Messages\API\V0100\Enums\**" />
+    <EmbeddedResource Remove="Core\Models\Messages\API\V0100\Dtos\**" />
+    <EmbeddedResource Remove="Core\Models\Messages\API\V0100\Enums\**" />
+    <None Remove="Core\Models\Messages\API\V0100\Dtos\**" />
+    <None Remove="Core\Models\Messages\API\V0100\Enums\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="All\Shared\" />
+    <Folder Include="Core\Models\Contracts\" />
+    <Folder Include="Core\Models\Entities\TenancySpecific\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

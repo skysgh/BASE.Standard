@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using App.Modules.Core.Shared.Models.Entities;
+﻿using App.Modules.Core.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Constants.Tenancy
 {
@@ -16,7 +11,7 @@ namespace App.Modules.Core.Infrastructure.Constants.Tenancy
             Enabled = true,
             Key = "Default",
             DisplayName = "Default",
-            HostName = "Default"
+            HostName = "Default",
         };
     }
 }

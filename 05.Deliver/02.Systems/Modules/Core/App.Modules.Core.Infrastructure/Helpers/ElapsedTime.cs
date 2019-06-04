@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.Helpers
 {
     /// <summary>
     /// A Disposable class to help with logging the durations of operations.

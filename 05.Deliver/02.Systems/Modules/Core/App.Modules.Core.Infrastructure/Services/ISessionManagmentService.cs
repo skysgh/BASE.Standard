@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Modules.Core.Infrastructure.Services.Implementations;
-using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Core.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services
 {

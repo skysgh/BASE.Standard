@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using System.Security.Cryptography;

@@ -1,5 +1,6 @@
 ﻿// Copyright MachineBrains, Inc.
 
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar;
 using Lamar.Scanning.Conventions;
 
@@ -31,9 +32,7 @@ namespace App.Modules.Core.Application.Initialization.DependencyResolution
                 // And related to *this module* only. (every module registers its own
                 // stuff).
                 assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.GetName().Name.StartsWith(
-                        App.Modules.Core.Shared.Constants.Module.AssemblyNamePrefix
-                    ));
+                    x => x.IsSameModuleAs(this.GetType()));
 
                 Example(assemblyScanner);
             });

@@ -1,17 +1,12 @@
 ﻿
-namespace App.Modules.Core.Infrastructure.Integration.Azure.KeyVault
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using App.Modules.Core.Infrastructure.Factories;
-    using App.Modules.Core.Shared.Models.Configuration;
-    using App.Modules.Core.Shared.Models.ConfigurationSettings;
-    using Microsoft.Azure.KeyVault;
-    using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System;
+using System.Threading.Tasks;
+using App.Modules.Core.Configuration.Settings;
+using Microsoft.Azure.KeyVault;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
+namespace App.Modules.Core.Infrastructure.Factories
+{
     /// <summary>
     /// <para>
     /// Depends on:

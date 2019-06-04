@@ -1,7 +1,10 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using System.Runtime.Caching;
+    using Microsoft.Extensions.Caching.Memory;
 
     /// <summary>
     ///     Implementation of the
@@ -11,10 +14,14 @@
     public class MemoryCachingService : AppCoreServiceBase, IMemoryCachingService
     {
         private readonly IUniversalDateTimeService _dateTimeService;
+        private readonly IMemoryCache _memoryCache;
 
-        public MemoryCachingService(IUniversalDateTimeService dateTimeService)
+        public MemoryCachingService(IUniversalDateTimeService dateTimeService, IMemoryCache memoryCache)
         {
             _dateTimeService = dateTimeService;
+            _memoryCache = memoryCache;
+
+         
         }
 
         public T Get<T>(string key) {
@@ -25,6 +32,21 @@
         }
 
 
+        //public TItem GetOrCreate<TItem>(this IMemoryCache cache, object key, Func<ICacheEntry, TItem> factory)
+        //{
+
+
+        //    if (!cache.TryGetValue(key, out object value))
+        //    {
+        //        ICacheEntry cacheEntry = cache.CreateEntry(key);
+        //        value = factory(cacheEntry);
+        //        cacheEntry.SetValue(value);
+        //        cacheEntry.Dispose();
+        //    }
+        //    return (TItem)value;
+        //}
+
+
         public void Register<T>(string key, T value, TimeSpan duration, Func<T> expiredCallback)
         {
             if (duration.TotalSeconds < 60)
@@ -32,7 +54,15 @@
                 duration = TimeSpan.FromSeconds(60);
             }
 
-            ObjectCache cache = MemoryCache.Default;
+            //_memoryCache.Set("someKey", "someValue");
+            //_memoryCache.Set("someKey", "SomeValue",);
+            //MemoryCacheEntryOptions o = new MemoryCacheEntryOptions();
+            //o.
+
+            //_memoryCache.Set("someKey", "SomeValue",)
+
+
+            ObjectCache cache = System.Runtime.Caching.MemoryCache.Default;
 
             CacheItemPolicy cacheItemPolicy =
                 new CacheItemPolicy

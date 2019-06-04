@@ -1,10 +1,11 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
+using App.Modules.Core.Factories;
+
 namespace App
 {
     using System;
-    using App.Modules.Core.Shared.Factories;
 
     public static class GuidExtensions
     {

@@ -1,13 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace App.Modules.Core.Infrastructure.Constants
+namespace App.Modules.Core.Infrastructure.Constants.Users
 {
     public class Users
     {
+        public enum PrincipalTypes {
+            Unspecified=0,
+            Unknown=1,
+            System=2,
+            Default=3,
+            ServiceClient = 4,
+            User = 5
+
+        }
+
         public class Anon
         {
             public static Guid Id = 0.ToGuid();

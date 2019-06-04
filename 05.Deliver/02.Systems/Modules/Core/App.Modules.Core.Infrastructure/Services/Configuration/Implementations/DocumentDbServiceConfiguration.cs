@@ -1,12 +1,8 @@
 ﻿using System;
-
+using App.Modules.Core.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
 {
-    using App.Modules.Core.Shared.Contracts;
-    using App.Modules.Core.Shared.Models.Configuration;
-    using App.Modules.Core.Shared.Models.ConfigurationSettings;
-
     /// <summary>
     /// 
     /// <para>
@@ -40,7 +36,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
         /// </summary>
         public AzureDocumentDbServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
-            var commonConfigurationSettings = keyVaultService.GetObject< AzureCommonConfigurationSettings>();
+            var commonConfigurationSettings = keyVaultService.GetObject<AzureCommonConfigurationSettings>();
             var configuration = keyVaultService.GetObject<AzureDocumentDbConfigurationSettings>();
             if (string.IsNullOrEmpty(configuration.ResourceName))
             {

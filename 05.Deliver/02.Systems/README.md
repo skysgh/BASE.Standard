@@ -20,13 +20,29 @@ Below is a record of some (it's wildly imcomplete, but still...) of some of the 
     * Backs service to create configuration objects.
 
 
+## Enable Powershell ##
+You may need to setup Powershell first:
+
+    Set-ExecutionPolicy -ExecutionPolicy Bypass
+
 
 ## DotNet EF Commands ##
-The following is what is used to add Core MIgrations from the Solution Root:
+The following is what is used to add Core MIgrations from the Solution Root folder:
 
-dotnet ef migrations --project "app.modules.core.infrastructure" --startup-project "app.host" list
-dotnet ef migrations --project "app.modules.core.infrastructure" --startup-project "app.host" add "XXX"
-dotnet ef migrations --project "app.modules.core.infrastructure" --startup-project "app.host" remove
+	$moduleName = "core"
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations\Steps" 
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove
+
+	$moduleName = "design"
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations\Steps" 
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove
+
+
+Apply Migrations either from the command line, or by running the app:
+
+dotnet ef database update --project "modules\core\app.modules.core.infrastructure" --startup-project "host\app.host"
 
 
 ### OData

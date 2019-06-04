@@ -9,8 +9,8 @@
 //        public void EnsureAssemblyNameIsGeneric()
 //        {
 //            Type type = typeof(IExampleService);
-
-//            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.AssemblyPrefix),
+                //assemblyScanner.AssembliesFromApplicationBaseDirectory(
+//            Assert.True(type.IsSameApp());
 //                "ISO-25010/Portability: ensure assembly names are generic.");
 //        }
 //    }

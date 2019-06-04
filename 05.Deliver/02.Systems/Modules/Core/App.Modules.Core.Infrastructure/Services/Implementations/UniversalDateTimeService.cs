@@ -1,3 +1,5 @@
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;

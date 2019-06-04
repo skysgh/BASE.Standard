@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions;
-using App.Modules.Core.Infrastructure.Initialization.ObjectMaps;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.ObjectMapping;
+using App.Modules.Core.Infrastructure.ServiceAgents;
+using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Modules.Core.Infrastructure.Services.Implementations.AzureServices;
 using Lamar;
 using Lamar.Scanning.Conventions;
+using LamarCodeGeneration.Util;
 using Microsoft.Extensions.DependencyInjection;
 
 //using App.Modules.Core.Infrastructure.Cache;
@@ -41,15 +47,16 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
                     // Which we can see from the dll's name (as long as everybody
                     // sticks to the convention of "App...." 
                     assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                        x => x.GetName().Name.StartsWith(
-                            App.Modules.Core.Shared.Constants.Application.AssemblyPrefix
-                        ));
+                        x => x.IsSameApp());
 
                     ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);
 
                     //ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
                     ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
+
+
+                    ScanAllModulesForRequestScopedServiceClients(assemblyScanner);
 
                     //ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
@@ -71,12 +78,11 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
             assemblyScanner.AddAllTypesOf<IHasAutomapperInitializer>();
         }
 
-        //private void InfrastructureCoreMappings(IAssemblyScanner assemblyScanner)
-        //{
-        //    For<IAzureRedisConnection>().Use<AzureRedisConnection>().Singleton();
-        //    For<AzureRedisCacheServiceConfiguration>().Use<AzureRedisCacheServiceConfiguration>().Singleton();
-        //    For<ISessionManagmentService>().Use<SessionManagmentService>().Singleton();
-        //}
+        private void ScanAllModulesForRequestScopedServiceClients(IAssemblyScanner assemblyScanner)
+        {
+            // Service agents are scoped to Request.
+            assemblyScanner.AddAllTypesOf<IContextScopedServiceAgent>();
+        }
 
 
 
@@ -94,42 +100,6 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
             // automatically filled in)
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
         }
-
-
-        ////SKYOUT: private void ScanAllModulesForModuleSpecificODataBuilderTypes(IAssemblyScanner assemblyScanner)
-        ////{
-        ////    // Note that because we are in App.Modules.Core.Infrastructure, we can't see the
-        ////    // Typed version of this interface (as this assembly does not know anything 
-        ////    // about OData as it does not have a Ref to OData Assemblies...nor should it, as that
-        ////    // woudl drag in way too many other dependencies (ApiControllers, Web, etc.)
-        ////    // So we search for and register the *untyped* version of the interface:
-
-        ////    //Scan for OData Model Builders in *all* modules.
-        ////    assemblyScanner.AddAllTypesOf<IAppODataModelBuilder>();
-        ////    //Scan for OData Model Builder Configuration fragments in *all* modules.
-        ////    assemblyScanner.AddAllTypesOf<IAppODataModelBuilderConfiguration>();
-        ////}
-
-
-        //private void ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(IAssemblyScanner assemblyScanner)
-        //{
-        //    var types = AppDomain.CurrentDomain.GetInstantiableTypesImplementing<IAzureStorageBlobContext>();
-        //    foreach (Type t in types)
-        //    {
-        //        string name = t.GetName(false);
-
-        //        if (name == null)
-        //        {
-        //            throw new Exception("Coding error: StorageAccountContexts need to be Named, using a KeyAttribute.");
-        //        }
-
-        //        //Register it under IAzureStorageBlobContext context, but named:
-
-        //        new CreatePluginFamilyExpression<IAzureStorageBlobContext>(this,
-        //                new HttpContextLifecycle()).HybridHttpOrThreadLocalScoped()
-        //            .Use(y => (IAzureStorageBlobContext)AppDependencyLocator.Current.GetInstance(t)).Named(name);
-        //    }
-        //}
 
 
         //private void ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(IAssemblyScanner assemblyScanner)

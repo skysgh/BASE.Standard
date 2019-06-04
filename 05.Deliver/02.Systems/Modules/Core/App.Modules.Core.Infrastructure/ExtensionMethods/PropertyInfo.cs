@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
-    using System.Reflection;
-    using App.Modules.Core.Shared.Attributes;
-
     public static class PropertyInfoExtensions
     {
 

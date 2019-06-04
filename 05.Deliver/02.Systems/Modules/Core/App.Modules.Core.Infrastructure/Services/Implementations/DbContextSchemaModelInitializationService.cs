@@ -1,9 +1,11 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System.Linq;
     using System.Reflection;
     using App.Modules.Core.Infrastructure.Contracts;
-    using App.Modules.Core.Infrastructure.Initialization.Db;
+    using App.Modules.Core.Infrastructure.Data.Db.Migrations.Schema;
     using App.Modules.Core.Infrastructure.Services.Implementations;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +27,7 @@
             // You can initialize manually or by Convention over Configuration
             // using a combination of common interface and reflection.
             var modelBuilderInitializers =
-                DependencyLocator.Current.GetAllInstances<IHasModuleSpecificDbContextModelBuilderInitializer>().ToArray();
+                DependencyLocator.Current.GetAllInstances<IHasModuleSpecificDbContextModelBuilderSchemaInitializer>().ToArray();
 
             modelBuilderInitializers.ForEach(x =>
             {
@@ -40,7 +42,7 @@
                 // Some initializers -- usually during testing -- will be ignored:
                 if (!(typeof(IHasIgnoreThis).IsAssignableFrom(x.GetType())))
                 {
-                    x.Define(modelBuilder);
+                    x.DefineSchema(modelBuilder);
                 }
             });
 

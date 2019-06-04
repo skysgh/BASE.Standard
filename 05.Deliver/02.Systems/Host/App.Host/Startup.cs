@@ -1,28 +1,20 @@
-﻿using App.Modules.Core.Infrastructure.Services;
+﻿using System;
+using App.Modules.Core.AppFacade.ActionFilters;
+using App.Modules.Core.AppFacade.Initialization.Startup;
+using App.Modules.Core.AppFacade.Initialization.Views;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Implementations;
 using Lamar;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using App.Modules.Core.AppFacade.ActionFilters;
-using App.Modules.Core.AppFacade.Initialization.Mvc;
-using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Modules.Core.Shared;
-using App.Modules.Core.Shared.Contracts;
-using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
-using App.Modules.Core.Infrastructure.Services.Implementations;
 
 namespace App.Host
 {
@@ -63,28 +55,6 @@ namespace App.Host
         }
 
         /// <summary>
-        /// Invoked from <see cref="Configure"/>
-        /// </summary>
-        /// <param name="app"></param>
-        private static void SetupOpenApi(IApplicationBuilder app)
-        {
-            app.UseSwagger(x =>
-                x.RouteTemplate = "api-docs/{documentName}/swagger.json"
-            );
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(
-                c =>
-                {
-                    c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
-                    // To serve the Swagger UI at the app's root:
-                    //c.RoutePrefix = string.Empty;
-
-
-                });
-        }
-
-        /// <summary>
         /// <para>
         /// This method gets called by the runtime before calling other methods in this class. 
         /// Use this method to add services to the container.
@@ -98,6 +68,10 @@ namespace App.Host
             // Note: Services that are registered here are available later,
             // but Lamar recommends leveraging ConfigureContainer instead.
             // See: https://jasperfx.github.io/lamar/documentation/ioc/aspnetcore/
+
+            // Microsoft sample took care of this in COnfigureServices 
+            // and puts it before AddMvc.
+            services.AddOData();
 
         }
 
@@ -115,6 +89,7 @@ namespace App.Host
         public void ConfigureContainer(ServiceRegistry serviceRegistry)
         {
 
+            //serviceRegistry.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists"));
             //As per https://stackoverflow.com/q/38184583
             // In order for IHttpContextAccessor to work.
             serviceRegistry.AddHttpContextAccessor();
@@ -122,11 +97,8 @@ namespace App.Host
             //As per https://stackoverflow.com/q/38184583
             // May also have to register IActionContextAccessor, but not yet sure if we need it.
 
-            serviceRegistry.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.FileProviders.Add(
-                    new EmbeddedFileProvider(typeof(App.Modules.Core.AppFacade.Controllers.DescribeTypesController).GetTypeInfo().Assembly));
-            });
+
+
 
             // Note: invoked after ConfigureServices(see below)
             // Note: Already loaded with Framework services, just 
@@ -136,11 +108,21 @@ namespace App.Host
             // the same initialization sequence.
 
 
-            serviceRegistry.AddOData();
+            //// Microsoft sample took care of this in COnfigureServices 
+            //// and puts it before AddMvc.
+            //serviceRegistry.AddOData();
 
 
             serviceRegistry.AddMvc(
-                    options => options.Filters.Add(typeof(SamepleActionFilterAttribute))
+                    options =>
+                    {
+                        options.Filters.Add(typeof(SamepleActionFilterAttribute));
+                        // As per https://damienbod.com/2018/10/12/odata-with-asp-net-core/
+
+                        //If using CompatibilityVersion.Version_2_2 this shuold be false ?
+                        // Or you get InvalidOperationException: Cannot use 'Microsoft.AspNet.OData.Routing.ODataRoute' with Endpoint Routing.
+                        options.EnableEndpointRouting = false;
+                    }
                     )
                 // To make OpenApi output indented:
                 .AddJsonOptions(options =>
@@ -151,34 +133,54 @@ namespace App.Host
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 ;
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            serviceRegistry.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", 
-                    new Info
-                    {
-                        Title = "My API",
-                        Version = "v1",
-                        Description = "A simple example ASP.NET Core Web API",
-                        TermsOfService = "None",
-                        Contact = new Contact
-                        {
-                            Name = "Shayne Boyer",
-                            Email = string.Empty,
-                            Url = "https://twitter.com/skystwt"
-                        },
-                        License = new License
-                        {
-                            Name = "Use under LICX",
-                            Url = "https://example.com/license"
-                        }
-                    });
-            });
+
+            //For now (until GEt(1) works
+            //serviceRegistry.AddODataQueryFilter();
+
+            //// Register the Swagger generator, defining 1 or more Swagger documents
+            //serviceRegistry.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", 
+            //        new Info
+            //        {
+            //            Title = "My API",
+            //            Version = "v1",
+            //            Description = "A simple example ASP.NET Core Web API",
+            //            TermsOfService = "None",
+            //            Contact = new Contact
+            //            {
+            //                Name = "Shayne Boyer",
+            //                Email = string.Empty,
+            //                Url = "https://twitter.com/skystwt"
+            //            },
+            //            License = new License
+            //            {
+            //                Name = "Use under LICX",
+            //                Url = "https://example.com/license"
+            //            }
+            //        });
+            //});
+
+
             // All initialization up to this point was specific to ASP Framework
             // The rest can be moved down to a lower assembly that doesn't have
             // any Reference dependency on HTML.
             // This is so that UnitTesting can take advantage of the same setup:
             new AllModulesDependencyResolutionInitializer().Initialize(serviceRegistry);
+
+
+
+            serviceRegistry.Configure<RazorViewEngineOptions>(options =>
+            {
+                // Note:
+                // Probably won't work because it has only been taught where to scan, 
+                // But has not yet scanned...
+                _container.GetAllInstances<IAllModulesViewArtifactRegistration>()
+                    .ForEach(x => x.Initialize(options));
+
+            });
+
+
 
         }
 
@@ -194,6 +196,7 @@ namespace App.Host
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
 
             // Register Container so we can reuse
             IServiceProvider serviceProvider = app.ApplicationServices;
@@ -229,6 +232,7 @@ namespace App.Host
                 // Get hands on container
                 string s1 = _container.WhatDidIScan();
                 string s2 = _container.WhatDoIHave();
+                string s3 = s2;
             }
             else
             {
@@ -237,18 +241,81 @@ namespace App.Host
             app.UseHttpsRedirection();
             app.UseCors();
             app.UseStaticFiles();
-            // Use our own method for this:
-            SetupOpenApi(app);
+
 
             app.UseMvc(
                 routeBuilder =>
                 {
-                    _container.GetAllInstances<IModuleRoutes>().ForEach(x => x.Initialize(routeBuilder));
+                    // Needed to get OData running.
+                    routeBuilder.EnableDependencyInjection();
+                    //Use our helpr methods for setting up routes:
+                    ConfigureRouteBuilderForTraditionalApiRoutes(routeBuilder);
                 });
 
+            // Use our own method for this:
+            //SetupOpenApi(app);
+
+            // Probably not needed, but don't want to lock in only way:
+            InvokeAnyCustomConfigurationInOtherModulesFoundByReflection(app, env);
 
         }
 
+
+        private void ConfigureRouteBuilderForTraditionalApiRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder routeBuilder)
+        {
+
+            // Routes are processed from top to bottom,
+            // Looking for *first* match.
+            // So register every else first, before falling back to default routes.
+
+            // Look around for any atypical routing:
+            _container.GetAllInstances<IModuleRoutes>().ForEach(x => x.Initialize(routeBuilder));
+
+            // ---- Area Based
+            routeBuilder.MapRoute(
+                name: $"defaultAreaRoute",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            routeBuilder.MapRoute(
+                name: $"defaultApi",
+                template: "api/{controller=Home}/{action=Index}/{id?}");
+
+            routeBuilder.MapRoute(
+                name: $"default",
+                template: "{controller=Home}/{action=Index}/{id?}");
+
+        }
+
+
+
+        /// <summary>
+        /// Invoked from <see cref="Configure"/>
+        /// </summary>
+        /// <param name="app"></param>
+        private static void SetupOpenApi(IApplicationBuilder app)
+        {
+            app.UseSwagger(x =>
+                x.RouteTemplate = "api-docs/{documentName}/swagger.json"
+            );
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(
+                c =>
+                {
+                    c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
+                    // To serve the Swagger UI at the app's root:
+                    //c.RoutePrefix = string.Empty;
+
+
+                });
+        }
+
+
+        private void InvokeAnyCustomConfigurationInOtherModulesFoundByReflection(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            //May be zero or more custom configuration needed:
+            _container.GetAllInstances<IStartupConfigure>().ForEach(x => x.Configure(app, env));
+        }
 
 
     }

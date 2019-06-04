@@ -1,7 +1,7 @@
-﻿namespace App
-{
-    using System;
+﻿using System;
 
+namespace App.Modules.Core.Infrastructure.Exceptions
+{
     public class ConfigurationException : Exception
     {
         public ConfigurationException(string message) : base(message) { }

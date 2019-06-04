@@ -1,31 +1,31 @@
-﻿using App.Modules.Core.Shared.Models.Implementations;
-using App.Modules.Core.Infrastructure.Services;
+﻿using System;
 using App.Modules.Core.Infrastructure.Services.Implementations;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using App.Modules.Core.Models.Entities;
 using Xunit;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services
 {
     public class ObjectMappingServiceUnitTests : TestClassBase
     {
-   
+
 
         [Fact]
         void MapSomethingTrivial()
         {
-            IObjectMappingService service = new ObjectMappingService();
+            throw new NotImplementedException();
 
-            ExampleModel m = new ExampleModel();
+            //ObjectMappingServiceConfiguration config = new ObjectMappingServiceConfiguration();
 
-            m.Id = Guid.NewGuid();
+            //IObjectMappingService service = new ObjectMappingService(config);
+
+            //ExampleModel m = new ExampleModel();
+
+            //m.Id = Guid.NewGuid();
 
 
-            var r = service.Map<ExampleModel,ExampleModel>(m);
+            //var r = service.Map<ExampleModel,ExampleModel>(m);
 
-            Assert.NotEqual<Guid>(Guid.Empty, r.Id);
+            //Assert.NotEqual<Guid>(Guid.Empty, r.Id);
         }
 
         [Fact]
@@ -39,12 +39,12 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
 
 
 
-            ExampleModel m = new ExampleModel();
+            Principal m = new Principal();
 
             m.Id = Guid.NewGuid();
 
 
-            var r = service.Map<ExampleModel, ExampleModel>(m);
+            var r = service.Map<Principal, Principal>(m);
 
             Assert.NotEqual<Guid>(Guid.Empty, r.Id);
         }

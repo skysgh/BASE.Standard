@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Models.Entities;
-
     /// <summary>
     /// Contract for a service to manage Principal *Records*
     /// (not the same thing as what the 

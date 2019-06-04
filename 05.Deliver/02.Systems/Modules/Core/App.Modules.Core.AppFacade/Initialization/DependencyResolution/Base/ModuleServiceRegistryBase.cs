@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using App.Modules.Core.AppFacade.Initialization.Mvc;
+﻿using App.Modules.Core.AppFacade.Initialization.Startup;
+using App.Modules.Core.Infrastructure.DependencyInjection;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar;
 using Lamar.Scanning.Conventions;
 
@@ -17,7 +16,7 @@ namespace App.Modules.Core.AppFacade.Initialization.DependencyResolution
     /// </summary>
     public abstract class ModuleServiceRegistryBase : ServiceRegistry
     {
-        protected string ModuleName => App.Modules.Core.Shared.Constants.Module.Id;
+        protected string ModuleName => App.Modules.Core.Shared.Constants.ModuleSpecific.Module.Id(this.GetType());
 
         protected ModuleServiceRegistryBase()
         {
@@ -35,19 +34,19 @@ namespace App.Modules.Core.AppFacade.Initialization.DependencyResolution
                 // And related to *this module* only. (every module registers its own
                 // stuff).
                 assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.GetName().Name.StartsWith(
-                        App.Modules.Core.Shared.Constants.Module.AssemblyNamePrefix
-                    ));
+                    x => x.IsSameModuleAs(this.GetType()));
 
-                ScanAllModulesForMvcRouting(assemblyScanner);
+                ScanThisLogicalModuleForMvcRouting(assemblyScanner);
+
             });
         }
 
 
-        private void ScanAllModulesForMvcRouting(IAssemblyScanner assemblyScanner)
+        private void ScanThisLogicalModuleForMvcRouting(IAssemblyScanner assemblyScanner)
         {
             assemblyScanner.AddAllTypesOf<IModuleRoutes>().NameBy(x => x.FullName);
         }
-    }
 
+
+    }
 }

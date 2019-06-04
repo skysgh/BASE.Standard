@@ -6,6 +6,14 @@ namespace App.Modules.Core.Infrastructure.Constants.Demo
 
     public static class Tenancies
     {
+        public static class Default
+        {
+            public static Guid Id = 1.ToGuid();
+            public static string Key = "Default";
+            public static string HostName = "Default";
+            public static string Name = "Default";
+        }
+
         public static class A
         {
             public static Guid Id = 3.ToGuid();

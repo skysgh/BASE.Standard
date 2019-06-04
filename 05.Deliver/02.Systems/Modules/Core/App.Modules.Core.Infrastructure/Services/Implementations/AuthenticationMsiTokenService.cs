@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -23,7 +24,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// will be automatically developed when the AppService was first installed.
     /// </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.Implementations.AppCoreServiceBase" />
+    /// <seealso cref="AppCoreServiceBase" />
     /// <seealso cref="IAuthenticationMsiTokenService" />
     public class AuthenticationMsiTokenService : AppCoreServiceBase, IAuthenticationMsiTokenService
     {

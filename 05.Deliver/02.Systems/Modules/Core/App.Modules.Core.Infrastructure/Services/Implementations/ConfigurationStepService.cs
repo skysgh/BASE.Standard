@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages;
+using App.Modules.Core.Models.Messages.Enums;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Messages;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IConfigurationStepService" />
@@ -37,7 +35,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// Initializes a new instance of the <see cref="ConfigurationStepService"/> class.
         /// </summary>
         /// <param name="universalDateTimeService">The universal date time service.</param>
-        public ConfigurationStepService(IUniversalDateTimeService universalDateTimeService, IDiagnosticsTracingService diagnosticsTracingService)
+        public ConfigurationStepService(
+            IUniversalDateTimeService universalDateTimeService,
+            IDiagnosticsTracingService diagnosticsTracingService)
         {
             this._universalDateTimeService = universalDateTimeService;
             this._diagnosticsTracingService = diagnosticsTracingService;

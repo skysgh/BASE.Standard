@@ -1,10 +1,10 @@
-using App.Modules.Core.Infrastructure.Data.Db;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
 {
     using System.Linq;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
     using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Models.Messages;
 
     public abstract class SearchProviderBase<TModel> : ISearchProvider 
         where TModel : class, new()

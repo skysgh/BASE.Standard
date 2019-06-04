@@ -29,16 +29,22 @@ namespace App.Modules.Core.Code.Tests
         [Fact]
         public void AllInterfacesShouldStartWithI()
         {
-            var result =
+         
+         var results =
                 Types.InCurrentDomain()
          .That()
          .AreInterfaces()
          .Should()
          .HaveNameStartingWith("I")
-         .GetResult()
-         .IsSuccessful;
+         .GetResult();
 
-            result.Should().Be(true);
+            var check = results.FailingTypes;
+
+            // These are known to fail.
+
+           // lName = "Lamar.IoC.Diagnostics.Line"}\"LamarCodeGeneration.Util.TextWriting.Line"}
+
+    results.IsSuccessful.Should().Be(true);
         }
 
 

@@ -42,7 +42,7 @@ namespace App.Host.Middleware
 
             _appDbContextManagementService.SaveChanges();
 
-            await context.Response.WriteAsync("<div> Bye from AppDbContextSaveAllMiddleware </div>");
+            //await context.Response.WriteAsync("<div> Bye from AppDbContextSaveAllMiddleware </div>");
         }
     }
 }

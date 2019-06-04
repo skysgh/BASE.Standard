@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using App.Modules.Core.AppFacade.Initialization.Mvc;
-using App.Modules.Core.AppFacade.Initialization.OData;
-using App.Modules.Core.Infrastructure.Initialization.ObjectMaps;
-using Lamar;
+﻿using App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration;
+using App.Modules.Core.AppFacade.Initialization.Startup;
+using App.Modules.Core.AppFacade.Initialization.Views;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar.Scanning.Conventions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.Core.AppFacade
 {
@@ -18,21 +15,30 @@ namespace App.Modules.Core.AppFacade
                 // Want to search in all Assemblies related to this system.
                 // Which we can see from the dll's name (as long as everybody
                 // sticks to the convention of "App...." 
-                assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.GetName().Name.StartsWith(
-                        App.Modules.Core.Shared.Constants.Application.AssemblyPrefix
-                    ));
+                assemblyScanner
+                    .AssembliesFromApplicationBaseDirectory(
+                        x => x.IsSameApp()
+                    );
 
-
+                ScanAllModulesForStartupExtensions(assemblyScanner);
                 ScanAllModulesForMvcRouting(assemblyScanner);
+                ScanAllModulesForViewAssemblyRegistration(assemblyScanner);
                 ScanAllModulesForODataModelDefinitions(assemblyScanner);
             });
         }
 
+        private void ScanAllModulesForStartupExtensions(IAssemblyScanner assemblyScanner)
+        {
+            assemblyScanner.AddAllTypesOf<IStartupConfigure>().NameBy(x => x.FullName);
+        }
 
         private void ScanAllModulesForMvcRouting(IAssemblyScanner assemblyScanner)
         {
             assemblyScanner.AddAllTypesOf<IModuleRoutes>().NameBy(x => x.FullName);
+        }
+        private void ScanAllModulesForViewAssemblyRegistration(IAssemblyScanner assemblyScanner)
+        {
+            assemblyScanner.AddAllTypesOf<IAllModulesViewArtifactRegistration>().NameBy(x => x.FullName);
         }
 
         private void ScanAllModulesForODataModelDefinitions(IAssemblyScanner assemblyScanner)

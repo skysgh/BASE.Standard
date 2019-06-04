@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
-    using System.Security.Cryptography;
-
     public static class ByteArrayExtensions
     {
         public static byte[] GetHashAsByteArray(this byte[] media, string algorithm="SHA-256")

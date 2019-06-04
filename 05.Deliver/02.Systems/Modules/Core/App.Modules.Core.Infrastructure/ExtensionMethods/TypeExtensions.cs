@@ -1,15 +1,15 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-namespace App
-{
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using App.Modules.Core.Shared.Attributes;
+using System;
+using System.Linq;
+using System.Reflection;
 
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
+{
     public static class TypeExtensions
     {
+
         public static bool IsSameOrSubclassOf(this Type potentialDescendant, Type potentialBase)
         {
             return potentialDescendant.IsSubclassOf(potentialBase)
@@ -25,7 +25,7 @@ namespace App
         public static string GetName(this Type type, bool inherit = false)
         {
             // Use aliases first, as they can be richer, if there are any:
-            var aliasAttribute = type.GetCustomAttribute<KeyAttribute>(inherit);
+            var aliasAttribute = CustomAttributeExtensions.GetCustomAttribute<KeyAttribute>(type, inherit);
 
             return aliasAttribute?.Key;
         }

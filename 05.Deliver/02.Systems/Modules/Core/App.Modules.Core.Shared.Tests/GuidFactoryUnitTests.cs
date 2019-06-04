@@ -1,7 +1,6 @@
-﻿using App.Modules.Core.Shared.Factories;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using App.Modules.Core.Factories;
 using Xunit;
 
 namespace App.Modules.Core.Shared.Tests
@@ -9,14 +8,15 @@ namespace App.Modules.Core.Shared.Tests
     public class GuidFactoryUnitTests
     {
 
-        [Fact]
-        public void CreateGuid() {
+        [SelfNamingFact]
+        public void CreateAGuidUsingTheGuidFactory()
+        {
             Guid r = GuidFactory.NewGuid();
             Assert.NotEqual<Guid>(Guid.Empty, r);
         }
 
-        [Fact]
-        public void CreateSeveralUniqueGuid()
+        [SelfNamingFact]
+        public void Create_A_Thousand_Unique_Guids_Without_Duplication()
         {
             List<Guid> r = new List<Guid>();
             int m = 1000;
@@ -27,7 +27,7 @@ namespace App.Modules.Core.Shared.Tests
 
             for (int i = 0; i < m; i++)
             {
-                for (int j=0; j < m; j++)
+                for (int j = 0; j < m; j++)
                 {
                     if (i == j) { continue; }
                     Assert.NotEqual<Guid>(r[i], r[j]);

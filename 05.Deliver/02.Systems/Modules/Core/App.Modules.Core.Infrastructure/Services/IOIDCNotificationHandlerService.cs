@@ -1,10 +1,9 @@
 ﻿
 
+using App.Modules.Core.Models.Messages;
+
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Models.Messages;
-
-
     public interface IOIDCNotificationHandlerService : IModuleSpecificService
     {
         /// <summary>

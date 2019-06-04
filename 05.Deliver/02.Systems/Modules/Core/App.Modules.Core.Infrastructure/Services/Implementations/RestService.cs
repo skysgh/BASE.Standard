@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

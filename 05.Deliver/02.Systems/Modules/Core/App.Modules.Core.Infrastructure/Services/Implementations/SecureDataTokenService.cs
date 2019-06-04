@@ -1,11 +1,13 @@
-﻿using App.Modules.Core.Infrastructure.Data.Db;
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using App.Modules.Core.Infrastructure.Constants;
     using App.Modules.Core.Infrastructure.Constants.Db;
-    using App.Modules.Core.Shared.Models.Entities;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 
     /// <summary>
     ///     Implementation of the

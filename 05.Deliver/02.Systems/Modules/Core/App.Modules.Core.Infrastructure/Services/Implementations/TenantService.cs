@@ -1,5 +1,7 @@
-﻿using App.Modules.Core.Infrastructure.Data.Db;
-using App.Modules.Core.Shared.Models.Entities;
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -8,8 +10,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Messages.API.V0100;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
     using AutoMapper.QueryableExtensions;
 
     /// <summary>
@@ -23,24 +24,29 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static readonly string _currentRequestCacheKey = "_CurrentTenantKey";
         private static readonly string _ResourceListCacheKey = "_TenantCache";
         //private readonly ICacheItemService _cacheItemService;
-        private readonly IAzureRedisCacheService _azureRedisCacheService;
+        //private readonly IAzureRedisCacheService _azureRedisCacheService;
         private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
-        private readonly IAppHostNamesService _hostNamesService;
+        //private readonly IAppHostNamesService _hostNamesService;
         private Guid _id;
         private static string _defaultTenantString; 
 
-        public TenantService(IOperationContextService operationContextService, IPrincipalService principalService,
-            IAzureRedisCacheService azureRedisCacheService, ModuleDbContext repositoryService,
-            IAppHostNamesService appHostNamesService)
+        public TenantService(
+            IOperationContextService operationContextService, 
+            IPrincipalService principalService,
+            //IAzureRedisCacheService azureRedisCacheService, 
+            ModuleDbContext repositoryService
+            //,
+            //IAppHostNamesService appHostNamesService
+            )
         {
             this._operationContextService = operationContextService;
             this._principalService = principalService;
 
-            this._azureRedisCacheService = azureRedisCacheService;
+            //this._azureRedisCacheService = azureRedisCacheService;
             this._coreRepositoryService = repositoryService;
-            this._hostNamesService = appHostNamesService;
+            //this._hostNamesService = appHostNamesService;
             _id = Guid.NewGuid();
         }
 
@@ -216,44 +222,47 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public string GetHostNameTenant(string hostName)
         {
-            if (string.IsNullOrWhiteSpace(hostName)){ return null; }
+            throw new NotImplementedException();
 
-            string[] defaultHostNames = _hostNamesService.GetAppHostNamesList();
-            if(defaultHostNames.Length == 0) { return null;}
-            hostName = CleanHostName(hostName);
+            //if (string.IsNullOrWhiteSpace(hostName)){ return null; }
 
-            foreach (var potentialTenant in defaultHostNames)
-            {
-                var regexDefaultHostName = $"/^{potentialTenant.Replace("*", "(.*?)")}/";
-                var match = Regex.Match(hostName, regexDefaultHostName);
-                if (match.Success)
-                {
-                    return match.Value.ToLower();
-                }
-            }
+            //string[] defaultHostNames = _hostNamesService.GetAppHostNamesList();
+            //if(defaultHostNames.Length == 0) { return null;}
+            //hostName = CleanHostName(hostName);
 
-            return null;
+            //foreach (var potentialTenant in defaultHostNames)
+            //{
+            //    var regexDefaultHostName = $"/^{potentialTenant.Replace("*", "(.*?)")}/";
+            //    var match = Regex.Match(hostName, regexDefaultHostName);
+            //    if (match.Success)
+            //    {
+            //        return match.Value.ToLower();
+            //    }
+            //}
+
+            //return null;
         }
 
         public string GetUrlTenant(string path)
         {
-            if (string.IsNullOrWhiteSpace(path)) { return null; }
+            throw new NotImplementedException();
+            //if (string.IsNullOrWhiteSpace(path)) { return null; }
 
-            if (path.StartsWith("/"))
-            {
-                path = path.TrimStart('/');
-            }
-            string[] defaultHostNames = _hostNamesService.GetRoutesList();
-            path = path.ToLower().Split('/').First();
-            foreach (var check in defaultHostNames)
-            {
-                if (path.Equals(check, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return null;
-                }
-            }
+            //if (path.StartsWith("/"))
+            //{
+            //    path = path.TrimStart('/');
+            //}
+            //string[] defaultHostNames = _hostNamesService.GetRoutesList();
+            //path = path.ToLower().Split('/').First();
+            //foreach (var check in defaultHostNames)
+            //{
+            //    if (path.Equals(check, StringComparison.InvariantCultureIgnoreCase))
+            //    {
+            //        return null;
+            //    }
+            //}
 
-            return path;
+            //return path;
         }
 
         public string CleanHostName(string hostName)
@@ -272,32 +281,34 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         private TenantDto SearchCacheForTenantByKey(string searchKey)
         {
-            if (string.IsNullOrWhiteSpace(searchKey))
-            {
-                return null;
-            }
-            //First, search in Request Cache:
-            var list = GetContextCache();
-            TenantDto result = list.FirstOrDefault(x => StringComparer.InvariantCultureIgnoreCase.Compare(x.Key, searchKey) == 0) ;
+            throw new NotImplementedException();
+            //if (string.IsNullOrWhiteSpace(searchKey))
+            //{
+            //    return null;
+            //}
+            ////First, search in Request Cache:
+            //var list = GetContextCache();
+            //TenantDto result = list.FirstOrDefault(x => StringComparer.InvariantCultureIgnoreCase.Compare(x.Key, searchKey) == 0) ;
 
-            if (result != null)
-            {
-                return result;
-            }
-            //Otherwise look in shared cache:
-            string redisKey = GetRedisKey() + searchKey.ToLower();
+            //if (result != null)
+            //{
+            //    return result;
+            //}
+            ////Otherwise look in shared cache:
+            //string redisKey = GetRedisKey() + searchKey.ToLower();
 
-            result = _azureRedisCacheService.Get<TenantDto>(redisKey);
+            //result = _azureRedisCacheService.Get<TenantDto>(redisKey);
 
-            return result;
+            //return result;
         }
 
         private void AddToCache(TenantDto tenant)
         {
-            string redisKey = GetRedisKey() + tenant.Key.ToLower();
-            _azureRedisCacheService.Set(redisKey, tenant, TimeSpan.FromMinutes(5));
-            // Then in local request:
-            GetContextCache().Add(tenant);
+            throw new NotImplementedException();
+            //string redisKey = GetRedisKey() + tenant.Key.ToLower();
+            //_azureRedisCacheService.Set(redisKey, tenant, TimeSpan.FromMinutes(5));
+            //// Then in local request:
+            //GetContextCache().Add(tenant);
         }
 
         private string GetRedisKey()

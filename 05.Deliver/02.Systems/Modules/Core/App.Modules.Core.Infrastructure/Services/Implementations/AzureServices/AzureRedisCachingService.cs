@@ -1,6 +1,8 @@
 ﻿using System;
+using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using CachingFramework.Redis;
 using CachingFramework.Redis.Contracts.Providers;
 using StackExchange.Redis;
@@ -13,12 +15,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         private readonly Lazy<RedisContext> _redisContext;
  
 
-        public AzureRedisCacheService (IOperationContextService operationContextService, IAzureRedisConnection azureRedisConnection)
+        public AzureRedisCacheService (
+            IOperationContextService operationContextService, 
+            IAzureRedisServiceAgent azureRedisConnection)
         {
             this._operationContextService = operationContextService;
             if(azureRedisConnection.Enabled) 
             {
-                _redisContext = new Lazy<RedisContext>(() => new RedisContext(azureRedisConnection.ConnectionMultiplexer));
+                _redisContext = 
+                    new Lazy<RedisContext>(() => 
+                    new RedisContext(azureRedisConnection.ConnectionMultiplexer));
             }
                 //To make this library's context:
              

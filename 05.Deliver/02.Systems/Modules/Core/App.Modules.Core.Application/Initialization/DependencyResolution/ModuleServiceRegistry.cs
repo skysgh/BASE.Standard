@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using App.Modules.Core.Infrastructure.DependencyInjection;
-using App.Modules.Core.Infrastructure.Initialization.Db;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.Core.Application.Initialization.DependencyResolution

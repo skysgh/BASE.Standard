@@ -1,16 +1,28 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-namespace App
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
+{
     public static class AssemblyExtensions
     {
-
+        public static bool IsSameApp(this Assembly assembly)
+        {
+            string name = assembly.GetName().Name;
+            return name.StartsWith(
+                App.Modules.Core.Shared.Constants.Application.AssemblyPrefix);
+        }
+        public static bool IsSameModuleAs(this Assembly assembly, Type referenceType)
+        {
+            string name = assembly.GetName().Name;
+            return name.StartsWith(
+                App.Modules.Core.Shared.Constants.ModuleSpecific.Module.
+                GetAssemblyNamePrefix(referenceType));
+        }
 
 
         [System.Diagnostics.DebuggerHidden]

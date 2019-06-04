@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using App.Modules.Core.Infrastructure.Constants.IDA;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
     public static class ClaimsIdentityExtensions
     {

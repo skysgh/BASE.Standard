@@ -4,12 +4,8 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace App.Modules.Core.Infrastructure.Services.Implementations
-{ 
-}
-
-namespace App.Modules.Core.Infrastructure.Services { 
-
+namespace App.Modules.Core.Infrastructure.Services
+{
     /// <summary>
     /// Contract for a Service to get hold of the
     /// HttpContext.

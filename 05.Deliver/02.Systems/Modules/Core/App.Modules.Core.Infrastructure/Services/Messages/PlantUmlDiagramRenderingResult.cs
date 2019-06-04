@@ -2,7 +2,7 @@
 
 using App.Diagrams.PlantUml.Models;
 
-namespace App.Modules.Core.Infrastructure.Services
+namespace App.Modules.Core.Infrastructure.Services.Messages
 {
     /// <summary>
     /// A response object from the Application's Infrastructure service

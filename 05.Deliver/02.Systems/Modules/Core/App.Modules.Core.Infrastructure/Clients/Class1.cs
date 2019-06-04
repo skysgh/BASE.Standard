@@ -1,17 +1,17 @@
-﻿namespace App.Modules.Core.Infrastructure
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-    using System.Net;
-    using System.Reflection;
-    using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Models.Entities;
-    using Newtonsoft.Json;
-    using RestSharp;
-    using RestSharp.Authenticators;
-    using RestSharp.Deserializers;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Net;
+using System.Reflection;
+using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Models.Entities;
+using Newtonsoft.Json;
+using RestSharp;
+using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 
+namespace App.Modules.Core.Infrastructure.Clients
+{
     public class ScaniiClient
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
@@ -130,7 +130,7 @@
 
         private void Log(string message)
         {
-            this._diagnosticsTracingService.Trace(Shared.Models.Entities.TraceLevel.Verbose, "ScaniiClient: " + message);
+            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "ScaniiClient: " + message);
         }
     }
 

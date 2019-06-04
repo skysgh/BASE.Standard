@@ -1,13 +1,12 @@
-using App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions;
+using System;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace App.Core.Infrastructure.Db.Interception.Implementations.Base
+namespace App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions.Implementations.Base
 {
-    using System;
-
     /// <summary>
     ///     Abstract base class for a strategy to be applied when persisting changes.
     /// <para>

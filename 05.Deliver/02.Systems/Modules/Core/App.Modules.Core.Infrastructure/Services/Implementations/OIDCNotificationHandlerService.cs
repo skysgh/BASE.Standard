@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using App.Modules.Core.Infrastructure.Constants.IDA;
-using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System.Security.Claims;
     using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Models.Messages;
 
     /// <summary>
     ///     Implementation of the
@@ -28,12 +25,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly SemaphoreSlim _mutex;
 
         public OIDCNotificationHandlerService(ISessionService sessionService, IDiagnosticsTracingService diagnosticsTracingService,
-            IPrincipalManagmentService principalManagmentService )
+            IPrincipalManagmentService principalManagmentService)
         {
             _sessionService = sessionService;
 
             _principalManagmentService = principalManagmentService;
-             _mutex = new SemaphoreSlim(1);
+            _mutex = new SemaphoreSlim(1);
             _diagnosticsTracingService = diagnosticsTracingService;
         }
 
@@ -86,7 +83,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 try
                 {
                     _mutex.Wait();
-                    principal = principalManagmentService.CreateIfNotExists(idp, sub, 
+                    principal = principalManagmentService.CreateIfNotExists(idp, sub,
                         authenticationSuccessMessage.UserId ?? identity.Name ?? "Service",
                         unqiueIdentifier,
                         cacheTimeSpan);

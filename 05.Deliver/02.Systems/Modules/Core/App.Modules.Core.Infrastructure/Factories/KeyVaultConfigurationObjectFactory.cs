@@ -1,17 +1,12 @@
-﻿namespace App.Modules.Core.Infrastructure.Factories
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Models.Entities;
+
+namespace App.Modules.Core.Infrastructure.Factories
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Configuration;
-    using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
     using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Attributes;
-    using App.Modules.Core.Shared.Models.Entities;
-
 
 
     /// <summary>
@@ -87,15 +82,15 @@
         /// <param name="target">The target object .</param>
         /// <param name="prefix">The prefix.</param>
         /// <returns></returns>
-        public virtual T Provision<T>(T target, string prefix = null, bool skipIfAlreadyHasValue=true) where T : class
+        public virtual T Provision<T>(T target, string prefix = null, bool skipIfAlreadyHasValue = true) where T : class
         {
-            
+
             var objectType = target.GetType();
 
             var validSources = new[]
                 {ConfigurationSettingSource.SourceType.Any, ConfigurationSettingSource.SourceType.KeyVault};
 
-            
+
             // Iterate over the public properties of the target object
             // using the property's name, o
             foreach (var propertyInfo in typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public |
@@ -106,7 +101,7 @@
 
                 var hostKey = propertyInfo.Name;
 
-                
+
                 // Determine if we should look for this value here:
                 var sourceAttribute = propertyInfo.GetCustomAttribute<ConfigurationSettingSource>();
 
@@ -246,7 +241,7 @@
                 this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Did not find an KeyVault Secret with id '{key}'.");
                 this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.Message);
                 this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.StackTrace);
-                
+
                 if (e.InnerExceptions != null)
                 {
                     foreach (var ex in e.InnerExceptions)
@@ -254,7 +249,7 @@
                         this._diagnosticsTracingService.Trace(TraceLevel.Debug, ex.Message);
                         this._diagnosticsTracingService.Trace(TraceLevel.Debug, ex.StackTrace);
                     }
-                    
+
                 }
                 throw;
             }

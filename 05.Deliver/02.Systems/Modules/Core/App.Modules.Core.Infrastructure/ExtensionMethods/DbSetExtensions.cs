@@ -1,13 +1,10 @@
-﻿using App.Modules.Core.Shared.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using FlexLabs.EntityFrameworkCore;
+using App.Modules.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
     public static class DbSetExtensions
     {

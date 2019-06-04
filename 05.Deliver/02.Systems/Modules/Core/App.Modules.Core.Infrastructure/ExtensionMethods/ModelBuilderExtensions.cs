@@ -1,10 +1,10 @@
-﻿using App.Modules.Core.Infrastructure.Constants.Db;
-using App.Modules.Core.Shared.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using App.Modules.Core.Infrastructure.Constants.Db;
+using App.Modules.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
     public static class ModelBuilderExtensions
     {
@@ -118,22 +118,17 @@ where T : class, IHasKey
         }
 
 
-        public static void DefineTimestampedAuditedRecordStated<T>(this ModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
-        where T : class, IHasTimestamp, IHasInRecordAuditability, IHasRecordState
+        public static void DefineTimestampedRecordStated<T>(
+            this ModelBuilder modelBuilder, 
+            ref int order, 
+            Func<int, int> injectedPropertyDefs = null)
+        where T : class, IHasTimestamp, 
+            //IHasInRecordAuditability, 
+            IHasRecordState
         {
             modelBuilder.AssignIndex<T>(x => x.RecordState, false);
-            modelBuilder.AssignIndex<T>(x => x.LastModifiedOnUtc, false);
-            modelBuilder.AssignIndex<T>(x => x.LastModifiedByPrincipalId, false);
 
-            //3:
-            modelBuilder.Entity<T>()
-                .Property(x => x.Timestamp)
-                .IsConcurrencyToken()
-                .IsRowVersion()
-                //.HasColumnOrder(order++)
-                //.IsRequired()
-                ;
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            order = DefineTimeStamped<T>(modelBuilder, ref order, injectedPropertyDefs);
 
             //4:
 
@@ -144,54 +139,73 @@ where T : class, IHasKey
                 ;
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //5:
-            modelBuilder.Entity<T>()
-                .Property(x => x.CreatedOnUtc)
-                //.HasColumnOrder(order++)
-                .IsRequired(true);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            ////5:
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.CreatedOnUtc)
+            //    //.HasColumnOrder(order++)
+            //    .IsRequired(true);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //6:
-            modelBuilder.Entity<T>()
-                .Property(x => x.CreatedByPrincipalId)
-                //.HasColumnOrder(order++)
-                .HasMaxLength(TextFieldSizes.GuidStringLength)
-                .IsRequired(true);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            ////6:
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.CreatedByPrincipalId)
+            //    //.HasColumnOrder(order++)
+            //    .HasMaxLength(TextFieldSizes.GuidStringLength)
+            //    .IsRequired(true);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //7:
+            ////7:
 
 
-            modelBuilder.Entity<T>()
-                .Property(x => x.LastModifiedOnUtc)
-                //.HasColumnOrder(order++)
-                .IsRequired(true);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.LastModifiedOnUtc)
+            //    //.HasColumnOrder(order++)
+            //    .IsRequired(true);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //8:
-            modelBuilder.Entity<T>()
-                .Property(x => x.LastModifiedByPrincipalId)
-                //.HasColumnOrder(order++)
-                .HasMaxLength(TextFieldSizes.GuidStringLength)
-                .IsRequired(true);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            ////8:
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.LastModifiedByPrincipalId)
+            //    //.HasColumnOrder(order++)
+            //    .HasMaxLength(TextFieldSizes.GuidStringLength)
+            //    .IsRequired(true);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //9:
-            modelBuilder.Entity<T>()
-                .Property(x => x.DeletedOnUtc)
-                //.HasColumnOrder(order++)
-                .IsRequired(false);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            ////9:
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.DeletedOnUtc)
+            //    //.HasColumnOrder(order++)
+            //    .IsRequired(false);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
-            //10:
-            modelBuilder.Entity<T>()
-                .Property(x => x.DeletedByPrincipalId)
-                //.HasColumnOrder(order++)
-                .HasMaxLength(TextFieldSizes.GuidStringLength)
-                .IsRequired(false);
-            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+            ////10:
+            //modelBuilder.Entity<T>()
+            //    .Property(x => x.DeletedByPrincipalId)
+            //    //.HasColumnOrder(order++)
+            //    .HasMaxLength(TextFieldSizes.GuidStringLength)
+            //    .IsRequired(false);
+            //if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
 
         }
+
+        public static int DefineTimeStamped<T>(this ModelBuilder modelBuilder, 
+            ref int order, 
+            Func<int, int> injectedPropertyDefs=null) where T : class, 
+            IHasTimestamp
+        {
+            //3:
+            modelBuilder.Entity<T>()
+                .Property(x => x.Timestamp)
+                .IsConcurrencyToken()
+                .IsRowVersion()
+                //.HasColumnOrder(order++)
+                //.IsRequired()
+                ;
+            if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
+
+            return order;
+        }
+
         public static void DefineRequiredEnabled<T>(this ModelBuilder modelBuilder, ref int order, Func<int, int> injectedPropertyDefs = null)
     where T : class, IHasEnabled
         {

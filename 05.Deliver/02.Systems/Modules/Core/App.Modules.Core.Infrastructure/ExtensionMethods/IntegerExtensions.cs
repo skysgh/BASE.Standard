@@ -1,7 +1,7 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
     public static class IntegerExtensions
     {

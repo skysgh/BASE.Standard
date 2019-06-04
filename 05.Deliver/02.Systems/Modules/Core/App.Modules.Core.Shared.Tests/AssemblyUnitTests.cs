@@ -1,6 +1,9 @@
 using System;
 using Xunit;
 
+using App;
+using App.Modules.Core.Models;
+
 namespace App.Modules.Core.Shared.Tests
 {
     public class AssemblyUnitTests
@@ -8,9 +11,10 @@ namespace App.Modules.Core.Shared.Tests
         [Fact]
         public void EnsureAssemblyNameIsGeneric()
         {
-            Type type = typeof(Shared.Models.IHasGuidId);
+            Type type = typeof(IHasGuidId);
 
-            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.AssemblyPrefix),
+            Assert.True(
+                type.IsSameApp(),
                 "ISO-25010/Portability: ensure assembly names are generic.");
         }
     }

@@ -1,9 +1,11 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using System.Collections;
     using System.Reflection;
-    using App.Modules.Core.Shared.Attributes;
 
     /// <summary>
     ///     Implementation of the
@@ -69,7 +71,7 @@
 
                 if (!string.IsNullOrWhiteSpace(attribute.Roles)
                     &&
-                    this._principalService.IsInRole(attribute.Roles.Split(new[] {',', ';', ':'},
+                    this._principalService.IsInRole(attribute.Roles.Split(new[] { ',', ';', ':' },
                         StringSplitOptions.RemoveEmptyEntries)))
                 {
                     continue;

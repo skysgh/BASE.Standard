@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Azure.KeyVault;
+﻿using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Configuration;
-namespace App
+using Microsoft.Extensions.Configuration.AzureKeyVault;
+
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
     public static class IConfigurationBuilderExtensionMethods
     {

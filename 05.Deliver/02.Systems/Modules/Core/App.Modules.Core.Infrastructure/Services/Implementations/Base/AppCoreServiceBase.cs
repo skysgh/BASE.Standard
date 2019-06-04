@@ -1,7 +1,5 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿namespace App.Modules.Core.Infrastructure.Services.Implementations.Base
 {
-    using App.Modules.Core.Shared.Contracts;
-
     /// <summary>
     /// Abstract base classs for all Core Infrastructure Services.
     /// </summary>

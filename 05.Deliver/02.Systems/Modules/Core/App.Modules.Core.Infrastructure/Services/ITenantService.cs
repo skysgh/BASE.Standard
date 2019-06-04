@@ -1,7 +1,7 @@
-﻿namespace App.Modules.Core.Infrastructure.Services
+﻿using App.Modules.Core.Models.Messages.API.V0100;
+
+namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Messages.API.V0100;
     using App.Modules.Core.Shared.Contracts.Services;
 
     /// <summary>

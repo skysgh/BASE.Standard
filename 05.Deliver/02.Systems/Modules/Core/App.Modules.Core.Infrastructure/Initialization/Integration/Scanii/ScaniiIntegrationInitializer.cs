@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Infrastructure.Exceptions;
 
 namespace App.Modules.Core.Infrastructure.Initialization.Integration.Scanii
 {

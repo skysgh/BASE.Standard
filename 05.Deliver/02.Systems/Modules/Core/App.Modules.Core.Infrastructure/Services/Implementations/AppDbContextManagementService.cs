@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using App.Modules.Core.Infrastructure.Data.Db;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

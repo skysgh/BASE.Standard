@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Modules.Core.Infrastructure.Data.Db.Migrations.Schema;
+using App.Modules.Core.Infrastructure.Data.Db.Migrations.Seeding.ImmutableData;
+using App.Modules.Core.Infrastructure.Data.Db.Migrations.Seeding.MutableData;
 using App.Modules.Core.Infrastructure.DependencyInjection;
-using App.Modules.Core.Infrastructure.Initialization.Db;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar;
 using Lamar.Scanning.Conventions;
 using Microsoft.EntityFrameworkCore;
@@ -36,9 +39,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
                 // And related to *this module* only. (every module registers its own
                 // stuff).
                 assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.GetName().Name.StartsWith(
-                        App.Modules.Core.Shared.Constants.Module.AssemblyNamePrefix
-                    ));
+                    x => x.IsSameModuleAs(this.GetType()));
 
                 // Now scan for DbContext Model definitions and then seeders.
                 ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
@@ -51,12 +52,23 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
         private void ScanAllModulesForModuleSpecificDbContextTypes(IAssemblyScanner assemblyScanner)
         {
             // First, define the Model by looking for Module specific model definers:
-            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextModelBuilderInitializer>();
+            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextModelBuilderSchemaInitializer>();
+
             // Then when the model is defined, look for Module specific DB Seeders:
-            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextSeedInitializer>();
+            // Note that these could have been defined within the Schema Modules
+            // But best to keep them separate:
+            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextModelBuilderImmutableDataSeedingInitializer>();
+
+            // Then when the model is defined, look for Module specific DB Seeders
+            // of Mutable data (eg: Demo stuff) that may or may not be invoked.
+            assemblyScanner.AddAllTypesOf<IHasModuleSpecificDbContextMutableDataSeedingInitializer>();
+
             // Find all DbContexts in this Module (only) and register them *by name* as well as by Type.
-            //assemblyScanner.AddAllTypesOf<DbContext>();
-            assemblyScanner.Convention<NamedDbContextConvention>();
+            assemblyScanner.Convention<NamedDbContextRegistrationConvention>();
+
+            // Ad a scnaning convention for scanning and registering 
+            // ServiceConfiguration concrete types that are not backed by interfaces:
+            assemblyScanner.Convention<ServiceConfigurationRegistrationConvention>();
         }
     }
 }

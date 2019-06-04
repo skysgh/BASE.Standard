@@ -1,12 +1,12 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-namespace App
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
+{
     public static class ObjectExtensions
     {
         public static bool IsDefault<T>(this T value)

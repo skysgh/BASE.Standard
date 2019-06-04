@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using App.Modules.Core.Infrastructure.Data.Db;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Shared.Models.Entities;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 
     /// <summary>
     ///     Implementation of the

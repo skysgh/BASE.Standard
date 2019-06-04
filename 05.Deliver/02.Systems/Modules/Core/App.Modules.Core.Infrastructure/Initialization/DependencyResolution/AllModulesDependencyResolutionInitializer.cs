@@ -1,6 +1,7 @@
 ﻿// Copyright MachineBrains, Inc.
 
 using System;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using App.Modules.Core.Shared.Constants;
 using App.Modules.Core.Shared.Contracts;
 using Lamar;
@@ -38,9 +39,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.DependencyResolution
                 // Which we can see from the dll's name (as long as everybody
                 // sticks to the convention of "App...." 
                 assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.GetName().Name.StartsWith(
-                        Application.AssemblyPrefix
-                    ));
+                    x => x.IsSameApp());
 
                 // Scan across all known assemblies for Services, Factories, etc.
                 // That meet ISomething => Something naming convention:

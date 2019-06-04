@@ -1,11 +1,12 @@
-﻿using App.Modules.Core.Infrastructure.Data.Db;
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Entities.TenancySpecific;
-    using App.Modules.Core.Shared.Models.Messages;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 
     /// <summary>
     ///     Implementation of the

@@ -1,14 +1,14 @@
 // Copyright MachineBrains, Inc.
 
 using System;
-using App.Modules.Core.AppFacade.Initialization.OData;
+using App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration;
 
 namespace App
 {
     public static class IAppCoreOdataModelBuilderConfigurationExtensions
     {
 
-        public static string GetControllerNameByConvention(this IAllModulesOdataModelBuilderConfiguration x, Type dtoType)
+        public static string GetControllerNameByConvention(this IAllModulesOdataModelBuilderConfiguration x, Type dtoType, bool pluralise=true)
         {
             string className = dtoType.Name;
 
@@ -16,10 +16,31 @@ namespace App
 
             if (pos > -1)
             {
-                className = className.Substring(0, pos - 1);
+                className = className.Substring(0, pos);
+            }
+
+            if (pluralise)
+            {
+                if (className.EndsWith("y"))
+                {
+                    // Assembly -> Assemblies
+                    className = className.Substring(0, className.Length - 1) + "ies";
+                }
+                else if (className.EndsWith("s"))
+                {
+                    //Address -> Addresses
+                    className = className + "es";
+                }
+                else
+                {
+                    // Cat,Fish,Foo,Bar,Action,Plate
+                    className = className + "s";
+                }
             }
 
             return className;
+
+
 
         }
 

@@ -1,15 +1,13 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
-
     public static class AppDomainExtensions
     {
         /// <summary>

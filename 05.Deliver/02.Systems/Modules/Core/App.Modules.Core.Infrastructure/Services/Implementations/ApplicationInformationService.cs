@@ -1,11 +1,11 @@
 ﻿
 
+using App.Modules.Core.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-    using App.Modules.Core.Shared.Models.Configuration;
-    using App.Modules.Core.Shared.Models.Configuration.AppHost;
-    using App.Modules.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     ///     Implementation of the

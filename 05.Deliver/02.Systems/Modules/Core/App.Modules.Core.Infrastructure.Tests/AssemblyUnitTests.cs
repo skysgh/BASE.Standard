@@ -1,17 +1,20 @@
 using System;
+using App.Modules.Core.Shared.Constants.All;
 using Xunit;
+using static App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Qualities;
 
 namespace App.Modules.Core.Infrastructure.Tests
 {
-    public class AssemblyUnitTests: TestClassBase
+    public class AssemblyUnitTests : TestClassBase
     {
-        [Fact]
-        public void EnsureAssemblyNameIsGeneric()
+        [Fact(DisplayName="Ensure AssemblyName Begins With Convention")]
+        [Trait(SystemOutcomeTypeTerms.Traits.Quality, SystemOutcomeTypeTerms.Qualities.ISO25010Terms.Portability)]
+        public void Ensure_AssemblyName_Begins_With_Convention()
         {
             Type type = typeof(Infrastructure.Services.IExampleInfrastructureService);
 
-            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.AssemblyPrefix),
-                "ISO-25010/Portability: ensure assembly names are generic.");
+            //Assert.True(type.IsSameApp(),
+            //    $"{ISO25010Terms.Portability}: ensure assembly names are generic.");
         }
 
     }

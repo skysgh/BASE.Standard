@@ -4,6 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.Domain\App.Modules.Core.Domain.csproj" />
     <ProjectReference Include="..\App.Modules.Design.Shared\App.Modules.Design.Shared.csproj" />

@@ -1,12 +1,11 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Security.Cryptography;
-    using System.Text;
     using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-    using App.Modules.Core.Shared.Models.Configuration;
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Entities.TenancySpecific;
-    using App.Modules.Core.Shared.Models.Messages;
 
     /// <summary>
     ///     Implementation of the
@@ -20,7 +19,7 @@
         private readonly MediaMetadataServiceConfiguration _metadataServiceConfiguration;
 
         private readonly IUniversalDateTimeService _universalDateTimeService;
-        
+
         public MediaMetadataService(MediaMetadataServiceConfiguration metadataServiceConfiguration, IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
         {
             this._metadataServiceConfiguration = metadataServiceConfiguration;

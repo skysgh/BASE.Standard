@@ -10,13 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
+    <Compile Remove="Controllers\Api\OData\HOLD\V0100\**" />
     <Compile Remove="Initialization\OData\EXCLUDETILLREADY\**" />
+    <EmbeddedResource Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
+    <EmbeddedResource Remove="Controllers\Api\OData\HOLD\V0100\**" />
     <EmbeddedResource Remove="Initialization\OData\EXCLUDETILLREADY\**" />
+    <None Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
+    <None Remove="Controllers\Api\OData\HOLD\V0100\**" />
     <None Remove="Initialization\OData\EXCLUDETILLREADY\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Views\Ha\Index.cshtml" />
   </ItemGroup>
 
 
@@ -38,15 +40,10 @@
 
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\Ha\Index.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Controllers\Api\Base\" />
+    <Folder Include="Controllers\Api\OData\HOLD\" />
+    <Folder Include="Initialization\Mvc\Implementations\" />
     <Folder Include="Initialization\OpenApi\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

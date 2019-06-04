@@ -10,8 +10,8 @@ namespace App.Modules.Core.Infrastructure.Tests
         {
             Type type = typeof(Domain.Services.IExampleDomainService);
 
-            Assert.True(type.Assembly.GetName().Name.StartsWith(Shared.Constants.Application.AssemblyPrefix),
-                "ISO-25010/Portability: ensure assembly names are generic.");
+            //Assert.True(type.IsSameApp(),
+            //    "ISO-25010/Portability: ensure assembly names are generic.");
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace App.Modules.Core.Infrastructure.Tests
             foreach (var ra in typeof(Domain.Services.IExampleDomainService).Assembly.GetReferencedAssemblies())
             {
                     
-                if (ra.Name == $"{Shared.Constants.Module.AssemblyNamePrefix}Infrastructure" )
+                if (ra.Name == $"{Shared.Constants.ModuleSpecific.Module.GetAssemblyNamePrefix(this.GetType())}Infrastructure" )
                 {
                     found = true;
 

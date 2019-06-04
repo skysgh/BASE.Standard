@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System;
     using System.Linq;
@@ -14,7 +16,7 @@
     /// retrieve a Principal record from the database). For that, use the
     /// PrincipalRecordService.
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.Implementations.AppCoreServiceBase" />
+    /// <seealso cref="AppCoreServiceBase" />
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IPrincipalService" />
     public class PrincipalService : AppCoreServiceBase, IPrincipalService
     {

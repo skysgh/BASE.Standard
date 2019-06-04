@@ -1,12 +1,12 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-namespace App
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
+{
     public static class IEnumerableExtensions
     {
         public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
@@ -35,28 +35,28 @@ namespace App
             }
         }
 
-
-
-        public static T[] SortByOrderByAttribute<T>(this IEnumerable<T> data)
+        public static Type[] SortByOrderByAttribute(this IEnumerable<Type> srcTypes)
         {
-            var tmp = new List<T>();
-            foreach (var o in data)
+            var resultList = new List<Type>();
+
+            foreach (var srcItem in srcTypes)
             {
-                OrderByAttribute attribute = (o).GetType().GetCustomAttributes(typeof(OrderByAttribute), false).FirstOrDefault() as OrderByAttribute;
+                OrderByAttribute attribute = 
+                    srcItem.GetCustomAttributes(typeof(OrderByAttribute), false)
+                    .FirstOrDefault() as OrderByAttribute;
 
                 bool found = false;
                 if ((attribute != null) && (!string.IsNullOrWhiteSpace(attribute.After)))
                 {
-                    for (var i = 0; i < tmp.Count; i++)
+                    for (var i = 0; i < resultList.Count; i++)
                     {
-                        var x = tmp[i];
-                        var t = x.GetType();
-                        OrderByAttribute a = t.GetCustomAttributes(typeof(OrderByAttribute), false).FirstOrDefault() as OrderByAttribute;
+                        Type x = resultList[i];
+                        OrderByAttribute a = x.GetCustomAttributes(typeof(OrderByAttribute), false).FirstOrDefault() as OrderByAttribute;
                         var key = a?.Key;
-                        if (string.IsNullOrEmpty(key)) { key = t.Name; }
+                        if (string.IsNullOrEmpty(key)) { key = x.Name; }
                         if (string.Compare(key, attribute.After, true) == 0)
                         {
-                            tmp.Insert(i, o);
+                            resultList.Insert(i, srcItem);
                             found = true;
                             break;
                         }
@@ -67,9 +67,49 @@ namespace App
                 {
                     continue;
                 }
-                tmp.Add(o);
+                resultList.Add(srcItem);
             }
-            var results = tmp.ToArray();
+            var results = resultList.ToArray();
+
+            return results;
+
+        }
+
+
+        public static T[] SortByOrderByAttribute<T>(this IEnumerable<T> sourceItems)
+        {
+            var resultList = new List<T>();
+            foreach (var srcItem in sourceItems)
+            {
+                Type sourceItemType = (srcItem).GetType();
+                OrderByAttribute attribute = sourceItemType.GetCustomAttributes(typeof(OrderByAttribute), false).FirstOrDefault() as OrderByAttribute;
+
+                bool found = false;
+                if ((attribute != null) && (!string.IsNullOrWhiteSpace(attribute.After)))
+                {
+                    for (var i = 0; i < resultList.Count; i++)
+                    {
+                        var x = resultList[i];
+                        var t = x.GetType();
+                        OrderByAttribute a = t.GetCustomAttributes(typeof(OrderByAttribute), false).FirstOrDefault() as OrderByAttribute;
+                        var key = a?.Key;
+                        if (string.IsNullOrEmpty(key)) { key = t.Name; }
+                        if (string.Compare(key, attribute.After, true) == 0)
+                        {
+                            resultList.Insert(i, srcItem);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                // Was not found, so add at end:
+                if (found)
+                {
+                    continue;
+                }
+                resultList.Add(srcItem);
+            }
+            var results = resultList.ToArray();
 
             return results;
 

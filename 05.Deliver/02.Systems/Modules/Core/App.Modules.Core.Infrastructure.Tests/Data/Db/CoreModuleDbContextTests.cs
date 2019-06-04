@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using App.Modules.Core.Infrastructure.Data.Db;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations;
 using Microsoft.EntityFrameworkCore;

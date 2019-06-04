@@ -1,16 +1,12 @@
-﻿
-using App.Modules.Core.Infrastructure.Data.Db;
+﻿using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
+    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
     using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Attributes;
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Messages;
 
     [Key("Tenant")]
     public class TenantSearchProvider : SearchProviderBase<Tenant>
@@ -19,7 +15,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
             IPrincipalService principalService, ModuleDbContext repositoryService) : base(diagnosticsTracingService,
             principalService, repositoryService)
         {
-            
+
         }
 
         public override IQueryable<SearchResponseItem> Search(string searchTerm)
@@ -41,7 +37,7 @@ namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
             //            Title = x.DisplayName,
             //            Description = x.Properties.SingleOrDefault(y => y.Key == "Description").Value
             //        });
-            
+
             //return results;
         }
     }

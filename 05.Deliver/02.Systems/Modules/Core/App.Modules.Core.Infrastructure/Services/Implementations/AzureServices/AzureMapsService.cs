@@ -1,7 +1,7 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
-using App.Modules.Core.Shared.Models.Messages;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
@@ -18,7 +18,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             _restService = restService;
         }
 
-            public AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true)
+        public AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true)
         {
 
             string subscriptionKey = _azureMapsServiceConfiguration.Key;
@@ -50,9 +50,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             Guid subscriptionKey = _azureDeploymentEnvironmentService.SubscriptionId;
 
 
-                Uri uri = new Uri(
-                    _azureMapsServiceConfiguration.RootUri 
-                    + $"/search/address/reverse/json?subscription-key={subscriptionKey}&api-version=1.0&query={latitude},{longtitude}");
+            Uri uri = new Uri(
+                _azureMapsServiceConfiguration.RootUri
+                + $"/search/address/reverse/json?subscription-key={subscriptionKey}&api-version=1.0&query={latitude},{longtitude}");
 
             AzureMapsReverseSearchResponse result = _restService.Get<AzureMapsReverseSearchResponse>(uri, null);
 

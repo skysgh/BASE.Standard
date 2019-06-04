@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.Exceptions
 {
     public class ToDoException : Exception
     {

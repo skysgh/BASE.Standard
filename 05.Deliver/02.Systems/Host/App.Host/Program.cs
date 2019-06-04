@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using App.Modules.Core.Infrastructure.Initialization;
+using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
-using Microsoft.Extensions.Logging;
 
 namespace App.Host
 {
@@ -51,8 +41,15 @@ namespace App.Host
                  .UseShutdownTimeout(TimeSpan.FromSeconds(1))
                  // Enable extended DependencyLocation as soon as possible:
                  .UseLamar()
-                 .UseKestrel()
-                //.UseKestrel()
+                 .UseKestrel(x =>
+                 {
+                     // For Security reasons:
+                     x.AddServerHeader = false;
+                     x.Limits.MaxRequestHeaderCount = 24;
+                     x.Limits.RequestHeadersTimeout = TimeSpan.FromSeconds(5);
+                     x.Limits.MaxRequestBodySize = (6 * 1024 * 1024);
+                 }
+                 )
                 //.ConfigureLogging(logging =>
                 //{
                 //    logging.AddConsole();
@@ -62,14 +59,16 @@ namespace App.Host
             result
                 .ConfigureAppConfiguration((context, config) =>
            {
-                   //Use the app defined extension method to wire up a keyvault.
-                   config.AddKeyVaultSettingsConfig(enabled:context.HostingEnvironment.IsProduction());
+               //Use the app defined extension method to wire up a keyvault.
+               config.AddKeyVaultSettingsConfig(
+                   enabled: context.HostingEnvironment.IsProduction());
            });
 
 
             result
                 //.UseConfiguration(config)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                 .CaptureStartupErrors(true);
 
 
             return result;

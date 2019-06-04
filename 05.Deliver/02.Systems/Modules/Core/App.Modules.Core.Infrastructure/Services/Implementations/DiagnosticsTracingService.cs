@@ -1,8 +1,11 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Models.Entities;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System.Collections.Generic;
     using System.Threading;
-    using App.Modules.Core.Shared.Models.Entities;
+
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IDiagnosticsTracingService" />
@@ -23,7 +26,7 @@
 
         public void Trace(TraceLevel traceLevel, string message, params object[] arguments)
         {
-            _cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});
+            _cache.Enqueue(new TraceEntry { TracelLevel = traceLevel, Message = message, Args = arguments });
             if (_cache.Count > 100)
             {
                 lock (this)
@@ -59,9 +62,9 @@
             {
                 message = string.Format(message, arguments);
             }
-           
 
-            var threadId = Thread.CurrentThread.Name?? Thread.CurrentThread.ManagedThreadId.ToString();
+
+            var threadId = Thread.CurrentThread.Name ?? Thread.CurrentThread.ManagedThreadId.ToString();
 
             switch (traceLevel)
             {
@@ -81,7 +84,7 @@
                 // That said, WriteLine will be prefixed with "Verbose"
                 // So you can use plain old Write, terminated with "\r\n"
                 case TraceLevel.Critical:
-                     //System.Diagnostics.Trace.TraceError(message);
+                    //System.Diagnostics.Trace.TraceError(message);
                     //System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
                     System.Diagnostics.Trace.Write($"CRITICAL: {threadId}: {message}{lineEnding}");
                     break;

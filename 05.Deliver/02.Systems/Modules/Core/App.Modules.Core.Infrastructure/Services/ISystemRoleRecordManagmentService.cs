@@ -1,10 +1,9 @@
 ﻿using System;
+using App.Modules.Core.Models.Entities;
 
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using App.Modules.Core.Shared.Models.Entities;
-
     /// <summary>
     /// Service to manage the Record of Roles associated
     /// to <see cref="Principal"/> records.

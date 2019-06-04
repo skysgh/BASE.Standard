@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\App.Modules.Design.Shared\App.Modules.Design.Shared.csproj" />
   </ItemGroup>

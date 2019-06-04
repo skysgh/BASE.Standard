@@ -1,19 +1,14 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-using App.Modules.Core.Infrastructure.Constants.Db;
-using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Services.Implementations;
-using App.Modules.Core.Shared.Models;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using App.Modules.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
-    using System;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-
     /// Specifies how objects being loaded into the context are merged with objects already in the context.
     public enum MergeOption
     {

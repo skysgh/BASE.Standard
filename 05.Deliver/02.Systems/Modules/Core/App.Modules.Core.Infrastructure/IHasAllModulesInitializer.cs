@@ -1,4 +1,4 @@
-﻿namespace App.Modules.Core.Infrastructure.Initialization
+﻿namespace App.Modules.Core.Infrastructure
 {
     /// <summary>
     /// The initializer is for the whole app

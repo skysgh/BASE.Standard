@@ -1,8 +1,7 @@
-﻿namespace App.Modules.Core.Infrastructure.Services
-{
-    using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Contracts.Services;
+﻿using App.Modules.Core.Models.Entities;
 
+namespace App.Modules.Core.Infrastructure.Services
+{
     /// <summary>
     /// Contract for an Infrastructure Service to 
     /// provide diagnostic tracing services.

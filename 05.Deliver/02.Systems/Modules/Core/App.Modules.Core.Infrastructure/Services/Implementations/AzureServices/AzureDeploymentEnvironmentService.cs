@@ -1,7 +1,7 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Modules.Core.Configuration.Settings;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
-using App.Modules.Core.Shared.Models.ConfigurationSettings;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
@@ -24,7 +24,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// The Key to the Subscription within which 
         /// this system was deployed to.
         /// </summary>
-        public Guid SubscriptionId { get
+        public Guid SubscriptionId
+        {
+            get
             {
                 return SubscriptionId;
             }
@@ -41,7 +43,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <summary>
         /// The name of the ResourceString to which thi
         /// </summary>
-        public string ResourceGroupName { get {
+        public string ResourceGroupName
+        {
+            get
+            {
                 return _settings.ResourceGroupName;
             }
         }

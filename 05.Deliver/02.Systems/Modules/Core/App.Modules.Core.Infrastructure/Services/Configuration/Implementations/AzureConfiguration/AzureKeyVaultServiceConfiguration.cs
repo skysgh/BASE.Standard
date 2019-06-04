@@ -1,7 +1,5 @@
-﻿
+﻿using App.Modules.Core.Configuration.Settings;
 using App.Modules.Core.Shared.Constants;
-using App.Modules.Core.Shared.Contracts;
-using App.Modules.Core.Shared.Models.ConfigurationSettings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
@@ -39,7 +37,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
         /// <value>
         /// The key illegal characters.
         /// </value>
-        public string[] KeyIllegalCharacters {get; private set;}
+        public string[] KeyIllegalCharacters { get; private set; }
 
 
 
@@ -76,7 +74,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
         public AzureKeyVaultServiceConfiguration(IHostSettingsService hostSettingsService /*NO: IAzureKeyVaultService*/)
         {
             KeyStandardNameComponentDivider = "-";
-            KeyIllegalCharacters = new[] {":", "."};
+            KeyIllegalCharacters = new[] { ":", "." };
 
             var configuration = hostSettingsService.GetObject<AzureKeyVaultConfigurationSettings>();
 
@@ -89,7 +87,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
                 ResourceName = commonConfiguration.RootResourceName;
             }
 
-            
+
             //this.KeyPrefix = configuration.KeyPrefix;
 
 

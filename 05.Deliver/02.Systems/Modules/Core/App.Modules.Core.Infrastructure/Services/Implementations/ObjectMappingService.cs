@@ -1,4 +1,7 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using AutoMapper;
 
@@ -10,6 +13,11 @@
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IObjectMappingService" />
     public class ObjectMappingService : AppCoreServiceBase, IObjectMappingService
     {
+        private readonly ObjectMappingServiceConfiguration _objectMappingServiceConfiguration;
+
+        public ObjectMappingService(ObjectMappingServiceConfiguration objectMappingServiceConfiguration){
+            _objectMappingServiceConfiguration = objectMappingServiceConfiguration;
+        }
         public TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new()
         {
             var target = Mapper.Map<TSource, TTarget>(source);

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using App.Modules.Core.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
 {
     using App.Modules.Core.Shared.Contracts;
-    using App.Modules.Core.Shared.Models.Configuration.AppHost;
-    using App.Modules.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     /// Configuration object to be injected into the 

@@ -1,5 +1,5 @@
 ﻿using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
-using App.Modules.Core.Infrastructure.Integration.Azure.Storage;
+using App.Modules.Core.Infrastructure.ServiceAgents;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using App.Modules.Core.AppFacade.Initialization.DependencyResolution;
-using App.Modules.Core.AppFacade.Initialization.Mvc;
-using App.Modules.Core.AppFacade.Initialization.OData;
-using App.Modules.Core.Infrastructure.Initialization.ObjectMaps;
-using Lamar;
-using Lamar.Scanning.Conventions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using App.Modules.Core.AppFacade.Initialization.DependencyResolution;
 
 namespace App.Modules.Core.AppFacade
 {
@@ -22,11 +14,12 @@ namespace App.Modules.Core.AppFacade
     /// than find the same thing within `Module1Something`.
     /// </para>
     /// </summary>
-    public class ModuleServiceRegistry : ModuleServiceRegistryBase
+    public class ModuleSpecificServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry():base()
+        public ModuleSpecificServiceRegistry() : base()
         {
         }
+
 
 
 

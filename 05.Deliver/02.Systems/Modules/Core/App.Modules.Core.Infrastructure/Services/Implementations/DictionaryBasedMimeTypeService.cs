@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using App.Modules.Core.Infrastructure.Services.Configuration;
     using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;

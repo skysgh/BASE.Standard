@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Azure.Storage.Blob;
 
-namespace App
+namespace App.Modules.Core.Infrastructure.ExtensionMethods
 {
-    using Microsoft.Azure.Storage.Blob;
-
     public static class CloudBlobExtensions
     {
 

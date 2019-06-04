@@ -1,9 +1,8 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
+﻿using App.Modules.Core.Configuration.Settings;
+using App.Modules.Core.Shared.Contracts.Lifecycles;
+
+namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
 {
-    using App.Modules.Core.Shared.Contracts;
-    using App.Modules.Core.Shared.Models.Configuration;
-    using App.Modules.Core.Shared.Models.Configuration.AppHost;
-    using App.Modules.Core.Shared.Models.ConfigurationSettings;
 
     /// <summary>
     /// Configuration object to be injected into the 

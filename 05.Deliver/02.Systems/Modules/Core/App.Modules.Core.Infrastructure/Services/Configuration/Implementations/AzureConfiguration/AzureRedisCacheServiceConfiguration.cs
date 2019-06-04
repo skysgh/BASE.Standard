@@ -1,6 +1,6 @@
 ﻿
 using System;
-using App.Modules.Core.Shared.Models.ConfigurationSettings;
+using App.Modules.Core.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {

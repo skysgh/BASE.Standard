@@ -1,8 +1,8 @@
-﻿using App.Modules.Core.Shared.Models.ConfigurationSettings;
+﻿using App.Modules.Core.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
-    public class AzureDeploymentEnvironmentServiceConfiguration
+    public class AzureDeploymentEnvironmentServiceConfiguration : ICoreServiceConfigurationObject
     {
         public AzureEnvironmentSettings Settings;
 

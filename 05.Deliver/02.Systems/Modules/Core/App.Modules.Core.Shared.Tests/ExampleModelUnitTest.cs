@@ -1,15 +1,15 @@
-using App.Modules.Core.Shared.Models.Implementations;
 using System;
+using App.Modules.Core.Models.Entities;
 using Xunit;
 
 namespace App.Modules.Core.Shared.Tests
 {
     public class ExampleModelUnitTest
     {
-        [Fact]
+        [SelfNamingFact]
         public void Test1()
         {
-            ExampleModel test = new ExampleModel();
+            Principal test = new Principal();
             Assert.True(test.Id == Guid.Empty);
         }
     }

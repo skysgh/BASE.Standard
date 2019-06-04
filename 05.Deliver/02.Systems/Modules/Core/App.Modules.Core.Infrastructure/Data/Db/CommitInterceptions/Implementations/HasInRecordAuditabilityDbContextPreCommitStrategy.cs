@@ -1,11 +1,10 @@
+using App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions.Implementations.Base;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Core.Infrastructure.Db.Interception.Implementations
+namespace App.Modules.Core.Infrastructure.Data.Db.CommitInterceptions.Implementations
 {
-    using App.Core.Infrastructure.Db.Interception.Implementations.Base;
-
     /// <summary>
     /// 
     /// <para>

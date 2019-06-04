@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj" />
+    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Application\App.Modules.TKWMODULENAME.Application.csproj" />
+    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
