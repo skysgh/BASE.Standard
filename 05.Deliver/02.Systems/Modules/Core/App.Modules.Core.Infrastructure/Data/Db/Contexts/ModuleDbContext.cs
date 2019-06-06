@@ -25,12 +25,24 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         public DbSet<DataClassification> DataClassifications;
         //public DbSet<ExampleModel> Examples;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase"/> class.
+        /// <para>
+        /// This is the Constructor called by <see cref="ModuleDbContextFactory"/>,
+        /// which is invoked when one invokes 'dotnet' frome the commandline.
+        /// </para>
+        /// </summary>
         public ModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options)
             :
             base(configuration, appDbContextManagementService, options)
         {
         }
 
+        /// <summary>
+        /// This is the constructor invoked by the system's dependency injector/creator.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="appDbContextManagementService"></param>
         public ModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService)
             : base(configuration, appDbContextManagementService)
         {
@@ -50,6 +62,14 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         public ModuleDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        protected ModuleDbContext(DbContextOptions<ModuleDbContext> options) : base(options)
+        {
+            // Does not need Migration to be kicked off (should not) 
+            // Nor Seeding.
+            // So do not invoke Initialize() from here.
+        }
+
 
         /// <summary>
         /// 

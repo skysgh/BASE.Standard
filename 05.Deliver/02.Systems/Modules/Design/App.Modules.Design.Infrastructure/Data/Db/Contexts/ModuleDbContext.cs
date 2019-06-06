@@ -24,16 +24,30 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
     /// </summary>
     public class ModuleDbContext : ModuleDbContextBase
     {
-        public DbSet<DataClassification> DataClassifications;
+        //public DbSet<DataClassification> DataClassifications;
         //public DbSet<ExampleModel> Examples;
 
-        public ModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options)
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase"/> class.
+        /// </summary>
+        public ModuleDbContext(
+            IConfiguration configuration, 
+            IAppDbContextManagementService appDbContextManagementService, 
+            DbContextOptions<ModuleDbContextBase> options)
             :
             base(configuration, appDbContextManagementService, options)
         {
         }
 
-        public ModuleDbContext(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService)
+        /// <summary>
+        /// This is the constructor invoked by the system's dependency injector/creator.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="appDbContextManagementService"></param>
+        public ModuleDbContext(
+             IConfiguration configuration, 
+             IAppDbContextManagementService appDbContextManagementService)
             : base(configuration, appDbContextManagementService)
         {
         }
@@ -42,7 +56,7 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         /// <para>
         /// Note:
         /// Whereas the other constructors are invoked during run time, 
-        /// this contructor will be called by the 
+        /// this constructor will be called by the 
         /// <see cref="ModuleDbContextFactory"/>,
         /// which is invoked when the 'dotnet ef' commands are issued 
         /// from the command line (eg, for Migrations).
@@ -52,6 +66,16 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         public ModuleDbContext(DbContextOptions options) : base(options)
         {
         }
+
+
+        protected ModuleDbContext(DbContextOptions<ModuleDbContext> options) : base(options)
+        {
+
+            // Does not need Migration to be kicked off (should not) 
+            // Nor Seeding.
+            // So do not invoke Initialize() from here.
+        }
+
 
         /// <summary>
         /// 

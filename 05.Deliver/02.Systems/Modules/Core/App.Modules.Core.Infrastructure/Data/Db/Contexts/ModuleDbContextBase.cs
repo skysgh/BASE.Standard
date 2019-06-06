@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using App.Diagrams.PlantUml.Uml;
 using App.Modules.Core.Infrastructure.Data.Db.Migrations.Schema;
+using App.Modules.Core.Infrastructure.Data.Db.Migrations.Schema.Conventions;
 using App.Modules.Core.Infrastructure.Data.Db.Migrations.Seeding.ImmutableData;
 using App.Modules.Core.Infrastructure.Data.Db.Migrations.Seeding.MutableData;
 using App.Modules.Core.Infrastructure.ExtensionMethods;
@@ -21,7 +22,13 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
     public abstract class ModuleDbContextBase : DbContext
     {
 
-        protected string ModuleName => Shared.Constants.ModuleSpecific.Module.Id(GetType());
+        protected string ModuleName
+        {
+            get { return _moduleName ?? (_moduleName = Shared.Constants.ModuleSpecific.Module.Id(GetType())); }
+            set { _moduleName = value; }
+        }
+        private string _moduleName;
+        
 
         private static IConfiguration Config
         {
@@ -43,6 +50,10 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <summary>
         /// Returns the default name of the ConnectionString
         /// used within config settings.
+        /// <para>
+        /// Used by <see cref="DefaultConnectionString"/>
+        /// to find itself in the Config file.
+        /// </para>
         /// </summary>
         public string DefaultConnectionStringName
         {
@@ -52,13 +63,20 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
                 // Module Name + Type Name and comes out
                 // something like 'CoreDbContext':
                 return _defaultConnectionStringName
-                       ?? (_defaultConnectionStringName = $"{ModuleName}{GetType().Name}");
+                       ?? (_defaultConnectionStringName = $"{this.ModuleName}{GetType().Name}");
             }
         }
         private string _defaultConnectionStringName;
 
 
 
+        /// <summary>
+        /// Gets the default connection string
+        /// for this DbContext.
+        /// </summary>
+        /// <value>
+        /// The default connection string.
+        /// </value>
         public string DefaultConnectionString
         {
             get
@@ -78,13 +96,28 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         }
 
         IAppDbContextManagementService _appDbContextManagementService;
+        private readonly bool _isJointTable;
+        protected bool _migrationsApplied;
 
 
-        protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options) : base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase"/> class.
+        /// <para>
+        /// This is the Constructor called by <see cref="ModuleDbContextFactory"/>,
+        /// which is invoked when one invokes 'dotnet' frome the commandline.
+        /// </para>
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        /// <param name="options">The options.</param>
+        protected ModuleDbContextBase(
+            IConfiguration configuration, 
+            IAppDbContextManagementService appDbContextManagementService, 
+            DbContextOptions<ModuleDbContextBase> options) 
+            : base(options)
         {
-
-
             // _configuration = configuration;
+
             _appDbContextManagementService = appDbContextManagementService;
 
             Initialize();
@@ -94,17 +127,42 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <summary>
         /// This is the constructor invoked by the system's dependency injector/creator.
         /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        /// <param name="isJointTable">if set to <c>true</c> [initialize model].</param>
+        protected ModuleDbContextBase(
+            IConfiguration configuration,
+            IAppDbContextManagementService appDbContextManagementService,
+            bool isJointTable = false)
+            : base()
+        {
+            this._isJointTable = isJointTable;
+            _migrationsApplied = !isJointTable;
+
+            _configuration = configuration;
+            _appDbContextManagementService = appDbContextManagementService;
+            Initialize();
+        }
+
+        /// <summary>
+        /// This is the constructor invoked by the system's dependency injector/creator.
+        /// </summary>
         /// <param name="configuration"></param>
         /// <param name="appDbContextManagementService"></param>
-        protected ModuleDbContextBase(IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService) : base()
+        protected ModuleDbContextBase(
+            IConfiguration configuration, 
+            IAppDbContextManagementService appDbContextManagementService) 
+            : base()
         {
             _configuration = configuration;
             _appDbContextManagementService = appDbContextManagementService;
 
             Initialize();
         }
+
         /// <summary>
-        /// This is the contructor invoked from commandline when making migrations.
+        /// This is the constructor invoked from commandline when making migrations
+        /// using the dotnet ef migrations etc...command.
         /// </summary>
         /// <param name="options"></param>
         protected ModuleDbContextBase(DbContextOptions options) : base(options)
@@ -115,11 +173,25 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         }
 
 
+        protected ModuleDbContextBase(DbContextOptions<ModuleDbContextBase> options) : base(options)
+        {
+            // Does not need Migration to be kicked off (should not) 
+            // Nor Seeding.
+            // So do not invoke Initialize() from here.
+        }
+
+
+        /// <summary>
+        /// Invoked from Constructor.
+        /// </summary>
         private void Initialize()
         {
             _appDbContextManagementService.Register(this);
+            if (_isJointTable)
+            {
+                return;
+            }
             EnsureDbContextIsMigrated();
-
             // Old school seeding:
             EnsureMutableDataSeeded();
         }
@@ -145,46 +217,110 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            InvokeDatabaseModelBuildersInThisAssemblies(modelBuilder);
+            var t = this.GetType().Name;
+
+            InvokeDatabaseModelBuilders(modelBuilder);
 
             IgnoreCoreEntitiesIfThisModuleIsNotCore(modelBuilder);
+            var check = modelBuilder.Model.GetEntityTypes().ToArray();
 
-            // The way Seeding is done has changed since .NET Framework
-            // So don't invoke optional seeding at this point (Immutable data is seen as part of the Model);
+            if (_isJointTable)
+            {
+                var check2 = check;
+            }
+        if (!_isJointTable)
+            {
 
-            InvokeDatabaseModelBuildersInThisAssembliesForSeedingImmutableData(modelBuilder);
+                // The way Seeding is done has changed since .NET Framework
+                // So don't invoke optional seeding at this point (Immutable data is seen as part of the Model);
+                InvokeDatabaseModelBuildersInThisAssembliesForSeedingImmutableData(modelBuilder);
+            }
+            base.OnModelCreating(modelBuilder);
         }
 
-
-
-
-        protected virtual void InvokeDatabaseModelBuildersInThisAssemblies(ModelBuilder modelBuilder)
+        protected virtual void InvokeDatabaseModelBuilders(ModelBuilder modelBuilder)
         {
+            InvokeCoreDatabaseModelBuildersInThisAssembly(modelBuilder);
+            if (_isJointTable)
+            {
+                InvokeDatabaseModelBuildersInCoreAssembly(modelBuilder);
+            }
+        }
+        protected virtual void InvokeDatabaseModelBuildersInCoreAssembly(ModelBuilder modelBuilder)
+        {
+            var type = typeof(App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContextBase);
+            InvokeDatabaseModelBuildersInAssembly(modelBuilder, type);
+        }
+        protected virtual void InvokeCoreDatabaseModelBuildersInThisAssembly(ModelBuilder modelBuilder)
+        {
+            var type = this.GetType();
+            InvokeDatabaseModelBuildersInAssembly(modelBuilder, type);
+        }
+
+        protected virtual void InvokeDatabaseModelBuildersInAssembly(ModelBuilder modelBuilder, Type type)
+        {
+            var modelBuilderTypesA = type.Assembly.GetTypes()
+                .Where(x =>
+                    x.IsConcrete()
+                    && typeof(IHasModuleSpecificDbContextModelBuilderSchemaInitializer).IsAssignableFrom(x)
+                )
+                .SortByOrderByAttribute();
+
+            modelBuilderTypesA.ForEach(x =>
+
+                ((IHasModuleSpecificDbContextModelBuilderSchemaInitializer)
+                    Activator.CreateInstance(x)
+                )
+                .DefineSchema(modelBuilder));
+            //}
 
             // This contract was registered for this module only
             // from within the Module's Infrastructure ServiceRegistry
             var modelBuilderTypes = GetType().Assembly.GetTypes()
                 .Where(x =>
-                x.IsConcrete()
-                && typeof(IHasModuleSpecificDbContextModelBuilderSchemaInitializer).IsAssignableFrom(x)
+                    x.IsConcrete()
+                    && typeof(IHasModuleSpecificDbContextModelBuilderSchemaInitializer).IsAssignableFrom(x)
                 )
                 .SortByOrderByAttribute();
 
             modelBuilderTypes.ForEach(x =>
 
-                    ((IHasModuleSpecificDbContextModelBuilderSchemaInitializer)
+                ((IHasModuleSpecificDbContextModelBuilderSchemaInitializer)
                     Activator.CreateInstance(x)
-                    )
-                    .DefineSchema(modelBuilder));
+                )
+                .DefineSchema(modelBuilder));
         }
 
         protected virtual void IgnoreCoreEntitiesIfThisModuleIsNotCore(ModelBuilder modelBuilder)
         {
-            var type = typeof(Session);
-            if (this.GetType().IsSameModuleAs(type))
+            if (_isJointTable)
             {
                 return;
             }
+
+            var type = typeof(Session);
+            if (this.GetType().IsSameLogicalModuleAs(type))
+            {
+                  return;
+            }
+            IgnoreCoreEntitiesInModule(modelBuilder, type);
+        }
+
+        /// <summary>
+        /// Ignores the core entities if this module is not core.
+        /// <para>
+        /// This is really important when you create a <see cref="DbContext"/>
+        /// in a module. Every module other than Core has to pull ensure that
+        /// any Core entities it's Modules (eg: SchoolModule entities)
+        /// are Navigating to (maybe Core.User) don't cause the
+        /// SchoolModule's DbContext
+        /// to try to create those tables (they've already been created, in the
+        /// Core Schema).
+        /// </para>
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
+        protected virtual void IgnoreCoreEntitiesInModule(ModelBuilder modelBuilder, Type type)
+        {
 
             var entityNamespace = type.Namespace;
             if (entityNamespace.IsNullOrEmpty())
@@ -197,8 +333,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
                     && (x.Namespace ?? "").StartsWith(entityNamespace)
                 ).ToArray();
 
-            modelBuilderTypes.ForEach(x => modelBuilder.Ignore(x));
+            modelBuilderTypes.ForEach(x =>
+                //new DefaultTableAndSchemaNamingConvention().Define<>()
+                modelBuilder.Ignore(x)
+                );
         }
+
 
 
 
@@ -211,7 +351,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
                 .Where(x =>
                 x.IsConcrete()
                 && typeof(IHasModuleSpecificDbContextModelBuilderImmutableDataSeedingInitializer).IsAssignableFrom(x)
-                && x.IsSameModuleAs(GetType())
+                && x.IsSameLogicalModuleAs(GetType())
                 )
                 .SortByOrderByAttribute();
 
@@ -258,7 +398,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
                 x.IsConcrete()
                 && typeof(IHasModuleSpecificDbContextMutableDataSeedingInitializer)
                     .IsAssignableFrom(x)
-                && x.IsSameModuleAs(GetType())
+                && x.IsSameLogicalModuleAs(GetType())
                 )
                 .SortByOrderByAttribute()
                 ;

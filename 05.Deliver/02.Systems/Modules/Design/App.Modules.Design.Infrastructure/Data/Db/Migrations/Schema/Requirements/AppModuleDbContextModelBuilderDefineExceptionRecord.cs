@@ -11,15 +11,16 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Migrations.Schema.Requiremen
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
     public class AppModuleDbContextModelBuilderDefineRequirement
-        : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+        : ModuleSpecificDbContextModelBuilderDefineBase
+            //: IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
-        public void DefineSchema(ModelBuilder modelBuilder)
+        public override void DefineSchema(ModelBuilder modelBuilder)
         {
 
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Requirement>(
                     modelBuilder,
-                    App.Modules.Core.Shared.Constants.ModuleSpecific.Module.Id(this.GetType())
+                    this.DefaultSchemaName
                     );
 
             var order = 1;

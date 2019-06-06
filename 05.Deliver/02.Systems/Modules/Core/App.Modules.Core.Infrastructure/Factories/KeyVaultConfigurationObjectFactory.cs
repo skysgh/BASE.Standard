@@ -1,12 +1,12 @@
-﻿using App.Modules.Core.Infrastructure.ExtensionMethods;
-using App.Modules.Core.Models.Entities;
-
+﻿
 namespace App.Modules.Core.Infrastructure.Factories
 {
     using System;
     using System.ComponentModel;
     using System.Reflection;
+    using App.Modules.Core.Infrastructure.ExtensionMethods;
     using App.Modules.Core.Infrastructure.Services;
+    using App.Modules.Core.Models.Entities;
 
 
     /// <summary>
@@ -121,10 +121,10 @@ namespace App.Modules.Core.Infrastructure.Factories
                     switch (sourceAttribute.Source)
                     {
                         case ConfigurationSettingSource.SourceType.AppSetting:
-                            //For sure it was suppossed to not be set here:
+                            //For sure it was supposed to not be set here:
                             continue;
                         case ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline:
-                            //For sure it was suppossed to not be set here:
+                            //For sure it was supposed to not be set here:
                             continue;
                         case ConfigurationSettingSource.SourceType.Any:
                             var o = propertyInfo.GetValue(target, null);
@@ -137,7 +137,7 @@ namespace App.Modules.Core.Infrastructure.Factories
                             }
                             break;
                         case ConfigurationSettingSource.SourceType.KeyVault:
-                            //For sure it was suppossed to be obtained here:
+                            //For sure it was supposed to be obtained here:
                             break;
                         default:
                             break;

@@ -88,7 +88,7 @@ namespace App.Modules.Core.AppFacade.Initialization.Startup
                 .GetAllInstances<IAllModulesOdataModelBuilderConfiguration>()
                 
                 .Where(
-                    x => x.GetType().IsSameModuleAs(this.GetType())
+                    x => x.GetType().IsSameLogicalModuleAs(this.GetType())
                     )
                 .ToArray();
 

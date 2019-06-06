@@ -15,4 +15,12 @@
     <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Db\Migrations\" />
+    <Folder Include="Data\Db\Migrations\Seeding\" />
+    <Folder Include="Data\Db\Migrations\Schema\" />
+    <Folder Include="Data\Db\Contexts\" />
+    <Folder Include="ObjectMapping\" />
+  </ItemGroup>
+
 </Project>

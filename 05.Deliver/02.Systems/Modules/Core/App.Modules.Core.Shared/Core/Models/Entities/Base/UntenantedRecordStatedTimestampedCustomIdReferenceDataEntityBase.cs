@@ -11,7 +11,6 @@ namespace App.Modules.Core.Models.Entities
     /// <typeparam name="TId"></typeparam>
     public abstract class UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase<TId> :
         UntenantedRecordStatedTimestampedCustomIdEntityBase<TId>,
-        /*Enherited: IHasId<Guid>, IHasTimestamp, IHasInRecordAuditability, IHasRecordState*/
         IHasEnabled,
         IHasDisplayableReferenceData
         //IHasTitleAndDescription,

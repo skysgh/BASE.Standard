@@ -13,7 +13,7 @@ namespace App
                 App.Modules.Core.Shared.Constants.Application.AssemblyPrefix);
         }
 
-        public static bool IsSameModuleAs(this Type type, Type referenceType)
+        public static bool IsSameLogicalModuleAs(this Type type, Type referenceType)
         {
             string name = type.Assembly.GetName().Name;
             return name.StartsWith(
