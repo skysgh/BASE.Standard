@@ -1,5 +1,4 @@
-﻿using App.Modules.Core.Controllers.Api.OData.Configuration;
-using App.Modules.Core.Controllers.Api.OData.Configuration.Base;
+﻿using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.Design.Shared.Models.Entities;
 
 namespace App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration

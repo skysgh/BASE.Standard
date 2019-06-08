@@ -11,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\All\Domain\" />
     <Folder Include="ExtensionMethods\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
   </ItemGroup>
   
 </Project>

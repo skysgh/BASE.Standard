@@ -1,6 +1,6 @@
 ﻿using System;
-using App.Modules.Core.Controllers.Api.OData.Base;
-using App.Modules.Core.Services;
+using App.Modules.All.AppFacade.Controllers.Api.OData;
+using App.Modules.Core.AppFacade.Services;
 using App.Modules.Design.Infrastructure.Data.Db.Contexts;
 using App.Modules.Design.Shared.Models.Entities.NonTenantSpecific;
 using App.Modules.Design.Shared.Models.Messages;

@@ -43,6 +43,7 @@
     <ProjectReference Include="..\..\Modules\Core\App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj" />
     <ProjectReference Include="..\..\Modules\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
     <ProjectReference Include="..\..\Modules\Design\App.Modules.Design.AppFacade\App.Modules.Design.AppFacade.csproj" />
+    <ProjectReference Include="..\..\Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.AppFacade\App.Modules.TKWMODULENAME.AppFacade.csproj" />
   </ItemGroup>
 
 </Project>

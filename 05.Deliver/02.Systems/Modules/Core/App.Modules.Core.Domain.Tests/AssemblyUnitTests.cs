@@ -1,5 +1,6 @@
 using System;
 using App.Modules.All.Shared.Constants;
+using App.Modules.Core.Domain.Services;
 using Xunit;
 
 namespace App.Modules.Core.Domain.Tests
@@ -19,7 +20,7 @@ namespace App.Modules.Core.Domain.Tests
         public void Architecture_Ensure_Business_Domain_Is_Kept_Completely_Separate_From_Infrastructure_Domain()
         {
             bool found = false;
-            foreach (var ra in typeof(Domain.Services.IExampleDomainService).Assembly.GetReferencedAssemblies())
+            foreach (var ra in typeof(IExampleDomainService).Assembly.GetReferencedAssemblies())
             {
                     
                 if (ra.Name == $"{Module.GetAssemblyNamePrefix(this.GetType())}Infrastructure" )

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using App.Modules.Core.Controllers.Api.OData.Base;
+using App.Modules.All.AppFacade.Controllers.Api.OData;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Design.Shared.Models.Entities;
 using Microsoft.AspNetCore.Mvc;

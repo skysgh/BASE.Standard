@@ -21,7 +21,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
 
             var result = 
                 DependencyLocator.Current
-                .GetInstance<IExampleInfrastructureService>();
+                .GetInstance<IDiagnosticsTracingService>();
 
             Xunit.Assert.NotNull(result);
         }

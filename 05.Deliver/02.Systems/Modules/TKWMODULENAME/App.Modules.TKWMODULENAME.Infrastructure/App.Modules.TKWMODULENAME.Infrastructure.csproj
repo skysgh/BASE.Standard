@@ -17,14 +17,8 @@
 
   <ItemGroup>
     <Folder Include="Data\Db\Migrations\" />
-    <Folder Include="Data\Db\Seeding\" />
-    <Folder Include="Data\Db\Schema\" />
-    <Folder Include="Data\Db\Contexts\" />
     <Folder Include="ExtensionMethods\" />
-    <Folder Include="DependencyResolution\" />
     <Folder Include="ServiceAgents\" />
-    <Folder Include="Services\" />
-    <Folder Include="ObjectMapping\" />
   </ItemGroup>
 
 </Project>

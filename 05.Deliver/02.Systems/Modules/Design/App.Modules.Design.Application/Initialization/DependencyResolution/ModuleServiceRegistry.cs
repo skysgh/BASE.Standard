@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using App.Modules.Core.Initialization.DependencyResolution;
-using Microsoft.Extensions.DependencyInjection;
+﻿using App.Modules.All.Application.Initialization.DependencyResolution;
 
 namespace App.Modules.Design.Application.Initialization.DependencyResolution
 {
@@ -20,7 +16,7 @@ namespace App.Modules.Design.Application.Initialization.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry() 
+        public ModuleServiceRegistry()
         {
             //Reuse base Constructor, which scans this logical Module.
         }

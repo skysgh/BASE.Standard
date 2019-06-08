@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using App.Modules.All.AppFacade.Controllers.Api.OData;
 using App.Modules.All.Shared.Constants;
-using App.Modules.Core.Controllers.Api.OData.Base;
 using App.Modules.Core.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 

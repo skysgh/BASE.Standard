@@ -15,11 +15,9 @@
 
   <ItemGroup>
     <Folder Include="Models\Contracts\" />
-    <Folder Include="Models\Entities\" />
-    <Folder Include="Models\Entities\Enums\" />
-    <Folder Include="Models\Messages\" />
     <Folder Include="Configuration\" />
     <Folder Include="Constants\" />
+    <Folder Include="Models\Entities\Enums\" />
   </ItemGroup>
 
 </Project>

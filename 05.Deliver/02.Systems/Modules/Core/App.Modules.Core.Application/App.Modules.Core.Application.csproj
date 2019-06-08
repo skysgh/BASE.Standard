@@ -30,8 +30,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Modules\All\" />
     <Folder Include="ExtensionMethods\" />
+    <Folder Include="Modules\Core\Application\Services\Implementations\" />
   </ItemGroup>
 
 </Project>

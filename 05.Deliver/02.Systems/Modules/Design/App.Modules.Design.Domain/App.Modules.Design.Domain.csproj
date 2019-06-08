@@ -14,4 +14,8 @@
     <ProjectReference Include="..\App.Modules.Design.Shared\App.Modules.Design.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Implementations\" />
+  </ItemGroup>
+
 </Project>

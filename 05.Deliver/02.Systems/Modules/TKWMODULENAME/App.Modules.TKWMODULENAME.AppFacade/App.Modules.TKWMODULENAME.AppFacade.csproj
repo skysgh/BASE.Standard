@@ -16,8 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Apis\Classic\" />
-    <Folder Include="Controllers\Apis\OData\" />
     <Folder Include="Controllers\View\" />
   </ItemGroup>
 

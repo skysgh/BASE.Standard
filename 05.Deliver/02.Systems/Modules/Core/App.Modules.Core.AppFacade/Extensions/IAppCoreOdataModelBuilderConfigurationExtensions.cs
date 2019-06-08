@@ -1,7 +1,7 @@
 // Copyright MachineBrains, Inc.
 
 using System;
-using App.Modules.Core.Controllers.Api.OData.Configuration;
+using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 
 namespace App.Extensions
 {

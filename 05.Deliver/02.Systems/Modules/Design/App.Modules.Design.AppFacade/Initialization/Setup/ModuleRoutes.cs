@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc.
 
+using App.Modules.Core.AppFacade.Initialization.Startup;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Initialization.Startup;
 using Microsoft.AspNetCore.Routing;
 
 namespace App.Modules.Design.AppFacade.Initialization.Setup

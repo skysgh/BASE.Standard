@@ -1,4 +1,4 @@
-﻿using App.Modules.Core.Initialization.Startup;
+﻿using App.Modules.Core.AppFacade.Initialization.Startup;
 using Lamar;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

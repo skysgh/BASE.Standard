@@ -1,4 +1,4 @@
-﻿using App.Modules.All.Shared.DependencyInjection.Lifecycles;
+﻿using App.Modules.All.Shared.DependencyResolution.Lifecycles;
 using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations

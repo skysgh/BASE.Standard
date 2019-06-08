@@ -19,40 +19,6 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("App.Modules.Design.Shared.Models.Entities.Example", b =>
-                {
-                    b.Property<Guid>("Id");
-
-                    b.Property<int>("DataClassificationFK");
-
-                    b.Property<int>("RecordState");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecordState")
-                        .HasName("IX_Example_RecordState");
-
-                    b.ToTable("Examples","Design");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("212f49e5-572c-018e-9aa8-39ee47b592b8"),
-                            DataClassificationFK = 1,
-                            RecordState = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("092f23e0-8dd1-6119-59d5-39ee47b592b9"),
-                            DataClassificationFK = 6,
-                            RecordState = 0
-                        });
-                });
-
             modelBuilder.Entity("App.Modules.Design.Shared.Models.Entities.NonTenantSpecific.Requirement", b =>
                 {
                     b.Property<Guid>("Id");

@@ -1,4 +1,4 @@
-﻿using App.Modules.All.Shared.DependencyInjection.Lifecycles;
+﻿using App.Modules.All.Shared.DependencyResolution.Lifecycles;
 
 namespace App.Modules.All.Shared.Services
 {
@@ -10,7 +10,9 @@ namespace App.Modules.All.Shared.Services
     /// <para>
     /// The contract does not add or enforce any functionality
     /// bar specifying a specific IoC Lifecycle (making it a Singleton
-    /// by inheriting from <see cref="IHasSingletonLifecycle"/>).
+    /// by inheriting from
+    /// <see cref="App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle"/>)
+    /// and allowing for filtering per Core/Module.
     /// </para>
     /// </summary>
     /// <seealso cref="IHasSingletonLifecycle" />

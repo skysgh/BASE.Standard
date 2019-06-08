@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.FileProviders;
-using System.Reflection;
-using App.Modules.Core.Initialization.Views;
-using App.Modules.Design.AppFacade.Controllers;
+﻿using System.Reflection;
+using App.Modules.All.AppFacade.Initialization.Views;
 using App.Modules.Design.AppFacade.Controllers.View;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
 
 namespace App.Modules.Design.AppFacade.Initialization.Views
 {

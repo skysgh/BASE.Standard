@@ -13,4 +13,9 @@
     <ProjectReference Include="..\App.Modules.Design.Shared\App.Modules.Design.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Db\Seeding\ImmutableData\" />
+    <Folder Include="ObjectMapping\" />
+  </ItemGroup>
+
 </Project>
