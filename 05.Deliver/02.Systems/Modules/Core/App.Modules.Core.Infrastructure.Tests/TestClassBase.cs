@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Modules.Core.Common.Tests;
 
 namespace App.Modules.Core.Infrastructure.Tests
 {
@@ -10,7 +11,7 @@ namespace App.Modules.Core.Infrastructure.Tests
         {
             // Use the common DI setup code 
             // located in the common dll:
-            Common.UnitTestDependencyInjectionInitializer.Initialize();
+            UnitTestDependencyInjectionInitializer.Initialize();
 
         }
     }

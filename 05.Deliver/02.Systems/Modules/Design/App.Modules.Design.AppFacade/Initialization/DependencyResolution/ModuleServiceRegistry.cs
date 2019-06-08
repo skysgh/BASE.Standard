@@ -1,6 +1,6 @@
-﻿using App.Modules.Core.AppFacade.Initialization.DependencyResolution;
+﻿using App.Modules.Core.Initialization.DependencyResolution.Base;
 
-namespace App.Modules.Design.AppFacade
+namespace App.Modules.Design.AppFacade.Initialization.DependencyResolution
 {
     /// <summary>
     /// Discoverable (by Reflection) Module specific configuration

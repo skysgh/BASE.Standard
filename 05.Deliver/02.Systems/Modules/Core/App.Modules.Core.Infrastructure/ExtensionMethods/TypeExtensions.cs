@@ -4,8 +4,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using App.Modules.All.Shared.Attributes;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class TypeExtensions
     {

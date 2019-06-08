@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class AppDomainExtensions
     {

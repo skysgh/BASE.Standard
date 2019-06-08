@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using App.Modules.Core.Infrastructure.Constants.IDA;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class ClaimsIdentityExtensions
     {

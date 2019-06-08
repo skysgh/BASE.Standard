@@ -1,6 +1,8 @@
-﻿using App.Modules.Core.Models;
-using App.Modules.Core.Models.Entities;
-using App.Modules.Core.Shared.Models.Messages.Enums;
+﻿using App.Modules.All.Shared.Models;
+using App.Modules.All.Shared.Models.Entities;
+using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Design.Shared.Models.Entities.Enums;
 
 namespace App.Modules.Design.Shared.Models.Entities.NonTenantSpecific
 {

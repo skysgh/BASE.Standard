@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Modules.Core.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using App.Modules.Core.Infrastructure.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace App.Host.Middleware
 {

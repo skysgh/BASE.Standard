@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class ObjectExtensions
     {

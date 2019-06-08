@@ -4,8 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using App.Modules.All.Infrastructure.Attributes;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class IEnumerableExtensions
     {

@@ -29,15 +29,18 @@ You may need to setup Powershell first:
 ## DotNet EF Commands ##
 The following is what is used to add Core MIgrations from the Solution Root folder:
 
-	$moduleName = "core"
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations\Steps" 
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove
+	# The output directory is different for Core than all other modules.
+	# Hence the following changes:
+	$coreModuleName = "core"
+    dotnet ef migrations --project "modules\$($coreModuleName)\app.modules.$($coreModuleName).infrastructure" --startup-project "host\app.host" list --context ModuleDbContext
+    dotnet ef migrations --project "modules\$($coreModuleName)\app.modules.$($coreModuleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Modules\$($coreModuleName)\Infrastructure\Data\Db\Migrations" --context ModuleDbContext  
+    dotnet ef migrations --project "modules\$($coreModuleName)\app.modules.$($coreModuleName).infrastructure" --startup-project "host\app.host" remove --context ModuleDbContext
 
+	# This will work for any module
 	$moduleName = "design"
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations\Steps" 
-    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list --context ModuleDbContext
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations"  --context ModuleDbContext  
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove --context ModuleDbContext
 
 
 Apply Migrations either from the command line, or by running the app:

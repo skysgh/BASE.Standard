@@ -1,9 +1,9 @@
 ﻿// Extensions are always put in root namespace
 // for maximum usability from elsewhere:
 
-using App.Modules.Core.Models;
+using App.Modules.All.Shared.Models;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class IHasSerializedTypeValueExtensions
     {

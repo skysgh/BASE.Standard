@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using App.Modules.Core.Models;
+using App.Modules.All.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class DbSetExtensions
     {

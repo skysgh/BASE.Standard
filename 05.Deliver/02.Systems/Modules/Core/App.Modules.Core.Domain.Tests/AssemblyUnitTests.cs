@@ -1,7 +1,8 @@
 using System;
+using App.Modules.All.Shared.Constants;
 using Xunit;
 
-namespace App.Modules.Core.Infrastructure.Tests
+namespace App.Modules.Core.Domain.Tests
 {
     public class AssemblyUnitTests
     {
@@ -21,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Tests
             foreach (var ra in typeof(Domain.Services.IExampleDomainService).Assembly.GetReferencedAssemblies())
             {
                     
-                if (ra.Name == $"{Shared.Constants.ModuleSpecific.Module.GetAssemblyNamePrefix(this.GetType())}Infrastructure" )
+                if (ra.Name == $"{Module.GetAssemblyNamePrefix(this.GetType())}Infrastructure" )
                 {
                     found = true;
 

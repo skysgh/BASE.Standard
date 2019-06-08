@@ -4,10 +4,10 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using App.Modules.Core.Models;
+using App.Modules.All.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     /// Specifies how objects being loaded into the context are merged with objects already in the context.
     public enum MergeOption

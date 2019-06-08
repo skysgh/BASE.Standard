@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using App.Modules.Core.Application.Initialization.DependencyResolution;
-using App.Modules.Core.Infrastructure.DependencyInjection;
+using App.Modules.Core.Initialization.DependencyResolution;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.Design.Application.Initialization.DependencyResolution

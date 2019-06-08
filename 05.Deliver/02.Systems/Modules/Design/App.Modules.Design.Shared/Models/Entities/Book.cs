@@ -1,5 +1,6 @@
 ﻿using System;
-using App.Modules.Core.Models;
+using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Models;
 
 namespace App.Modules.Design.Shared.Models.Entities
 {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
 using Xunit;
 
-namespace App.Modules.Core.Shared.Tests
+namespace App.Modules.Core.Shared.Tests.Attributes
 {
 
     public class SelfNamingFactAttribute : FactAttribute

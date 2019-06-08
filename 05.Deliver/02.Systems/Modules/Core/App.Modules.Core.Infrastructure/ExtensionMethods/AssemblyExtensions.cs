@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using App.Modules.All.Shared.Constants;
+using Module = App.Modules.All.Shared.Constants.Module;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class AssemblyExtensions
     {
@@ -14,13 +16,13 @@ namespace App.Modules.Core.Infrastructure.ExtensionMethods
         {
             string name = assembly.GetName().Name;
             return name.StartsWith(
-                App.Modules.Core.Shared.Constants.Application.AssemblyPrefix);
+                Application.AssemblyPrefix);
         }
         public static bool IsSameModuleAs(this Assembly assembly, Type referenceType)
         {
             string name = assembly.GetName().Name;
             return name.StartsWith(
-                App.Modules.Core.Shared.Constants.ModuleSpecific.Module.
+                Module.
                 GetAssemblyNamePrefix(referenceType));
         }
 

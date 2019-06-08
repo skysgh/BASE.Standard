@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Azure.Storage.Blob;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class CloudBlobExtensions
     {

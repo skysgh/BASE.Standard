@@ -1,4 +1,4 @@
-﻿using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
+﻿using App.Modules.All.Infrastructure.DependencyResolution;
 
 namespace App.Modules.Design.Infrastructure.Initialization.DependencyResolution
 {

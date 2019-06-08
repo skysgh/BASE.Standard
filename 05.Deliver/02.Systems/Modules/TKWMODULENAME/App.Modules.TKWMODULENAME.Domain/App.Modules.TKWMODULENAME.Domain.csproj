@@ -12,7 +12,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.Domain\App.Modules.Core.Domain.csproj" />
     <ProjectReference Include="..\..\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
-    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj" />
+    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

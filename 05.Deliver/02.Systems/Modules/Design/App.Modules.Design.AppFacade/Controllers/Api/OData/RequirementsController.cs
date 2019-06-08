@@ -1,13 +1,13 @@
 ﻿using System;
-using App.Modules.Core.AppFacade.Controllers.Api.odata.Base;
-using App.Modules.Core.AppFacade.Services;
+using App.Modules.Core.Controllers.Api.OData.Base;
+using App.Modules.Core.Services;
 using App.Modules.Design.Infrastructure.Data.Db.Contexts;
 using App.Modules.Design.Shared.Models.Entities.NonTenantSpecific;
 using App.Modules.Design.Shared.Models.Messages;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Modules.Design.AppFacade.Controllers.api.odata
+namespace App.Modules.Design.AppFacade.Controllers.Api.OData
 {
     public class RequirementsController
          : GuidIdCommonODataControllerBase<

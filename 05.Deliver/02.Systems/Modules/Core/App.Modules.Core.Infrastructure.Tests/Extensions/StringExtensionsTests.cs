@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using App.Modules.Core.Infrastructure.ExtensionMethods;
-using App.Modules.Core.Shared.Tests;
-using Xunit;
+﻿using App.Modules.Core.Shared.Constants.All;
+using App.Modules.Core.Shared.Tests.Attributes;
 using FluentAssertions;
-using App.Modules.Core.Shared.Constants.All;
+using Xunit;
 
-namespace App.Modules.Core.Infrastructure.Tests
+namespace App.Modules.Core.Infrastructure.Tests.Extensions
 {
-    
+
     public class StringExtensions
     {
         [SelfNamingTheory]

@@ -1,7 +1,9 @@
-﻿using App.Modules.Core.AppFacade.Initialization.Views;
-using Microsoft.AspNetCore.Mvc.Razor;
+﻿using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using App.Modules.Core.Initialization.Views;
+using App.Modules.Design.AppFacade.Controllers;
+using App.Modules.Design.AppFacade.Controllers.View;
 
 namespace App.Modules.Design.AppFacade.Initialization.Views
 {
@@ -10,7 +12,7 @@ namespace App.Modules.Design.AppFacade.Initialization.Views
         public void Initialize(RazorViewEngineOptions razorViewEngineOptions)
         {
             //Provide this Module's AppFacade Assembly
-            var assembly = typeof(App.Modules.Core.AppFacade.Controllers.DescribeTypesController)
+            var assembly = typeof(DescribeTypesController)
                         .GetTypeInfo()
                         .Assembly;
 

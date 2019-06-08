@@ -1,5 +1,4 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.ExtensionMethods;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;

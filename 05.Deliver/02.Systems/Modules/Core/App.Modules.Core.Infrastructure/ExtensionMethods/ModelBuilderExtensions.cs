@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
-using App.Modules.Core.Infrastructure.Constants.Db;
-using App.Modules.Core.Models;
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+using App.Modules.All.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class ModelBuilderExtensions
     {
@@ -255,7 +255,7 @@ where T : class, IHasKey
                 modelBuilder.Entity<T>()
                     .Property(x => x.Description)
                     //.HasColumnOrder(order++)
-                    .HasMaxLength(App.Modules.Core.Infrastructure.Constants.Db.TextFieldSizes.X2048)
+                    .HasMaxLength(TextFieldSizes.X2048)
                     .IsRequired(false);
 
             }
@@ -294,7 +294,7 @@ where T : class, IHasKey
             modelBuilder.Entity<T>()
                 .Property(x => x.DisplayStyleHint)
                 //.HasColumnOrder(order++)
-                .HasMaxLength(App.Modules.Core.Infrastructure.Constants.Db.TextFieldSizes.X64)
+                .HasMaxLength(TextFieldSizes.X64)
                 .IsRequired(false);
             if (injectedPropertyDefs != null) { order = injectedPropertyDefs.Invoke(order); }
         }

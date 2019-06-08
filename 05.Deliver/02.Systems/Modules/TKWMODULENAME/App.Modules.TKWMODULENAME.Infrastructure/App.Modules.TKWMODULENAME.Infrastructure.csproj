@@ -12,14 +12,18 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
-    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj" />
+    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Db\Migrations\" />
-    <Folder Include="Data\Db\Migrations\Seeding\" />
-    <Folder Include="Data\Db\Migrations\Schema\" />
+    <Folder Include="Data\Db\Seeding\" />
+    <Folder Include="Data\Db\Schema\" />
     <Folder Include="Data\Db\Contexts\" />
+    <Folder Include="ExtensionMethods\" />
+    <Folder Include="DependencyResolution\" />
+    <Folder Include="ServiceAgents\" />
+    <Folder Include="Services\" />
     <Folder Include="ObjectMapping\" />
   </ItemGroup>
 

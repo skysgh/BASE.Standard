@@ -2,9 +2,10 @@
 
 using App.Diagrams.PlantUml;
 using App.Diagrams.PlantUml.Models;
+using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Infrastructure.Services.Messages;
 
-namespace App.Modules.Core.Infrastructure.Services.Implementations
+namespace App.Modules.Design.Infrastructure.Services.Implementations.Base
 {
     public class NetClassPlantUmlDiagramService : INetClassPlantUmlDiagramService
     {
@@ -20,7 +21,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public PlantUmlDiagramRenderingResult Document(string searchText, string svglinkBaseUrl = null)
         {
             var diagramRenderingRequest = new DiagramRenderingRequest(searchText);
-            diagramRenderingRequest.AssemblyNamePrefixFilter = Shared.Constants.Application.AssemblyPrefix;
+            diagramRenderingRequest.AssemblyNamePrefixFilter = Application.AssemblyPrefix;
             diagramRenderingRequest.RenderingStats.LinkBaseUrl = svglinkBaseUrl;
 
 

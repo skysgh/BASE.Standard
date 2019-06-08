@@ -1,5 +1,6 @@
 using System;
-using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Core.Shared.Tests.Attributes;
 using Xunit;
 
 namespace App.Modules.Core.Shared.Tests

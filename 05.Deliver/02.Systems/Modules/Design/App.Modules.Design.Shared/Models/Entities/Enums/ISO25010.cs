@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Modules.Core.Shared.Models.Messages.Enums
+﻿namespace App.Modules.Design.Shared.Models.Entities.Enums
 {
     public enum ISO25010
     {

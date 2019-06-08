@@ -2,7 +2,7 @@
 
 using App.Modules.Core.Infrastructure.Services.Messages;
 
-namespace App.Modules.Core.Infrastructure.Services
+namespace App.Modules.Design.Infrastructure.Services.Implementations
 {
     /// <summary>
     /// A Service to render a diagram based on provided search term.

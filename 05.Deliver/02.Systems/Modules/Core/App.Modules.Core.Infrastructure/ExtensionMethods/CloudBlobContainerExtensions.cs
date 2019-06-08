@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Azure.Storage.Blob;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
-    using System.IO;
-    using Microsoft.Azure.Storage.Blob;
-
     /// <summary>
     /// Dependencies:
     /// * Nuget Packages:   

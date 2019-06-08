@@ -1,7 +1,6 @@
-﻿using App.Modules.Core.Infrastructure.Data.Db.Contexts;
+﻿using App.Modules.All.Infrastructure.Data.Db.Contexts;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Models.Entities;
-using App.Modules.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

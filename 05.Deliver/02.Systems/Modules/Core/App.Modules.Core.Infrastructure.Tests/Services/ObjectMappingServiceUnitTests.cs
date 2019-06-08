@@ -1,6 +1,6 @@
 ﻿using System;
 using App.Modules.Core.Infrastructure.Services.Implementations;
-using App.Modules.Core.Models.Entities;
+using App.Modules.Core.Shared.Models.Entities;
 using Xunit;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services

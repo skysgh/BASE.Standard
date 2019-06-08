@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>App</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -10,15 +11,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
-    <Compile Remove="Controllers\Api\OData\HOLD\V0100\**" />
-    <Compile Remove="Initialization\OData\EXCLUDETILLREADY\**" />
-    <EmbeddedResource Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
-    <EmbeddedResource Remove="Controllers\Api\OData\HOLD\V0100\**" />
-    <EmbeddedResource Remove="Initialization\OData\EXCLUDETILLREADY\**" />
-    <None Remove="Controllers\Api\OData\HOLD\CoreModule\**" />
-    <None Remove="Controllers\Api\OData\HOLD\V0100\**" />
-    <None Remove="Initialization\OData\EXCLUDETILLREADY\**" />
+    <Compile Remove="Modules\Core\Initialization\Mvc\**" />
+    <Compile Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <Compile Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
+    <Compile Remove="Modules\Core\Initialization\OData\EXCLUDETILLREADY\**" />
+    <Compile Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <Compile Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
+    <EmbeddedResource Remove="Modules\Core\Initialization\Mvc\**" />
+    <EmbeddedResource Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <EmbeddedResource Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
+    <EmbeddedResource Remove="Modules\Core\Initialization\OData\EXCLUDETILLREADY\**" />
+    <EmbeddedResource Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <EmbeddedResource Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
+    <None Remove="Modules\Core\Initialization\Mvc\**" />
+    <None Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <None Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
+    <None Remove="Modules\Core\Initialization\OData\EXCLUDETILLREADY\**" />
+    <None Remove="Modules\Core\Controllers\Api\OData\HOLD\CoreModule\**" />
+    <None Remove="Modules\Core\Controllers\Api\OData\HOLD\V0100\**" />
   </ItemGroup>
 
 
@@ -40,10 +50,10 @@
 
 
   <ItemGroup>
-    <Folder Include="Controllers\Api\OData\HOLD\" />
-    <Folder Include="Initialization\Mvc\Implementations\" />
-    <Folder Include="Initialization\OpenApi\" />
-    <Folder Include="Views\" />
+    <Folder Include="Modules\Core\Controllers\Api\OData\HOLD\" />
+    <Folder Include="Modules\Core\Initialization\OpenApi\" />
+    <Folder Include="Modules\All\" />
+    <Folder Include="Modules\Core\Views\" />
   </ItemGroup>
 
 </Project>

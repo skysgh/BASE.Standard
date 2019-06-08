@@ -1,7 +1,8 @@
 ﻿using System;
-using App.Modules.Core.Models;
-using App.Modules.Core.Models.Entities;
-using App.Modules.Core.Models.Messages.API.V0100;
+using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Design.Shared.Models.Messages
 {

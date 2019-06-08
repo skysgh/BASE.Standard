@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using App.Modules.Design.Shared.Models.Entities;
 
-namespace App.Modules.Design.AppFacade.Controllers.api.odata
+namespace App.Modules.Design.Infrastructure.Data.Db
 {
 
     // Fake Repo for dev purposes only

@@ -57,9 +57,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules.Design", "Modules.D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{21418F38-5589-4788-97AA-42A373107875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Design.Shared.Tests", "Modules\Design\App.Modules.Design.Shared.Tests\App.Modules.Design.Shared.Tests.csproj", "{F4643E53-6392-40EE-8CFE-232F5710AB62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Design.Shared.Tests", "Modules\Design\App.Modules.Design.Shared.Tests\App.Modules.Design.Shared.Tests.csproj", "{F4643E53-6392-40EE-8CFE-232F5710AB62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Design.Infrastructure.Tests", "Modules\Design\App.Modules.Design.Infrastructure.Tests\App.Modules.Design.Infrastructure.Tests.csproj", "{DC49AA43-E367-42D4-9894-6D958E43E3A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Design.Infrastructure.Tests", "Modules\Design\App.Modules.Design.Infrastructure.Tests\App.Modules.Design.Infrastructure.Tests.csproj", "{DC49AA43-E367-42D4-9894-6D958E43E3A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{1D166C1A-4049-446B-87FB-F508133D16B5}"
 	ProjectSection(SolutionItems) = preProject
@@ -70,13 +70,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{1D166C1A-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules.KWMODULENAME", "Modules.KWMODULENAME", "{E954A9B2-91D7-4418-9556-B145D02D4F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULENAME.Shared", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj", "{0BD99370-548F-4206-98CB-052D8C9F32F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.TKWMODULENAME.Shared", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared.csproj", "{0BD99370-548F-4206-98CB-052D8C9F32F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.TKWMODULENAME.Infrastructure", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Infrastructure\App.Modules.TKWMODULENAME.Infrastructure.csproj", "{39EFF974-1092-466F-84A3-2A9C5FDB05A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.TKWMODULENAME.Infrastructure", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Infrastructure\App.Modules.TKWMODULENAME.Infrastructure.csproj", "{39EFF974-1092-466F-84A3-2A9C5FDB05A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.TKWMODULENAME.Domain", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Domain\App.Modules.TKWMODULENAME.Domain.csproj", "{ACE37EE7-E890-42EA-9DFD-CF601C2A609D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.TKWMODULENAME.Domain", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Domain\App.Modules.TKWMODULENAME.Domain.csproj", "{ACE37EE7-E890-42EA-9DFD-CF601C2A609D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.TKWMODULENAME.AppFacade", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.AppFacade\App.Modules.TKWMODULENAME.AppFacade.csproj", "{10EFD428-EC23-4981-8514-6CC81A06A832}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.TKWMODULENAME.AppFacade", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.AppFacade\App.Modules.TKWMODULENAME.AppFacade.csproj", "{10EFD428-EC23-4981-8514-6CC81A06A832}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.TKWMODULENAME.Application", "Modules\TKWMODULENAME\App.Modules.TKWMODULENAME.Application\App.Modules.TKWMODULENAME.Application.csproj", "{AAC62147-2A9C-4FFB-AB04-9E565343224A}"
 EndProject

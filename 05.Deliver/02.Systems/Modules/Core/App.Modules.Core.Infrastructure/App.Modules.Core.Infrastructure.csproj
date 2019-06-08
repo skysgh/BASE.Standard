@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>App</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -10,82 +11,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Roles\**" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Session\**" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <Compile Remove="Services\Configuration\Implementations\AppHostNames\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Roles\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Session\**" />
-    <EmbeddedResource Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <EmbeddedResource Remove="Services\Configuration\Implementations\AppHostNames\**" />
-    <None Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <None Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <None Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <None Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Roles\**" />
-    <None Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\Session\**" />
-    <None Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\SecProfile\**" />
-    <None Remove="Services\Configuration\Implementations\AppHostNames\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederDataClassification.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederNotification.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederPrincipalCategory.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederPrincipalClaim.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederPrincipalLogin.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederPrincipalProperty.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederPrincipalTag.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederSession.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederSessionOperation.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederSystemRole.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederTenant.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederTenantClaim.cs" />
-    <Compile Remove="Data\Db\Migrations\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\AppCoreDbContextSeederTenantProperty.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineAccount.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineAccountGroup.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineAccountPermissionAssignment.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineDataToken.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineExceptionRecord.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineMediaMetadata.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineNotification.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePermission.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipal.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipal2Role.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipal2Tags.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipalCategory.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipalClaim.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipalLogin.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipalProperty.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefinePrincipalTag.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineRole.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineRolePermissionAssignment.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineServiceDefinition.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineServiceOfferingDefinition.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineServicePlanDefinition.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineSession.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineSessionOperationLog.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineSystemRole.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenant.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantClaim.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMember.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMember2Role.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMember2Tags.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMemberCategory.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMemberClaim.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMemberProperty.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantMemberTag.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantProperty.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantServiceProfile.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantServiceProfileServiceOfferingAllocation.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTenantServiceProfileServicePlanAssignment.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleDbContextModelBuilderDefineTSServiceProfileServicePlanAssignment.cs" />
-    <Compile Remove="Data\Db\Migrations\Schema\HOLD WHILE TOO COMPLICATED\AppModuleModelBuilderCommonConfiguration.cs" />
+    <Compile Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
+    <Compile Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
+    <EmbeddedResource Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
+    <None Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
+    <None Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
+    <None Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
+    <None Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
+    <None Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
+    <None Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <None Remove="Modules\Core\Infrastructure\Services\Configuration\Implementations\AppHostNames\**" />
+    <None Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -125,15 +74,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\Constants\" />
-    <Folder Include="Data\Db\CommitInterceptions\" />
-    <Folder Include="ExtensionMethods\NewFolder\" />
-    <Folder Include="Data\Db\Migrations\Schema\Conventions\Fragments\" />
-    <Folder Include="Initialization\Data\Db\" />
-    <Folder Include="Initialization\Integration\Azure\AzureStorage\" />
-    <Folder Include="Initialization\Storage\Db\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Services\Configuration\Implementations\Base\" />
+    <Folder Include="Modules\All\Infrastructure\Data\Db\Migrations\" />
+    <Folder Include="Modules\Core\Infrastructure\Constants\Constants\" />
+    <Folder Include="Modules\Core\Infrastructure\Initialization\Integration\Azure\AzureStorage\" />
+    <Folder Include="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\" />
+    <Folder Include="Modules\Core\Infrastructure\Services\Configuration\Implementations\Base\" />
   </ItemGroup>
 
 </Project>

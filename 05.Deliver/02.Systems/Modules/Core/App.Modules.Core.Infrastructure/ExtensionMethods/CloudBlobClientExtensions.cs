@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Azure.Storage.Blob;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
-    using Microsoft.Azure.Storage.Blob;
-
     public static class CloudBlobClientExtensions
     {
         public static CloudBlobContainer GetContainer(this CloudBlobClient cloudBlobClient, string containerName, bool ensureExists = true, BlobContainerPublicAccessType BlobContainerPublicAccessTypeIfNew = BlobContainerPublicAccessType.Blob)

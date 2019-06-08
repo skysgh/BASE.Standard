@@ -1,8 +1,5 @@
 ﻿using System;
-using App.Modules.Core.Models;
-using App.Modules.Core.Shared.Models;
-using App.Modules.Design.Shared.Models.Entities;
-using App.Modules.Models;
+using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Design.Shared.Models.Entities
 {

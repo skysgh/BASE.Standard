@@ -1,8 +1,9 @@
 ﻿// Copyright MachineBrains, Inc.
 
 using System;
-using App.Modules.Core.Models;
-using App.Modules.Core.Shared.Models.Messages.Enums;
+using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Models;
+using App.Modules.Design.Shared.Models.Entities.Enums;
 
 namespace App.Modules.Design.Shared.Models.Messages
 {

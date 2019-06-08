@@ -1,9 +1,9 @@
 // Copyright MachineBrains, Inc.
 
 using System;
-using App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration;
+using App.Modules.Core.Controllers.Api.OData.Configuration;
 
-namespace App
+namespace App.Extensions
 {
     public static class IAppCoreOdataModelBuilderConfigurationExtensions
     {

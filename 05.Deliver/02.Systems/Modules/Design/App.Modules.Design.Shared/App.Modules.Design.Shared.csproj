@@ -13,4 +13,9 @@
     <ProjectReference Include="..\..\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Constants\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Contracts\" />
+    <Folder Include="Models\Entities\" />
+    <Folder Include="Models\Entities\Enums\" />
+    <Folder Include="Models\Messages\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="Constants\" />
+  </ItemGroup>
+
+</Project>

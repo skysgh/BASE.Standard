@@ -1,11 +1,11 @@
 ﻿using System;
-using App.Modules.Core.AppFacade.ActionFilters;
-using App.Modules.Core.AppFacade.Initialization.Startup;
-using App.Modules.Core.AppFacade.Initialization.Views;
-using App.Modules.Core.Infrastructure.ExtensionMethods;
-using App.Modules.Core.Infrastructure.Initialization.DependencyResolution;
+using App.Modules;
+using App.Modules.All.Infrastructure.DependencyResolution;
+using App.Modules.Core.ActionFilters;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations;
+using App.Modules.Core.Initialization.Startup;
+using App.Modules.Core.Initialization.Views;
 using Lamar;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;

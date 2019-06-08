@@ -3,6 +3,7 @@ using App.Modules.Core.Infrastructure.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using App.Modules.Core.Common.Tests;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services
 {
@@ -16,7 +17,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
         [Xunit.Fact]
         void CanWeGetADependency()
         {
-            Common.UnitTestDependencyInjectionInitializer.Initialize();
+            UnitTestDependencyInjectionInitializer.Initialize();
 
             var result = 
                 DependencyLocator.Current

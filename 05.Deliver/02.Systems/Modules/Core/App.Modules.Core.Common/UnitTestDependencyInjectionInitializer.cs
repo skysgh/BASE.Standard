@@ -1,24 +1,15 @@
-using App.Modules.Core.Infrastructure.Services.Implementations;
-using Lamar;
-using System;
-using System.IO;
-using System.Linq;
-using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Contracts;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
+using App.Modules.All.Infrastructure.DependencyResolution;
 
-namespace App.Modules.Core.Common
+namespace App.Modules.Core.Common.Tests
 {
-    public class UnitTestDependencyInjectionInitializer 
+    public class UnitTestDependencyInjectionInitializer
     {
 
 
         public static void Initialize()
         {
 
-            new Infrastructure.Initialization.DependencyResolution.ApplicationDependencyResolutionContainerInitializer().Initialize();
+            new ApplicationDependencyResolutionContainerInitializer().Initialize();
 
         }
     }

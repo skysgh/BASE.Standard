@@ -1,9 +1,10 @@
-﻿using Microsoft.Azure.KeyVault;
+﻿using App.Modules.All.Shared.Constants;
+using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
 
-namespace App.Modules.Core.Infrastructure.ExtensionMethods
+namespace App
 {
     public static class IConfigurationBuilderExtensionMethods
     {
@@ -24,7 +25,7 @@ namespace App.Modules.Core.Infrastructure.ExtensionMethods
                 return;
             }
 
-            string keyVaultName = builtConfig[App.Modules.Core.Shared.Constants.Application.KeyVaultName];
+            string keyVaultName = builtConfig[Storage.KeyVaultName];
             if (keyVaultName.StartsWith("TODO:"))
             {
                 return;

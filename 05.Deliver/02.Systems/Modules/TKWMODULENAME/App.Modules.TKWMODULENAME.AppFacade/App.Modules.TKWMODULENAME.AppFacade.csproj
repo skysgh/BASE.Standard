@@ -12,7 +12,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj" />
     <ProjectReference Include="..\App.Modules.TKWMODULENAME.Application\App.Modules.TKWMODULENAME.Application.csproj" />
-    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.KWMODULENAME.Shared.csproj" />
+    <ProjectReference Include="..\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared\App.Modules.TKWMODULENAME.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Apis\Classic\" />
+    <Folder Include="Controllers\Apis\OData\" />
+    <Folder Include="Controllers\View\" />
   </ItemGroup>
 
 </Project>

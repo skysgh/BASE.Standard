@@ -2,7 +2,8 @@ using System;
 using Xunit;
 
 using App;
-using App.Modules.Core.Models;
+using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Models;
 
 namespace App.Modules.Core.Shared.Tests
 {
