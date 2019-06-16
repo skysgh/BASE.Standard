@@ -3,6 +3,9 @@ using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
     public class ApiPermissionConfiguration
     {
         private string _serviceIdentifier;

@@ -2,14 +2,12 @@
 
 namespace App.Modules.All.Shared.Factories
 {
-    public enum SequentialGuidType
-    {
-        SequentialAsString,
-        SequentialAsBinary,
-        SequentialAtEnd
-    }
 
 
+    /// <summary>
+    /// A factory to develop a sequential Guid
+    /// to make ordering in database ok.
+    /// </summary>
     public class GuidFactory
     {
         private static readonly Random _random = new Random();
@@ -18,11 +16,20 @@ namespace App.Modules.All.Shared.Factories
         {
         }
 
+        /// <summary>
+        /// Creates new guid.
+        /// </summary>
+        /// <returns></returns>
         public static Guid NewGuid()
         {
             return NewGuid(SequentialGuidType.SequentialAtEnd);
         }
 
+        /// <summary>
+        /// Creates new guid.
+        /// </summary>
+        /// <param name="guidType">Type of the unique identifier.</param>
+        /// <returns></returns>
         public static Guid NewGuid(SequentialGuidType guidType)
         {
             var randomBytes = new byte[10];

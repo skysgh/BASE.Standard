@@ -2,13 +2,17 @@ using System;
 
 namespace App.Modules.All.Shared.Models
 {
+    /// <summary>
+    /// Contract to define that the model
+    /// has sufficient attributes to record who and when
+    /// created, updated, and deleted a record.
+    /// </summary>
     public interface IHasInRecordAuditability
     {
         /// <summary>
         ///     Gets or sets the created on.
         /// </summary>
         DateTimeOffset? CreatedOnUtc { get; set; }
-
 
         /// <summary>
         ///     Gets or sets the created by.

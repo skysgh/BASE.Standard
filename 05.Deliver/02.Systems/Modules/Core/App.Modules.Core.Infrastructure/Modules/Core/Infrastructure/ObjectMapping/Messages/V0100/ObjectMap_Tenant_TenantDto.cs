@@ -1,5 +1,4 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
@@ -7,8 +6,7 @@ using AutoMapper;
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     public class ObjectMap_Tenant_TenantDto
-        : MapUntenantedRecordStatedTimestampedNoIdBase<Tenant, TenantDto>,
-            IHasAutomapperInitializer
+        : MapUntenantedRecordStatedTimestampedNoIdBase<Tenant, TenantDto>
     {
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<Tenant, TenantDto> mappingExpression)

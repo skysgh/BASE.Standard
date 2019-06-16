@@ -2,6 +2,11 @@
 
 namespace App.Modules.All.Shared.Models.Entities
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Shared.Models.IHasTimestamp" />
+    /// <seealso cref="App.Modules.All.Shared.Models.IHasRecordState" />
     public abstract class UntenantedRecordStatedTimestampedNoIdEntityBase : 
         IHasTimestamp,
         IHasRecordState
@@ -15,6 +20,9 @@ namespace App.Modules.All.Shared.Models.Entities
         /// </summary>
         public virtual byte[] Timestamp { get; set; }
 
+        /// <summary>
+        /// Gets or sets the logical state of the record.
+        /// </summary>
         public virtual RecordPersistenceState RecordState { get; set; }
     }
 }

@@ -11,9 +11,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
 {
 
     /// <summary>
-    /// Implementation of 
-    /// <see cref="IDiagnosticsTracesController"/>
-    /// to display DiagnosticsTrace messages
+    /// Controller to return DiagnosticsTrace messages
     /// to authorised users.
     /// </summary>
     /// <seealso cref="CommonODataControllerBase" />
@@ -25,9 +23,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             DiagnosticsTraceRecordDto>
 
     {
-        /// <summary>Initializes a new instance of the <see cref="DiagnosticsTracesController"/> class.</summary>
-        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
-        /// <param name="principalService">The principal service.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosticsTracesController" /> class.
+        /// </summary>
+        /// <param name="controllerCommonServicesService">The controller common services service.</param>
+        /// <param name="dbContext">The database context.</param>
         public DiagnosticsTracesController(
             IControllerCommonServicesService controllerCommonServicesService,
             ModuleDbContext dbContext) :
@@ -36,6 +36,12 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
 
         }
 
+        /// <summary>
+        /// Gets a queryable set of
+        /// <see cref="DiagnosticsTraceRecordDto"/>
+        /// objects.
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<DiagnosticsTraceRecordDto> Get()
         {
             //return null;

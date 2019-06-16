@@ -26,6 +26,9 @@ namespace App.Modules.Core.Shared.Models.Entities
         public virtual string Key { get; set; }
 
 
+        /// <summary>
+        /// TODO
+        /// </summary>
         public int PrincipalLimit { get; set; }
 
         /// <summary>

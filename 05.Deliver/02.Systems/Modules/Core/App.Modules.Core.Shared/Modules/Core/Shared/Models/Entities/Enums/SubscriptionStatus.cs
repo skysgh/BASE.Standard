@@ -1,8 +1,14 @@
 ﻿namespace App.Modules.Core.Shared.Models.Entities
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
     public enum SubscriptionStatus
     {
-        Undefined =0,
+        /// <summary>
+        /// The undefined (an error state)
+        /// </summary>
+        Undefined = 0,
 
 
         /// <summary>

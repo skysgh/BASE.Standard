@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.Core.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:App.Modules.All.Domain.IDomainService">
+            <summary>
+            Contract that all Domain Services
+            should inherit from.
+            <para>
+            The contract does not add or enforce any functionality
+            bar specifying a specific IoC Lifecycle (making it a Singleton
+            by inheriting from
+            <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle"/>)
+            and allowing for filtering per Core/Module.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Services.ISystemService" />
+        </member>
+        <member name="T:App.Modules.Core.Domain.Services.IExampleDomainService">
+            <summary>
+            Contract for an example Domain Service.
+            <para>
+            Implemented by <see cref="T:App.Modules.Core.Domain.Services.IExampleDomainService"/>
+            </para>
+            <para>
+            Used by Unit Tests.
+            </para>
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Domain.Services.Implementations.ExampleDomainService">
+            <summary>
+            An implementation of
+            <see cref="T:App.Modules.Core.Domain.Services.IExampleDomainService"/>.
+            </summary>
+            <seealso cref="T:App.Modules.Core.Domain.Services.IExampleDomainService" />
+        </member>
+    </members>
+</doc>

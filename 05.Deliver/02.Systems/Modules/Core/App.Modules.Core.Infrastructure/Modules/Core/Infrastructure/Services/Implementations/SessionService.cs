@@ -25,14 +25,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly IObjectMappingService _objectMappingService;
 
         public SessionService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
-            IAzureRedisCacheService azureRedisCacheService)
+            IAzureRedisCacheService azureRedisCacheService,
+            IObjectMappingService objectMappingService)
         {
             this._coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
+            this._objectMappingService = objectMappingService;
         }
 
         public Session Get(string uniqueCacheId, TimeSpan? timespanToCache = null)
@@ -141,12 +144,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         protected SessionDto MapToDto(Session session)
         {
-            return AutoMapper.Mapper.Map<Session, SessionDto>(session);
+            return _objectMappingService.Map<Session, SessionDto>(session);
         }
 
         protected Session MaptoEntity(SessionDto session)
         {
-            return AutoMapper.Mapper.Map<SessionDto, Session>(session);
+            return _objectMappingService.Map<SessionDto, Session>(session);
         }
 
         protected string GetRedisKey()

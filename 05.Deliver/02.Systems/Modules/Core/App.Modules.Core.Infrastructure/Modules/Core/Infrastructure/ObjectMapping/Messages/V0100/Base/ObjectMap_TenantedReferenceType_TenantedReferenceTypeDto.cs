@@ -19,7 +19,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.TenantFK, opt => opt.MapFrom(s => s.TenantFK))
                 .ForMember(t => t.RecordState, opt => opt.MapFrom(s => s.RecordState))
-                .ForMember(t => t.Text, opt => opt.MapFrom(s => s.Title))
+                .ForMember(t => t.Title, opt => opt.MapFrom(s => s.Title))
                 ;
             //base.ConfigureMapFromEntityToDto(mappingExpression);
         }

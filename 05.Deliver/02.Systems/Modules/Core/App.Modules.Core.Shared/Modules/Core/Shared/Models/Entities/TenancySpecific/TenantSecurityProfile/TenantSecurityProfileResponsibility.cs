@@ -11,15 +11,36 @@ namespace App.Modules.Core.Shared.Models.Entities
     public class TenantSecurityProfileResponsibility : TenantFKRecordStatedTimestampedGuidIdEntityBase,
         IHasTitleAndDescription
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TenantSecurityProfileResponsibility"/> class.
+        /// </summary>
         public TenantSecurityProfileResponsibility()
         {
             Enabled = true;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="TenantSecurityProfileResponsibility"/> is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool Enabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
         public string Title { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
         public string Description { get; set; }
     }
 

@@ -1,6 +1,9 @@
 ﻿// Copyright MachineBrains, Inc.
 namespace App.Modules.Core.Shared.Models.Entities.TenantMemberOrganisation
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
     public enum TenancyMemberOrganisationRole
     {
         /// <summary>

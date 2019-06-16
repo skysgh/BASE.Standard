@@ -9,7 +9,8 @@ namespace App.Modules.Core.Common.Tests
         public static void Initialize()
         {
 
-            new ApplicationDependencyResolutionContainerInitializer().Initialize();
+            new DependencyResolutionContainerInitializer().Initialize();
+
 
         }
     }

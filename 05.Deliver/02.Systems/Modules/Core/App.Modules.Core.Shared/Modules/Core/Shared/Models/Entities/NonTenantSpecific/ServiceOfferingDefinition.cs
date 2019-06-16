@@ -25,12 +25,24 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// </summary>
         public virtual ServiceDefinition Service {get;set;}
 
-
+        /// <summary>
+        /// TODO: Gets or sets the principal limit.
+        /// </summary>
+        /// <value>
+        /// The principal limit.
+        /// </value>
         public int PrincipalLimit { get; set; }
+
+        /// <summary>
+        /// TODO: Gets or sets the resource limit.
+        /// </summary>
+        /// <value>
+        /// The resource limit.
+        /// </value>
         public int ResourceLimit { get; set; }
 
         /// <summary>
-        /// Price/Month
+        /// TODO: Price/Month
         /// <para>
         /// This billing only comes into effect if the
         /// Service is associated directly to a 

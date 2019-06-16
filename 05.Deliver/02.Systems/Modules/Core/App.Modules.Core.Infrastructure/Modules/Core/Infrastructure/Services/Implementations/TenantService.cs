@@ -28,6 +28,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
+        private readonly IObjectMappingService _objectMappingService;
+
         //private readonly IAppHostNamesService _hostNamesService;
         private Guid _id;
         private static string _defaultTenantString; 
@@ -35,6 +37,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public TenantService(
             IOperationContextService operationContextService, 
             IPrincipalService principalService,
+            IObjectMappingService objectMappingService,
             //IAzureRedisCacheService azureRedisCacheService, 
             ModuleDbContext repositoryService
             //,
@@ -43,6 +46,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             this._operationContextService = operationContextService;
             this._principalService = principalService;
+            this._objectMappingService = objectMappingService;
 
             //this._azureRedisCacheService = azureRedisCacheService;
             this._coreRepositoryService = repositoryService;
@@ -90,11 +94,21 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 if (result != null) { return result; }
             }
            
-            result = this._coreRepositoryService
-                .GetQueryableSet<Tenant>()
-                .Where(x => (x.IsDefault == true))
-                .ProjectTo<TenantDto>((object)null, x => x.Properties)
+            result = 
+                //this._coreRepositoryService
+                //.GetQueryableSet<Tenant>()
+                //.Where(x => (x.IsDefault == true))
+                //.ProjectTo<TenantDto>((object)null, x => x.Properties)
+                
+                this
+                    ._objectMappingService
+                    .ProjectTo<Tenant, TenantDto>(
+                        _coreRepositoryService
+                        .GetQueryableSet<Tenant>()
+                        .Where(x => (x.IsDefault == true))
+                    )
                 .FirstOrDefault();
+
             if (result != null)
             {
                 _defaultTenantString = result.Key;
@@ -188,11 +202,24 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
-                result = this._coreRepositoryService
-                    .GetQueryableSet<Tenant>()
-                    .Where(x => (x.Key == searchKey))
-                    .ProjectTo<TenantDto>((object)null, x => x.Properties)
-                    .FirstOrDefault();
+                //result = this._coreRepositoryService
+                //    .GetQueryableSet<Tenant>()
+                //    .Where(x => (x.Key == searchKey))
+                //    .ProjectTo<TenantDto>((object)null, x => x.Properties)
+                //    .FirstOrDefault();
+
+                result = 
+                    this
+                        ._objectMappingService
+                        .ProjectTo<Tenant, TenantDto>(
+                            _coreRepositoryService
+                                .GetQueryableSet<Tenant>()
+                                .Where(x => (x.Key == searchKey)),
+                            null,
+                            x => x.Properties
+                        )
+                        .FirstOrDefault();
+
             }
 
             if (result != null)

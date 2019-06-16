@@ -1,5 +1,6 @@
 ﻿
 using App.Modules.All.AppFacade.DependencyResolution;
+using Lamar.Scanning.Conventions;
 
 namespace App.Modules.Core.AppFacade.DependencyResolution
 {
@@ -17,12 +18,14 @@ namespace App.Modules.Core.AppFacade.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry() : base()
+        /// <summary>
+        /// Scans this Module's assemblies for
+        /// as per specifications.
+        /// </summary>
+        /// <param name="assemblyScanner"></param>
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
+            base.InnerScan(assemblyScanner);
         }
-
-
-
-
     }
 }

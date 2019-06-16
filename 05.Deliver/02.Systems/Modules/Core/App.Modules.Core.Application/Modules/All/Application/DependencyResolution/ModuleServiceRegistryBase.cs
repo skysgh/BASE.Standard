@@ -1,9 +1,10 @@
 ﻿// Copyright MachineBrains, Inc.
 
+using App.Modules.All.Infrastructure.DependencyResolution;
 using Lamar;
 using Lamar.Scanning.Conventions;
 
-namespace App.Modules.All.Application.Initialization.DependencyResolution
+namespace App.Modules.All.Application.DependencyResolution
 {
     /// <summary>
     /// The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
@@ -13,41 +14,18 @@ namespace App.Modules.All.Application.Initialization.DependencyResolution
     /// within this Module's group of assemblies (it's filtering on the Assembly name)
     /// </para>
     /// </summary>
-    public abstract class ModuleServiceRegistryBase : ServiceRegistry
+    public abstract class ModuleServiceRegistryBase
+        : ModuleServiceRegistryBaseBase
     {
-
-        protected ModuleServiceRegistryBase()
+        /// <summary>
+        /// Scan the scoped assemblies.
+        /// </summary>
+        /// <param name="assemblyScanner">The assembly scanner.</param>
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            Scan();
+            //Do nothing.
         }
 
-        public virtual void Scan()
-        {
-            Scan(assemblyScanner =>
-            {
-
-                //Where we want to be:
-                // Want this scanner to search in all Assemblies related to this system.
-                // And related to *this module* only. (every module registers its own
-                // stuff).
-                assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.IsSameModuleAs(this.GetType()));
-
-                Example(assemblyScanner);
-            });
-        }
-
-        // Scan across all known assemblies for DbContext related model definitions
-        // And seeding definitions, and define the DbContext lifespan:
-        private void Example(IAssemblyScanner assemblyScanner)
-        {
-            // First, define the Model by looking for Module specific model definers:
-            assemblyScanner.AddAllTypesOf<IHasServiceDependencyExample>();
-        }
-
-        public interface IHasServiceDependencyExample
-        {
-        }
     }
 }
 

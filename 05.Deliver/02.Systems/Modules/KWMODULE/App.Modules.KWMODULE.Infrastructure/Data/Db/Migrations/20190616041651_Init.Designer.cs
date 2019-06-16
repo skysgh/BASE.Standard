@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
 {
     [DbContext(typeof(ModuleDbContext))]
-    [Migration("20190608105823_Init")]
+    [Migration("20190616041651_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,14 +45,14 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0a027fd1-35f8-da13-8698-39ee48ea1fdf"),
+                            Id = new Guid("26a6ed19-2da9-c401-e486-39ee70ad642c"),
                             Description = "Some Description",
                             RecordState = 0,
                             Title = "Some Title"
                         },
                         new
                         {
-                            Id = new Guid("2e4ef525-4673-c5c5-a9ad-39ee48ea1fdf"),
+                            Id = new Guid("e6c7aae8-c7c2-e6ed-7bf6-39ee70ad642c"),
                             RecordState = 0,
                             Title = "Another Title"
                         });
@@ -81,7 +81,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7d4426fd-9539-38b1-150f-39ee48ea1fe0"),
+                            Id = new Guid("926fa677-04ea-dc0d-d523-39ee70ad642d"),
                             DataClassificationFK = 1,
                             Description = "Some Description",
                             RecordState = 0,
@@ -89,7 +89,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0084e833-09c5-5198-a877-39ee48ea1fe0"),
+                            Id = new Guid("b6509e2e-4058-53c7-258c-39ee70ad642d"),
                             DataClassificationFK = 6,
                             RecordState = 0,
                             Title = "Another Title"
@@ -123,7 +123,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7bdb7f45-9a0c-203a-e3d9-39ee48ea1fe0"),
+                            Id = new Guid("ee27bb8d-bf02-cd18-8484-39ee70ad642d"),
                             Description = "Some Description",
                             RecordState = 0,
                             TenantFK = new Guid("00000003-0000-0000-0000-000000000000"),
@@ -131,7 +131,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
                         },
                         new
                         {
-                            Id = new Guid("640d5b99-ab4c-843b-d162-39ee48ea1fe1"),
+                            Id = new Guid("c8e49b8c-7393-147d-3ba4-39ee70ad642e"),
                             RecordState = 0,
                             TenantFK = new Guid("00000003-0000-0000-0000-000000000000"),
                             Title = "Another Title"

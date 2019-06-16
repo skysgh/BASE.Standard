@@ -1,4 +1,6 @@
-﻿namespace App.Modules.All.Shared.DependencyResolution.Lifecycles
+﻿using App.Modules.All.Shared.Services;
+
+namespace App.Modules.All.Shared.DependencyResolution.Lifecycles
 {
 
     /// <summary>
@@ -12,7 +14,7 @@
     /// </para>
     /// <para>
     /// Implemented by <see cref="IHasSingletonLifecycle"/>, 
-    /// which in turn is implemented by <see cref="IAppService"/>
+    /// which in turn is implemented by <see cref="ISystemService"/>
     /// etc.
     /// </para>
     /// </summary>

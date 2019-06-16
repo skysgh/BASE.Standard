@@ -2,6 +2,9 @@
 
 namespace App.Modules.All.Shared.Constants
 {
+    /// <summary>
+    /// Constants of the whole Application.
+    /// </summary>
     public static class Application
     {
 
@@ -19,3 +22,4 @@ namespace App.Modules.All.Shared.Constants
     }
 
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

@@ -1,9 +1,15 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
-    public class AzureCommonConfigurationSettings: IHostSettingsBasedConfigurationObject
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Shared.Configuration.Settings.IHostSettingsBasedConfigurationObject" />
+    public class AzureCommonConfigurationSettings
+        : IHostSettingsBasedConfigurationObject
     {
         /// <summary>
         /// Gets or sets the root of the Azure Resource Names
@@ -14,7 +20,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// AppSettings 
         /// key.
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName)]
         public string RootResourceName
         {

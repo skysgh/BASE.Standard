@@ -1,23 +1,53 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
-    public class AzureEnvironmentSettings : IHostSettingsBasedConfigurationObject, IKeyVaultBasedConfigurationObject
+    /// <summary>
+    /// Azure subscription configuration information.
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Shared.Configuration.Settings.IHostSettingsBasedConfigurationObject" />
+    /// <seealso cref="App.Modules.Core.Shared.Configuration.Settings.IKeyVaultBasedConfigurationObject" />
+    public class AzureEnvironmentSettings 
+        : IHostSettingsBasedConfigurationObject
+            , IKeyVaultBasedConfigurationObject
     {
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the subscription identifier
+        /// <para>
+        /// There should always be more than one,
+        /// as Production Data environments
+        /// should always be separate from
+        /// all other Non-Production Data.
+        /// </para>
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreEnvironmentSubscriptionId)]
         public string SubscriptionId { get; set; }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the AAD tenant identifier.
+        /// </summary>
+        /// <value>
+        /// The tenant identifier.
+        /// </value>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreEnvironmentTenantId)]
         public string TenantId { get; set; }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the name of the resource group.
+        /// this system is deployed to.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreEnvironmentResourceGroupName)]
         public string ResourceGroupName { get; set; }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the resource group location.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreEnvironmentResourceGroupLocation)]
         public string ResourceGroupLocation { get; set; }
     }

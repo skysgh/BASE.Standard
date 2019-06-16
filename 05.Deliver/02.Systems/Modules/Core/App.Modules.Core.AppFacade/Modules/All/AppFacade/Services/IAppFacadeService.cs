@@ -15,7 +15,6 @@ namespace App.Modules.All.AppFacade.Services
     /// and allowing for filtering per Core/Module.
     /// </para>
     /// </summary>
-    /// <seealso cref="" />
     public interface IAppFacadeService : ISystemService
     {
     }

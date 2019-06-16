@@ -32,11 +32,11 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
                 .IsRequired(true);
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
-                .Property(x => x.EnabledBeginningUtc)
+                .Property(x => x.EnabledBeginningUtcDateTime)
                 .IsRequired(false);
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
-                .Property(x => x.EnabledEndingUtc)
+                .Property(x => x.EnabledEndingUtcDateTime)
                 .IsRequired(false);
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()

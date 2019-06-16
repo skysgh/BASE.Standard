@@ -1,8 +1,12 @@
-﻿using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+﻿using System;
+using System.Linq.Expressions;
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using Lamar;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
+    using System.Linq;
     using AutoMapper;
 
     /// <summary>
@@ -13,21 +17,49 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IObjectMappingService" />
     public class ObjectMappingService : AppCoreServiceBase, IObjectMappingService
     {
-        private readonly ObjectMappingServiceConfiguration _objectMappingServiceConfiguration;
+        //private readonly ObjectMappingServiceConfiguration _objectMappingServiceConfiguration;
+        private readonly IMapper _mapper;
 
-        public ObjectMappingService(ObjectMappingServiceConfiguration objectMappingServiceConfiguration){
-            _objectMappingServiceConfiguration = objectMappingServiceConfiguration;
+        public ObjectMappingService(
+            //ObjectMappingServiceConfiguration objectMappingServiceConfiguration, 
+            IMapper mapper
+            )
+        {
+            this._mapper = mapper;
         }
         public TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new()
         {
-            var target = Mapper.Map<TSource, TTarget>(source);
+            var target = _mapper.Map<TSource, TTarget>(source);
             return target;
         }
 
         public TTarget Map<TSource, TTarget>(TSource source, TTarget target) where TSource : class where TTarget : class
         {
-            target = Mapper.Map(source, target);
+            target = _mapper.Map(source, target);
             return target;
         }
+
+        public IQueryable<TTarget> ProjectTo<TTarget>(IQueryable source,
+            object parameters = null,
+            params Expression<Func<TTarget, object>>[] expand)
+            where TTarget : new()
+        {
+            return _mapper.ProjectTo<TTarget>(source, parameters, expand);
+        }
+
+        public IQueryable<TTarget> ProjectTo<TSource, TTarget>(IQueryable<TSource> source, 
+            object parameters = null,
+            params Expression<Func<TTarget, object>>[] expand)
+            where TSource : class 
+            where TTarget : new()
+        {
+            return _mapper.ProjectTo<TTarget>(source, parameters, expand);
+        }
+
+
+
+
+
+
     }
 }

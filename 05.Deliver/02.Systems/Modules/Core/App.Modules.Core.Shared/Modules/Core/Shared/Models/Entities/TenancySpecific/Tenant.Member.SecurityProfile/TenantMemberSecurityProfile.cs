@@ -13,15 +13,34 @@ namespace App.Modules.Core.Shared.Models.Entities
     public class TenantMemberSecurityProfile : TenantFKRecordStatedTimestampedGuidIdEntityBase
     {
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this
+        /// <see cref="TenantMemberSecurityProfile"/> is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+        /// </value>
         public bool Enabled { get; set; }
 
 
-        // Points to default pre-established SecurityProfile,
-        // adjusted minorly after that.
-
+        /// <summary>
+        /// Gets or sets the
+        /// FK of the
+        /// parent <see cref="SecurityProfile"/>
+        /// </summary>
         public Guid SecurityProfileFK { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent
+        /// <see cref="TenantSecurityProfile"/>.
+        /// </summary>
         public TenantSecurityProfile SecurityProfile { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the permissions assigned to this
+        /// <see cref="TenantMemberSecurityProfile"/>
+        /// </summary>
         public ICollection<TenantMemberSecurityProfile2PermissionAssignment> PermissionsAssignments
         {
             get
@@ -33,7 +52,8 @@ namespace App.Modules.Core.Shared.Models.Entities
                 _permissionsAssignments = value;
             }
         }
-        public ICollection<TenantMemberSecurityProfile2PermissionAssignment> _permissionsAssignments;
+
+        private ICollection<TenantMemberSecurityProfile2PermissionAssignment> _permissionsAssignments;
 
     }
 }

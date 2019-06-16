@@ -1,8 +1,14 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
+using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
-    public class AzureMapsConfigurationSettings
+    /// <summary>
+    /// TODO
+    /// </summary>
+    public class AzureMapsConfigurationSettings: IHasKey
     {
         /// <summary>
         /// Gets or sets (from AppSettings)
@@ -17,14 +23,21 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureMapsDefaultResourceName)]
         public string ResourceName
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        /// <summary>
+        /// Gets or sets the unique key of the object,
+        /// by which it is indexed when persisted
+        /// (in additional to any primary Id).
+        /// <para>
+        /// Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" /></para>.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureMapsDefaultAuthorizationKey)]
         public string Key
         {

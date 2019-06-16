@@ -2,6 +2,7 @@
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace App.Host
 {
@@ -49,11 +50,14 @@ namespace App.Host
                      x.Limits.MaxRequestBodySize = (6 * 1024 * 1024);
                  }
                  )
-                //.ConfigureLogging(logging =>
-                //{
-                //    logging.AddConsole();
-                //}
-                ;
+                .ConfigureLogging(logging =>
+                 {
+                     //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                     logging.AddConsole();
+                     logging.AddDebug();
+                     logging.AddEventSourceLogger();
+                 });
+
 
             result
                 .ConfigureAppConfiguration((context, config) =>

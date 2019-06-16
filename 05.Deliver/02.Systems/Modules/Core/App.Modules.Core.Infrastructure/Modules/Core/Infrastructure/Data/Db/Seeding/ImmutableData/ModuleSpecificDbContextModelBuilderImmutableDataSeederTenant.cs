@@ -21,7 +21,13 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.ImmutableData
         private static void DefineDefaultTenantProperties(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TenantProperty>().HasData(
-                new TenantProperty { Id = 1.ToGuid(), TenantFK = Constants.Tenancy.Default.DefaultTenant.Id, Key = "Purpose", Value = "Default parent Tenancy." }
+                new TenantProperty
+                {
+                    Id = 1.ToGuid(),
+                    TenantFK = Constants.Tenancy.Default.DefaultTenant.Id,
+                    Key = "Purpose",
+                    Value = "Default parent Tenancy."
+                }
                 );
 
         }

@@ -9,7 +9,7 @@
 //     {
 
 //         // Make sure this kind of secrets are not gotten from AppSettings.
-//         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+//         [ConfigurationSettingSource(SourceType.KeyVault)]
 //         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02ClientId)]
 //         public string Key
 //         {
@@ -17,7 +17,7 @@
 //         }
 
 //         // Make sure this kind of secrets are not gotten from AppSettings.
-//         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+//         [ConfigurationSettingSource(SourceType.KeyVault)]
 //         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02ClientSecret)]
 //         public string Secret
 //         {
@@ -25,7 +25,7 @@
 //         }
 
 
-//         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+//         [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
 //         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02BaseUri)]
 //         public string BaseUri
 //         {
@@ -33,7 +33,7 @@
 //         }
 
 
-//         [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+//         [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
 //         [Alias(Constants.ConfigurationKeys.AppCoreIntegrationService02MiscConfig)]
 //         public string MiscConfig
 //         {

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using App.Modules.All.AppFacade.Initialization.Views;
 using App.Modules.All.Infrastructure.DependencyResolution;
 using App.Modules.Core.AppFacade.ActionFilters;
 using App.Modules.Core.AppFacade.Initialization.Startup;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations;
+using AutoMapper;
 using Lamar;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace App.Host
@@ -60,17 +64,26 @@ namespace App.Host
         /// But it is not longer needed now that we use ConfigureContainer method further down.
         /// </para>
         /// </summary>
-        /// <param name="services"></param>
-        public void ConfigureServices(IServiceCollection services)
+        /// <param name="serviceRegistry"></param>
+        public void ConfigureServices(IServiceCollection serviceRegistry)
         {
+            //serviceRegistry.AddSingleton<ILoggerFactory>(x =>
+            //    new LoggerFactory(
+            //        x.GetServices<ILoggerProvider>(),
+            //        x.GetRequiredService<IOptionsMonitor<LoggerFilterOptions>>()
+            //    ));
+
+            //serviceRegistry.AddSingleton<LoggerFactory>(x =>
+            //    new LoggerFactory(
+            //        x.GetServices<ILoggerProvider>(),
+            //        x.GetRequiredService<IOptionsMonitor<LoggerFilterOptions>>()
+            //    ));
+
             // Note: invoked *before* ConfigureContainer (see below)
             // Note: Services that are registered here are available later,
             // but Lamar recommends leveraging ConfigureContainer instead.
             // See: https://jasperfx.github.io/lamar/documentation/ioc/aspnetcore/
 
-            // Microsoft sample took care of this in COnfigureServices 
-            // and puts it before AddMvc.
-            services.AddOData();
 
         }
 
@@ -87,6 +100,14 @@ namespace App.Host
         /// <param name="serviceRegistry"></param>
         public void ConfigureContainer(ServiceRegistry serviceRegistry)
         {
+            AppDomain.CurrentDomain.LoadAllAppAssemblies();
+
+
+
+            var appAssemblies = AppDomain.CurrentDomain.GetAppAssemblies().ToArray();
+
+
+
 
             //serviceRegistry.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists"));
             //As per https://stackoverflow.com/q/38184583
@@ -97,8 +118,6 @@ namespace App.Host
             // May also have to register IActionContextAccessor, but not yet sure if we need it.
 
 
-
-
             // Note: invoked after ConfigureServices(see below)
             // Note: Already loaded with Framework services, just 
             // not this Application's services, yet.
@@ -107,10 +126,9 @@ namespace App.Host
             // the same initialization sequence.
 
 
-            //// Microsoft sample took care of this in COnfigureServices 
-            //// and puts it before AddMvc.
-            //serviceRegistry.AddOData();
-
+            // Microsoft sample took care of this in COnfigureServices 
+            // and puts it before AddMvc.
+            serviceRegistry.AddOData();
 
             serviceRegistry.AddMvc(
                     options =>
@@ -165,8 +183,7 @@ namespace App.Host
             // The rest can be moved down to a lower assembly that doesn't have
             // any Reference dependency on HTML.
             // This is so that UnitTesting can take advantage of the same setup:
-            new AllModulesDependencyResolutionInitializer().Initialize(serviceRegistry);
-
+            new ApplicationDependencyResolutionInitializer().Initialize(serviceRegistry);
 
 
             serviceRegistry.Configure<RazorViewEngineOptions>(options =>
@@ -179,9 +196,12 @@ namespace App.Host
 
             });
 
+            serviceRegistry.AddAutoMapper(appAssemblies, ServiceLifetime.Singleton);
+
 
 
         }
+
 
         /// <summary>
         /// <para>
@@ -207,7 +227,6 @@ namespace App.Host
             {
                 _container = mvcContainer;
             }
-
             //Which we can register for so that everybody can get to it later:
             DependencyLocator.Current.Initialize(_container);
             // Interesting...this is not the same LamarContainer as the one
@@ -231,6 +250,9 @@ namespace App.Host
                 // Get hands on container
                 string s1 = _container.WhatDidIScan();
                 string s2 = _container.WhatDoIHave();
+                string s2a = _container.WhatDoIHave(typeof(IObjectMappingService));
+                string s2b = _container.WhatDoIHave(typeof(IMapper));
+                string s2c = _container.WhatDoIHave(typeof(LoggerFactory));
                 string s3 = s2;
             }
             else

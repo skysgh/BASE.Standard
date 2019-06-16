@@ -1,15 +1,29 @@
 ﻿using System;
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
+    /// <summary>
+    /// DTO for <see cref="PrincipalLogin"/>
+    /// entities
+    /// </summary>
     public class PrincipalLoginDto
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the principal fk.
+        /// </summary>
         public Guid PrincipalFK { get; set; }
 
         /// <summary>
-        /// Can be used to disallow an external IdP login that was previsoulsy trusted.
+        /// Can be used to disallow an external IdP login that was previously trusted.
         /// </summary>
         public bool Enabled { get; set; }
 

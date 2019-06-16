@@ -1,6 +1,5 @@
-﻿using App.Modules.All.Shared.Constants;
+﻿using App.Modules.All.Infrastructure.DependencyResolution;
 using App.Modules.Core.AppFacade.Initialization.Startup;
-using Lamar;
 using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.AppFacade.DependencyResolution
@@ -13,31 +12,18 @@ namespace App.Modules.All.AppFacade.DependencyResolution
     /// within this Module's group of assemblies (it's filtering on the Assembly name)
     /// </para>
     /// </summary>
-    public abstract class ModuleServiceRegistryBase : ServiceRegistry
+    public abstract class ModuleServiceRegistryBase : ModuleServiceRegistryBaseBase
     {
-        protected string ModuleName => Module.Id(this.GetType());
 
-        protected ModuleServiceRegistryBase()
+
+        /// <summary>
+        /// Scans this Module's assemblies for
+        /// as per specifications.
+        /// </summary>
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            Scan();
-        }
 
-
-        public virtual void Scan()
-        {
-            Scan(assemblyScanner =>
-            {
-
-                //Where we want to be:
-                // Want this scanner to search in all Assemblies related to this system.
-                // And related to *this module* only. (every module registers its own
-                // stuff).
-                assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.IsSameModuleAs(this.GetType()));
-
-                ScanThisLogicalModuleForMvcRouting(assemblyScanner);
-
-            });
+            ScanThisLogicalModuleForMvcRouting(assemblyScanner);
         }
 
 

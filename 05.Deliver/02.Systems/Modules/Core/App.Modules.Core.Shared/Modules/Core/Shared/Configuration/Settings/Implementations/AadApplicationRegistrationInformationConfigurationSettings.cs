@@ -1,4 +1,5 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
@@ -30,7 +31,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// to assign rights to the KeyStore.
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias( Core.Shared.Constants.ConfigurationKeys.AppCoreIDAAADClientId)]
         public string ClientId { get; set; }
 
@@ -40,7 +41,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// registered the application as a client, 
         /// and have obtained an ApplicationId.
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIDAAADClientSecret)]
         public string ClientSecret { get; set; }
     }

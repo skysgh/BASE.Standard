@@ -27,6 +27,9 @@ namespace App.Modules.All.Shared.Models.Entities
         IHasGuidId
         
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TenantFKRecordStatedTimestampedGuidIdEntityBase"/> class.
+        /// </summary>
         protected TenantFKRecordStatedTimestampedGuidIdEntityBase()
         {
             this.Id = GuidFactory.NewGuid();

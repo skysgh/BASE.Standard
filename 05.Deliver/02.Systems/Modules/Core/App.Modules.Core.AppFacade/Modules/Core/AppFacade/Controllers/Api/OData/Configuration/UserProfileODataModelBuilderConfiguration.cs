@@ -3,7 +3,12 @@ using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
 {
-    public class UserProfileODataModelBuilderConfiguration : AllModulesGuidIdODataModelBuilderConfigurationBase<UserProfileDto>
+    /// <summary>
+    /// An OData Configuration object to define the shape of an
+    /// <see cref="UserProfileDto"/>, and relate it to a Controller.
+    /// </summary>
+    /// <seealso cref="ModuleGuidIdODataModelBuilderConfigurationBase{UserProfileDto}" />
+    public class UserProfileODataModelBuilderConfiguration : ModuleGuidIdODataModelBuilderConfigurationBase<UserProfileDto>
     {
     }
 }

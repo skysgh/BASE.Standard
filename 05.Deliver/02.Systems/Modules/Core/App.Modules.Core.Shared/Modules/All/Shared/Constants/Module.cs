@@ -2,6 +2,9 @@
 
 namespace App.Modules.All.Shared.Constants
 {
+    /// <summary>
+    /// Constants related to Modules.
+    /// </summary>
     public static class Module
     {
 

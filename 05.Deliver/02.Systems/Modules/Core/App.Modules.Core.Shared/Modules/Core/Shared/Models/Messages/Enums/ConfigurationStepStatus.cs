@@ -1,11 +1,32 @@
 ﻿namespace App.Modules.Core.Shared.Models.Messages
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
     public enum ConfigurationStepStatus
     {
-        Undefined =0,
-        White=1,
-        Green=2,
-        Orange=3,
-        Red=4,
+        /// <summary>
+        /// Undentified (Error state)
+        /// </summary>
+        Undefined = 0,
+        /// <summary>
+        /// Step 
+        /// </summary>
+        White = 1,
+
+        /// <summary>
+        /// Green (Ok)
+        /// </summary>
+        Green = 2,
+
+        /// <summary>
+        /// Orange (warning)
+        /// </summary>
+        Orange = 3,
+
+        /// <summary>
+        /// Red (error)
+        /// </summary>
+        Red = 4,
     }
 }

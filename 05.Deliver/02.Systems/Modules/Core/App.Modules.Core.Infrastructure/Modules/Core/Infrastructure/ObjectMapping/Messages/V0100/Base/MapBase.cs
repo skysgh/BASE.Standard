@@ -1,17 +1,16 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
 {
-    public abstract class MapBase<TEntity, TDto> : IHasAutomapperInitializer
+    public abstract class MapBase<TEntity, TDto> : Profile
     {
-
-        public virtual void Initialize(IMapperConfigurationExpression config)
+        public MapBase()
         {
-            ConfigureMapFromEntityToDto(config.CreateMap<TEntity,TDto>());
-            ConfigureMapFromDtoToEntity(config.CreateMap<TDto,TEntity>());
+            ConfigureMapFromEntityToDto(CreateMap<TEntity, TDto>());
+            ConfigureMapFromDtoToEntity(CreateMap<TDto, TEntity>());
         }
 
+ 
         protected abstract void ConfigureMapFromEntityToDto(
             IMappingExpression<TEntity, TDto> mappingExpression);
 

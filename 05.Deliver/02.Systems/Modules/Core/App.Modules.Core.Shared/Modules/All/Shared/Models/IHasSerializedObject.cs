@@ -4,11 +4,14 @@ using App.Modules.Core.Shared.Models.Entities;
 namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Inteface used to create auditable records
+    /// Interface used to create auditable records
     /// of previous values of records that are changed.
     /// </summary>
     public interface IHasSerializedObject {
 
+        /// <summary>
+        /// Gets or sets the serialized Type of the serialized value (ie, it's Type fullname).
+        /// </summary>
         Guid SerializedObjectType { get; set; }
 
         /// <summary>

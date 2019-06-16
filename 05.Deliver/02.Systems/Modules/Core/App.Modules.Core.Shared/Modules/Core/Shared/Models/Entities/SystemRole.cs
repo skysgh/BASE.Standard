@@ -7,8 +7,16 @@ namespace App.Modules.Core.Shared.Models.Entities
     ///     Roles within this System (not the same as Claims Roles that came in via remote IdP)
     /// And not the same as custom Tenant roles (still to solve).
     /// </summary>
-    public class SystemRole : UntenantedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasKey
+    public class SystemRole 
+        : UntenantedRecordStatedTimestampedGuidIdEntityBase
+            , IHasEnabled, IHasKey, IHasDataClassification
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
+        /// <para>
+        /// See <see cref="T:App.Modules.All.Shared.Models.IHasEnabledBeginningUtcDateTime" />
+        /// and <see cref="T:App.Modules.All.Shared.Models.IHasEnabledEndUtcDateTime" /></para>
+        /// </summary>
         public virtual bool Enabled { get; set; }
 
         /// <summary>
@@ -22,7 +30,14 @@ namespace App.Modules.Core.Shared.Models.Entities
         public virtual string Key { get; set; }
 
 
-        public virtual NZDataClassification? DataClassificationFK { get; set; }
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// data classification.
+        /// </summary>
+        public virtual NZDataClassification DataClassificationFK { get; set; }
+        /// <summary>
+        /// Gets or sets the data classification of this entity.
+        /// </summary>
         public virtual DataClassification DataClassification { get; set; }
     }
 }

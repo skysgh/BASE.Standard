@@ -3,14 +3,18 @@ using App.Modules.Design.Shared.Models.Entities;
 
 namespace App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration
 {
-    public class PressOdataModelBuilderConfiguration : AllModulesGuidIdODataModelBuilderConfigurationBase<Press>
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase{App.Modules.Design.Shared.Models.Entities.Press}" />
+    public class PressOdataModelBuilderConfiguration : ModuleGuidIdODataModelBuilderConfigurationBase<Press>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionRecordOdataModelBuilderConfiguration"/> class.
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IAllModulesOdataModelBuilderConfiguration"/> won't find them.
+        /// <see cref="IModuleOdataModelBuilderConfiguration"/> won't find them.
         /// </internal>
         public PressOdataModelBuilderConfiguration() : base()
         {

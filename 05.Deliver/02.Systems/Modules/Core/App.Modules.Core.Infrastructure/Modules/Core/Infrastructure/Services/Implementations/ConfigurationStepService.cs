@@ -53,7 +53,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             var configurationStep = new ConfigurationStepRecord()
             {
-                DateTime = this._universalDateTimeService.NowUtc(),
+                UtcDateTimeCreated = this._universalDateTimeService.NowUtc(),
                 Type = type,
                 Status = status,
                 Title = title,

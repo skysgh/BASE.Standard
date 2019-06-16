@@ -2,7 +2,6 @@
 using App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.All.Infrastructure.DependencyResolution.Conventions;
-using Lamar;
 using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
@@ -16,29 +15,15 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
     /// within this Module's group of assemblies (it's filtering on the Assembly name)
     /// </para>
     /// </summary>
-    public abstract class ModuleServiceRegistryBase : ServiceRegistry
+    public abstract class ModuleServiceRegistryBase : ModuleServiceRegistryBaseBase
     {
 
-        protected ModuleServiceRegistryBase()
+
+
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            Scan();
-        }
-
-        public virtual void Scan()
-        {
-            Scan(assemblyScanner =>
-            {
-
-                //Where we want to be:
-                // Want this scanner to search in all Assemblies related to this system.
-                // And related to *this module* only. (every module registers its own
-                // stuff).
-                assemblyScanner.AssembliesFromApplicationBaseDirectory(
-                    x => x.IsSameModuleAs(this.GetType()));
-
-                // Now scan for DbContext Model definitions and then seeders.
-                ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
-            });
+            // Now scan for DbContext Model definitions and then seeders.
+            ScanAllModulesForModuleSpecificDbContextTypes(assemblyScanner);
         }
 
 

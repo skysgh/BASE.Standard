@@ -6,6 +6,9 @@
     /// </summary>
     public interface IHasInitialize
     {
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         void Initialize();
     }
 
@@ -15,6 +18,9 @@
     /// </summary>
     public interface IHasInitialize<in T>
     {
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         void Initialize(T argument);
     }
 

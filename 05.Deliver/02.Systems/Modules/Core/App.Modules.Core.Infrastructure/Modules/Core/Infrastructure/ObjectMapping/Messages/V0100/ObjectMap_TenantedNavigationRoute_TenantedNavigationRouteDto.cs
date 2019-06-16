@@ -1,4 +1,3 @@
-using App.Modules.All.Infrastructure.ObjectMapping;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
@@ -7,8 +6,7 @@ using AutoMapper;
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     public class ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto
-        : MapUntenantedRecordStatedTimestampedNoIdBase<TenantedNavigationRoute, TenantedNavigationRouteDto>,
-            IHasAutomapperInitializer
+        : MapUntenantedRecordStatedTimestampedNoIdBase<TenantedNavigationRoute, TenantedNavigationRouteDto>
     {
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<TenantedNavigationRoute, TenantedNavigationRouteDto> mappingExpression)
@@ -20,7 +18,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
                 .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))
-                .ForMember(t => t.Chilldren, opt => opt.MapFrom(s => s.Chilldren))
+                .ForMember(t => t.Children, opt => opt.MapFrom(s => s.Children))
                 ;
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
@@ -35,7 +33,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
                     .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                     .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
                     .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))
-                    .ForMember(t => t.Chilldren, opt => opt.MapFrom(s => s.Chilldren))
+                    .ForMember(t => t.Children, opt => opt.MapFrom(s => s.Children))
                     .ForMember(t => t.OwnerFK, opt => opt.Ignore())
                     .ForMember(t => t.TenantFK, opt => opt.Ignore())
                 ;

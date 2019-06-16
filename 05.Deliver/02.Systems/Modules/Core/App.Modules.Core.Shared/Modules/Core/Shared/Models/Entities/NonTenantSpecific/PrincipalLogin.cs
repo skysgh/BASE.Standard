@@ -11,9 +11,22 @@ namespace App.Modules.Core.Shared.Models.Entities
     /// When an IdP sends back the response, it has to be correlated back to a System Principal.
     /// That's done via this object.
     /// </summary>
-    public class PrincipalLogin : UntenantedRecordStatedTimestampedGuidIdEntityBase, IHasEnabled , IHasOwnerFK
+    public class PrincipalLogin 
+        : UntenantedRecordStatedTimestampedGuidIdEntityBase
+            , IHasEnabled 
+            , IHasOwnerFK
+            ,IHasPrincipalFK
     {
 
+        /// <summary>
+        /// Gets or sets the FK of the Principal.
+        /// <para>
+        /// Note that as as the property name
+        /// ends with FK (and not Id)
+        /// it is Db enforced, and not just a weak
+        /// reference.
+        /// </para>
+        /// </summary>
         public Guid PrincipalFK { get; set; }
 
         /// <summary>
@@ -36,6 +49,11 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// </summary>
         public DateTime LastLoggedInUtc { get; set; }
 
+        /// <summary>
+        /// Returns the FK of the
+        /// parent, owning entity.
+        /// </summary>
+        /// <returns></returns>
         public Guid GetOwnerFk()
         {
             return PrincipalFK;

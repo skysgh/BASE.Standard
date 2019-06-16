@@ -2,7 +2,7 @@ namespace App.Modules.All.Shared.Models
 {
     /// <summary>
     /// <para>
-    /// Any mutable model should have a Guid Id as oppossed to an integer Id. Hence <see cref="IHasGuidId"/>
+    /// Any mutable model should have a Guid Id as opposed to an integer Id. Hence <see cref="IHasGuidId"/>
     /// </para>
     /// <para>
     /// Resource data have <see cref="IHasEnabled"/>because 
@@ -31,7 +31,9 @@ namespace App.Modules.All.Shared.Models
     /// <seealso cref="IHasEnabled" />
     /// <seealso cref="IHasDisplayOrderHint" />
     /// <seealso cref="IHasKey" />
-    public interface IHasMutableDisplayableReferenceData : IHasGuidId, IHasDisplayableReferenceData
+    public interface IHasMutableDisplayableReferenceData : 
+        IHasGuidId, 
+        IHasDisplayableReferenceData
     {
 
     }

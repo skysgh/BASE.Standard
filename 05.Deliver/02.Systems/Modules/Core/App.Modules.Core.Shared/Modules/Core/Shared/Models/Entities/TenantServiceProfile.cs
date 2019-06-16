@@ -9,9 +9,9 @@ namespace App.Modules.Core.Shared.Models.Entities
 
     /// <summary>
     /// The Service Profile (ie Subscription)
-    /// to which a <see cref="Plan"/> plan is associated.
+    /// to which a <c>Plan</c> plan is associated.
     /// <para>
-    /// We are not associating a <see cref="ServicePlan"/> 
+    /// We are not associating a <see cref="ServicePlanDefinition"/> 
     /// to a <see cref="Principal"/> directly
     /// to the 
     /// </para>
@@ -22,12 +22,16 @@ namespace App.Modules.Core.Shared.Models.Entities
         // Not needed: Already part of the base class:
         ////public virtual Guid TenantFK { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Tenant"/>
+        /// which this entity is associated to.
+        /// </summary>
         public virtual Tenant Tenant { get; set; }
 
 
         /// <summary>
         /// A <see cref="TenantServiceProfile"/> most often 
-        /// will be signed up to one <see cref="ServiceProfile"/>.
+        /// will be signed up to one <see cref="ServicePlanDefinition"/>.
         /// <para>
         /// But there are cases where the Tenancy is signed 
         /// up to multiple.

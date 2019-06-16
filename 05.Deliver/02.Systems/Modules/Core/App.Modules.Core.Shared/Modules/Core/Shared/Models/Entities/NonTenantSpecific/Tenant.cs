@@ -12,7 +12,11 @@ namespace App.Modules.Core.Shared.Models.Entities
     /// An ApplicationAccount/Tenant 
     /// </para>
     /// </summary>
-    public class Tenant : UntenantedRecordStatedTimestampedGuidIdEntityBase, IHasKey, IHasEnabled
+    public class Tenant 
+        : UntenantedRecordStatedTimestampedGuidIdEntityBase
+            , IHasKey
+            , IHasEnabled
+            ,IHasDataClassification
     {
 
         /// <summary>
@@ -55,11 +59,30 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// </summary>
         public virtual string HostName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        /// <value>
+        /// The display name.
+        /// </value>
         public virtual string DisplayName { get; set; }
 
-        public virtual NZDataClassification? DataClassificationFK { get; set; }
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// data classification.
+        /// </summary>
+        public virtual NZDataClassification DataClassificationFK { get; set; }
+        /// <summary>
+        /// Gets or sets the data classification of this entity.
+        /// </summary>
         public virtual DataClassification DataClassification { get; set; }
 
+        /// <summary>
+        /// Gets or sets the properties.
+        /// </summary>
+        /// <value>
+        /// The properties.
+        /// </value>
         public virtual ICollection<TenantProperty> Properties
         {
             get => this._properties ?? (this._properties = new Collection<TenantProperty>());
@@ -67,6 +90,12 @@ namespace App.Modules.Core.Shared.Models.Entities
         }
         private ICollection<TenantProperty> _properties;
 
+        /// <summary>
+        /// Gets or sets the claims.
+        /// </summary>
+        /// <value>
+        /// The claims.
+        /// </value>
         public virtual ICollection<TenantClaim> Claims
         {
             get

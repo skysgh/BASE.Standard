@@ -2,6 +2,7 @@
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class AzureMapsSearchResponseResult
     {
         [JsonProperty("results")]
@@ -13,4 +14,5 @@ namespace App.Modules.Core.Shared.Models.Messages
         [JsonProperty("position")]
         public AzureMapResponsePosition Position { get; set; }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

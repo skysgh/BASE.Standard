@@ -1,4 +1,5 @@
-﻿using App.Modules.All.Shared.Constants;
+﻿using App.Modules.All.AppFacade.Controllers.Api.OData;
+using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,8 +7,8 @@ namespace App.Modules.All.AppFacade.Controllers.Api.Classic
 {
     /// <summary>
     /// Base class for all API Controllers
-    /// (as oppossed to OData based controllers, 
-    /// which inherit from <see cref="AllModulesODataControllerBase"/>
+    /// (as opposed to OData based controllers, 
+    /// which inherit from <see cref="CommonODataControllerBase"/>)
     /// <para>
     /// Decorated with <code>[Route("api/[controller]")]</code>
     /// </para>
@@ -18,7 +19,12 @@ namespace App.Modules.All.AppFacade.Controllers.Api.Classic
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
 
-        public AllModulesApiControllerBase(
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AllModulesApiControllerBase"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="principalService">The principal service.</param>
+        protected AllModulesApiControllerBase(
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService)
         {

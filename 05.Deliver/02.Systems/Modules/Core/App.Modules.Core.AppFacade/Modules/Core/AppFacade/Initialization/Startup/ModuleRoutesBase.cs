@@ -12,24 +12,57 @@ using Microsoft.AspNetCore.Routing;
 
 namespace App.Modules.Core.AppFacade.Initialization.Startup
 {
+    /// <summary>
+    /// Base class to simplify
+    /// the registration of
+    /// custom routes
+    /// individual logical Modules
+    /// may require.
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.AppFacade.Initialization.Startup.IModuleRoutes" />
     public abstract class ModuleRoutesBase : IModuleRoutes
     {
-        // Route Names have to be unique:
+        /// <summary>
+        /// The route prefix.
+        /// Must be unique.
+        /// Will  be the name of the Module.
+        /// </summary>
         protected string _routePrefix;
+
+        /// <summary>
+        /// The dependency resolution service
+        /// </summary>
         protected readonly IDependencyResolutionService _dependencyResolutionService;
+
+        /// <summary>
+        /// The configuration step service
+        /// </summary>
         protected readonly IConfigurationStepService _configurationStepService;
 
+        /// <summary>
+        /// The Name of this Module ("Core", etc.)
+        /// </summary>
         protected string ModuleName;
 
-        public ModuleRoutesBase(IDependencyResolutionService dependencyResolutionService, IConfigurationStepService configurationStepService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleRoutesBase"/> class.
+        /// </summary>
+        /// <param name="dependencyResolutionService">The dependency resolution service.</param>
+        /// <param name="configurationStepService">The configuration step service.</param>
+        protected ModuleRoutesBase(IDependencyResolutionService dependencyResolutionService, IConfigurationStepService configurationStepService)
         {
             ModuleName = Module.Id(this.GetType());
+
             _routePrefix = $"{Module.GetAssemblyNamePrefix(this.GetType())}.";
 
         _dependencyResolutionService = dependencyResolutionService;
             _configurationStepService = configurationStepService;
         }
 
+        /// <summary>
+        /// Initializes the specified MVC route builder.
+        /// </summary>
+        /// <param name="routeBuilder">The route builder.</param>
         public virtual void Initialize(IRouteBuilder routeBuilder)
         {
             CreateODataRoutes(routeBuilder);
@@ -64,6 +97,10 @@ namespace App.Modules.Core.AppFacade.Initialization.Startup
         }
 
 
+        /// <summary>
+        /// Builds the o data model using reflection across all assemblies within this logical module.
+        /// </summary>
+        /// <returns></returns>
         protected virtual ODataConventionModelBuilder BuildODataModelUsingReflectionAcrossAllAssembliesWithinLogicalModule()
         {
             var odataModelBuilder =
@@ -84,7 +121,7 @@ namespace App.Modules.Core.AppFacade.Initialization.Startup
             // when it would be better to select by type *before* instantiation...Oh well...
             var modelDefinitions =
                 _dependencyResolutionService
-                .GetAllInstances<IAllModulesOdataModelBuilderConfiguration>()
+                .GetAllInstances<IModuleOdataModelBuilderConfiguration>()
                 
                 .Where(
                     x => x.GetType().IsSameLogicalModuleAs(this.GetType())

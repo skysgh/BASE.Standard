@@ -1,4 +1,3 @@
-using App.Modules.All.Infrastructure.ObjectMapping;
 using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
@@ -8,8 +7,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     public class
         ObjectMap_ApplicationDistributorInformation_ApplicationProviderInformationDto
-        : MapBase<ApplicationDistributorInformationConfigurationSettings, ApplicationProviderInformationDto>,
-        IHasAutomapperInitializer
+        : MapBase<ApplicationDistributorInformationConfigurationSettings, ApplicationProviderInformationDto>
     {
 
         protected override void ConfigureMapFromEntityToDto(

@@ -9,12 +9,24 @@ using Microsoft.AspNetCore.Routing;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
 {
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />
     [Route(Apis.BasePath + "diagnostics/"+"[controller]")]
     public class StatusController : AllModulesApiControllerBase
     {
         private readonly IDependencyResolutionService _dependencyResolutionService;
         private readonly ModuleDbContext _dbContext;
 
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="StatusController"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="principalService">The principal service.</param>
+        /// <param name="dependencyResolutionService">The dependency resolution service.</param>
+        /// <param name="dbContext">The database context.</param>
         public StatusController(
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService,
@@ -27,6 +39,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
 
         }
 
+        /// <summary>
+        /// TODO: Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Get(string id = "")
         {
@@ -41,6 +58,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
             }
         }
 
+
+        /// <summary>
+        /// TODO: Checks the routes.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CheckRoutes()
         {
             return (_dependencyResolutionService.GetAllInstances<IRouteBuilder>().Count() > 0)

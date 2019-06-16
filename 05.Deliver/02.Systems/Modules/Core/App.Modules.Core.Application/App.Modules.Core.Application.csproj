@@ -8,10 +8,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>Z:\U\SKY\NOSYNC\REPOS\MB.Spike.BASE\05.Deliver\02.Systems\Modules\Core\App.Modules.Core.Application\App.Modules.Core.Application.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Lamar" Version="3.0.1" />
+    <PackageReference Include="Lamar" Version="3.0.3" />
   </ItemGroup>
 
 

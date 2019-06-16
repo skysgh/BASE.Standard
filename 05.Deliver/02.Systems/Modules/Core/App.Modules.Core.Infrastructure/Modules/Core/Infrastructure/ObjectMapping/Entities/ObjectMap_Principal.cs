@@ -1,14 +1,13 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using App.Modules.Core.Shared.Models.Entities;
+﻿using App.Modules.Core.Shared.Models.Entities;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Entities
 {
-    public class ObjectMap_Principal : IHasAutomapperInitializer
+    public class ObjectMap_Principal : Profile
     {
-        public void Initialize(IMapperConfigurationExpression config)
+        public ObjectMap_Principal()
         {
-            var mapping = config.CreateMap<Principal, Principal>()
+            var mapping = CreateMap<Principal, Principal>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CategoryFK, opt => opt.Ignore())
                 .ForMember(dest => dest.Category, opt => opt.Ignore())

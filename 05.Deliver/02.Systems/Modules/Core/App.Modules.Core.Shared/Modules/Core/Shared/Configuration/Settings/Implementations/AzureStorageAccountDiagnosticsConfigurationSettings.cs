@@ -1,4 +1,5 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
@@ -24,7 +25,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDiagnosticsResourceName)]
         public string ResourceName
         {
@@ -49,7 +50,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDiagnosticsResourceNameSuffix)]
         public string ResourceNameSuffix
         {
@@ -64,7 +65,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <value>
         /// The key.
         /// </value>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDiagnosticsKey)]
         public string Key
         {

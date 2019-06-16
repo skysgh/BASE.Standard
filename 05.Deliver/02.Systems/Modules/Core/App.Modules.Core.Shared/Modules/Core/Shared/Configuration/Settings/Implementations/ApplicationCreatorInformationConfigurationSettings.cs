@@ -1,5 +1,6 @@
 using System;
 using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Shared.Models;
 
@@ -29,33 +30,61 @@ namespace App.Modules.Core.Shared.Configuration.Settings
 
         // OData always needs an Id. It can be another field, but too much bother
         // to configure it...
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public Guid Id
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the unique Name
+        /// of the object
+        /// <para>
+        /// See difference with <see cref="T:App.Modules.All.Shared.Models.IHasKey" />.
+        /// </para>
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationCreatorName)]
         public string Name
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the optional displayed description.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationCreatorDescription)]
         public string Description
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the site URL.
+        /// </summary>
+        /// <value>
+        /// The site URL.
+        /// </value>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationCreatorSiteUrl)]
         public string SiteUrl
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the contact URL.
+        /// </summary>
+        /// <value>
+        /// The contact URL.
+        /// </value>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationCreatorContactUrl)]
         public string ContactUrl
         {

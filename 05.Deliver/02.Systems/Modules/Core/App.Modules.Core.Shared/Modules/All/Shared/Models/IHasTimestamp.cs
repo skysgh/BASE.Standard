@@ -1,7 +1,8 @@
 ﻿namespace App.Modules.All.Shared.Models
 {
-    /// <summary>
-    /// </summary>
+    /// Contract for a model that has a
+    /// <see cref="Timestamp"/>
+    /// property.
     public interface IHasTimestamp
     {
         /// <summary>

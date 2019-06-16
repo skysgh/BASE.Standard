@@ -8,20 +8,26 @@ namespace App.Modules.Core.Shared.Models.Entities
     /// <summary>
     /// An invitation to a member.
     /// </summary>
-    public class Invitation : UntenantedRecordStatedTimestampedGuidIdEntityBase, IHasEnabledBeginningUtc, IHasEndDateUtc
+    public class Invitation 
+        : UntenantedRecordStatedTimestampedGuidIdEntityBase, 
+        IHasEnabledBeginningUtcDateTime, 
+        IHasEnabledEndUtcDateTime
     {
         /// <summary>
         /// Date the invitation was sent out.
         /// </summary>
-        public DateTime? EnabledBeginningUtc { get; set; }
+        public DateTimeOffset? EnabledBeginningUtcDateTime { get; set; }
 
 
         /// <summary>
         /// Date the invitation expires.
         /// </summary>
-        public DateTime? EnabledEndingUtc { get; set; }
+        public DateTimeOffset? EnabledEndingUtcDateTime { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets the state of the invitation.
+        /// </summary>
         public TenancyMemberOrganisationInvitationState State { get; set; }
 
         /// <summary>

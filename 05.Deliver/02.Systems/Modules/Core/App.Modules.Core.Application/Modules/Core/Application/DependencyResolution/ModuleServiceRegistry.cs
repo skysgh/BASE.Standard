@@ -1,6 +1,7 @@
-﻿using App.Modules.All.Application.Initialization.DependencyResolution;
+﻿using App.Modules.All.Application.DependencyResolution;
+using Lamar.Scanning.Conventions;
 
-namespace App.Modules.Core.Application.Initialization.DependencyResolution
+namespace App.Modules.Core.Application.DependencyResolution
 {
     /// <summary>
     /// Discoverable (by Reflection) Module specific configuration
@@ -16,9 +17,16 @@ namespace App.Modules.Core.Application.Initialization.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry() 
+        /// <summary>
+        /// Develop Module specific conditions
+        /// (the assemblyScanner is already scoped to
+        /// this logicalModule.
+        /// </summary>
+        /// <param name="assemblyScanner">The assembly scanner.</param>
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            //Reuse base Constructor, which scans this logical Module.
+            // Do nothing specific.
+            base.InnerScan(assemblyScanner);
         }
     }
 }

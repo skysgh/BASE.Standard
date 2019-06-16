@@ -4,12 +4,41 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using App.Modules.All.Shared.Constants;
 
 namespace App
 {
     public static class AppDomainExtensions
     {
+
+        public static void LoadAllAppAssemblies(this AppDomain appDomain)
+        {
+            List<Assembly> allAssemblies = new List<Assembly>();
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            var files =
+                Directory.GetFiles(path, $"{Application.AssemblyPrefix}*.dll")
+                    .ToArray();
+
+            files.ForEach(x => Assembly.LoadFile(x));
+        }
+
+
+        /// <summary>
+        /// Gets this application assemblies
+        /// (those that start with "App."
+        /// </summary>
+        /// <param name="appDomain">The application domain.</param>
+        /// <returns></returns>
+        public static IEnumerable<Assembly> GetAppAssemblies(this AppDomain appDomain)
+        {
+            var results = appDomain.GetAssemblies().Where(x => x.IsSameApp());
+
+            return results;
+        }
+
         /// <summary>
         /// Gets all derived instantiable types, instantiates them 
         /// (using <see cref="Activator"/> - *not* <see cref="AppDependencyLocator"/>!)

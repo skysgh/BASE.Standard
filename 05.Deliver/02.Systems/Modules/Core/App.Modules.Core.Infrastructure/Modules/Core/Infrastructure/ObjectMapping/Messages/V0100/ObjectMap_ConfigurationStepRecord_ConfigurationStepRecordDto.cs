@@ -1,4 +1,4 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
+﻿
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Messages;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
@@ -8,15 +8,14 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     public class ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto
         :
-        MapBase<ConfigurationStepRecord, ConfigurationStepRecordDto>,
-        IHasAutomapperInitializer
+        MapBase<ConfigurationStepRecord, ConfigurationStepRecordDto>
     {
 
         protected override void ConfigureMapFromEntityToDto(IMappingExpression<ConfigurationStepRecord, ConfigurationStepRecordDto> mappingExpression)
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.DateTime, opt => opt.MapFrom(s => s.DateTime))
+                .ForMember(t => t.DateTime, opt => opt.MapFrom(s => s.UtcDateTimeCreated))
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(t => t.Title, opt => opt.MapFrom(s => s.Title))
@@ -29,7 +28,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.DateTime, opt => opt.MapFrom(s => s.DateTime))
+                .ForMember(t => t.UtcDateTimeCreated, opt => opt.MapFrom(s => s.DateTime))
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(t => t.Title, opt => opt.MapFrom(s => s.Title))

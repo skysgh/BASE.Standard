@@ -1,5 +1,6 @@
 ﻿
 using App.Modules.All.AppFacade.DependencyResolution;
+using Lamar.Scanning.Conventions;
 
 namespace App.Modules.KWMODULE.AppFacade.DependencyResolution
 {
@@ -17,13 +18,9 @@ namespace App.Modules.KWMODULE.AppFacade.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry() : base()
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            //Reuse common logic (filtering for local services).
+            base.InnerScan(assemblyScanner);
         }
-
-
-
-
     }
 }

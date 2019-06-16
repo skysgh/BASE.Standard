@@ -1,5 +1,4 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
@@ -9,8 +8,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     public class ObjectMap_DiagnosticsTraceRecord_DiagnosticsTraceRecordDto
         : MapBase<
             DiagnosticsTraceRecord,
-            DiagnosticsTraceRecordDto>,
-        IHasAutomapperInitializer
+            DiagnosticsTraceRecordDto>
     {
 
 
@@ -21,7 +19,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(t => t.Level, opt => opt.MapFrom(s => s.Level))
-                .ForMember(t => t.DateTimeCreatedUtc, opt => opt.MapFrom(s => s.DateTimeCreatedUtc))
+                .ForMember(t => t.DateTimeCreatedUtc, opt => opt.MapFrom(s => s.UtcDateTimeCreated))
                 .ForMember(t => t.ThreadId, opt => opt.MapFrom(s => s.ThreadId))
                 .ForMember(t => t.ClientId, opt => opt.MapFrom(s => s.ClientId))
                 .ForMember(t => t.Message, opt => opt.MapFrom(s => s.Message))
@@ -33,7 +31,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.DateTimeCreatedUtc, opt => opt.MapFrom(s => s.DateTimeCreatedUtc))
+                .ForMember(t => t.UtcDateTimeCreated, opt => opt.MapFrom(s => s.DateTimeCreatedUtc))
                 .ForMember(t => t.Level, opt => opt.MapFrom(s => s.Level))
                 .ForMember(t => t.ThreadId, opt => { opt.MapFrom(s => s.ThreadId); })
                 .ForMember(t => t.ClientId, opt => { opt.MapFrom(s => s.ClientId); })

@@ -2,6 +2,7 @@
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class AzureMapsResponseAddress
     {
         [JsonProperty("buildingNumber")]
@@ -47,4 +48,5 @@ namespace App.Modules.Core.Shared.Models.Messages
         [JsonProperty("routeNumbers")]
         public string[] RouteNumbers { get; set; }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

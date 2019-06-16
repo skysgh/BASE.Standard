@@ -16,6 +16,10 @@ namespace App.Modules.Core.Shared.Models.Entities
         IHasDateTimeCreatedUtc
     {
         private string _uniqueId;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Session"/> class.
+        /// </summary>
         public Session():base()
         {
             // By default, until overridden 
@@ -28,7 +32,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <summary>
         /// Gets or sets whether a Session is enabled.
         /// <para>
-        /// A Security Specialist could disable an active session 
+        /// A Security Specialist could disable an active session
         /// if the session is believed to be a risk.
         /// </para>
         /// </summary>
@@ -43,7 +47,10 @@ namespace App.Modules.Core.Shared.Models.Entities
             set => _uniqueId = value;
         }
 
-        public DateTime DateTimeCreatedUtc { get; set; }
+        /// <summary>
+        /// Gets or sets the UTC date time when the record was created.
+        /// </summary>
+        public DateTimeOffset UtcDateTimeCreated { get; set; }
 
         /// <summary>
         /// Gets or sets the FK of the Principal 

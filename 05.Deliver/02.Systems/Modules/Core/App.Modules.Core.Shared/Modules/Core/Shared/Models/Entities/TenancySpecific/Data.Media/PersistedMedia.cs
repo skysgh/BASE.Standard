@@ -114,7 +114,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <summary>
         ///     Gets or sets the name
         ///     of this media file.
-        ///     <para>Member defined in <see cref="IHasNamedValue{TValue}" />.</para>
+        ///     <para>Member defined in <see cref="IHasName" />.</para>
         /// </summary>
         /// <value>The name.</value>
         public virtual string Name
@@ -140,7 +140,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <summary>
         ///     Gets or sets the value
         ///     of this attachment.
-        ///     <para>Member defined in <see cref="IHasNamedValue{TValue}" />.</para>
+        ///     <para>Member defined in <see cref="IHasValue{TValue}" />.</para>
         /// </summary>
         /// <value>The value.</value>
         public virtual byte[] Value { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Shared.Models;
 
@@ -9,7 +10,8 @@ namespace App.Modules.Core.Shared.Configuration.Settings
     /// An immutable host configuration object 
     /// describing the Application (ie, shows up on the header).
     /// </summary>
-    public class ApplicationDescriptionConfigurationSettings : IHostSettingsBasedConfigurationObject, IHasName, IHasDescription
+    public class ApplicationDescriptionConfigurationSettings 
+        : IHostSettingsBasedConfigurationObject, IHasName, IHasDescription
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDescriptionConfigurationSettings"/> class.
@@ -21,6 +23,12 @@ namespace App.Modules.Core.Shared.Configuration.Settings
 
         // OData always needs an Id. It can be another field, but too much bother
         // to configure it...
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public Guid Id
         {
             get; set;
@@ -32,7 +40,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <value>
         /// The name.
         /// </value>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias (Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationName)]
         public string Name { get;set; }
 
@@ -42,7 +50,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <value>
         /// The description.
         /// </value>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationDescription)]
         public string Description { get;set; }
     }

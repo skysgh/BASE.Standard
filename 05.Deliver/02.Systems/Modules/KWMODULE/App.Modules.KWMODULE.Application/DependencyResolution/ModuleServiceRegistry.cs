@@ -1,5 +1,6 @@
 ﻿
-using App.Modules.All.Application.Initialization.DependencyResolution;
+using App.Modules.All.Application.DependencyResolution;
+using Lamar.Scanning.Conventions;
 
 namespace App.Modules.KWMODULE.Application.DependencyResolution
 {
@@ -17,8 +18,9 @@ namespace App.Modules.KWMODULE.Application.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry() : base()
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
+            base.InnerScan(assemblyScanner);
         }
     }
 }

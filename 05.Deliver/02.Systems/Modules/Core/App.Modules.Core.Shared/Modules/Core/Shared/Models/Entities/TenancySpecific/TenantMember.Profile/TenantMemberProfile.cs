@@ -9,22 +9,71 @@ namespace App.Modules.Core.Shared.Models.Entities.TenantMember.Profile
     /// <summary>
     /// The profile of a Principal within a Tenancy.
     /// </summary>
-    public class TenantMemberProfile : TenantFKRecordStatedTimestampedGuidIdEntityBase, IHasEnabled, IHasEnabledBeginningUtc, IHasEndDateUtc {
+    public class TenantMemberProfile 
+        : TenantFKRecordStatedTimestampedGuidIdEntityBase, 
+            IHasEnabled, 
+        IHasEnabledBeginningUtcDateTime, 
+        IHasEnabledEndUtcDateTime {
 
-        public DateTime? EnabledBeginningUtc { get; set; }
-        public DateTime? EnabledEndingUtc { get; set; }
+        /// <summary>
+        /// Gets or sets when the the record will be disabled.
+        /// </summary>
+        public DateTimeOffset? EnabledBeginningUtcDateTime { get; set; }
+        /// <summary>
+        /// Gets or sets the future UTC date time
+        /// when the object will be disabled.
+        /// <para><see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /></para>
+        /// </summary>
+        public DateTimeOffset? EnabledEndingUtcDateTime { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
+        /// <para>
+        /// See <see cref="T:App.Modules.All.Shared.Models.IHasEnabledBeginningUtcDateTime" />
+        /// and <see cref="T:App.Modules.All.Shared.Models.IHasEnabledEndUtcDateTime" /></para>
+        /// </summary>
         public virtual bool Enabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        /// <value>
+        /// The display name.
+        /// </value>
         public virtual string DisplayName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="DataClassification"/>.
+        /// </summary>
         public virtual NZDataClassification? DataClassificationFK { get; set; }
+        /// <summary>
+        /// Gets or sets the 
+        /// <see cref="DataClassification"/>.
+        /// </summary>
         public virtual DataClassification DataClassification { get; set; }
 
-        public virtual TenantMemberProfileCategory Category { get; set; }
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="TenantMemberProfileCategory"/>.
+        /// </summary>
         public virtual Guid CategoryFK { get; set; }
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="TenantMemberProfileCategory"/>.
+        /// </summary>
+        public virtual TenantMemberProfileCategory Category { get; set; }
 
-        public virtual TenantSecurityProfile SecurityProfile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="TenantSecurityProfile"/>.
+        /// </summary>
         public virtual Guid SecurityProfileFK { get; set; }
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="TenantSecurityProfile"/>.
+        /// </summary>
+        public virtual TenantSecurityProfile SecurityProfile { get; set; }
 
 
 

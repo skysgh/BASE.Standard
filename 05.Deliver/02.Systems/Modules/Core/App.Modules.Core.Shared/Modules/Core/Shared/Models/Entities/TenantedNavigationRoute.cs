@@ -16,19 +16,51 @@ namespace App.Modules.Core.Shared.Models.Entities
     /// <seealso cref="IHasDescription" />
     /// <seealso cref="IHasDisplayOrderHint" />
     /// <seealso cref="IHasDisplayStyleHint" />
-    public class TenantedNavigationRoute : TenantFKRecordStatedTimestampedGuidIdEntityBase, IHasGuidId, IHasOwnerFK, IHasText, IHasDescription, IHasDisplayOrderHint, IHasDisplayStyleHint
+    public class TenantedNavigationRoute 
+        : TenantFKRecordStatedTimestampedGuidIdEntityBase, 
+            IHasGuidId, 
+            IHasOwnerFK, 
+            IHasText, 
+            IHasDescription, 
+            IHasDisplayOrderHint, 
+            IHasDisplayStyleHint
     {
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="TenantedNavigationRoute"/> is enabled.
+        /// </summary>
         public bool Enabled {get; set;}
-        // Class Not even used not sure what this was supposed to be
+
+
+        /// <summary>
+        /// Gets or sets the owner fk.
+        /// TODO: Not even used not sure what this was supposed to be
+        /// </summary>
         public Guid OwnerFK { get; set; }
 
+        /// <summary>
+        /// Gets or sets the displayed title.
+        /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// Gets or sets the optional displayed description.
+        /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// A convention based hint as to the natural order in which to display this list item
+        /// (note that the natural order can be superseded/influenced by MRU information, etc.)
+        /// </summary>
         public int DisplayOrderHint { get; set; }
+        /// <summary>
+        /// A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+        /// </summary>
         public string DisplayStyleHint { get; set; }
 
-        public ICollection<TenantedNavigationRoute> Chilldren {
+        /// <summary>
+        /// Gets the collection of child
+        /// <see cref="TenantedNavigationRoute"/>.
+        /// </summary>
+        public ICollection<TenantedNavigationRoute> Children {
             get
             {
                 return _children ?? (_children = new Collection<TenantedNavigationRoute>());
@@ -37,6 +69,11 @@ namespace App.Modules.Core.Shared.Models.Entities
 
         private ICollection<TenantedNavigationRoute> _children;
 
+        /// <summary>
+        /// Returns the FK of the
+        /// parent, owning entity.
+        /// </summary>
+        /// <returns></returns>
         public Guid GetOwnerFk()
         {
             return OwnerFK;

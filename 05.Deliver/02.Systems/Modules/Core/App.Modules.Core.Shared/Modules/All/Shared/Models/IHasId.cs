@@ -1,5 +1,11 @@
 ﻿namespace App.Modules.All.Shared.Models
 {
+    /// <summary>
+    /// Contract for a model that has an
+    /// <see cref="Id"/>
+    /// property.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IHasId<T>
         //where T  /*No: because string is not a struct : struct */
     {

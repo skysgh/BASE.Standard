@@ -1,14 +1,6 @@
 ﻿using App.Modules.All.Infrastructure.Data.Db.CommitInterceptions;
-using App.Modules.All.Infrastructure.ObjectMapping;
 using App.Modules.All.Infrastructure.ServiceAgents;
 using Lamar.Scanning.Conventions;
-
-//using App.Modules.Core.Infrastructure.Cache;
-//using App.Modules.Core.Infrastructure.Db.Interception;
-//using App.Modules.Core.Infrastructure.Initialization.Authentication;
-//using App.Modules.Core.Infrastructure.Initialization.ObjectMaps;
-//using App.Modules.Core.Infrastructure.Integration.Azure.Storage;
-
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
 {
@@ -40,12 +32,10 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
                     assemblyScanner.AssembliesFromApplicationBaseDirectory(
                         x => x.IsSameApp());
 
-                    ScanAllModulesForAllModulesAutoMapperInitializers(assemblyScanner);
 
                     //ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(assemblyScanner);
 
                     ScanAllModulesForAllModulesPrecommitStrategies(assemblyScanner);
-
 
                     ScanAllModulesForRequestScopedServiceClients(assemblyScanner);
 
@@ -53,7 +43,6 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
                     //ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);
                     //InfrastructureCoreMappings(assemblyScanner);
-
 
                     //// As well as the default scanner, find any custom scanners 
                     //// (eg: our custom MVC5 Controller scanner) and use them as well :
@@ -63,11 +52,6 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
             );
         }
 
-        private void ScanAllModulesForAllModulesAutoMapperInitializers(IAssemblyScanner assemblyScanner)
-        {
-            // Register all Automapper Instances, which ever assembly they are in :
-            assemblyScanner.AddAllTypesOf<IHasAutomapperInitializer>();
-        }
 
         private void ScanAllModulesForRequestScopedServiceClients(IAssemblyScanner assemblyScanner)
         {

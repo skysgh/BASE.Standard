@@ -5,6 +5,9 @@ namespace App
 {
     using System;
 
+    /// <summary>
+    /// Extensions to integers
+    /// </summary>
     public static class IntegerExtensions
     {
         /// <summary>

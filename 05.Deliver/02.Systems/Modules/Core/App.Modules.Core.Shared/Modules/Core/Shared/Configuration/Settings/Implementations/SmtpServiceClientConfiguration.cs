@@ -1,51 +1,82 @@
 ﻿
 
 using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
+using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
-    public class SmtpServiceClientConfiguration: IHostSettingsBasedConfigurationObject
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Shared.Configuration.Settings.IHostSettingsBasedConfigurationObject" />
+    public class SmtpServiceClientConfiguration
+        : IHostSettingsBasedConfigurationObject,
+            IHasKey, IHasSecret
+
     {
 
-        // Make sure this kind of secrets are not gotten from AppSettings.
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        /// <summary>
+        /// Make sure this kind of secrets are not gotten from AppSettings.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceClientId)]
         public string Key
         {
             get; set;
         }
 
-        // Make sure this kind of secrets are not gotten from AppSettings.
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        /// <summary>
+        /// Gets or sets the secret.
+        /// <para>
+        /// Make sure this kind of secrets are not gotten from AppSettings.
+        /// </para>
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceClientSecret)]
         public string Secret
         {
             get; set;
         }
 
-
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        /// <summary>
+        /// Gets or sets the base URI
+        /// of the remote service.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceBaseUri)]
         public string BaseUri
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        /// <value>
+        /// The port.
+        /// </value>
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServicePort)]
         public int? Port
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        /// <summary>
+        /// Gets or sets System Identity's From value used to connect.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceFrom)]
         public string From
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline)]
+        /// <summary>
+        /// Gets or sets misc configuration.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationSmtpServiceClientMiscConfig)]
         public string MiscConfig
         {

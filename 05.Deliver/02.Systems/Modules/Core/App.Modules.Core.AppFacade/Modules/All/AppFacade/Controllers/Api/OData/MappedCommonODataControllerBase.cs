@@ -5,7 +5,6 @@ using App.Modules.All.Shared.Models;
 using App.Modules.Core.AppFacade.Services;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNet.OData;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,13 +38,37 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
     {
         //protected /*readonly*/ string _dbContextIdentifier;
 
+        /// <summary>
+        /// The tenant service
+        /// </summary>
         protected readonly ITenantService _tenantService;
+        /// <summary>
+        /// The database context used to retrieve/save objects.
+        /// </summary>
         protected readonly DbContext _dbContext;
+        /// <summary>
+        /// The object mapping service
+        /// </summary>
         protected readonly IObjectMappingService _objectMappingService;
+        /// <summary>
+        /// The secure API message attribute service
+        /// used to secure messages before they go out.
+        /// </summary>
         protected readonly ISecureAPIMessageAttributeService _secureApiMessageAttribute;
 
+        /// <summary>
+        /// Gets the controller common services service.
+        /// </summary>
+        /// <value>
+        /// The controller common services service.
+        /// </value>
         public IControllerCommonServicesService ControllerCommonServicesService { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MappedCommonODataControllerBase{TDbContext, TEntity, TDto}"/> class.
+        /// </summary>
+        /// <param name="controllerCommonServicesService">The controller common services service.</param>
+        /// <param name="dbContext">The database context.</param>
         protected MappedCommonODataControllerBase(
             IControllerCommonServicesService controllerCommonServicesService,
             DbContext dbContext
@@ -62,28 +85,29 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
 
         }
 
-        [EnableQuery(PageSize = 100)]
-        protected virtual IQueryable<TEntity> InternalActiveRecords()
-        {
-            if (typeof(TEntity).IsSubclassOf(typeof(IHasRecordState)))
-            {
-                return InternalGetDbSet()
-                    .Where(x => ((IHasRecordState)x).RecordState == RecordPersistenceState.Active);
-            }
-            return InternalGetDbSet();
-        }
-
-
-        //Helper:
+        /// <summary>
+        /// Internal method that can be invoked by a subclass.
+        /// <para>
+        /// The method is protected and internal to ensure the
+        /// subclass' method is created deliberately, to ensure
+        /// that security is considered.
+        /// </para>
+        /// <para>
+        /// Invoked by <see cref="InternalActiveRecords"/>
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
         [EnableQuery(PageSize = 100)]
         protected virtual IQueryable<TEntity> InternalGetDbSet()
         {
             if (typeof(TEntity).IsSubclassOf(typeof(IHasTenantFK)))
             {
                 Guid tenantFK = GetTenantFK();
+
                 return _dbContext.GetQueryableSet<TEntity>()
                     .Where(x => (((IHasTenantFK)x).TenantFK == tenantFK));
             }
+
             return _dbContext.GetQueryableSet<TEntity>();
         }
 
@@ -100,16 +124,34 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
 
 
         // PUT api/values/5 
+        /// <summary>
+        /// Internal method that can be invoked by a subclass.
+        /// <para>
+        /// The method is protected and internal to ensure the
+        /// subclass' method is created deliberately, to ensure
+        /// that security is considered.
+        /// </para>
+        /// </summary>
+        /// <param name="value">The value.</param>
         protected virtual void InternalPut(TDto value)
         {
             //Create a new record:
+            // Note that tenancy is filled in by pre-save processor.
             var entity = _objectMappingService.Map<TDto, TEntity>(value);
 
             _dbContext.Add(entity);
         }
 
+        /// <summary>
+        /// Internal method that can be invoked by a subclass.
+        /// <para>
+        /// The method is protected and internal to ensure the
+        /// subclass' method is created deliberately, to ensure
+        /// that security is considered.
+        /// </para>
+        /// </summary>
         // Limit options for Denial of Service by 
-        // excessive resource consumtion conditions:
+        // excessive resource consumption conditions:
         [EnableQuery(PageSize = 100)]
         protected virtual IQueryable<TDto> InternalGet(
             params Expression<Func<TDto, object>>[] expandProperties
@@ -119,12 +161,11 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
             try
             {
                 results =
-                    InternalActiveRecords()
-                        .ProjectTo(
-                        (object)null,
-                        expandProperties
-                        )
-                    ;
+                    _objectMappingService.ProjectTo(
+                            InternalActiveRecords(),
+                            null,
+                            expandProperties
+                        );
             }
 #pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception e)
@@ -142,8 +183,31 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
         }
 
 
+        /// <summary>
+        /// Gets only Active records.
+        /// <para>
+        /// Invokes <see cref="InternalGetDbSet"/>
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        [EnableQuery(PageSize = 100)]
+        protected virtual IQueryable<TEntity> InternalActiveRecords()
+        {
+            if (typeof(TEntity).IsSubclassOf(typeof(IHasRecordState)))
+            {
+                return InternalGetDbSet()
+                    .Where(x => ((IHasRecordState)x).RecordState == RecordPersistenceState.Active);
+            }
+            return InternalGetDbSet();
+        }
 
 
+
+        /// <summary>
+        /// Gets the current Tenant Id (in order to limit
+        /// records retrieved using Get).
+        /// </summary>
+        /// <returns></returns>
         protected virtual Guid GetTenantFK()
         {
             //this._principalService.t

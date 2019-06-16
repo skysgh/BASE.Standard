@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\App.Modules.Core.Common\App.Modules.Core.Common.Tests.csproj" />
+    <ProjectReference Include="..\..\Core\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />
+    <ProjectReference Include="..\App.Modules.KWMODULE.Shared.Tests\App.Modules.KWMODULE.Shared.Tests.csproj" />
+    <ProjectReference Include="..\App.Modules.KWMODULE.Shared\App.Modules.KWMODULE.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

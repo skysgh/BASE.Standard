@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -22,14 +23,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly ModuleDbContext _coreRepositoryService;
         private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly IObjectMappingService _objectMappingService;
 
         public PrincipalManagmentService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
-            IAzureRedisCacheService azureRedisCacheService)
+            IAzureRedisCacheService azureRedisCacheService,
+            IObjectMappingService objectMappingService)
         {
             this._coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
+            this._objectMappingService = objectMappingService;
         }
 
         public Principal Get(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId, TimeSpan? timespanToCache = null)
@@ -161,12 +165,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         protected PrincipalDto MapToDto(Principal principal)
         {
-            return AutoMapper.Mapper.Map<Principal, PrincipalDto>(principal);
+            return _objectMappingService.Map<Principal, PrincipalDto>(principal);
         }
 
         protected Principal MaptoEntity(PrincipalDto principal)
         {
-            return AutoMapper.Mapper.Map<PrincipalDto, Principal>(principal);
+            return _objectMappingService.Map<PrincipalDto, Principal>(principal);
         }
 
         protected string GetRedisKey()

@@ -1,4 +1,5 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
@@ -21,12 +22,12 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <see cref="ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName"/>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureKeyVaultStoreResourceName)]
         public string ResourceName { get; set; }
 
 
-        //[ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        //[ConfigurationSettingSource(SourceType.AppSetting)]
         //[Alias(Constants.ConfigurationKeys.AppCoreIntegrationAzureKeyVaultStoreSystemKeyPrefix)]
         //public string KeyPrefix
         //{

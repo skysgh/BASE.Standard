@@ -11,18 +11,20 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
     /// *should* inherit in one way or another
     /// from this base controller.
     /// <para>
-    /// That said, prefer using <see cref="ModulesODataControllerBase"/>
-    /// to do that.
+    /// The advantages include:
     /// </para>
     /// <para>
-    /// The advantages include:
     /// * only one class that needs to be updated to .NET Core when we get there.
+    /// </para>
+    /// <para>
     /// * ensures that all classes are injected with an implementation of 
     /// <see cref="IDiagnosticsTracingService"/> and <see cref="IPrincipalService"/>
     /// so there is absolutely no excuse for poor diagnostics logs, or security...
-    /// (that said, still don't trust developers rushing to meet deadlines to take 
+    /// </para>
+    /// <para>
+    /// That said, still don't trust developers rushing to meet deadlines to take 
     /// care of ISO-25010/Maintainability or ISO-25010/Security, so we handle 
-    /// Security and Logging as GLobal Filters anyway).
+    /// Security and Logging as Global Filters anyway).
     /// </para>
     /// <para>
     /// Note that one has to decorate all classes
@@ -39,10 +41,21 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
 
     public abstract class CommonODataControllerBase : ODataController
     {
+        /// <summary>
+        /// The diagnostics tracing service.
+        /// </summary>
         protected readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        /// <summary>
+        /// The principal service to provide the thread's current principal.
+        /// </summary>
         protected readonly IPrincipalService _principalService;
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommonODataControllerBase"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="principalService">The principal service.</param>
         protected CommonODataControllerBase(
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService)

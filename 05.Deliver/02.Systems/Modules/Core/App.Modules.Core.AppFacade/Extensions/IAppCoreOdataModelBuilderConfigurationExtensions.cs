@@ -5,10 +5,25 @@ using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 
 namespace App.Extensions
 {
+    /// <summary>
+    /// Methods that extend
+    /// <see cref="IModuleOdataModelBuilderConfiguration"/>
+    /// instances.
+    /// </summary>
     public static class IAppCoreOdataModelBuilderConfigurationExtensions
     {
 
-        public static string GetControllerNameByConvention(this IAllModulesOdataModelBuilderConfiguration x, Type dtoType, bool pluralise=true)
+        /// <summary>
+        /// Gets the controller name from the given Entity, by convention.
+        /// <para>
+        /// Eg: "Principal" gives "PrincipalsController"
+        /// </para>
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="dtoType">Type of the dto.</param>
+        /// <param name="pluralise">if set to <c>true</c> [pluralise].</param>
+        /// <returns></returns>
+        public static string GetControllerNameByConvention(this IModuleOdataModelBuilderConfiguration x, Type dtoType, bool pluralise=true)
         {
             string className = dtoType.Name;
 

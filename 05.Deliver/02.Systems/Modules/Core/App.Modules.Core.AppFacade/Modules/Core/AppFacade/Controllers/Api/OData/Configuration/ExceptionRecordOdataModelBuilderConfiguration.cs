@@ -4,9 +4,14 @@ using App.Modules.Core.Shared.Models.Messages.API.V0100;
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
 {
 
+    /// <summary>
+    /// An OData Configuration object to define the shape of an
+    /// <see cref="ExceptionRecordDto"/>, and relate it to a Controller.
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase{ExceptionRecordDto}" />
     public class ExceptionRecordOdataModelBuilderConfiguration
 
-        : AllModulesGuidIdODataModelBuilderConfigurationBase<ExceptionRecordDto>
+        : ModuleGuidIdODataModelBuilderConfigurationBase<ExceptionRecordDto>
     {
         /// <summary>
         /// Initializes a new instance of the
@@ -14,7 +19,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IAllModulesOdataModelBuilderConfiguration"/> won't find them.
+        /// <see cref="IModuleOdataModelBuilderConfiguration"/> won't find them.
         /// </internal>
         public ExceptionRecordOdataModelBuilderConfiguration() : base()
         {

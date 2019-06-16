@@ -15,6 +15,11 @@ namespace App.Modules.Core.AppFacade.Initialization.Startup
     /// </summary>
     public class ModuleRoutes : ModuleRoutesBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleRoutes"/> class.
+        /// </summary>
+        /// <param name="dependencyResolutionService">The dependency resolution service.</param>
+        /// <param name="configurationStepService">The configuration step service.</param>
         public ModuleRoutes(
             IDependencyResolutionService dependencyResolutionService,
             IConfigurationStepService configurationStepService)
@@ -26,17 +31,14 @@ namespace App.Modules.Core.AppFacade.Initialization.Startup
         /// <summary>
         /// Initialize routes specific to a Module.
         /// <para>
-        /// Invoked from app.AddMvc(routeBuilder => ...) method.
+        /// Invoked from app.AddMvc(routeBuilder =&gt; ...) method.
         /// within App.Host's Setup/Configure method.
-        /// </para>
-        /// <para>
+        /// </para><para>
         /// Use as required to register routes specific to a single Module.
-        /// </para>
-        /// <para>
-        /// Base class invokes <see cref="CreateODataRoutes"/>
-        /// </para>
+        /// </para><para>
+        /// Base class invokes <see cref="ModuleRoutesBase.CreateODataRoutes" /></para>
         /// </summary>
-        /// <param name="routeBuilder"></param>
+        /// <param name="routeBuilder">The route builder.</param>
         public override void Initialize(IRouteBuilder routeBuilder)
         {
             // Base registers OData controller routes:

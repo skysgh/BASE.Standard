@@ -1,6 +1,7 @@
 ﻿namespace App.Modules.Core.Shared.Models.Entities
 {
     // TODO: Enums are evil (offset issue of Interface Localization)
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum NZDataClassification
     {
         //An error state:
@@ -17,6 +18,8 @@
         Restricted = 5,
         Confidential = 6,
         Secret = 7,
+        //
         TopSecret = 8
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

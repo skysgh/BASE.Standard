@@ -11,19 +11,34 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData.Configuration
     /// Invoked by a Model Builder.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class AllModulesODataModelBuilderConfigurationBase<T> :
-        IAllModulesOdataModelBuilderConfiguration
+    public abstract class ModuleODataModelBuilderConfigurationBase<T> :
+        IModuleOdataModelBuilderConfiguration
         where T : class, new()
     {
         private string _controllerName;
 
+        /// <summary>
+        /// Gets or sets the name of the Controller
+        /// associated to the T.
+        /// <para>
+        /// For example, given "Principal", the Controller
+        /// name will be "PrincipalsController"
+        /// </para>
+        /// </summary>
         protected string ControllerName { get => _controllerName; set => _controllerName = value; }
 
-        protected AllModulesODataModelBuilderConfigurationBase()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleODataModelBuilderConfigurationBase{T}" /> class.
+        /// </summary>
+        protected ModuleODataModelBuilderConfigurationBase()
         {
             _controllerName = this.GetControllerNameByConvention(typeof(T));
         }
-        protected AllModulesODataModelBuilderConfigurationBase(string controllerName)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleODataModelBuilderConfigurationBase{T}"/> class.
+        /// </summary>
+        /// <param name="controllerName">Name of the controller.</param>
+        protected ModuleODataModelBuilderConfigurationBase(string controllerName)
         {
             ControllerName = controllerName;
         }
@@ -37,6 +52,15 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData.Configuration
         {
             Define(builder);
         }
+        /// <summary>
+        /// Defines the entity set for T.
+        /// <para>
+        /// Note that the Key is not set (it is up to a subclass to define which
+        /// property of the DTO is the Key).
+        /// </para>
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        /// <returns></returns>
         public virtual EntityTypeConfiguration<T> Define(ODataModelBuilder builder)
         {
             EntityTypeConfiguration<T> entity =

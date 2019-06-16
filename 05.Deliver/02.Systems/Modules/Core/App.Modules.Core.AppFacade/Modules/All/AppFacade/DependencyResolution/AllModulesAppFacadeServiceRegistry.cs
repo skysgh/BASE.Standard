@@ -1,14 +1,25 @@
 ﻿using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.All.AppFacade.Initialization.Views;
 using App.Modules.Core.AppFacade.Initialization.Startup;
+using Lamar;
 using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.AppFacade.DependencyResolution
 {
+    /// <summary>
+    /// A <see cref="ServiceRegistry"/>
+    /// that scans all Assemblies in all Logical Modules.
+    /// </summary>
+    /// <seealso cref="Lamar.ServiceRegistry" />
     public class AllModulesAppFacadeServiceRegistry : Lamar.ServiceRegistry
     {
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="AllModulesAppFacadeServiceRegistry"/> class.
+        /// </summary>
         public AllModulesAppFacadeServiceRegistry()
         {
+
             Scan(assemblyScanner =>
             {
                 // Want to search in all Assemblies related to this system.
@@ -24,6 +35,7 @@ namespace App.Modules.All.AppFacade.DependencyResolution
                 ScanAllModulesForViewAssemblyRegistration(assemblyScanner);
                 ScanAllModulesForODataModelDefinitions(assemblyScanner);
             });
+
         }
 
         private void ScanAllModulesForStartupExtensions(IAssemblyScanner assemblyScanner)
@@ -42,7 +54,7 @@ namespace App.Modules.All.AppFacade.DependencyResolution
 
         private void ScanAllModulesForODataModelDefinitions(IAssemblyScanner assemblyScanner)
         {
-            assemblyScanner.AddAllTypesOf<IAllModulesOdataModelBuilderConfiguration>();
+            assemblyScanner.AddAllTypesOf<IModuleOdataModelBuilderConfiguration>();
         }
     }
 }

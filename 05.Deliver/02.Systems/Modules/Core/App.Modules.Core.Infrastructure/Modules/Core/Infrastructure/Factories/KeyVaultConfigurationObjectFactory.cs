@@ -6,7 +6,7 @@ namespace App.Modules.Core.Infrastructure.Factories
     using System;
     using System.ComponentModel;
     using System.Reflection;
-    
+    using App.Modules.All.Shared.Attributes.Enums;
     using App.Modules.Core.Infrastructure.Services;
     using App.Modules.Core.Shared.Models.Entities;
 
@@ -90,7 +90,7 @@ namespace App.Modules.Core.Infrastructure.Factories
             var objectType = target.GetType();
 
             var validSources = new[]
-                {ConfigurationSettingSource.SourceType.Any, ConfigurationSettingSource.SourceType.KeyVault};
+                {SourceType.Any, SourceType.KeyVault};
 
 
             // Iterate over the public properties of the target object
@@ -122,13 +122,13 @@ namespace App.Modules.Core.Infrastructure.Factories
                 {
                     switch (sourceAttribute.Source)
                     {
-                        case ConfigurationSettingSource.SourceType.AppSetting:
+                        case SourceType.AppSetting:
                             //For sure it was supposed to not be set here:
                             continue;
-                        case ConfigurationSettingSource.SourceType.AppSettingsViaDeploymentPipeline:
+                        case SourceType.AppSettingsViaDeploymentPipeline:
                             //For sure it was supposed to not be set here:
                             continue;
-                        case ConfigurationSettingSource.SourceType.Any:
+                        case SourceType.Any:
                             var o = propertyInfo.GetValue(target, null);
                             if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
                             {
@@ -138,7 +138,7 @@ namespace App.Modules.Core.Infrastructure.Factories
                                 continue;
                             }
                             break;
-                        case ConfigurationSettingSource.SourceType.KeyVault:
+                        case SourceType.KeyVault:
                             //For sure it was supposed to be obtained here:
                             break;
                         default:

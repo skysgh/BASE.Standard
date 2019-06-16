@@ -1,5 +1,4 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
@@ -7,8 +6,7 @@ using AutoMapper;
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     public class ObjectMap_Principal_PrincipalDto 
-        : MapUntenantedRecordStatedTimestampedNoIdBase<Principal, PrincipalDto>,
-        IHasAutomapperInitializer
+        : MapUntenantedRecordStatedTimestampedNoIdBase<Principal, PrincipalDto>
     {
 
         protected override void ConfigureMapFromEntityToDto(
@@ -36,8 +34,8 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
                     .ForMember(t => t.Enabled, opt => opt.MapFrom(s => s.Enabled))
                     .ForMember(t => t.DisplayName, opt => opt.MapFrom(s => s.DisplayName))
                     .ForMember(t => t.FullName, opt => opt.MapFrom(s => s.FullName))
-                    .ForMember(t => t.EnabledBeginningUtc, opt => opt.Ignore())
-                    .ForMember(t => t.EnabledEndingUtc, opt => opt.Ignore())
+                    .ForMember(t => t.EnabledBeginningUtcDateTime, opt => opt.Ignore())
+                    .ForMember(t => t.EnabledEndingUtcDateTime, opt => opt.Ignore())
                     .ForMember(t => t.DataClassification, opt => opt.Ignore())
                     .ForMember(t => t.DataClassificationFK, opt => opt.Ignore())
                     .ForMember(t => t.Category, opt => opt.Ignore())

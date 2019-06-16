@@ -2,9 +2,15 @@
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
+    /// <summary>
+    /// A response object
+    /// </summary>
     public class AuthenticationSuccessMessage
     {
 
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
         public string UserId { get; set; }
 
         /// <summary>

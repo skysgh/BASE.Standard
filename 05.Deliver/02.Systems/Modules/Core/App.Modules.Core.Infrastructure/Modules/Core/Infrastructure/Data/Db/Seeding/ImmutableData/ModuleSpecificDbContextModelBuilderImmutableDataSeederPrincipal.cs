@@ -21,6 +21,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.ImmutableData
             {
                 Id = Users.Anon.Id,
                 Enabled = true,
+                DataClassificationFK  = NZDataClassification.Unclassified,
                 CategoryFK = ((int)PrincipalTypes.Default).ToGuid(),
                 DisplayName = Users.Anon.Name
             }

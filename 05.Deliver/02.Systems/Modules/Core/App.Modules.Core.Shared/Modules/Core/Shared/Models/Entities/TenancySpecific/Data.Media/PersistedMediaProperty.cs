@@ -36,11 +36,16 @@ namespace App.Modules.Core.Shared.Models.Entities
 
         /// <summary>
         ///     Gets the tag of the object.
-        ///     <para>Member defined in<see cref="XAct.IHasTag" /></para>
+        ///     <para>Member defined in<see cref="IHasTag" /></para>
         ///     <para>Can be used to associate information -- such as an image ref -- to a SelectableItem.</para>
         /// </summary>
         public virtual string Tag { get; set; }
 
+
+        /// <summary>
+        /// Gets the FK of the owner <see cref="PersistedMedia"/>.
+        /// </summary>
+        /// <returns></returns>
         public Guid GetOwnerFk()
         {
             return PersistedMediaFK;

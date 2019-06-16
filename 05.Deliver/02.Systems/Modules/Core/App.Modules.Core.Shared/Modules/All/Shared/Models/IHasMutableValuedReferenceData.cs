@@ -2,8 +2,14 @@
 namespace App.Modules.All.Shared.Models
 {
     /// <summary>
+    /// Contract for a mutable reference data object,
+    /// that has a GuidId, a generic Type value, but no Key.
     /// <para>
-    /// Any mutable model should have a Guid Id as oppossed to an integer Id. Hence <see cref="IHasGuidId"/>
+    /// See <see cref="IHasMutableDisplayableReferenceData"/>
+    /// </para>
+    /// <para>
+    /// Any mutable model should have a Guid Id as
+    /// opposed to an integer Id. Hence <see cref="IHasGuidId"/>
     /// </para>
     /// <para>
     /// Resource data have <see cref="IHasEnabled"/>because 
@@ -34,7 +40,9 @@ namespace App.Modules.All.Shared.Models
     /// <seealso cref="IHasDisplayOrderHint" />
     /// <seealso cref="IHasKey" />
     /// <seealso cref="IHasValue{T}" />
-    public interface IHasMutableValuedReferenceData<TValue> : IHasMutableDisplayableReferenceData, IHasValue<TValue>
+    public interface IHasMutableValuedReferenceData<TValue> : 
+        IHasMutableDisplayableReferenceData, 
+        IHasValue<TValue>
     {
 
     }

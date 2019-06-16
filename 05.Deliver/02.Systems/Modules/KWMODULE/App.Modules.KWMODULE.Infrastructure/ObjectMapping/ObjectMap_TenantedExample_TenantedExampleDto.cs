@@ -1,5 +1,4 @@
-﻿using App.Modules.All.Infrastructure.ObjectMapping;
-using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.KWMODULE.Shared.Models.Entities;
 using App.Modules.KWMODULE.Shared.Models.Messages;
 using AutoMapper;
@@ -8,8 +7,7 @@ namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
 {
     public class ObjectMap_TenantedExample_TenantedExampleDto
         
-        : MapTenantedRecordStatedTimestampedGuidIdBase<TenantedExample, TenantedExampleDto>,
-            IHasAutomapperInitializer
+        : MapTenantedRecordStatedTimestampedGuidIdBase<TenantedExample, TenantedExampleDto>
     {
 
         protected override void ConfigureMapFromEntityToDto(

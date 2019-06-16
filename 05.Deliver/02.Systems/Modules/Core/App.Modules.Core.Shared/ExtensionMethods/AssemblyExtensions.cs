@@ -3,6 +3,9 @@ using App.Modules.All.Shared.Constants;
 
 namespace App
 {
+    /// <summary>
+    /// Extensions to <see cref="Assembly"/>
+    /// </summary>
     public static class AssemblyExtensions
     {
         /// <summary>

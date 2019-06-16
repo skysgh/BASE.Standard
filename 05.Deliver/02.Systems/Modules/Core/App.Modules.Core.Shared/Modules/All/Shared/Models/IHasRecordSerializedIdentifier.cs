@@ -2,6 +2,15 @@
 
 namespace App.Modules.All.Shared.Models
 {
+    /// <summary>
+    /// Contract for objects that
+    /// have an attribute to record the Guid that represents
+    /// the remote FK.
+    /// TODO: This approach may be flawed and only one way if the Type is not a Guid.
+    /// <para>
+    /// See <see cref="IHasRecordIdentifier"/>
+    /// </para>
+    /// </summary>
     public interface IHasRecordSerializedIdentifier
     {
 

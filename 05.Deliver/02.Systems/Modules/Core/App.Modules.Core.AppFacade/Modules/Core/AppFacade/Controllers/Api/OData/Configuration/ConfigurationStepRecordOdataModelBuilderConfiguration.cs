@@ -3,8 +3,12 @@ using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
 {
+    /// <summary>
+    /// Configuration object to describe the DTO and the Controller from which to retrieve it.
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase{ConfigurationStepRecordDto}" />
     public class ConfigurationStepRecordOdataModelBuilderConfiguration 
-        : AllModulesGuidIdODataModelBuilderConfigurationBase<ConfigurationStepRecordDto> //, IAppCoreOdataModelBuilderConfiguration
+        : ModuleGuidIdODataModelBuilderConfigurationBase<ConfigurationStepRecordDto> //, IAppCoreOdataModelBuilderConfiguration
     {
 
         /// <summary>
@@ -12,7 +16,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
         /// </summary>
         /// <internal>
         /// Remember to make these constructors public or reflection for 
-        /// <see cref="IAppCoreOdataModelBuilderConfiguration"/> won't find them.
+        /// <see cref="IModuleOdataModelBuilderConfiguration"/> won't find them.
         /// </internal>
         public ConfigurationStepRecordOdataModelBuilderConfiguration() : base()
         {

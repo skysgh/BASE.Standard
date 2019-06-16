@@ -26,6 +26,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             ExceptionRecord,
             ExceptionRecordDto>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExceptionRecordsController"/> class.
+        /// </summary>
+        /// <param name="controllerCommonServicesService">The controller common services service.</param>
+        /// <param name="dbContext">The database context.</param>
         public ExceptionRecordsController(
             IControllerCommonServicesService controllerCommonServicesService,
             ModuleDbContext dbContext
@@ -39,6 +44,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         }
 
 
+        /// <summary>
+        /// Invokes InternalGet
+        /// to return a single Dto.
+        /// </summary>
+        /// <returns></returns>
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
@@ -53,6 +63,12 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
 
 
         //[ODataRoute("({key})")]
+        /// <summary>
+        /// Invokes InternalGet
+        /// to return a single dto object.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public ExceptionRecordDto Get(Guid key)
         {
             return InternalGet(key);

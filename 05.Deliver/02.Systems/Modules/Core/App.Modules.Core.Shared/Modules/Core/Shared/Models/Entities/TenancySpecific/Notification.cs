@@ -1,26 +1,79 @@
 ﻿using System;
+using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Entities
 {
-    public class Notification : TenantFKRecordStatedTimestampedGuidIdEntityBase
+    /// <summary>
+    /// Notification entity
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Shared.Models.Entities.TenantFKRecordStatedTimestampedGuidIdEntityBase" />
+    public class Notification 
+        : TenantFKRecordStatedTimestampedGuidIdEntityBase,
+            IHasPrincipalFK,
+            IHasValue<int>
     {
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
         public virtual NotificationType Type { get; set; }
 
+        /// <summary>
+        /// Gets or sets the level.
+        /// </summary>
+        /// <value>
+        /// The level.
+        /// </value>
         public virtual TraceLevel Level { get; set; }
 
-        //For:
+        /// <summary>
+        /// Gets or sets the FK of the
+        /// <see cref="T:App.Modules.Core.Shared.Models.Entities.Principal" />
+        /// </summary>
         public virtual Guid PrincipalFK { get; set; }
 
+        /// <summary>
+        /// Gets or sets the date time created UTC.
+        /// </summary>
+        /// <value>
+        /// The date time created UTC.
+        /// </value>
         public virtual DateTime DateTimeCreatedUtc { get; set; }
+        /// <summary>
+        /// Gets or sets the date time read UTC.
+        /// </summary>
+        /// <value>
+        /// The date time read UTC.
+        /// </value>
         public virtual DateTimeOffset? DateTimeReadUtc { get; set; }
 
 
-//Source User or System identifier
+        //Source User or System identifier
+        /// <summary>
+        /// Gets or sets from.
+        /// </summary>
+        /// <value>
+        /// From.
+        /// </value>
         public virtual string From { get; set; }
 
+        /// <summary>
+        /// Gets or sets the image URL.
+        /// </summary>
+        /// <value>
+        /// The image URL.
+        /// </value>
         public virtual string ImageUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets the class.
+        /// </summary>
+        /// <value>
+        /// The class.
+        /// </value>
         public virtual string Class { get; set; }
 
         /// <summary>
@@ -50,6 +103,12 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// </summary>
         public virtual int Value { get; set; }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public virtual string Text { get; set; }
     }
 }

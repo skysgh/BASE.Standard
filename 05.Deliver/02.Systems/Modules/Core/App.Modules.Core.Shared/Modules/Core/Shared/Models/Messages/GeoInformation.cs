@@ -8,8 +8,20 @@
     /// </summary>
     public class GeoInformation
     {
+        /// <summary>
+        /// Gets or sets the country region.
+        /// </summary>
+        /// <value>
+        /// The country region.
+        /// </value>
         public GeoInformationCountryRegion CountryRegion { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ip address.
+        /// </summary>
+        /// <value>
+        /// The ip address.
+        /// </value>
         public string IPAddress { get; set; }
     }
 

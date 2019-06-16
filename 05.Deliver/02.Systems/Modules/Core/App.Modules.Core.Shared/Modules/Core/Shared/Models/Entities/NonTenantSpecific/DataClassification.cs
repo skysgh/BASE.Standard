@@ -2,7 +2,13 @@
 
 namespace App.Modules.Core.Shared.Models.Entities
 {
-    public class DataClassification : UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase<NZDataClassification>
+    /// <summary>
+    /// Entity to record
+    /// DataClassification of objects.
+    /// </summary>
+    /// <seealso cref="UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase{NZDataClassification}" />
+    public class DataClassification 
+        : UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase<NZDataClassification>
     {
     }
 }

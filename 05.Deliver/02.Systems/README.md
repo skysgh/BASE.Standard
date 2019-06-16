@@ -42,6 +42,12 @@ The following is what is used to add Core MIgrations from the Solution Root fold
     dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations"  --context ModuleDbContext  
     dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove --context ModuleDbContext
 
+	# This will work for any module
+	$moduleName = "KWMODULE"
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" list --context ModuleDbContext
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" add "XXX" --output-dir "Data\Db\Migrations"  --context ModuleDbContext  
+    dotnet ef migrations --project "modules\$($moduleName)\app.modules.$($moduleName).infrastructure" --startup-project "host\app.host" remove --context ModuleDbContext
+
 
 Apply Migrations either from the command line, or by running the app:
 

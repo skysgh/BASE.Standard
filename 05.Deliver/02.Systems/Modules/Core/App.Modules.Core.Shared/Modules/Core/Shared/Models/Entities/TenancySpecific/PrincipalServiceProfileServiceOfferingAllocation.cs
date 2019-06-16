@@ -5,7 +5,7 @@ namespace App.Modules.Core.Shared.Models.Entities
 {
     /// <summary>
     /// The Complex Joint Object used to Assign ServiceOfferings to a TenantServiceIdentity, directly, 
-    /// without going through a <see cref="ServicePlan"/>.
+    /// without going through a <see cref="ServicePlanDefinition"/>.
     /// <para>
     /// There's always an exception to any Plan 
     /// (beta, teaser, freebie to cover a stuffup, etc.)
@@ -17,7 +17,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <summary>
         /// The Type of assignment, defining whether
         /// the Service is being added, or removed (ie
-        /// maybe it's already part of a <see cref="ServicePlan"/>
+        /// maybe it's already part of a <see cref="ServicePlanDefinition"/>
         /// but it's being removed in this case, for some reason).
         /// </summary>
         public AssignmentType Type { get; set; }
@@ -55,9 +55,12 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// The FK of the <see cref="ServiceOfferingDefinition"/>
         /// this <see cref="PrincipalServiceProfileServiceOfferingAllocation"/>
         /// is allocating to the owning
-        /// <see cref="ServiceProfile"/>
+        /// <see cref="PrincipalServiceProfile"/>
         /// </summary>
         public Guid ServiceOfferingFK { get; set; }
+        /// <summary>
+        /// Gets or sets the service offering.
+        /// </summary>
         public ServiceOfferingDefinition ServiceOffering { get; set; }
 
     }

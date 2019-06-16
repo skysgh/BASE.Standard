@@ -12,19 +12,45 @@ namespace App.Modules.Core.Shared.Models.Entities
     public class TenantSecurityProfileRole : TenantFKRecordStatedTimestampedGuidIdEntityBase, IHasTitleAndDescription
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TenantSecurityProfileRole"/> class.
+        /// </summary>
         public TenantSecurityProfileRole()
         {
             Enabled = true;
         }
 
-        public bool Enabled { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="TenantSecurityProfileRole"/> is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool Enabled { get; set; }
 
-        public string Title { get; set; }
-        public string Description { get; set; }
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        public virtual string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
+        public virtual string Description { get; set; }
 
 
 
-        public ICollection<TenantSecurityProfileRole2PermissionAssignment> PermissionsAssignments
+        /// <summary>
+        /// Gets or sets the permissions assigned
+        /// to this <see cref="TenantSecurityProfileRole"/>.
+        /// </summary>
+        public virtual ICollection<TenantSecurityProfileRole2PermissionAssignment> PermissionsAssignments
         {
             get
             {
@@ -35,11 +61,14 @@ namespace App.Modules.Core.Shared.Models.Entities
                 _permissionsAssignments = value;
             }
         }
-        public ICollection<TenantSecurityProfileRole2PermissionAssignment> _permissionsAssignments;
+        private ICollection<TenantSecurityProfileRole2PermissionAssignment> _permissionsAssignments;
 
 
-
-        public ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> ResponsibilityAssignments
+        /// <summary>
+        /// Gets or sets the responsibilities assigned
+        /// to this <see cref="TenantSecurityProfileRole"/>.
+        /// </summary>
+        public virtual ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> ResponsibilityAssignments
         {
             get
             {
@@ -50,7 +79,7 @@ namespace App.Modules.Core.Shared.Models.Entities
                 _responsibilityAssignments = value;
             }
         }
-        public ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> _responsibilityAssignments;
+        private ICollection<TenantSecurityProfileRole2ResponsibilityAssignment> _responsibilityAssignments;
     }
 
 }

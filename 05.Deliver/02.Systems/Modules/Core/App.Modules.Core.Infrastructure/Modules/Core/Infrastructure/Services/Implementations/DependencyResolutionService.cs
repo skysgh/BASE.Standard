@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Lamar;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
@@ -8,13 +7,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
     public class DependencyResolutionService : IDependencyResolutionService
     {
-        public IServiceProvider ServiceProvider { get {
+        public IServiceProvider ServiceProvider
+        {
+            get
+            {
                 return DependencyLocator.Current.ServiceProvider;
-
-            } }
+            }
+        }
 
         public DependencyResolutionService() : base()
         {
+            
 
         }
 
@@ -58,25 +61,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             throw new NotImplementedException();
         }
 
-
-        //        private IContainer GetContainer()
-        //        {
-        //            IContainer r = StructureMapContainerLocator.Container;
-        //            return r;
-        //        }
-        //        //public void Register<T>(string key)
-        //        //{
-
-        //        //    new CreatePluginFamilyExpression<IAppCoreCacheItem>(this,
-        //        //            new StructureMap.Pipeline.SingletonLifecycle())
-        //        //            .Use(y => (IAppCoreCacheItem)AppDependencyLocator.Current.GetInstance(t)).Named(name);
-
-
-
-
-        //        //}
-
-
     }
 
     /// <summary>
@@ -87,7 +71,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public static DependencyLocator Current
         {
-            get {
+            get
+            {
                 if (_current == null)
                 {
                     _current = new DependencyLocator();
@@ -114,7 +99,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public void Initialize(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _container = (IContainer) serviceProvider;
+            _container = (IContainer)serviceProvider;
             if (_current != null)
             {
                 if (_current != this)

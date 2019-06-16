@@ -5,19 +5,49 @@ using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
-    public class SecurityProfileRoleDto  /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
+    /// <summary>
+    /// TODO: DTO
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
+    public class SecurityProfileRoleDto 
+        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
+        : IHasGuidId,
+            IHasTitle,
+            IHasDescription
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecurityProfileRoleDto"/> class.
+        /// </summary>
         public SecurityProfileRoleDto()
         {
             this.Id = GuidFactory.NewGuid();
 
         }
 
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public Guid Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the title of the model.
+        /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional displayed description.
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
         public ICollection<SecurityProfilePermissionDto> Permissions { get; set; }
 
     }

@@ -1,8 +1,21 @@
-﻿namespace App.Modules.Core.Shared.Models.Messages
+﻿using App.Modules.All.Shared.Models;
+
+namespace App.Modules.Core.Shared.Models.Messages
 {
-    public class AuthorizationCodeReceivedMessage
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Shared.Models.IHasName" />
+    public class AuthorizationCodeReceivedMessage: IHasName
     {
 
+        /// <summary>
+        /// Gets or sets the unique Name
+        /// of the object
+        /// <para>
+        /// See difference with <see cref="T:App.Modules.All.Shared.Models.IHasKey" />.
+        /// </para>
+        /// </summary>
         public string Name { get; set; }
 
 

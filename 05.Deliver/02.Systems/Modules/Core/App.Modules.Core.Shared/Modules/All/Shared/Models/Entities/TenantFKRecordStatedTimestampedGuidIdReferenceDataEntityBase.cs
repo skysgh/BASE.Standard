@@ -16,7 +16,6 @@ namespace App.Modules.All.Shared.Models.Entities
     /// <para>
     /// Implements
     /// <see cref="IHasEnabled"/>
-    /// <see cref="IHasText"/>
     /// <see cref="IHasDisplayOrderHint"/>
     /// <see cref="IHasDisplayStyleHint"/>
     /// <see cref="IHasTenantFK"/>
@@ -31,7 +30,6 @@ namespace App.Modules.All.Shared.Models.Entities
     /// </summary>
     /// <seealso cref="TenantFKRecordStatedTimestampedGuidIdEntityBase" />
     /// <seealso cref="IHasEnabled" />
-    /// <seealso cref="IHasText" />
     /// <seealso cref="IHasDisplayOrderHint" />
     public abstract class TenantFKRecordStatedTimestampedGuidIdReferenceDataEntityBase : 
         TenantFKRecordStatedTimestampedGuidIdEntityBase,
@@ -47,13 +45,17 @@ namespace App.Modules.All.Shared.Models.Entities
         }
 
         /// <summary>
-        /// Gets or sets the reference data's displayed text.
+        /// Gets or sets the reference
+        /// data's displayed text.
         /// </summary>
         public virtual string Title
         {
             get; set;
         }
 
+        /// <summary>
+        /// Gets or sets the optional displayed description.
+        /// </summary>
         public virtual string Description
         {
             get;set;
@@ -67,7 +69,10 @@ namespace App.Modules.All.Shared.Models.Entities
             get; set;
         }
 
-        // A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+
+        /// <summary>
+        /// A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+        /// </summary>
         public virtual string DisplayStyleHint
         {
             get; set;

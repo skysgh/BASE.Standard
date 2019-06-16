@@ -1,10 +1,16 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
+using App.Modules.All.Shared.Models;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
 
-    public class AzureRedisCacheConfigurationSettings
+    /// <summary>
+    /// TODO
+    /// </summary>
+    public class AzureRedisCacheConfigurationSettings: 
+        IHasKey
     {
 
         /// <summary>
@@ -20,24 +26,38 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureRedisCacheResourceName)]
         public string ResourceName
         {
             get; set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        /// <summary>
+        /// Gets or sets the unique key of the object,
+        /// by which it is indexed when persisted
+        /// (in additional to any primary Id).
+        /// <para>
+        /// Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" /></para>.
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureRedisCacheDefaultAuthorizationKey)]
         public string Key
         {
             get;set;
         }
 
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
+        /// <para>
+        /// See <see cref="T:App.Modules.All.Shared.Models.IHasEnabledBeginningUtcDateTime" />
+        /// and <see cref="T:App.Modules.All.Shared.Models.IHasEnabledEndUtcDateTime" /></para>
+        /// </summary>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureRedisEnabled)]
         public string Enabled
         {
+            // Note that string type is intentional.
             get; set;
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
+namespace App.Modules.core.Infrastructure.Data.Db.Migrations
 {
     public partial class Init : Migration
     {
@@ -51,7 +51,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    DateTimeCreatedUtc = table.Column<DateTime>(nullable: false),
+                    UtcDateTimeCreated = table.Column<DateTimeOffset>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     ThreadId = table.Column<string>(nullable: true),
                     ClientId = table.Column<string>(nullable: true),
@@ -311,7 +311,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                     IsDefault = table.Column<bool>(nullable: true),
                     HostName = table.Column<string>(maxLength: 64, nullable: true),
                     DisplayName = table.Column<string>(maxLength: 64, nullable: false),
-                    DataClassificationFK = table.Column<int>(nullable: true)
+                    DataClassificationFK = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,7 +322,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -333,12 +333,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
                     RecordState = table.Column<int>(nullable: false),
-                    EnabledBeginningUtc = table.Column<DateTimeOffset>(nullable: true),
-                    EnabledEndingUtc = table.Column<DateTimeOffset>(nullable: true),
+                    EnabledBeginningUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
+                    EnabledEndingUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
                     Enabled = table.Column<bool>(nullable: false),
                     FullName = table.Column<string>(maxLength: 128, nullable: true),
                     DisplayName = table.Column<string>(maxLength: 128, nullable: true),
-                    DataClassificationFK = table.Column<int>(nullable: true),
+                    DataClassificationFK = table.Column<int>(nullable: false),
                     CategoryFK = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -357,7 +357,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -462,8 +462,8 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
                     RecordState = table.Column<int>(nullable: false),
                     TenantFK = table.Column<Guid>(nullable: false),
-                    EnabledBeginningUtc = table.Column<DateTime>(nullable: true),
-                    EnabledEndingUtc = table.Column<DateTime>(nullable: true),
+                    EnabledBeginningUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
+                    EnabledEndingUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
                     Enabled = table.Column<bool>(nullable: false),
                     DisplayName = table.Column<string>(nullable: true),
                     DataClassificationFK = table.Column<int>(nullable: true),
@@ -779,7 +779,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                     RecordState = table.Column<int>(nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
                     UniqueIdentifier = table.Column<string>(maxLength: 64, nullable: false),
-                    DateTimeCreatedUtc = table.Column<DateTime>(nullable: false),
+                    UtcDateTimeCreated = table.Column<DateTimeOffset>(nullable: false),
                     PrincipalFK = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -806,7 +806,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                     Enabled = table.Column<bool>(nullable: false),
                     ModuleKey = table.Column<string>(nullable: true),
                     Key = table.Column<string>(maxLength: 64, nullable: false),
-                    DataClassificationFK = table.Column<int>(nullable: true),
+                    DataClassificationFK = table.Column<int>(nullable: false),
                     PrincipalId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -818,7 +818,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SystemRoles_Principals_PrincipalId",
                         column: x => x.PrincipalId,
@@ -1026,8 +1026,8 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "ExceptionRecords",
-                columns: new[] { "Id", "ClientId", "DateTimeCreatedUtc", "Level", "Message", "Stack", "ThreadId" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "Installation of System occurred on: 6/8/2019 5:20:57 AM +00:00", "", null });
+                columns: new[] { "Id", "ClientId", "Level", "Message", "Stack", "ThreadId", "UtcDateTimeCreated" },
+                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), null, 3, "Installation of System occurred on: 6/16/2019 10:06:23 AM +00:00", "", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
 
             migrationBuilder.InsertData(
                 schema: "Core",
@@ -1067,21 +1067,21 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
 
             migrationBuilder.InsertData(
                 schema: "Core",
+                table: "Principals",
+                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime", "EnabledEndingUtcDateTime", "FullName", "RecordState" },
+                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), new Guid("00000002-0000-0000-0000-000000000000"), 2, "Anon", true, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                schema: "Core",
+                table: "Principals",
+                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime", "EnabledEndingUtcDateTime", "FullName", "RecordState" },
+                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000003-0000-0000-0000-000000000000"), 2, "Anon", true, null, null, null, 0 });
+
+            migrationBuilder.InsertData(
+                schema: "Core",
                 table: "Tenants",
                 columns: new[] { "Id", "DataClassificationFK", "DisplayName", "Enabled", "HostName", "IsDefault", "Key", "RecordState" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), null, "Default", true, "Default", true, "Default", 0 });
-
-            migrationBuilder.InsertData(
-                schema: "Core",
-                table: "Principals",
-                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtc", "EnabledEndingUtc", "FullName", "RecordState" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), new Guid("00000002-0000-0000-0000-000000000000"), null, "Anon", true, null, null, null, 0 });
-
-            migrationBuilder.InsertData(
-                schema: "Core",
-                table: "Principals",
-                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtc", "EnabledEndingUtc", "FullName", "RecordState" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000003-0000-0000-0000-000000000000"), null, "Anon", true, null, null, null, 0 });
+                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), 2, "Default", true, "Default", true, "Default", 0 });
 
             migrationBuilder.InsertData(
                 schema: "Core",

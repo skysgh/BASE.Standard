@@ -19,16 +19,21 @@ namespace App.Modules.Core.Infrastructure.Caching
     public class DefaultTenancyCacheItem : CacheItemBase, IAppCoreCacheItem
     {
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly IObjectMappingService _objectMappingService;
         private readonly ModuleDbContext _coreRepositoryService;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="azureRedisCacheService"></param>
-        public DefaultTenancyCacheItem(IAzureRedisCacheService azureRedisCacheService, ModuleDbContext repositoryService)
+        public DefaultTenancyCacheItem(
+            IAzureRedisCacheService azureRedisCacheService,
+            IObjectMappingService objectMappingService,
+            ModuleDbContext repositoryService
+            )
         {
             _azureRedisCacheService = azureRedisCacheService;
-
+            this._objectMappingService = objectMappingService;
             this._coreRepositoryService = repositoryService;
 
             this._duration = TimeSpan.FromMinutes(1);
@@ -40,11 +45,21 @@ namespace App.Modules.Core.Infrastructure.Caching
 
             if (result.IsDefaultOrNotInitialized())
             {
-                result = _coreRepositoryService
-                    .GetQueryableSet<Tenant>()
-                    .Where(x => x.IsDefault == true)
-                    .ProjectTo<TenantDto>((object)null, x => x.Properties)
+                result =
+
+                    //_coreRepositoryService
+                    //.GetQueryableSet<Tenant>()
+                    //.Where(x => x.IsDefault == true)
+                    //.ProjectTo<TenantDto>((object)null, x => x.Properties)
+                    //.FirstOrDefault(x => true);
+
+                    _objectMappingService.ProjectTo<Tenant, TenantDto>(
+                        _coreRepositoryService.GetQueryableSet<Tenant>()
+                            .Where(x => x.IsDefault == true),
+                        (object)null,
+                        x => x.Properties)
                     .FirstOrDefault(x => true);
+
 
                 _azureRedisCacheService.Set(_key, result);
             }

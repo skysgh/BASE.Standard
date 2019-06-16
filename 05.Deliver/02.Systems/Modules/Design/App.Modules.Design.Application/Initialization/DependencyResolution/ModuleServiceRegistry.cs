@@ -1,4 +1,5 @@
-﻿using App.Modules.All.Application.Initialization.DependencyResolution;
+﻿using App.Modules.All.Application.DependencyResolution;
+using Lamar.Scanning.Conventions;
 
 namespace App.Modules.Design.Application.Initialization.DependencyResolution
 {
@@ -14,11 +15,12 @@ namespace App.Modules.Design.Application.Initialization.DependencyResolution
     /// than find the same thing within `Module1Something`.
     /// </para>
     /// </summary>
-    public class ModuleServiceRegistry : ModuleServiceRegistryBase
+    public class ModuleServiceRegistry 
+        : ModuleServiceRegistryBase
     {
-        public ModuleServiceRegistry()
+        protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
-            //Reuse base Constructor, which scans this logical Module.
+            base.InnerScan(assemblyScanner);
         }
     }
 }

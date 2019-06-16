@@ -11,6 +11,13 @@
     public interface IHasName
     {
 
+        /// <summary>
+        /// Gets or sets the unique Name
+        /// of the object
+        /// <para>
+        /// See difference with <see cref="IHasKey"/>.
+        /// </para>
+        /// </summary>
         string Name { get; set; }
     }
 }

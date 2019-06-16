@@ -1,4 +1,5 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
@@ -19,7 +20,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <see cref="ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName"/>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureDocumentDbResourceName)]
         public string ResourceName { get; set;}
 
@@ -33,7 +34,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// Note: should not be needed if we are using MSI
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureDocumentDbAuthorizationKey)]
         public string AuthorizationKey { get; set; }
 

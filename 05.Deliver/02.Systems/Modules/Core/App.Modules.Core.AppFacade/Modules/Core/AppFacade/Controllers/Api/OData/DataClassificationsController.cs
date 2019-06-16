@@ -26,6 +26,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             DataClassificationDto,
             NZDataClassification>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataClassificationsController"/> class.
+        /// </summary>
+        /// <param name="controllerCommonServicesService">The controller common services service.</param>
+        /// <param name="dbContext">The database context.</param>
         public DataClassificationsController(
             IControllerCommonServicesService controllerCommonServicesService,
             ModuleDbContext dbContext
@@ -40,6 +45,10 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         }
 
 
+        /// <summary>
+        /// Gets a single DTO.
+        /// </summary>
+        /// <returns></returns>
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
@@ -80,6 +89,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             return r;
         }
 
+        /// <summary>
+        /// Gets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public int Get(string key)
         {
             return 0;
@@ -93,6 +107,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             //return r;
 
         }
+        /// <summary>
+        /// Fuzzs the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public int Fuzz(string key)
         {
             return 0;

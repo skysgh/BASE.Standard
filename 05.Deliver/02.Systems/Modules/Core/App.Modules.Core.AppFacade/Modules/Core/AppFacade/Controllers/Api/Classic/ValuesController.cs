@@ -5,9 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />
     public class Values2Controller : AllModulesApiControllerBase
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Values2Controller"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="principalService">The principal service.</param>
         public Values2Controller(
             IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalService principalService
@@ -17,6 +26,10 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
         }
 
         // GET api/values
+        /// <summary>
+        /// TODO: Lists this instance.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<string>> List()
@@ -25,12 +38,21 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
         }
 
         // GET api/values/5
+        /// <summary>
+        /// TODO: Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
             return "value";
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="value"></param>
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
@@ -38,12 +60,21 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
         }
 
         // PUT api/values/5
+        /// <summary>
+        /// TODO: Puts the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="value">The value.</param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/values/5
+        /// <summary>
+        /// TODO: Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

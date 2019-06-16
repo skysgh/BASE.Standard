@@ -1,4 +1,5 @@
 ﻿using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
@@ -24,7 +25,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceName)]
         public string ResourceName
         {
@@ -32,8 +33,13 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         }
 
 
-
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        /// <summary>
+        /// Gets or sets the default name of the resource.
+        /// </summary>
+        /// <value>
+        /// The default name of the resource.
+        /// </value>
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName)]
         public string DefaultResourceName
         {
@@ -59,7 +65,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// </para>
         /// </para>
         /// </summary>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.AppSetting)]
+        [ConfigurationSettingSource(SourceType.AppSetting)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultResourceNameSuffix)]
         public string ResourceNameSuffix
         {
@@ -75,7 +81,7 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         /// <value>
         /// The key.
         /// </value>
-        [ConfigurationSettingSource(ConfigurationSettingSource.SourceType.KeyVault)]
+        [ConfigurationSettingSource(SourceType.KeyVault)]
         [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureStorageAccountDefaultKey)]
         public string Key
         {
