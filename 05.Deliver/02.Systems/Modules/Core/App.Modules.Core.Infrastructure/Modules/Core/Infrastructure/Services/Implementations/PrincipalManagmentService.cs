@@ -73,14 +73,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             //    CategoryFK = CoreModuleDbContextSeederPrincipalCategory.GetDefaultPrincipalCategory().Id,
             //    FullName = name,
             //    Enabled = true,
-            //    EnabledBeginningUtc = DateTime.UtcNow
+            //    EnabledBeginningUtc = DateTimeOffset.UtcNow
             //};
             //var login = new PrincipalLogin()
             //{
             //    PrincipalFK = currentPrincipal.Id,
             //    CreatedByPrincipalId = currentPrincipal.Id.ToString(),
             //    LastModifiedByPrincipalId = currentPrincipal.Id.ToString(),
-            //    LastLoggedInUtc = DateTime.UtcNow,
+            //    LastLoggedInUtc = DateTimeOffset.UtcNow,
             //    IdPLogin = idpPrincipalKey,
             //    SubLogin = subPrincipalKey,
             //};

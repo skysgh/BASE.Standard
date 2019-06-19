@@ -21,7 +21,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class PrincipalService : AppCoreServiceBase, IPrincipalService
     {
         // OWIN auth middleware constants
-        
+
+        /// <summary>
+        /// Gets the current identity.
+        /// </summary>
         public ClaimsIdentity CurrentIdentity => ClaimsPrincipal.Current.Identities.FirstOrDefault();
 
 
@@ -55,6 +58,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
 
+        /// <summary>
+        /// Gets a value indicating whether this
+        /// thread's Principal is authenticated.
+        /// </summary>
         public bool IsAuthenticated
         {
             get => CurrentIdentity.IsAuthenticated;
@@ -65,7 +72,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public ClaimsPrincipal CurrentPrincipal => ClaimsPrincipal.Current;
 
         /// <summary>
-        // Validate the current thread Principal has the necessary scopes.
+        /// Validate the current thread Principal has the necessary scopes.
         /// </summary>
         /// <param name="permission">The permission.</param>
         /// <param name="scopeElement">The scope element.</param>
@@ -80,7 +87,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
 
         /// <summary>
-        /// Gets the current thread's Principal's Object/Record Identifier (not same as NameIdentifier).
+        /// Gets the current thread's Principal's
+        /// Object/Record Identifier
+        /// (not same as NameIdentifier).
         /// </summary>
         /// <value>
         /// The current principal identifier.
@@ -94,6 +103,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Gets the current principal record identifier
+        /// as a Guid (if it can be parsed.
+        /// </summary>
         public Guid? CurrentPrincipalIdentifierGuid
         {
             get
@@ -107,6 +120,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// A unique Id assigned from the issuing Token
+        /// </summary>
         public string UniqueSessionIdentifier => ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.UniqueSessionIdentifier)?.Value;
 
         /// <summary>
@@ -128,12 +144,21 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
 
+        /// <summary>
+        /// Determines whether the
+        /// Current Principal has the specified Role(s).
+        /// </summary>
+        /// <param name="roles">One or more roles.</param>
+        /// <returns></returns>
         public bool IsInRole(params string[] roles)
         {
             return roles.Any(x => ClaimsPrincipal.Current.IsInRole(x));
         }
 
 
+        /// <summary>
+        /// Gets or sets the current identity's preferred Culture Id.
+        /// </summary>
         public string ClaimPreferredCultureCode
         {
             get => GetClaimValue(Constants.IDA.ClaimTitles.CultureElementId);

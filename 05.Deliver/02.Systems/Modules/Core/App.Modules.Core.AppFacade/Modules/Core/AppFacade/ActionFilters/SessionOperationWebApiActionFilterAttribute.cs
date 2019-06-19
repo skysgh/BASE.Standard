@@ -45,7 +45,7 @@
 
 //            SessionOperation sessionOperationLog = _sessionOperationLogService.Current;
 
-//            sessionOperationLog.BeginDateTimeUtc = DateTime.UtcNow;
+//            sessionOperationLog.BeginDateTimeUtc = DateTimeOffset.UtcNow;
 //            sessionOperationLog.ClientIp = actionContext.HttpContext.RemoteIPChain();
 //            //sessionOperationLog.SessionFK = this._principalService.CurrentSessionIdentifier;
 //            sessionOperationLog.Url = actionContext.Request.RequestUri.OriginalString;
@@ -71,7 +71,7 @@
 
 //            SessionOperation sessionOperation = _sessionOperationLogService.Current;
 
-//            sessionOperation.EndDateTimeUtc = DateTime.UtcNow;
+//            sessionOperation.EndDateTimeUtc = DateTimeOffset.UtcNow;
 //            sessionOperation.Duration =
 //                sessionOperation.EndDateTimeUtc.Subtract(sessionOperation.BeginDateTimeUtc);
 

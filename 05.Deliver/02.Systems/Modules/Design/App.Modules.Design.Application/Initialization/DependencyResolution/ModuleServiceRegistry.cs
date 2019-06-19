@@ -18,6 +18,16 @@ namespace App.Modules.Design.Application.Initialization.DependencyResolution
     public class ModuleServiceRegistry 
         : ModuleServiceRegistryBase
     {
+        /// <summary>
+        /// Override to define what to find
+        /// and register 
+        /// within this logical Module's assemblies.
+        /// <para>
+        /// Not that it already been scoped to the
+        /// logical module's assemblies.
+        /// </para>
+        /// </summary>
+        /// <param name="assemblyScanner">The assembly scanner.</param>
         protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
             base.InnerScan(assemblyScanner);

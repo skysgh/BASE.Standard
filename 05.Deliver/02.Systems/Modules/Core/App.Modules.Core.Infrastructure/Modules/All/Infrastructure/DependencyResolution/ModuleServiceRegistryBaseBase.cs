@@ -3,6 +3,12 @@ using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
 {
+    /// <summary>
+    /// Base class of serviceregistry's
+    /// that are scoped to the current logical module's
+    /// assemblies.
+    /// </summary>
+    /// <seealso cref="Lamar.ServiceRegistry" />
     public abstract class ModuleServiceRegistryBaseBase : ServiceRegistry
     {
 
@@ -43,7 +49,13 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
 
         /// <summary>
-        /// Override to prodide Module/Assembly specific scanning rules.
+        /// Override to define what to find
+        /// and register 
+        /// within this logical Module's assemblies.
+        /// <para>
+        /// Not that it already been scoped to the
+        /// logical module's assemblies.
+        /// </para>
         /// </summary>
         /// <param name="assemblyScanner">The assembly scanner.</param>
         protected abstract void InnerScan(IAssemblyScanner assemblyScanner);

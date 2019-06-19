@@ -26,14 +26,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly IDependencyResolutionService _dependencyResolutionService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbContextPreCommitService"/> class.
+        /// </summary>
+        /// <param name="dependencyResolutionService">The dependency resolution service.</param>
         public DbContextPreCommitService(IDependencyResolutionService dependencyResolutionService)
         {
             _dependencyResolutionService = dependencyResolutionService;
         }
         /// <summary>
         /// Pass all entities belonging to the specified DbContext
-        /// through all implementations of 
-        /// <see cref=""/>
+        /// through all implementations of
+        /// TODO
         /// </summary>
         /// <param name="dbContext">The database context.</param>
         public void PreProcess(DbContext dbContext)

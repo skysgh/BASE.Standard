@@ -10,9 +10,16 @@ using App.Modules.All.Shared.Constants;
 
 namespace App
 {
+    /// <summary>
+    /// Extensions to <see cref="AppDomain"/> objects.
+    /// </summary>
     public static class AppDomainExtensions
     {
 
+        /// <summary>
+        /// Loads all assemblies specific to this application.
+        /// </summary>
+        /// <param name="appDomain">The application domain.</param>
         public static void LoadAllAppAssemblies(this AppDomain appDomain)
         {
             List<Assembly> allAssemblies = new List<Assembly>();
@@ -69,9 +76,11 @@ namespace App
         /// in order to associate them with a specific version.
         /// </para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="appDomain">The application domain.</param>
-        /// <param name="type">The type.</param>
-        /// <returns>the found types.</returns>
+        /// <returns>
+        /// the found types.
+        /// </returns>
         public static IEnumerable<Type> GetInstantiableTypesImplementing<T>(this AppDomain appDomain)
         {
             return appDomain.GetInstantiableTypesImplementing(typeof(T));
@@ -105,7 +114,10 @@ namespace App
             return results;
         }
 
-        //Expected to be invoked with AppDomain.CurrentDomain
+        /// <summary>
+        /// Loads all assemblies in the bin directory.
+        /// </summary>
+        /// <param name="appDomain">The application domain.</param>
         public static void LoadAllBinDirectoryAssemblies(this AppDomain appDomain)
         {
             var binPath =

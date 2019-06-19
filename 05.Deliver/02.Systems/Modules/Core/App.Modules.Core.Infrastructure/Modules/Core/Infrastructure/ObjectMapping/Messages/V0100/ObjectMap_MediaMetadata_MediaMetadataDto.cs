@@ -5,10 +5,18 @@ using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
+    /// <summary>
+    /// Create custom Maps for the Entity and its Dto.
+    /// </summary>
+    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{MediaMetadata, MediaMetadataDto}" />
     public class ObjectMap_MediaMetadata_MediaMetadataDto
         : MapUntenantedRecordStatedTimestampedNoIdBase<MediaMetadata, MediaMetadataDto>
     {
 
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(IMappingExpression<MediaMetadata, MediaMetadataDto> mappingExpression)
         {
             mappingExpression
@@ -30,6 +38,10 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             // Results of scanning, whenever done:
         }
 
+        /// <summary>
+        /// Configures the map from dto to entity.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(IMappingExpression<MediaMetadataDto, MediaMetadata> mappingExpression)
         {
             mappingExpression

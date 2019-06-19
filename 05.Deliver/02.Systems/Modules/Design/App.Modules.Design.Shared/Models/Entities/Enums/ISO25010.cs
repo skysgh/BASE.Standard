@@ -1,5 +1,6 @@
 ﻿namespace App.Modules.Design.Shared.Models.Entities.Enums
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum ISO25010
     {
         FunctionalSuitability,
@@ -11,5 +12,6 @@
         Maintainability,
         Portability
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 }

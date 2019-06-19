@@ -1,4 +1,6 @@
 ﻿using App.Modules.All.Infrastructure.Data.Db.Contexts;
+using App.Modules.All.Infrastructure.Data.Db.Schema;
+using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts
     /// which ensures the name of the DbContext is specific 
     /// to the Module Name (eg: 'Core' + 'DbContext' = 'CoreDbContext')
     /// and that it searches for implementations of 
-    /// <see cref="IHasAppModuleDbContextModelBuilderInitializer"/>
+    /// <see cref="IHasModuleSpecificDbContextModelBuilderSchemaInitializer"/>
     /// to create this Module's Database, and the searches for
     /// <see cref="IHasModuleSpecificDbContextMutableDataSeedingInitializer"/> to seed 
     /// the database if and as required.
@@ -67,6 +69,10 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContext"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
         protected ModuleDbContext(DbContextOptions<ModuleDbContext> options) : base(options)
         {
 

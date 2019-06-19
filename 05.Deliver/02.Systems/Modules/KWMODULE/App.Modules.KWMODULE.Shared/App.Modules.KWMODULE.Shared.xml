@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.KWMODULE.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Entities.Example">
+            <summary>
+            A simple example of an Entity.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.Entities.UntenantedRecordStatedTimestampedGuidIdEntityBase" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.Example.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.Example.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample">
+            <summary>
+            An example of a more complex Entity.
+            <para>
+            Note that it has a Navigation Property
+            to a <see cref="P:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample.DataClassification"/>
+            entity defined in the Core logical module.
+            </para>
+            <para>
+            It is important to notice that the entity
+            in effect is comprised of entities from
+            two different Logical Modules, and therefore
+            two different Schemas.
+            </para>
+            <para>
+            This is why the Controller used is the
+            <c>JoinedModuleDbContext</c> (see this Module's
+            Infrastructure assembly), and not just
+            the <c>ModuleDbContext</c> of this logical module, or
+            the <c>ModuleDbCOntext</c> of the Core logical module.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.Entities.UntenantedRecordStatedTimestampedGuidIdEntityBase" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasDataClassification" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample.DataClassificationFK">
+            <summary>
+            Gets or sets the FK of the
+            data classification.
+            </summary>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample.DataClassification">
+            <summary>
+            Gets or sets the data classification of this entity.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample">
+            <summary>
+            Example of an entity that has an Guid
+            which will automatically be filled in
+            when the entity is saved.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.Entities.TenantFKRecordStatedTimestampedGuidIdEntityBase" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto">
+            <summary>
+            DTO for the <see cref="T:App.Modules.KWMODULE.Shared.Models.Entities.Example"/> entity.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto">
+            <summary>
+            A DTO for the <see cref="T:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto"/>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasDataClassification" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto.DataClassificationFK">
+            <summary>
+            Gets or sets the FK of the
+            data classification.
+            </summary>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto.DataClassification">
+            <summary>
+            Gets or sets the data classification of this entity.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto">
+            <summary>
+            A DTO for the <see cref="T:App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample"/>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+    </members>
+</doc>

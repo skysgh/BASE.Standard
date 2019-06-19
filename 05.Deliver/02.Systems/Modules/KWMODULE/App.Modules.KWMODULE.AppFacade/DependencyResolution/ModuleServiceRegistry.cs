@@ -18,6 +18,11 @@ namespace App.Modules.KWMODULE.AppFacade.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
+        /// <summary>
+        /// Scans this Module's assemblies for
+        /// as per specifications.
+        /// </summary>
+        /// <param name="assemblyScanner"></param>
         protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
             base.InnerScan(assemblyScanner);

@@ -41,7 +41,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <value>
         /// The date time created UTC.
         /// </value>
-        public virtual DateTime DateTimeCreatedUtc { get; set; }
+        public virtual DateTimeOffset DateTimeCreatedUtc { get; set; }
         /// <summary>
         /// Gets or sets the date time read UTC.
         /// </summary>
@@ -92,7 +92,7 @@ namespace App.Modules.Core.Shared.Models.Entities
                 {
                     if (!this.DateTimeReadUtc.HasValue)
                     {
-                        this.DateTimeReadUtc = DateTime.UtcNow;
+                        this.DateTimeReadUtc = DateTimeOffset.UtcNow;
                     }
                 }
             }

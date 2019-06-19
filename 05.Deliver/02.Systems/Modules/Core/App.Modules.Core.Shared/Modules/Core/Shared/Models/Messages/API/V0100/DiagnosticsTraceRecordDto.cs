@@ -26,7 +26,7 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         /// <value>
         /// The date time created UTC.
         /// </value>
-        public DateTime DateTimeCreatedUtc { get; set; }
+        public DateTimeOffset DateTimeCreatedUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the level.

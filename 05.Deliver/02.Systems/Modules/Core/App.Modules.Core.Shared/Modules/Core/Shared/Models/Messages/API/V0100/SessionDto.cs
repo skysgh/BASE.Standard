@@ -19,7 +19,7 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         /// <value>
         /// The start date time UTC.
         /// </value>
-        public virtual DateTime StartDateTimeUtc { get; set; }
+        public virtual DateTimeOffset StartDateTimeUtc { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.

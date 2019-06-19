@@ -6,8 +6,19 @@ using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.MutableData
 {
+    /// <summary>
+    /// Implementation of a seeder that is optionally
+    /// invoked, to seed optional demo data.
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" />
     public class ExampleSeeder : IHasModuleSpecificDbContextMutableDataSeedingInitializer
     {
+        /// <summary>
+        /// If and when invoked,
+        /// seeds the given dbContext with
+        /// mutable data (ie, optional/demo data).
+        /// </summary>
+        /// <param name="context">The context.</param>
         public void SeedMutableData(ModuleDbContextBase context)
         {
             //if (!context.Set<Example>().Any(x => x.Id == 1.ToGuid()))

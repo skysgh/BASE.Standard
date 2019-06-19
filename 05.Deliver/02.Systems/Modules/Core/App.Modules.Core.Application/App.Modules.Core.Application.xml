@@ -16,7 +16,13 @@
         </member>
         <member name="M:App.Modules.All.Application.DependencyResolution.ModuleServiceRegistryBase.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            Scan the scoped assemblies.
+            Override to define what to find
+            and register 
+            within this logical Module's assemblies.
+            <para>
+            Not that it already been scoped to the
+            logical module's assemblies.
+            </para>
             </summary>
             <param name="assemblyScanner">The assembly scanner.</param>
         </member>

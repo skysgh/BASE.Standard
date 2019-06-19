@@ -5,6 +5,7 @@ namespace App.Modules.Design.Infrastructure.Data.Db
 {
 
     // Fake Repo for dev purposes only
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class BookDataSource
     {
         private static IList<Book> _books { get; set; }
@@ -57,4 +58,5 @@ namespace App.Modules.Design.Infrastructure.Data.Db
             return _books;
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

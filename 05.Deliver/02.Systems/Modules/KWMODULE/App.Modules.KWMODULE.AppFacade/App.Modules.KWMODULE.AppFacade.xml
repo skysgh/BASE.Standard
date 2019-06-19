@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.KWMODULE.AppFacade</name>
+    </assembly>
+    <members>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Apis.Classic.DependencyResolutionController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Apis.Classic.DependencyResolutionController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="exampleInfrastructureService">The example infrastructure service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.ExampleOdataModelBuilderConfiguration">
+            <summary>
+            OData Configuration to describe the specified DTO,
+            and the Controller
+            from which to retrieve it.
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.LinkedExampleOdataModelBuilderConfiguration">
+            <summary>
+            Module Specific
+            OData Model Definition.
+            <para>
+            Describes the specified DTO,
+            and the Controller
+            from which to retrieve it.
+            </para>
+            <para>
+            Invoked by a Model Builder
+            during Startup.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.LinkedExampleOdataModelBuilderConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.LinkedExampleOdataModelBuilderConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.TenantedExampleOdataModelBuilderConfiguration">
+            <summary>
+            Module Specific
+            OData Model Definition.
+            <para>
+            Describes the specified DTO,
+            and the Controller
+            from which to retrieve it.
+            </para>
+            <para>
+            Invoked by a Model Builder
+            during Startup.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.TenantedExampleOdataModelBuilderConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration.TenantedExampleOdataModelBuilderConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.ExamplesController">
+            <summary>
+            Example of a Controller
+            using this Logical Module's <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>,
+            and returning a simple <see cref="T:App.Modules.KWMODULE.Shared.Models.Entities.Example"/> entity,
+            automatically converted to an <see cref="T:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto"/>
+            object.
+            <para>
+            Notice how the controller subclasses
+            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3"/>
+            </para>
+            <para>
+            Notice how this Controller uses a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>
+            as opposed to using a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/>
+            as other example controllers demonstrate.
+            </para>
+            <para>
+            Notice how this method exposes public Actions, that in
+            term invoke protected InternalXXX actions. This is to
+            ensure that Controller designers associate appropriate
+            Permissions to each Action.
+            </para>
+            <para>
+            Notice the automatic conversion of Entites to Dtos
+            (pretty slick).
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.ExamplesController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.ExamplesController"/> class.
+            </summary>
+            <param name="controllerCommonServicesService">The controller common services service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.ExamplesController.Get">
+            <summary>
+            Gets a queryable set of items, limited to 100 items, max.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.ExamplesController.Get(System.Guid)">
+            <summary>
+            Gets a single queryable item.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.LinkedExamplesController">
+            <summary>
+            Example of a Controller
+            using this Logical Module's <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/>,
+            and returning a simple <see cref="T:App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample"/> entity,
+            that refers to an entity in the Core module (ie, it's linking
+            two schemas), and automatically converted to an <see cref="T:App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto"/>
+            object.
+            <para>
+            Notice how this Controller uses a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>
+            as opposed to using a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/>
+            as other example controllers demonstrate.
+            </para>
+            <para>
+            Notice how the controller subclasses
+            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3"/>
+            </para>
+            <para>
+            Notice how this Controller uses a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/>
+            as opposed to using a simpler <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>
+            Notice how the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/> actually is invoking
+            <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/> and Core's ModuleDbContext *first*...
+            that's how it ensures the tables exist, even though
+            <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/> has migrations/schema building turned off
+            (pretty slick...)
+            </para>
+            <para>
+            Notice how this method exposes public Actions, that in
+            term invoke protected InternalXXX actions. This is to
+            ensure that Controller designers associate appropriate
+            Permissions to each Action.
+            </para>
+            <para>
+            Notice the automatic conversion of Entites to Dtos
+            (pretty slick).
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.LinkedExamplesController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.LinkedExamplesController"/> class.
+            </summary>
+            <param name="controllerCommonServicesService">The controller common services service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.LinkedExamplesController.Get">
+            <summary>
+            Gets a queryable set of items, limited to 100 items, max.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.LinkedExamplesController.Get(System.Guid)">
+            <summary>
+            Gets a single queryable item.
+            </summary>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.TenantedExamplesController">
+            <summary>
+            Example of a Controller
+            using this Logical Module's <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>,
+            and returning a simple <see cref="T:App.Modules.KWMODULE.Shared.Models.Entities.Example"/> entity,
+            automatically converted to an <see cref="T:App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto"/>
+            object.
+            <para>
+            Notice how the controller subclasses
+            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3"/>
+            </para>
+            <para>
+            Notice how this Controller uses a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/>
+            as opposed to using a <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext"/>
+            as other example controllers demonstrate.
+            </para>
+            <para>
+            Notice how this method exposes public Actions, that in
+            term invoke protected InternalXXX actions. This is to
+            ensure that Controller designers associate appropriate
+            Permissions to each Action.
+            </para>
+            <para>
+            Notice the automatic conversion of Entites to Dtos
+            (pretty slick).
+            </para>
+            <para>
+            Notice how the Dto's do not need to carry the TenancyFK
+            outside the system. That's because they are posted back
+            and the Message they are mapped back to, if the Tenancy
+            value is not there, it will be filled in using a Save
+            interception to do that, transparently.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.TenantedExamplesController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.TenantedExamplesController"/> class.
+            </summary>
+            <param name="controllerCommonServicesService">The controller common services service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.TenantedExamplesController.Get">
+            <summary>
+            Gets a queryable set of items, limited to 100 items, max.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.TenantedExamplesController.Get(System.Guid)">
+            <summary>
+            Gets a single queryable item.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.DependencyResolution.ModuleServiceRegistry">
+            <summary>
+            Discoverable (by Reflection) Module specific configuration
+            of the DependencyLocator.
+            <para>
+            Note that it is important that these common classes
+            are just called 'Module'Something and not 'ModuleXXX'Something,
+            (and just use the Namespace to distinguish between Modules)
+            so that it is easier to start new development just using Search/Replace
+            within namespaces (it's easier to find `Module1` within `.Module1`
+            than find the same thing within `Module1Something`.
+            </para>
+            </summary>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.DependencyResolution.ModuleServiceRegistry.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
+            <summary>
+            Scans this Module's assemblies for
+            as per specifications.
+            </summary>
+            <param name="assemblyScanner"></param>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Initialization.Startup.ModuleRoutes">
+            <summary>
+            This Module's specific routes.
+            <para>
+            Invoked from Startup/Configure method,
+            within .AddMvc...
+            </para>
+            </summary>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Initialization.Startup.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Initialization.Startup.ModuleRoutes"/> class.
+            </summary>
+            <param name="dependencyResolutionService">The dependency resolution service.</param>
+            <param name="configurationStepService">The configuration step service.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Initialization.Startup.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
+            <summary>
+            Initialize routes specific to a Module.
+            <para>
+            Invoked from app.AddMvc(routeBuilder => ...) method.
+            within App.Host's Setup/Configure method.
+            </para>
+            <para>
+            Use as required to register routes specific to a single Module.
+            </para>
+            </summary>
+            <param name="routeBuilder"></param>
+        </member>
+        <member name="T:App.Modules.KWMODULE.AppFacade.Initialization.Startup.StartupConfigure">
+            <summary>
+            TODO
+            </summary>
+            <seealso cref="T:App.Modules.Core.AppFacade.Initialization.Startup.IStartupConfigure" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Initialization.Startup.StartupConfigure.#ctor(Lamar.IContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.AppFacade.Initialization.Startup.StartupConfigure"/> class.
+            </summary>
+            <param name="container">The container.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Initialization.Startup.StartupConfigure.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Invoke from the Startup.cs in the Host app.
+            Configures the specified application.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="env">The env.</param>
+        </member>
+        <member name="M:App.Modules.KWMODULE.AppFacade.Initialization.Startup.StartupConfigure.AppendAServiceRegistry">
+            <summary>
+            Some ExtensionMethods (eg: AddDbContext)
+            are expecting a ServiceRegistry (IServiceCollection)
+            of some kind. 
+            </summary>
+        </member>
+    </members>
+</doc>

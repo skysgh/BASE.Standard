@@ -44,6 +44,10 @@ namespace App.Modules.Core.Infrastructure.Services
         /// </value>
         string CurrentPrincipalIdentifier { get; }
 
+        /// <summary>
+        /// Gets the current principal record identifier
+        /// as a Guid (if it can be parsed.
+        /// </summary>
         Guid? CurrentPrincipalIdentifierGuid { get; }
 
         /// <summary>
@@ -52,14 +56,26 @@ namespace App.Modules.Core.Infrastructure.Services
         Guid? CurrentSessionIdentifier { get; }
 
 
+        /// <summary>
+        /// Gets a value indicating whether this
+        /// thread's Principal is authenticated.
+        /// </summary>
         bool IsAuthenticated { get; }
 
+
+        /// <summary>
+        /// Gets or sets the current identity's preferred Culture Id.
+        /// </summary>
         string ClaimPreferredCultureCode { get; set; }
 
+        /// <summary>
+        ///     The Key of the Tenant of the current Security Principal (ie, the Tenant Key within a Claim of the Thread current
+        ///     Principal)
+        /// </summary>
         string PrincipalTenantKey { get; set; }
 
         /// <summary>
-        // Validate the current thread Principal has the necessary scopes.
+        /// Validate the current thread Principal has the necessary scopes.
         /// </summary>
         /// <param name="permission">The permission.</param>
         /// <param name="scopeElement">The scope element.</param>
@@ -70,7 +86,8 @@ namespace App.Modules.Core.Infrastructure.Services
             string scopeElement =  "http://schemas.microsoft.com/identity/claims/scope");
         
         /// <summary>
-        /// Determines whether the Current Principal has the specified Role(s).
+        /// Determines whether the
+        /// Current Principal has the specified Role(s).
         /// </summary>
         /// <param name="roles">One or more roles.</param>
         bool IsInRole(params string[] roles);

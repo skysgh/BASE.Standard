@@ -25,8 +25,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     /// <para>
     /// Application's that use Azure KeyVault are hosted in Azure. 
     /// Within Azure Application Registration, when registered, they get an Id. 
-    /// Which is automaticall mapped to a Service Principal Name (SPN)
-    /// (New-AzureRmADServicePrincipal -ApplicationId <Guid> is invoked behind the scene)
+    /// Which is automatically mapped to a Service Principal Name (SPN)
+    /// (New-AzureRmADServicePrincipal -ApplicationId {Guid} is invoked behind the scene)
     /// (and for now think of it as a Psuedo User that this not visible in AAD Users).
     /// Then within KeyVault, access is granted to the SPN. 
     /// When you sign in, you're using the AppClientId and AppSecret over a secure line.
@@ -39,8 +39,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     ///    * Microsoft.Azure.KeyVault
     ///    * Microsoft.IdentityModel.Clients.ActiveDirectory
     ///      * NOTE: Which relieas on ADAL, as oposed to the newer MSAL...
-    ///  * Powershell:
-    ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId <Guid>
+    ///  * PowerShell:
+    ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
     /// </para>
     /// </summary>
     public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
@@ -51,6 +51,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         private string _keyVaultUrl;
 
 
+        /// <summary>
+        /// Gets the configuration object for this service.
+        /// </summary>
         public AzureKeyVaultServiceConfiguration Configuration
         {
             get
@@ -82,6 +85,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="hostSettingsService">The host settings service.</param>
+        /// <param name="configurationStepService"></param>
         public AzureKeyVaultService(AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
             IDiagnosticsTracingService diagnosticsTracingService,
             IHostSettingsService hostSettingsService,
@@ -246,6 +250,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             return secrectBundle;
         }
 
+        /// <summary>
+        /// Gets the secrets.
+        /// </summary>
+        /// <param name="returnFQIdentifier">if set to <c>true</c> [return fq identifier].</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="keyVaultUrl">The key vault URL.</param>
+        /// <returns></returns>
         public async Task<IDictionary<string, string>> GetSecretsAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
         {
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
@@ -279,6 +290,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         }
 
 
+        /// <summary>
+        /// Lists the secrets keys.
+        /// </summary>
+        /// <param name="returnFQIdentifier">if set to <c>true</c> [return fq identifier].</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="keyVaultUrl">The key vault URL.</param>
+        /// <returns></returns>
         public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
         {
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
@@ -304,6 +322,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
 
 
+        /// <summary>
+        /// Create a Configuration object and fill properties from KeyVault Secrets with the same name.
+        /// <para>
+        /// Note that default values are not provided if the property value = default(T)
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="prefix"></param>
+        /// <param name="keyVaultUrl"></param>
+        /// <returns></returns>
         public T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class
         {
 
@@ -362,6 +390,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
 
 
+        /// <summary>
+        /// Gets or sets the standard key divider character ('-').
+        /// <para>
+        /// Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so
+        /// they must be converted to this character (eg: '-', or '_', or maybe even '')
+        /// </para>
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string CleanKeyName(string key)
         {
 

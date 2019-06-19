@@ -22,9 +22,10 @@ namespace App
             return identity.Claims.FirstOrDefault(x => x.Type == TokenTitles.IssuedAtId)?.Value;
         }
 
-        public static DateTime GetIssuedAtTime(this ClaimsIdentity identity)
+        public static DateTimeOffset GetIssuedAtTime(this ClaimsIdentity identity)
         {
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var epoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0,TimeSpan.Zero);
+
             return epoch.AddSeconds(Convert.ToUInt64(GetIat(identity)));
         }
 
@@ -33,9 +34,10 @@ namespace App
             return identity.Claims.FirstOrDefault(x => x.Type == TokenTitles.ExpiryId)?.Value;
         }
 
-        public static DateTime GetExpiry(this ClaimsIdentity identity)
+        public static DateTimeOffset GetExpiry(this ClaimsIdentity identity)
         {
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var epoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
             return epoch.AddSeconds(Convert.ToUInt64(GetExp(identity)));
         }
 

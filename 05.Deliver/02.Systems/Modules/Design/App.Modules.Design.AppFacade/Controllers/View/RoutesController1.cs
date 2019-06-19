@@ -8,10 +8,20 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace App.Modules.Design.AppFacade.Controllers.View
 {
 
+    /// <summary>
+    /// A Router to return all registered Routes.
+    /// </summary>
+    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase" />
     public class RoutesController : CommonODataControllerBase
     {
         private readonly IActionDescriptorCollectionProvider _actionDescriptorCollectionProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoutesController"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="principalService">The principal service.</param>
+        /// <param name="actionDescriptorCollectionProvider">The action descriptor collection provider.</param>
         public RoutesController(
             IDiagnosticsTracingService diagnosticsTracingService, 
             IPrincipalService principalService, 
@@ -23,6 +33,10 @@ namespace App.Modules.Design.AppFacade.Controllers.View
             _actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
+        /// <summary>
+        /// Gets all routes.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult GetAllRoutes()
         {
             var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items

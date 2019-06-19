@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
     {
         public long ContentLength;
 
-        public DateTime? CreationDate = null;
+        public DateTimeOffset? CreationDate = null;
         public List<string> Findings = new List<string>();
         public Dictionary<string, string> Metadata = new Dictionary<string, string>();
 

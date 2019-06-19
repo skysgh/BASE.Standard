@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace App.Modules.Design.Infrastructure.Data.Db.Migrations
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     [DbContext(typeof(ModuleDbContext))]
     [Migration("20190616041638_Init")]
     partial class Init
@@ -52,4 +53,5 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Migrations
 #pragma warning restore 612, 618
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

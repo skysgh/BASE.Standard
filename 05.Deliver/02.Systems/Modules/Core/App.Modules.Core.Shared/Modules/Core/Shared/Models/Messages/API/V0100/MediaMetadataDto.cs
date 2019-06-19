@@ -59,7 +59,7 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         // Use an Enum as DataClassification is shared across Bounded DbContexts
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DataClassification DataClassification{ get; set; }
-        public virtual DateTime UploadedDateTimeUtc { get; set; }
+        public virtual DateTimeOffset UploadedDateTimeUtc { get; set; }
         public virtual long ContentSize { get; set; } /*size of stream*/
         public virtual string MimeType { get; set; } /*The extension is not always a correct indicator...*/
         public virtual string SourceFileName { get; set; } /*the name the file had on the uploader's machine*/

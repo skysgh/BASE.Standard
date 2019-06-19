@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.KWMODULE.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:App.Modules.KWMODULE.Domain.Services.IExampleDomainService">
+            <summary>
+            Example of a Domain Service,
+            invoked (along with Infrastructure Services)
+            from an Infrastructure Service.
+            </summary>
+            <seealso cref="T:App.Modules.All.Domain.IDomainService" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.Domain.Services.IExampleDomainService.DoSomething">
+            <summary>
+            Does something.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Domain.Services.Implementations.ExampleDomainService">
+            <summary>
+            Implementation of
+            <see cref="T:App.Modules.KWMODULE.Domain.Services.IExampleDomainService"/>
+            <para>
+            Invoked from an Application Service.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.KWMODULE.Domain.Services.IExampleDomainService" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.Domain.Services.Implementations.ExampleDomainService.DoSomething">
+            <summary>
+            Does something.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.Design.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:App.Modules.Design.Shared.Models.IHasISO25010">
+            <summary>
+            Contract for models that have
+            an attribute describing a relationship
+            to ISO25010. All Requirements should have it.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.IHasISO25010.ISO25010Quality">
+            <summary>
+            Gets or sets the ISO25010 quality
+            associated to this item.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Design.Shared.Models.Entities.NonTenantSpecific.Requirement">
+            <summary>
+            A design requirement entity.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.Entities.UntenantedRecordStatedTimestampedGuidIdEntityBase" />
+            <seealso cref="T:App.Modules.Design.Shared.Models.IHasISO25010" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Entities.NonTenantSpecific.Requirement.ISO25010Quality">
+            <summary>
+            Gets or sets the ISO25010 quality
+            associated to this item.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Entities.NonTenantSpecific.Requirement.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Entities.NonTenantSpecific.Requirement.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="T:App.Modules.Design.Shared.Models.Entities.Route">
+            <summary>
+            A description of a registered Mvc Route.
+            <para>
+            Used for diagnostics purposes.
+            </para>
+            </summary>
+        </member>
+        <member name="T:App.Modules.Design.Shared.Models.Messages.RequirementDto">
+            <summary>
+            Creates a Dto
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Messages.RequirementDto.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Messages.RequirementDto.Quality">
+            <summary>
+            Gets or sets the ISO-25010 quality.
+            </summary>
+            <value>
+            The quality.
+            </value>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Messages.RequirementDto.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Design.Shared.Models.Messages.RequirementDto.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+    </members>
+</doc>

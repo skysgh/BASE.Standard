@@ -22,7 +22,7 @@
 //                        Class = "xyz",
 //                        ImageUrl = "...",
 //                        Text = "Some Message about Foo.",
-//                        DateTimeCreatedUtc = DateTime.UtcNow
+//                        DateTimeCreatedUtc = DateTimeOffset.UtcNow
 //                    },
 //                    new Notification
 //                    {
@@ -34,7 +34,7 @@
 //                        Class = "xyz",
 //                        ImageUrl = "...",
 //                        Text = "Another Message for you.",
-//                        DateTimeCreatedUtc = DateTime.UtcNow
+//                        DateTimeCreatedUtc = DateTimeOffset.UtcNow
 //                    },
 //                    new Notification
 //                    {
@@ -46,8 +46,8 @@
 //                        Class = "xyz",
 //                        ImageUrl = "...",
 //                        Text = "A Message you've read.",
-//                        DateTimeCreatedUtc = DateTime.UtcNow,
-//                        DateTimeReadUtc = DateTime.UtcNow
+//                        DateTimeCreatedUtc = DateTimeOffset.UtcNow,
+//                        DateTimeReadUtc = DateTimeOffset.UtcNow
 //                    });
 
 //        }

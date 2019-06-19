@@ -8,7 +8,7 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Api.OData.Configuration
     /// and the Controller
     /// from which to retrieve it.
     /// </summary>
-    /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase{App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto}" />
+    /// <seealso cref="ModuleGuidIdODataModelBuilderConfigurationBase{ExampleDto}" />
     public class ExampleOdataModelBuilderConfiguration : ModuleGuidIdODataModelBuilderConfigurationBase<ExampleDto>
     {
     }

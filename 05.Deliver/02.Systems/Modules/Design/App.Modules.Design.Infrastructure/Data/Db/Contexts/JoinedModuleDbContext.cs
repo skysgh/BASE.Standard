@@ -11,6 +11,15 @@ using Microsoft.Extensions.Configuration;
 namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
 {
 
+    /// <summary>
+    /// The Modules's Joined DbContext which
+    /// combines this Modules Schema as well the Core Schema.
+    /// <para>
+    /// Note how the constructor takes two DbContexts
+    /// to do this.
+    /// </para>
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" />
     public class JoinedModuleDbContext : ModuleDbContextBase
     {
 
@@ -24,7 +33,8 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         /// <param name="configuration">The configuration.</param>
         /// <param name="appDbContextManagementService">The application database context management service.</param>
         public JoinedModuleDbContext(ModuleDbContext moduleDbContext,
-            IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService)
+            IConfiguration configuration, 
+            IAppDbContextManagementService appDbContextManagementService)
             : base(configuration, appDbContextManagementService, 
                 isJointTable:true)
         {
@@ -36,6 +46,11 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         }
 
 
+        /// <summary>
+        /// Note: default behaviour is that it is not called by constructor by default.
+        /// But is called by Migrate.
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

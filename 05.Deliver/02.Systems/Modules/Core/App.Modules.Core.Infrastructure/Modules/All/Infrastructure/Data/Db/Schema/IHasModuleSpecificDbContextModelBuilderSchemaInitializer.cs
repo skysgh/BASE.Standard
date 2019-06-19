@@ -10,6 +10,14 @@ namespace App.Modules.All.Infrastructure.Data.Db.Schema
     public interface IHasModuleSpecificDbContextModelBuilderSchemaInitializer :
         IHasModuleSpecificInitializer
     {
+        /// <summary>
+        /// Defines the Module specific DbContext schema
+        /// for a given entity.
+        /// <para>
+        /// Invoked at startup.
+        /// </para>
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         void DefineSchema(ModelBuilder modelBuilder);
     }
 

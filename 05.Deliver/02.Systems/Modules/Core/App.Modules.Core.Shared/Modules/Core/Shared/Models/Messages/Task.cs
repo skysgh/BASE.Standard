@@ -8,7 +8,7 @@
 //        public string Owner { get; set; }
 //        public string Text { get; set; }
 //        public bool Completed { get; set; }
-//        public DateTime DateModified { get; set; }
+//        public DateTimeOffset DateModified { get; set; }
 //    }
 //}
 

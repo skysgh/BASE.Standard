@@ -5,11 +5,19 @@ using AutoMapper;
 
 namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
 {
+    /// <summary>
+    /// Create custom Maps for the Entity and its Dto.
+    /// </summary>
+    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{LinkedExample, LinkedExampleDto}" />
     public class ObjectMap_LinkedExample_LinkedExampleDto
         : MapUntenantedRecordStatedTimestampedNoIdBase<LinkedExample, LinkedExampleDto>
             
     {
 
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<LinkedExample, LinkedExampleDto> mappingExpression)
         {
@@ -24,6 +32,10 @@ namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
+        /// <summary>
+        /// Configures the map from dto to entity.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
             IMappingExpression<LinkedExampleDto, LinkedExample> mappingExpression)
         {

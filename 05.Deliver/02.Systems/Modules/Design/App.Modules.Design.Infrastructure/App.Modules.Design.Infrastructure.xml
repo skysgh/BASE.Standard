@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>App.Modules.Design.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext">
+            <summary>
+            The Modules's Joined DbContext which
+            combines this Modules Schema as well the Core Schema.
+            <para>
+            Note how the constructor takes two DbContexts
+            to do this.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" />
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext.#ctor(App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext,Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
+            <summary>
+            This is the constructor invoked by the system's dependency injector/creator.
+            </summary>
+            <param name="moduleDbContext">The module database context.</param>
+            <param name="configuration">The configuration.</param>
+            <param name="appDbContextManagementService">The application database context management service.</param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            Note: default behaviour is that it is not called by constructor by default.
+            But is called by Migrate.
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext">
+            <summary>
+            This Module's specific <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
+            <para>
+            Note that it doesn't do much beyond reusing base 
+            functionality within <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase"/>
+            which ensures the name of the DbContext is specific 
+            to the Module Name (eg: 'Core' + 'DbContext' = 'CoreDbContext')
+            and that it searches for implementations of 
+            <see cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.IHasModuleSpecificDbContextModelBuilderSchemaInitializer"/>
+            to create this Module's Database, and the searches for
+            <see cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer"/> to seed 
+            the database if and as required.
+            </para>
+            
+            </summary>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase"/> class.
+            </summary>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
+            <summary>
+            This is the constructor invoked by the system's dependency injector/creator.
+            </summary>
+            <param name="configuration"></param>
+            <param name="appDbContextManagementService"></param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+            <summary>
+            Note:
+            Whereas the other constructors are invoked during run time,
+            this constructor will be called by the
+            <see cref="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" />,
+            which is invoked when the 'dotnet ef' commands are issued
+            from the command line (eg, for Migrations).
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext})">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            
+            <para>
+            Note:
+            The override is not strictly required -- it's just here
+            to bring attention to the work being done in the base class.
+            </para>
+            </summary>
+            <param name="optionsBuilder"></param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            
+            <para>
+            Note:
+            The override is not strictly required -- it's just here
+            to bring attention to the work being done in the base class.
+            </para>
+            </summary>
+            <param name="modelBuilder"></param>
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory">
+            <summary>
+            <para>
+            Note that each logical Module requires it's own ModuleDbContext.
+            </para>
+            </summary>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory"/> class.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.Data.Db.Schema.Requirements.AppModuleDbContextModelBuilderDefineRequirement">
+            <summary>
+            A single DbContext Entity model map, 
+            invoked via a Module's specific DbContext ModelBuilderOrchestrator
+            </summary>
+            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.ModuleSpecificDbContextModelBuilderDefineBase" />
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Schema.Requirements.AppModuleDbContextModelBuilderDefineRequirement.DefineSchema(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Defines the Module specific DbContext schema
+            for a given entity.
+            <para>
+            Invoked at startup.
+            </para>
+            </summary>
+            <param name="modelBuilder">The model builder.</param>
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.DependencyResolution.ModuleServiceRegistry">
+            <summary>
+            A Lamar ServiceRegistry,
+            scoped to this Module
+            </summary>
+            <seealso cref="T:App.Modules.All.Infrastructure.DependencyResolution.ModuleServiceRegistryBase" />
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.Services.Implementations.Base.NetClassPlantUmlDiagramService">
+            <summary>
+            Implementation of
+            <see cref="T:App.Modules.Design.Infrastructure.Services.Implementations.INetClassPlantUmlDiagramService"/>
+            to self-document the system.
+            </summary>
+            <seealso cref="T:App.Modules.Design.Infrastructure.Services.Implementations.INetClassPlantUmlDiagramService" />
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Services.Implementations.Base.NetClassPlantUmlDiagramService.#ctor(App.Diagrams.PlantUml.INetClassDiagramPlantUmlDiagramService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Design.Infrastructure.Services.Implementations.Base.NetClassPlantUmlDiagramService"/> class.
+            </summary>
+            <param name="netClassDiagramPlantUmlDiagramService">The net class diagram plant uml diagram service.</param>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Services.Implementations.Base.NetClassPlantUmlDiagramService.Document(System.String,System.String)">
+            <summary>
+            Documents the types discovered according
+            to the given Module, Assembly or Type name.
+            </summary>
+            <param name="searchText">The search text.</param>
+            <param name="svglinkBaseUrl">The svglink base URL.</param>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.Design.Infrastructure.Services.Implementations.INetClassPlantUmlDiagramService">
+            <summary>
+            A Service to render a diagram based on provided search term.
+            </summary>
+        </member>
+        <member name="M:App.Modules.Design.Infrastructure.Services.Implementations.INetClassPlantUmlDiagramService.Document(System.String,System.String)">
+            <summary>
+            Documents the types discovered according
+            to the given Module, Assembly or Type name.
+            </summary>
+            <param name="searchText">The search text.</param>
+            <param name="svglinkBaseUrl">The svglink base URL.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

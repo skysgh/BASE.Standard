@@ -11,6 +11,7 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
 {
     [DbContext(typeof(ModuleDbContext))]
     [Migration("20190616041651_Init")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,4 +141,5 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Migrations
 #pragma warning restore 612, 618
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

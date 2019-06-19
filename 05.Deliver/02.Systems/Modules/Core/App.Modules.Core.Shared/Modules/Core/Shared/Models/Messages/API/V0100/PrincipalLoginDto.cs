@@ -40,6 +40,6 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         /// <summary>
         /// Last datetime the user signed in via this login.
         /// </summary>
-        public DateTime LastLoggedInUtc { get; set; }
+        public DateTimeOffset LastLoggedInUtc { get; set; }
     }
 }

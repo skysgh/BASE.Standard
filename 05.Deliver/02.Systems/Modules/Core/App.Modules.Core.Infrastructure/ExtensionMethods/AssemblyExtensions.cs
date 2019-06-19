@@ -10,6 +10,9 @@ using Module = App.Modules.All.Shared.Constants.Module;
 
 namespace App
 {
+    /// <summary>
+    /// Extensions to an Assembly object.
+    /// </summary>
     public static class AssemblyExtensions
     {
         public static bool IsSameApp(this Assembly assembly)

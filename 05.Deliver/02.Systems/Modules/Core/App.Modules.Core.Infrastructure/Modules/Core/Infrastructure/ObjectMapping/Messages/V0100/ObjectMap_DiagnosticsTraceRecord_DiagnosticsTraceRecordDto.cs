@@ -5,6 +5,10 @@ using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
+    /// <summary>
+    /// Create custom Maps for the Entity and its Dto.
+    /// </summary>
+    /// <seealso cref="MapBase{DiagnosticsTraceRecord, DiagnosticsTraceRecordDto}" />
     public class ObjectMap_DiagnosticsTraceRecord_DiagnosticsTraceRecordDto
         : MapBase<
             DiagnosticsTraceRecord,
@@ -12,6 +16,10 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     {
 
 
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<DiagnosticsTraceRecord, DiagnosticsTraceRecordDto> mappingExpression)
         {
@@ -27,6 +35,10 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             //base.ConfigureMapEntityToDto(mappingExpression);
         }
 
+        /// <summary>
+        /// Configures the map from dto to entity.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(IMappingExpression<DiagnosticsTraceRecordDto, DiagnosticsTraceRecord> mappingExpression)
         {
             mappingExpression

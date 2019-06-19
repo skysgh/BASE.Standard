@@ -39,7 +39,7 @@ namespace App.Modules.All.Shared.Factories
             //_rng.GetBytes(randomBytes);
 
 
-            var timestamp = DateTime.UtcNow.Ticks / 10000L;
+            var timestamp = DateTimeOffset.UtcNow.Ticks / 10000L;
             var timestampBytes = BitConverter.GetBytes(timestamp);
 
             if (BitConverter.IsLittleEndian)

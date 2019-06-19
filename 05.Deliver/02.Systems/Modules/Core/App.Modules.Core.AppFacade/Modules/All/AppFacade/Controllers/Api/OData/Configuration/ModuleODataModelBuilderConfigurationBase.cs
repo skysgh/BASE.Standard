@@ -8,7 +8,15 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData.Configuration
     /// <summary>
     /// Module Specific
     /// OData Model Definition.
-    /// Invoked by a Model Builder.
+    /// <para>
+    /// Describes the specified DTO,
+    /// and the Controller
+    /// from which to retrieve it.
+    /// </para>
+    /// <para>
+    /// Invoked by a Model Builder
+    /// during Startup.
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class ModuleODataModelBuilderConfigurationBase<T> :

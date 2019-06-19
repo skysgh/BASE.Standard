@@ -6,12 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Design.Infrastructure.Data.Db.Schema.Requirements
 {
-    // A single DbContext Entity model map, 
-    // invoked via a Module's specific DbContext ModelBuilderOrchestrator
+    /// <summary>
+    /// A single DbContext Entity model map, 
+    /// invoked via a Module's specific DbContext ModelBuilderOrchestrator
+    /// </summary>
+    /// <seealso cref="App.Modules.All.Infrastructure.Data.Db.Schema.ModuleSpecificDbContextModelBuilderDefineBase" />
     public class AppModuleDbContextModelBuilderDefineRequirement
         : ModuleSpecificDbContextModelBuilderDefineBase
     //: IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
+        /// <summary>
+        /// Defines the Module specific DbContext schema
+        /// for a given entity.
+        /// <para>
+        /// Invoked at startup.
+        /// </para>
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         public override void DefineSchema(ModelBuilder modelBuilder)
         {
 

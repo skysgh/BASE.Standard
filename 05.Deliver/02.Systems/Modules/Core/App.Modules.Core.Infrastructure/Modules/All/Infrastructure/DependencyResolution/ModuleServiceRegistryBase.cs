@@ -19,7 +19,13 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
     {
 
 
-
+        /// <summary>
+        /// <para>
+        /// Invoked by Constructor.
+        /// </para>
+        /// Override to provide Module/Assembly specific scanning rules.
+        /// </summary>
+        /// <param name="assemblyScanner">The assembly scanner.</param>
         protected override void InnerScan(IAssemblyScanner assemblyScanner)
         {
             // Now scan for DbContext Model definitions and then seeders.

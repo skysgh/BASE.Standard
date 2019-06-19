@@ -47,7 +47,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <summary>
         /// Last datetime the user signed in via this login.
         /// </summary>
-        public DateTime LastLoggedInUtc { get; set; }
+        public DateTimeOffset LastLoggedInUtc { get; set; }
 
         /// <summary>
         /// Returns the FK of the

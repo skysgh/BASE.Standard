@@ -4,7 +4,17 @@ using Microsoft.AspNet.OData.Builder;
 namespace App.Modules.All.AppFacade.Controllers.Api.OData.Configuration
 {
     /// <summary>
-    /// 
+    /// Module Specific
+    /// OData Model Definition.
+    /// <para>
+    /// Describes the specified DTO,
+    /// and the Controller
+    /// from which to retrieve it.
+    /// </para>
+    /// <para>
+    /// Invoked by a Model Builder
+    /// during Startup.
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase{T}" />

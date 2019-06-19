@@ -11,6 +11,13 @@ namespace App.Modules.Design.Infrastructure.Services.Implementations
     {
 
 
+        /// <summary>
+        /// Documents the types discovered according
+        /// to the given Module, Assembly or Type name.
+        /// </summary>
+        /// <param name="searchText">The search text.</param>
+        /// <param name="svglinkBaseUrl">The svglink base URL.</param>
+        /// <returns></returns>
         PlantUmlDiagramRenderingResult Document(string searchText, string svglinkBaseUrl = null);
 
 

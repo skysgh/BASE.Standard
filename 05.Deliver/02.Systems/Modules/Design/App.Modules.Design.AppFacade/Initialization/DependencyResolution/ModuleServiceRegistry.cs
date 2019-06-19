@@ -16,6 +16,9 @@ namespace App.Modules.Design.AppFacade.Initialization.DependencyResolution
     /// </summary>
     public class ModuleServiceRegistry : ModuleServiceRegistryBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleServiceRegistry"/> class.
+        /// </summary>
         public ModuleServiceRegistry() : base()
         {
         }

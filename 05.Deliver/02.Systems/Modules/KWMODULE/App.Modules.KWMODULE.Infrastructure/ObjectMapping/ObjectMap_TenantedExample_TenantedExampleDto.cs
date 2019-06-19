@@ -5,11 +5,19 @@ using AutoMapper;
 
 namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="MapTenantedRecordStatedTimestampedGuidIdBase{TenantedExample, TenantedExampleDto}" />
     public class ObjectMap_TenantedExample_TenantedExampleDto
         
         : MapTenantedRecordStatedTimestampedGuidIdBase<TenantedExample, TenantedExampleDto>
     {
 
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<TenantedExample, TenantedExampleDto> mappingExpression)
         {
@@ -21,6 +29,10 @@ namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
+        /// <summary>
+        /// Configures the map from dto to entity.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
             IMappingExpression<TenantedExampleDto, TenantedExample> mappingExpression)
         {

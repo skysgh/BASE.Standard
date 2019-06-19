@@ -21,7 +21,7 @@ namespace App.Modules.Core.Shared.Models.Entities
         public virtual NZDataClassification DataClassificationFK {get; set; } /* Unclassified or not determines whether external scanning services can be invoked or not */
         public virtual DataClassification DataClassification {get; set;}
 
-        public virtual DateTime UploadedDateTimeUtc { get; set; }
+        public virtual DateTimeOffset UploadedDateTimeUtc { get; set; }
         public virtual long ContentSize { get; set; } /*size of stream*/
         /// <summary>
         /// Gets or sets the MIME type of the Media.

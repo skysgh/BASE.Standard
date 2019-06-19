@@ -18,9 +18,30 @@ using Microsoft.Extensions.Configuration;
 
 namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 {
+    /// <summary>
+    /// This Module's specific <see cref="DbContext"/>.
+    /// <para>
+    /// Note that it doesn't do much beyond reusing base 
+    /// functionality within <see cref="ModuleDbContextBase"/>
+    /// which ensures the name of the DbContext is specific 
+    /// to the Module Name (eg: 'Core' + 'DbContext' = 'CoreDbContext')
+    /// and that it searches for implementations of 
+    /// <see cref="IHasModuleSpecificDbContextModelBuilderSchemaInitializer"/>
+    /// to create this Module's Database, and the searches for
+    /// <see cref="IHasModuleSpecificDbContextMutableDataSeedingInitializer"/> to seed 
+    /// the database if and as required.
+    /// </para>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public abstract class ModuleDbContextBase : DbContext
     {
 
+        /// <summary>
+        /// Gets or sets the name of the logical module.
+        /// <para>
+        /// Will be Core, Foo, etc.</para>
+        /// </summary>
         protected string ModuleName
         {
             get { return _moduleName ?? (_moduleName = Module.Id(GetType())); }
@@ -89,6 +110,9 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 
 
         bool _okToSave = false;
+        /// <summary>
+        /// Prepares to save.
+        /// </summary>
         public void PrepareToSave()
         {
             _okToSave = true;
@@ -96,7 +120,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 
         IAppDbContextManagementService _appDbContextManagementService;
         private readonly bool _isJointTable;
-        protected bool _migrationsApplied;
+        /// <summary>
+        /// The migrations applied
+        /// </summary>
+        private bool _migrationsApplied;
 
 
         /// <summary>
@@ -172,6 +199,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
         protected ModuleDbContextBase(DbContextOptions<ModuleDbContextBase> options) : base(options)
         {
             // Does not need Migration to be kicked off (should not) 
@@ -192,7 +223,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             }
             EnsureDbContextIsMigrated();
             // Old school seeding:
-            EnsureMutableDataSeeded();
+            EnsureMutableDataIsSeeded();
         }
 
         //protected AppModuleDbContextBase()
@@ -203,7 +234,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
         //}
 
         /// <summary>
-        /// Not: default behaviour is that it is not called by constructor by default.
+        /// Note: default behaviour is that it is not called by constructor by default.
         /// But is called by Migrate.
         /// </summary>
         /// <param name="optionsBuilder"></param>
@@ -214,6 +245,18 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             base.OnConfiguring(optionsBuilder);
         }
 
+        /// <summary>
+        /// Override this method to further configure the model that was discovered by convention from the entity types
+        /// exposed in <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> properties on your derived context. The resulting model may be cached
+        /// and re-used for subsequent instances of your derived context.
+        /// </summary>
+        /// <param name="modelBuilder">The builder being used to construct the model for this context. Databases (and other extensions) typically
+        /// define extension methods on this object that allow you to configure aspects of the model that are specific
+        /// to a given database.</param>
+        /// <remarks>
+        /// If a model is explicitly set on the options for this context (via <see cref="M:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseModel(Microsoft.EntityFrameworkCore.Metadata.IModel)" />)
+        /// then this method will not be run.
+        /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var t = this.GetType().Name;
@@ -237,6 +280,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// Invokes the database model builders.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         protected virtual void InvokeDatabaseModelBuilders(ModelBuilder modelBuilder)
         {
             InvokeCoreDatabaseModelBuildersInThisAssembly(modelBuilder);
@@ -245,17 +292,31 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
                 InvokeDatabaseModelBuildersInCoreAssembly(modelBuilder);
             }
         }
+        /// <summary>
+        /// Invokes the database model builders in core logical module.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         protected virtual void InvokeDatabaseModelBuildersInCoreAssembly(ModelBuilder modelBuilder)
         {
             var type = typeof(ModuleDbContextBase);
             InvokeDatabaseModelBuildersInAssembly(modelBuilder, type);
         }
+        /// <summary>
+        /// Invokes the core database model builders in this assembly.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         protected virtual void InvokeCoreDatabaseModelBuildersInThisAssembly(ModelBuilder modelBuilder)
         {
             var type = this.GetType();
+
             InvokeDatabaseModelBuildersInAssembly(modelBuilder, type);
         }
 
+        /// <summary>
+        /// Invokes the database model builders in assembly.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
+        /// <param name="type">The type.</param>
         protected virtual void InvokeDatabaseModelBuildersInAssembly(ModelBuilder modelBuilder, Type type)
         {
             var modelBuilderTypesA = type.Assembly.GetTypes()
@@ -290,6 +351,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
                 .DefineSchema(modelBuilder));
         }
 
+        /// <summary>
+        /// Ignores the core entities if this module is not core.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         protected virtual void IgnoreCoreEntitiesIfThisModuleIsNotCore(ModelBuilder modelBuilder)
         {
             if (_isJointTable)
@@ -308,7 +373,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
         /// <summary>
         /// Ignores the core entities if this module is not core.
         /// <para>
-        /// This is really important when you create a <see cref="DbContext"/>
+        /// This is really important when you create a <see cref="DbContext" />
         /// in a module. Every module other than Core has to pull ensure that
         /// any Core entities it's Modules (eg: SchoolModule entities)
         /// are Navigating to (maybe Core.User) don't cause the
@@ -318,6 +383,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
         /// </para>
         /// </summary>
         /// <param name="modelBuilder">The model builder.</param>
+        /// <param name="type">The type.</param>
         protected virtual void IgnoreCoreEntitiesInModule(ModelBuilder modelBuilder, Type type)
         {
 
@@ -341,6 +407,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 
 
 
+        /// <summary>
+        /// Invokes the database model builders in this assemblies for seeding immutable data.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
         protected virtual void InvokeDatabaseModelBuildersInThisAssembliesForSeedingImmutableData(ModelBuilder modelBuilder)
         {
 
@@ -376,7 +446,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             }
         }
 
-        public virtual void EnsureMutableDataSeeded()
+        /// <summary>
+        /// Ensures the mutable (eg: Demo data) data is seeded.
+        /// </summary>
+        public virtual void EnsureMutableDataIsSeeded()
         {
             Type type = GetType();
             if (Seeded.Contains(type))
@@ -390,6 +463,9 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             }
         }
 
+        /// <summary>
+        /// Invokes the database seeders in this assembly.
+        /// </summary>
         protected virtual void InvokeDatabaseSeedersInThisAssembly()
         {
             var seederTypes = GetType().Assembly.GetTypes()
@@ -411,6 +487,17 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 
 
 
+        /// <summary>
+        /// Saves all changes made in this context to the database.
+        /// </summary>
+        /// <returns>
+        /// The number of state entries written to the database.
+        /// </returns>
+        /// <remarks>
+        /// This method will automatically call <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges" /> to discover any
+        /// changes to entity instances before saving to the underlying database. This can be disabled via
+        /// <see cref="P:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AutoDetectChangesEnabled" />.
+        /// </remarks>
         public override int SaveChanges()
         {
 
@@ -426,6 +513,19 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             _okToSave = false;
             return changed;
         }
+        /// <summary>
+        /// Saves all changes made in this context to the database.
+        /// </summary>
+        /// <param name="acceptAllChangesOnSuccess">Indicates whether <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AcceptAllChanges" /> is called after the changes have
+        /// been sent successfully to the database.</param>
+        /// <returns>
+        /// The number of state entries written to the database.
+        /// </returns>
+        /// <remarks>
+        /// This method will automatically call <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges" /> to discover any
+        /// changes to entity instances before saving to the underlying database. This can be disabled via
+        /// <see cref="P:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AutoDetectChangesEnabled" />.
+        /// </remarks>
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             if (!_okToSave)
@@ -434,11 +534,11 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             }
 
             //CreatedByPrincipalId = "...",
-            //CreatedOnUtc = DateTime.UtcNow,
+            //CreatedOnUtc = DateTimeOffset.UtcNow,
             //DeletedByPrincipalId = null,
             //DeletedOnUtc = null,
             //LastModifiedByPrincipalId = "...",
-            //LastModifiedOnUtc = DateTime.UtcNow,
+            //LastModifiedOnUtc = DateTimeOffset.UtcNow,
             bool hasChanges = base.ChangeTracker.HasChanges();
             int changed;
             try
@@ -457,6 +557,27 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             _okToSave = false;
             return changed;
         }
+        /// <summary>
+        /// Asynchronously saves all changes made in this context to the database.
+        /// </summary>
+        /// <param name="acceptAllChangesOnSuccess">Indicates whether <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AcceptAllChanges" /> is called after the changes have
+        /// been sent successfully to the database.</param>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// A task that represents the asynchronous save operation. The task result contains the
+        /// number of state entries written to the database.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method will automatically call <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges" /> to discover any
+        /// changes to entity instances before saving to the underlying database. This can be disabled via
+        /// <see cref="P:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AutoDetectChangesEnabled" />.
+        /// </para>
+        /// <para>
+        /// Multiple active operations on the same context instance are not supported.  Use 'await' to ensure
+        /// that any asynchronous operations have completed before calling another method on this context.
+        /// </para>
+        /// </remarks>
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             if (_okToSave)
@@ -466,6 +587,25 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             _okToSave = false;
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+        /// <summary>
+        /// Asynchronously saves all changes made in this context to the database.
+        /// </summary>
+        /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
+        /// <returns>
+        /// A task that represents the asynchronous save operation. The task result contains the
+        /// number of state entries written to the database.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method will automatically call <see cref="M:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.DetectChanges" /> to discover any
+        /// changes to entity instances before saving to the underlying database. This can be disabled via
+        /// <see cref="P:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.AutoDetectChangesEnabled" />.
+        /// </para>
+        /// <para>
+        /// Multiple active operations on the same context instance are not supported.  Use 'await' to ensure
+        /// that any asynchronous operations have completed before calling another method on this context.
+        /// </para>
+        /// </remarks>
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             if (_okToSave)

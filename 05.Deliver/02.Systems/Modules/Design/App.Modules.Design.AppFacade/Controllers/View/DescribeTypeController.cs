@@ -17,6 +17,11 @@ namespace App.Modules.Design.AppFacade.Controllers.View
     {
         private readonly INetClassPlantUmlDiagramService _netClassPlantUmlDiagramService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DescribeTypesController"/> class.
+        /// </summary>
+        /// <param name="netClassPlantUmlDiagramService">The net class plant uml diagram service.</param>
+
         public DescribeTypesController(INetClassPlantUmlDiagramService netClassPlantUmlDiagramService)
         {
             _netClassPlantUmlDiagramService = netClassPlantUmlDiagramService;
@@ -26,6 +31,7 @@ namespace App.Modules.Design.AppFacade.Controllers.View
 
 
         [AcceptVerbs("GET")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public IActionResult Index(string id, string type=null)
         {
 
@@ -39,5 +45,6 @@ namespace App.Modules.Design.AppFacade.Controllers.View
 
             return View("~/Views/Ha/Index.cshtml");
         }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

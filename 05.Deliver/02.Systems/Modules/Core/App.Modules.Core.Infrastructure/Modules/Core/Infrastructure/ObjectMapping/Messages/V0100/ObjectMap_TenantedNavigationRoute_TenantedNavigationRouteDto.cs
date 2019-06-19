@@ -5,9 +5,17 @@ using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
+    /// <summary>
+    /// Create custom Maps for the Entity and its Dto.
+    /// </summary>
+    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{TenantedNavigationRoute, TenantedNavigationRouteDto}" />
     public class ObjectMap_TenantedNavigationRoute_TenantedNavigationRouteDto
         : MapUntenantedRecordStatedTimestampedNoIdBase<TenantedNavigationRoute, TenantedNavigationRouteDto>
     {
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<TenantedNavigationRoute, TenantedNavigationRouteDto> mappingExpression)
         {
@@ -23,6 +31,10 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
+        /// <summary>
+        /// Create custom Maps for the Entity and its Dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
             IMappingExpression<TenantedNavigationRouteDto, TenantedNavigationRoute> mappingExpression)
         {

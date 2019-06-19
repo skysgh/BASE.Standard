@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace App.Modules.Design.Infrastructure.Data.Db.Migrations
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,4 +48,5 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Migrations
                 schema: "Design");
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

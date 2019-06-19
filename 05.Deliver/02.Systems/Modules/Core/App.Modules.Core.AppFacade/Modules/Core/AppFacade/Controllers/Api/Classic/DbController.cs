@@ -28,7 +28,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
         {
             var dbContext = _dependencyResolutionService.GetInstance<DbContext>(module);
 
-            ((ModuleDbContextBase)dbContext).EnsureMutableDataSeeded();
+            ((ModuleDbContextBase)dbContext).EnsureMutableDataIsSeeded();
 
         }
     }

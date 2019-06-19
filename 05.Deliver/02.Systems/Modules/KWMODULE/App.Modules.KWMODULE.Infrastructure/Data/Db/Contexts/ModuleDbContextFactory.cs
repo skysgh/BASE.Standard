@@ -10,6 +10,10 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts
     /// </summary>
     public class ModuleDbContextFactory : ModuleDbContextFactoryBase<ModuleDbContext>
     {
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="ModuleDbContextFactory"/> class.
+        /// </summary>
         public ModuleDbContextFactory()
         {
         }

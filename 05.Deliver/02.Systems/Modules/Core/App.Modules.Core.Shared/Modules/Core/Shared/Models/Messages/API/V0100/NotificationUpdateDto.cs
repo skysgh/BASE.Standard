@@ -26,7 +26,7 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         /// <summary>
         /// The time the client read the message (if offline, will be different than time server records it).
         /// </summary>
-        public virtual DateTime DateTimeModifiedUtc { get; set; }
+        public virtual DateTimeOffset DateTimeModifiedUtc { get; set; }
 
     }
 }

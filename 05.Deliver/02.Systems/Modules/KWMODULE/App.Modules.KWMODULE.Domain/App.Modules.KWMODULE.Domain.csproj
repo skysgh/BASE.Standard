@@ -7,6 +7,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>Z:\U\SKY\NOSYNC\REPOS\MB.Spike.BASE\05.Deliver\02.Systems\Modules\KWMODULE\App.Modules.KWMODULE.Domain\App.Modules.KWMODULE.Domain.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

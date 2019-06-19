@@ -5,10 +5,18 @@ using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
+    /// <summary>
+    /// Create custom Maps for the Entity and its Dto.
+    /// </summary>
+    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{Principal, PrincipalDto}" />
     public class ObjectMap_Principal_PrincipalDto 
         : MapUntenantedRecordStatedTimestampedNoIdBase<Principal, PrincipalDto>
     {
 
+        /// <summary>
+        /// Configures the map from entity to dto.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
             IMappingExpression<Principal, PrincipalDto> mappingExpression)
         {
@@ -26,6 +34,10 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
+        /// <summary>
+        /// Configures the map from dto to entity.
+        /// </summary>
+        /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
             IMappingExpression<PrincipalDto, Principal> mappingExpression)
         {
