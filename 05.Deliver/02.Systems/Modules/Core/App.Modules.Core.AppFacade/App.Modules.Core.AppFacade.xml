@@ -458,6 +458,21 @@
             <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/> class.
             </summary>
         </member>
+        <member name="T:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer">
+            <summary>
+                Class invoked from both of the following:
+            * Startup's ConfigureContainer method (in App.Host)
+            * see DependencyResolutionContainerInitializer
+                (when running UnitTests)
+                to initialize all that is not specific to HTML.
+            </summary>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer.Initialize(Lamar.ServiceRegistry)">
+            <summary>
+            Initializes the specified service registry.
+            </summary>
+            <param name="serviceRegistry">The service registry.</param>
+        </member>
         <member name="T:App.Modules.All.AppFacade.DependencyResolution.ModuleServiceRegistryBase">
             <summary>
             The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.

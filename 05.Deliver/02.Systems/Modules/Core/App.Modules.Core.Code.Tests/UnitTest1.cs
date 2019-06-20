@@ -56,7 +56,7 @@
 //            }
 //        }
 
-//        [Fact]
+//        [SelfNamingFact]
 //        public void Interfaces_ShouldBePrefixedWithI()
 //        {
 //            var interfaces = _documents

@@ -9,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.Services
     /// Service to manage the Record of Roles associated
     /// to <see cref="Principal"/> records.
     /// </summary>
-    public interface ISystemRoleRecordManagmentService : IInfrastructureService
+    public interface ISystemRoleRecordManagementService : IInfrastructureService
     {
         /// <summary>
         /// Gets a System (ie, universal across Tenants) Role

@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\App.Modules.Core.Common\App.Modules.Core.Common.Tests.csproj" />
-    <ProjectReference Include="..\App.Modules.KWMODULE.Shared.Tests\App.Modules.KWMODULE.Shared.Tests.csproj" />
+    <ProjectReference Include="..\App.Modules.KWMODULE.Infrastructure\App.Modules.KWMODULE.Infrastructure.csproj" />
     <ProjectReference Include="..\App.Modules.KWMODULE.Shared\App.Modules.KWMODULE.Shared.csproj" />
   </ItemGroup>
 

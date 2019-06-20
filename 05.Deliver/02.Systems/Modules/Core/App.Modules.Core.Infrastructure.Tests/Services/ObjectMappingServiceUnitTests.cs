@@ -1,5 +1,6 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.Services.Implementations;
+using App.Modules.Core.Common.Tests.Attributes;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Shared.Models.Entities;
 using Xunit;
 
@@ -8,28 +9,34 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
     public class ObjectMappingServiceUnitTests : TestClassBase
     {
 
-
-        [Fact]
-        void MapSomethingTrivial()
+        [SelfNamingFact]
+        void CanRetrieveObjectMappingService()
         {
-            throw new NotImplementedException();
+            var service =
+                DependencyLocator.Current
+                    .GetInstance<Infrastructure.Services.IObjectMappingService>();
 
-            //ObjectMappingServiceConfiguration config = new ObjectMappingServiceConfiguration();
-
-            //IObjectMappingService service = new ObjectMappingService(config);
-
-            //ExampleModel m = new ExampleModel();
-
-            //m.Id = Guid.NewGuid();
-
-
-            //var r = service.Map<ExampleModel,ExampleModel>(m);
-
-            //Assert.NotEqual<Guid>(Guid.Empty, r.Id);
+            Assert.NotNull(service);
         }
 
-        [Fact]
-        void MapSomething()
+        [SelfNamingFact]
+        void MapSomethingTrivialLikeADataClassificationObject()
+        {
+            var service =
+                DependencyLocator.Current
+                    .GetInstance<Infrastructure.Services.IObjectMappingService>();
+
+            var dataClassification = 
+                new DataClassification();
+            dataClassification.Id = NZDataClassification.Confidential;
+
+            var r = service.Map<DataClassification, DataClassification>(dataClassification);
+
+            Assert.Equal<NZDataClassification>(NZDataClassification.Confidential, r.Id);
+        }
+
+        [SelfNamingFact]
+        void MapSomethingMoreComplexLikeAPrincipal()
         {
 
 

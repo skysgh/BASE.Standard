@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using App.Modules.All.Shared.Factories;
-using App.Modules.Core.Shared.Tests.Attributes;
+using App.Modules.Core.Common.Tests.Attributes;
 using Xunit;
 
 namespace App.Modules.Core.Shared.Tests

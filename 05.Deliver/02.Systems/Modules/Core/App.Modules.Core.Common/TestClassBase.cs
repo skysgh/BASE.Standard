@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using App.Modules.Core.Common.Tests;
+﻿using App.Modules.Core.Common.Tests;
 
 namespace App.Modules.Core.Infrastructure.Tests
 {

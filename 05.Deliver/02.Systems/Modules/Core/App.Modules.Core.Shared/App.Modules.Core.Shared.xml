@@ -7084,17 +7084,14 @@
         <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse">
             <summary>
             Response object
-            for a specific use of
-            Azure Maps.
+            from a reverse search
+            done using Azure Maps service.
             </summary>
         </member>
         <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse.Addresses">
             <summary>
-            Gets the addresses.
+            Gets a list of nearest addresses.
             </summary>
-            <value>
-            The addresses.
-            </value>
         </member>
         <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsSearchResponse">
             <summary>

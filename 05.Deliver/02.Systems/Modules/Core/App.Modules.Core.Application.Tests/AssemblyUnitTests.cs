@@ -5,7 +5,7 @@
 //{
 //    public class UnitTest1
 //    {
-//        [Fact]
+//        [SelfNamingFact]
 //        public void EnsureAssemblyNameIsGeneric()
 //        {
 //            Type type = typeof(IExampleService);

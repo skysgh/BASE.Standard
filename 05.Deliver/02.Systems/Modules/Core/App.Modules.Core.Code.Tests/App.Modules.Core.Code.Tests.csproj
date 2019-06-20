@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\App.Modules.Core.AppFacade\App.Modules.Core.AppFacade.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Application\App.Modules.Core.Application.csproj" />
+    <ProjectReference Include="..\App.Modules.Core.Common\App.Modules.Core.Common.Tests.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Domain\App.Modules.Core.Domain.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Infrastructure\App.Modules.Core.Infrastructure.csproj" />
     <ProjectReference Include="..\App.Modules.Core.Shared\App.Modules.Core.Shared.csproj" />

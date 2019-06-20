@@ -1,5 +1,5 @@
 ﻿using System.IO;
-
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;

@@ -11,7 +11,7 @@
 //    public class NetClassUmlDiagramServiceTests : TestClassBase
 //    {
 
-//        [Fact]
+//        [SelfNamingFact]
 //        public void Can_Retrieve_Service()
 //        {
 
@@ -23,7 +23,7 @@
 
 //        }
 
-//        [Fact]
+//        [SelfNamingFact]
 //        public void Can_Describe_Type()
 //        {
 //            var service =

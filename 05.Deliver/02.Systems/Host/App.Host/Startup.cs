@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.AppFacade.Initialization.Views;
-using App.Modules.All.Infrastructure.DependencyResolution;
 using App.Modules.Core.AppFacade.ActionFilters;
 using App.Modules.Core.AppFacade.Initialization.Startup;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Services.Implementations;
 using AutoMapper;
 using Lamar;
 using Microsoft.AspNet.OData.Extensions;
@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace App.Host

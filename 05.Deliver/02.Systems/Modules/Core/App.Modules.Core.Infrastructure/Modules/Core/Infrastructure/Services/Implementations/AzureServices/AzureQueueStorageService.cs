@@ -1,4 +1,5 @@
-﻿using App.Modules.Core.Infrastructure.ServiceAgents;
+﻿using App.Modules.Core.Infrastructure.DependencyResolution;
+using App.Modules.Core.Infrastructure.ServiceAgents;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {

@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lamar;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
 
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="IDependencyResolutionService"/>
+    /// service contract to return instances
+    /// associated to types.
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IDependencyResolutionService" />
     public class DependencyResolutionService : IDependencyResolutionService
     {
+        /// <summary>
+        /// Gets the service provider
+        /// <para>
+        /// Note: It can be typed to a Lamar IContainer
+        /// if need be.
+        /// </para>.
+        /// </summary>
         public IServiceProvider ServiceProvider
         {
             get
@@ -15,155 +29,96 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DependencyResolutionService"/> class.
+        /// </summary>
         public DependencyResolutionService() : base()
         {
             
 
         }
 
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns></returns>
         public object GetService(Type serviceType)
         {
             return DependencyLocator.Current.GetService(serviceType);
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns></returns>
         public object GetInstance(Type serviceType)
         {
             return DependencyLocator.Current.GetService(serviceType);
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public object GetInstance(Type serviceType, string key)
         {
             return DependencyLocator.Current.GetInstance(serviceType, key);
         }
 
+        /// <summary>
+        /// Gets all instances.
+        /// </summary>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns></returns>
         public IEnumerable<object> GetAllInstances(Type serviceType)
         {
             return DependencyLocator.Current.GetAllInstances(serviceType);
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <typeparam name="TService">The type of the service.</typeparam>
+        /// <returns></returns>
         public TService GetInstance<TService>()
         {
             return DependencyLocator.Current.GetInstance<TService>();
         }
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <typeparam name="TService">The type of the service.</typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public TService GetInstance<TService>(string key)
         {
             return DependencyLocator.Current.GetInstance<TService>(key);
         }
 
+        /// <summary>
+        /// Gets all instances.
+        /// </summary>
+        /// <typeparam name="TService">The type of the service.</typeparam>
+        /// <returns></returns>
         public IEnumerable<TService> GetAllInstances<TService>()
         {
             return DependencyLocator.Current.GetAllInstances<TService>();
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <param name="argument"></param>
+        /// <exception cref="System.NotImplementedException"></exception>
         public void Initialize(IServiceProvider argument)
         {
             throw new NotImplementedException();
         }
 
-    }
-
-    /// <summary>
-    /// See: https://dotnetcoretutorials.com/2018/05/06/servicelocator-shim-for-net-core/
-    /// </summary>
-    public class DependencyLocator
-    {
-
-        public static DependencyLocator Current
-        {
-            get
-            {
-                if (_current == null)
-                {
-                    _current = new DependencyLocator();
-                }
-                return _current;
-            }
-        }
-        static DependencyLocator _current;
-
-        private static IServiceProvider _serviceProvider;
-
-        public IServiceProvider ServiceProvider
-        {
-            get => _serviceProvider;
-        }
-
-        private static IContainer _container;
-
-        public DependencyLocator()
-        {
-
-        }
-
-        public void Initialize(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-            _container = (IContainer)serviceProvider;
-            if (_current != null)
-            {
-                if (_current != this)
-                {
-                    throw new Exception("Should not be reinitilizing DependencyResolutionService.");
-                }
-            }
-
-            _current = this;
-        }
-
-
-        public object GetService(Type serviceType)
-        {
-            return _serviceProvider.GetService(serviceType);
-        }
-
-        public object GetInstance(Type serviceType)
-        {
-            return _serviceProvider.GetService(serviceType);
-        }
-
-        public object GetInstance(Type serviceType, string key)
-        {
-            return _container.GetInstance(serviceType, key);
-        }
-
-        public IEnumerable<object> GetAllInstances(Type serviceType)
-        {
-            throw new NotImplementedException();
-            //return _container.GetAllInstances(serviceType);
-        }
-
-        public TService GetInstance<TService>()
-        {
-            return _container.GetInstance<TService>();
-        }
-
-        public TService GetInstance<TService>(string key)
-        {
-            return _container.GetInstance<TService>(key);
-        }
-
-        public IEnumerable<TService> GetAllInstances<TService>()
-        {
-            return _container.GetAllInstances<TService>();
-        }
-
-
-        //        private IContainer GetContainer()
-        //        {
-        //            IContainer r = StructureMapContainerLocator.Container;
-        //            return r;
-        //        }
-        //        //public void Register<T>(string key)
-        //        //{
-
-        //        //    new CreatePluginFamilyExpression<IAppCoreCacheItem>(this,
-        //        //            new StructureMap.Pipeline.SingletonLifecycle())
-        //        //            .Use(y => (IAppCoreCacheItem)AppDependencyLocator.Current.GetInstance(t)).Named(name);
-
-
-
-
-        //        //}
     }
 }

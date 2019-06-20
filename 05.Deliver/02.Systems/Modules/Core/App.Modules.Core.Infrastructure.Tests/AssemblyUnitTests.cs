@@ -12,8 +12,8 @@ namespace App.Modules.Core.Infrastructure.Tests
         {
             Type type = typeof(Infrastructure.Services.IDiagnosticsTracingService);
 
-            //Assert.True(type.IsSameApp(),
-            //    $"{ISO25010Terms.Portability}: ensure assembly names are generic.");
+            Assert.True(type.IsSameApp(),
+                $"{SystemOutcomeTypeTerms.Qualities.ISO25010Terms.Portability}: ensure assembly names are generic.");
         }
 
     }

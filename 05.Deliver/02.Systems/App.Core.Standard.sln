@@ -82,15 +82,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E9DE18FE-9AF5-4665-8C4E-2780791CA96A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULE.Shared.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Shared.Tests\App.Modules.KWMODULE.Shared.Tests.csproj", "{3B7AE133-954E-4A00-8C53-B2A99EA7E9AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Shared.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Shared.Tests\App.Modules.KWMODULE.Shared.Tests.csproj", "{3B7AE133-954E-4A00-8C53-B2A99EA7E9AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULE.Infrastructure.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Infrastructure.Tests\App.Modules.KWMODULE.Infrastructure.Tests.csproj", "{0A746BEF-4492-48F8-A6A7-912481BE1125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Infrastructure.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Infrastructure.Tests\App.Modules.KWMODULE.Infrastructure.Tests.csproj", "{0A746BEF-4492-48F8-A6A7-912481BE1125}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULE.Domain.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Domain.Tests\App.Modules.KWMODULE.Domain.Tests.csproj", "{7E920504-6F2C-46D2-93DE-081CF74B4B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Domain.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Domain.Tests\App.Modules.KWMODULE.Domain.Tests.csproj", "{7E920504-6F2C-46D2-93DE-081CF74B4B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULE.Application.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Application.Tests\App.Modules.KWMODULE.Application.Tests.csproj", "{ACFF93DF-6676-4888-9B02-929131D66AAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Application.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.Application.Tests\App.Modules.KWMODULE.Application.Tests.csproj", "{ACFF93DF-6676-4888-9B02-929131D66AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.KWMODULE.AppFacade.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.AppFacade.Tests\App.Modules.KWMODULE.AppFacade.Tests.csproj", "{18E69E7F-C49A-4C51-B390-5AB5D867F39D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.AppFacade.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.AppFacade.Tests\App.Modules.KWMODULE.AppFacade.Tests.csproj", "{18E69E7F-C49A-4C51-B390-5AB5D867F39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Core.AppFacade.Tests", "Modules\Core\App.Modules.Core.AppFacade.Tests\App.Modules.Core.AppFacade.Tests.csproj", "{4C1993C6-4322-4274-8D63-AE00EF82CFD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -218,6 +220,10 @@ Global
 		{18E69E7F-C49A-4C51-B390-5AB5D867F39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E69E7F-C49A-4C51-B390-5AB5D867F39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E69E7F-C49A-4C51-B390-5AB5D867F39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C1993C6-4322-4274-8D63-AE00EF82CFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C1993C6-4322-4274-8D63-AE00EF82CFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C1993C6-4322-4274-8D63-AE00EF82CFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C1993C6-4322-4274-8D63-AE00EF82CFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -255,6 +261,7 @@ Global
 		{7E920504-6F2C-46D2-93DE-081CF74B4B8E} = {E9DE18FE-9AF5-4665-8C4E-2780791CA96A}
 		{ACFF93DF-6676-4888-9B02-929131D66AAA} = {E9DE18FE-9AF5-4665-8C4E-2780791CA96A}
 		{18E69E7F-C49A-4C51-B390-5AB5D867F39D} = {E9DE18FE-9AF5-4665-8C4E-2780791CA96A}
+		{4C1993C6-4322-4274-8D63-AE00EF82CFD0} = {B97B962D-DBE8-483A-ADFF-E707D6988976}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BDAC3C07-3542-4993-9328-FEDEFDD8AADF}

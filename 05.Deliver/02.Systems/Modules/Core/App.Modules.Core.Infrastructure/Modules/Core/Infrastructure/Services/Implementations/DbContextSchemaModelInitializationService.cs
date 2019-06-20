@@ -5,7 +5,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     using System.Linq;
     using System.Reflection;
-    using App.Modules.Core.Infrastructure.Services.Implementations;
+    using App.Modules.Core.Infrastructure.DependencyResolution;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 

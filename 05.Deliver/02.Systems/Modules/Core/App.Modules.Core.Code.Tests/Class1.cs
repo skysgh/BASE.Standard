@@ -5,13 +5,15 @@ using NetArchTest.Rules;
 using Xunit;
 using FluentAssertions;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Common.Tests.Attributes;
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Code.Tests
 {
 
     public class Class1
     {
-        [Fact]
+        [SelfNamingFact]
         public void TryIt()
         {
             var result =
@@ -26,12 +28,13 @@ namespace App.Modules.Core.Code.Tests
             result.Should().Be(true);
         }
 
-        [Fact]
+        [SelfNamingFact]
         public void AllInterfacesShouldStartWithI()
         {
          
          var results =
-                Types.InCurrentDomain()
+             Types.InAssemblies(AppDomain.CurrentDomain.GetAppAssemblies())
+                //Types.InCurrentDomain()
          .That()
          .AreInterfaces()
          .Should()
@@ -48,7 +51,7 @@ namespace App.Modules.Core.Code.Tests
         }
 
 
-        //[Fact]
+        //[SelfNamingFact]
         //public void ServicesShouldInheritFromBaseInterface()
         //{
         //    var result =
@@ -69,7 +72,7 @@ namespace App.Modules.Core.Code.Tests
         //    result.Should().Be(true);
         //}
 
-        //[Fact]
+        //[SelfNamingFact]
         //public void ServicesShouldInheritFromBaseInterface()
         //{
         //    var result =

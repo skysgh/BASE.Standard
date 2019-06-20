@@ -1,5 +1,6 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.Services.Implementations;
+using App.Modules.Core.Common.Tests.Attributes;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using Xunit;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services
@@ -7,7 +8,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
     public class DateTimeServiceTests : TestClassBase
     {
 
-        [Fact]
+        [SelfNamingFact]
         public void DateTimeService_Can_Return_Current_UTC_Date()
         {
             var service =
@@ -20,7 +21,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
         }
 
 
-        [Fact]
+        [SelfNamingFact]
         public void DateTimeService_Can_Return_Current_UTC_Hour()
         {
             var service =
@@ -28,6 +29,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
                     .GetInstance<Infrastructure.Services.IUniversalDateTimeService>();
 
             var result = service.NowUtc();
+
             //TODO: Test could be refined, but unless this is actually on on the hour, then this will be fine.
             Assert.Equal(DateTime.UtcNow.Hour, result.Hour);
         }

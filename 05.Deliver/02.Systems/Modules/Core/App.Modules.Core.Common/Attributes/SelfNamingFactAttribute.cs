@@ -2,7 +2,7 @@
 using System.Text;
 using Xunit;
 
-namespace App.Modules.Core.Shared.Tests.Attributes
+namespace App.Modules.Core.Common.Tests.Attributes
 {
 
     public class SelfNamingFactAttribute : FactAttribute

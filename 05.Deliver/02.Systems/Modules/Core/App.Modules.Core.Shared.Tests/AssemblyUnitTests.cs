@@ -1,15 +1,13 @@
 using System;
-using Xunit;
-
-using App;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Common.Tests.Attributes;
+using Xunit;
 
 namespace App.Modules.Core.Shared.Tests
 {
     public class AssemblyUnitTests
     {
-        [Fact]
+        [SelfNamingFact]
         public void EnsureAssemblyNameIsGeneric()
         {
             Type type = typeof(IHasGuidId);

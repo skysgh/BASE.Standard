@@ -7,7 +7,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public HttpContextService(IHttpContextAccessor contextAccessor)
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="HttpContextService"/> class.
+        /// </summary>
+        /// <param name="contextAccessor">The context accessor.</param>
+        public HttpContextService( IHttpContextAccessor contextAccessor)
         {
             _contextAccessor = contextAccessor;
         }

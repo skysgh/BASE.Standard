@@ -1,9 +1,9 @@
 ﻿using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using App.Modules.Core.Common.Tests;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services
 {

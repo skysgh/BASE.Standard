@@ -8,7 +8,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IOperationContextService" />
-    ///     Infrastructure Service Contract
+    ///     Infrastructure Service Contract.
+    /// <para>
+    /// Basically provides a value for the duration
+    /// of the request (ie, it's using the HttpContext
+    /// when running within an Http Host)
+    /// </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IOperationContextService" />
     public class OperationContextService : AppCoreServiceBase, IOperationContextService
@@ -16,19 +21,41 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private readonly IHttpContextService _httpContextService;
         private readonly IConversionService _conversionService;
 
-        public OperationContextService(IHttpContextService httpContextService, IConversionService conversionService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OperationContextService"/> class.
+        /// </summary>
+        /// <param name="httpContextService">The HTTP context service.</param>
+        /// <param name="conversionService">The conversion service.</param>
+        public OperationContextService(
+            IHttpContextService httpContextService, 
+            IConversionService conversionService)
         {
             _httpContextService = httpContextService;
             this._conversionService = conversionService;
         }
 
+        /// <summary>
+        /// Gets the value of the specified key.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public T Get<T>(string key, T defaultValue = default(T))
         {
             if (_httpContextService.Current == null) { return defaultValue; }
+
             var result = this._conversionService.ConvertTo(_httpContextService.Current.Items[key], defaultValue);
+
             return result;
         }
 
+        /// <summary>
+        /// Sets the specified value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void Set<T>(string key, T value)
         {
             if (_httpContextService.Current == null) { return; }

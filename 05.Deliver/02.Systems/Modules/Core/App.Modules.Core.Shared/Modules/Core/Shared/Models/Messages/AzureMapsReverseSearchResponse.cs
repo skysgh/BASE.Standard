@@ -5,17 +5,14 @@ namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
     /// Response object
-    /// for a specific use of
-    /// Azure Maps.
+    /// from a reverse search
+    /// done using Azure Maps service.
     /// </summary>
     public class AzureMapsReverseSearchResponse
     {
         /// <summary>
-        /// Gets the addresses.
+        /// Gets a list of nearest addresses.
         /// </summary>
-        /// <value>
-        /// The addresses.
-        /// </value>
         [JsonProperty("addresses")]
         public List<AzureMapsResponseAddress> Addresses
         {

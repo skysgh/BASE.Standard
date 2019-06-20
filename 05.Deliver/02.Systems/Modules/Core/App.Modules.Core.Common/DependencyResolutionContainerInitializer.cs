@@ -3,10 +3,12 @@
 using System;
 using System.IO;
 using System.Linq;
+using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.Shared.Initialization;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Services.Implementations;
 using Lamar;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
@@ -36,11 +38,14 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         /// </summary>
         public static Container Container { get; private set; }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public void Initialize()
         {
             if (Container != null)
             {
-                return;
+                //return;
             }
 
             lock (this)
@@ -61,16 +66,19 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
                 new ApplicationDependencyResolutionInitializer()
                     .Initialize(serviceRegistry);
 
+                RegisterFakeHttpContextForUnitTestingReasons(serviceRegistry);
 
                 // And use that to Create a new Container (in ASP.CORE
                 // this step was all done behind the scenes):
                 Container = new Container(serviceRegistry);
 
+
                 //Register the Container:
                 DependencyLocator.Current.Initialize(Container);
 
                 //Proof:
-                Container.GetInstance<IDependencyResolutionService>().Initialize(Container);
+                var t = Container.GetInstance<IDependencyResolutionService>();
+                //t.Initialize(Container);
 
 
 
@@ -89,6 +97,17 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
         }
 
+        private static void RegisterFakeHttpContextForUnitTestingReasons(ServiceRegistry serviceRegistry)
+        {
+            serviceRegistry
+                .ForSingletonOf<IHttpContextAccessor>()
+                .Use(x =>
+                {
+                    var tc = new HttpContextAccessor();
+                    tc.HttpContext = new DefaultHttpContext();
+                    return tc;
+                });
+        }
 
 
         /// <summary>

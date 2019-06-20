@@ -1,5 +1,5 @@
-﻿using App.Modules.Core.Shared.Constants.All;
-using App.Modules.Core.Shared.Tests.Attributes;
+﻿using App.Modules.Core.Common.Tests.Attributes;
+using App.Modules.Core.Shared.Constants.All;
 using FluentAssertions;
 using Xunit;
 

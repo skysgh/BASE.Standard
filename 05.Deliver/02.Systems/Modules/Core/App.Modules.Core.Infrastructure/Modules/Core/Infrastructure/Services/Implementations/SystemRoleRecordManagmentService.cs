@@ -9,15 +9,19 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
     /// <summary>
     ///     Implementation of the
-    ///     <see cref="ISystemRoleRecordManagmentService" />
+    ///     <see cref="ISystemRoleRecordManagementService" />
     ///     Infrastructure Service Contract
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISystemRoleRecordManagmentService" />
-    public class SystemRoleRecordManagmentService : AppCoreServiceBase, ISystemRoleRecordManagmentService
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISystemRoleRecordManagementService" />
+    public class SystemRoleRecordManagementService : AppCoreServiceBase, ISystemRoleRecordManagementService
     {
         private readonly ModuleDbContext _coreRepositoryService;
 
-        public SystemRoleRecordManagmentService(ModuleDbContext repositoryService)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemRoleRecordManagementService"/> class.
+        /// </summary>
+        /// <param name="repositoryService">The repository service.</param>
+        public SystemRoleRecordManagementService(ModuleDbContext repositoryService)
         {
             this._coreRepositoryService = repositoryService;
         }
