@@ -6,23 +6,23 @@
     <members>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext">
             <summary>
-            The DbContext to use when the entity being returned
-            references entities in this module that have Navigation
-            properties that cross over to other Logical Modules
-            (and therefore Schemas).
-            <para>
-            Note that this DbContext's constructor is Dependency
-            Injected with DbContexts it references.
-            </para>
+                The DbContext to use when the entity being returned
+                references entities in this module that have Navigation
+                properties that cross over to other Logical Modules
+                (and therefore Schemas).
+                <para>
+                    Note that this DbContext's constructor is Dependency
+                    Injected with DbContexts it references.
+                </para>
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext.#ctor(App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext,Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
             <summary>
-            <para>
-            Invoked by Constructor.
-            </para>
-            This is the constructor invoked by the system's dependency injector/creator.
+                <para>
+                    Invoked by Constructor.
+                </para>
+                This is the constructor invoked by the system's dependency injector/creator.
             </summary>
             <param name="moduleDbContext">The module database context.</param>
             <param name="configuration">The configuration.</param>
@@ -30,301 +30,294 @@
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
-            Note: default behaviour is that it is not called by constructor by default.
-            But is called by Migrate.
+                Note: default behaviour is that it is not called by constructor by default.
+                But is called by Migrate.
             </summary>
             <param name="optionsBuilder"></param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext">
             <summary>
-            This Module's specific <see cref="T:Microsoft.EntityFrameworkCore.DbContext"/>.
-            <para>
-            Note that it doesn't do much beyond reusing base 
-            functionality within <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase"/>
-            which ensures the name of the DbContext is specific 
-            to the Module Name (eg: 'Core' + 'DbContext' = 'CoreDbContext')
-            and that it searches for implementations of 
-            <see cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.IHasModuleSpecificDbContextModelBuilderSchemaInitializer"/>
-            to create this Module's Database, and the searches for
-            <see cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer"/> to seed 
-            the database if and as required.
-            </para>
-            
+                This Module's specific <see cref="T:Microsoft.EntityFrameworkCore.DbContext" />.
+                <para>
+                    Note that it doesn't do much beyond reusing base
+                    functionality within <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" />
+                    which ensures the name of the DbContext is specific
+                    to the Module Name (eg: 'Core' + 'DbContext' = 'CoreDbContext')
+                    and that it searches for implementations of
+                    <see cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.IHasModuleSpecificDbContextModelBuilderSchemaInitializer" />
+                    to create this Module's Database, and the searches for
+                    <see cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" /> to seed
+                    the database if and as required.
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase})">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" /> class.
             </summary>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
             <summary>
-            This is the constructor invoked by the system's dependency injector/creator.
+                This is the constructor invoked by the system's dependency injector/creator.
             </summary>
             <param name="configuration"></param>
             <param name="appDbContextManagementService"></param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
             <summary>
-            <para>
-            Note:
-            Whereas the other constructors are invoked during run time, 
-            this constructor will be called by the 
-            <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory"/>,
-            which is invoked when the 'dotnet ef' commands are issued 
-            from the command line (eg, for Migrations).
-            </para>
+                <para>
+                    Note:
+                    Whereas the other constructors are invoked during run time,
+                    this constructor will be called by the
+                    <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" />,
+                    which is invoked when the 'dotnet ef' commands are issued
+                    from the command line (eg, for Migrations).
+                </para>
             </summary>
             <param name="options"></param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext})">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext" /> class.
             </summary>
             <param name="options">The options.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <summary>
-            
-            <para>
-            Note:
-            The override is not strictly required -- it's just here
-            to bring attention to the work being done in the base class.
-            </para>
+                <para>
+                    Note:
+                    The override is not strictly required -- it's just here
+                    to bring attention to the work being done in the base class.
+                </para>
             </summary>
             <param name="optionsBuilder"></param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            
-            <para>
-            Note:
-            The override is not strictly required -- it's just here
-            to bring attention to the work being done in the base class.
-            </para>
+                <para>
+                    Note:
+                    The override is not strictly required -- it's just here
+                    to bring attention to the work being done in the base class.
+                </para>
             </summary>
             <param name="modelBuilder"></param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory">
             <summary>
-            <para>
-            Note that each logical Module requires it's own ModuleDbContext.
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory.#ctor">
-            <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory"/> class.
+                <para>
+                    Note that each logical Module requires it's own ModuleDbContext.
+                </para>
             </summary>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineExample">
             <summary>
-            Defines a single entity within
-            the given ModelBuilder of
-            a specif Logical Module DbContext.
+                Defines a single entity within
+                the given ModelBuilder of
+                a specif Logical Module DbContext.
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.ModuleSpecificDbContextModelBuilderDefineBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineExample.DefineSchema(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            Defines the Module specific DbContext schema
-            for a given entity.
-            <para>
-            Invoked at startup.
-            </para>
+                Defines the Module specific DbContext schema
+                for a given entity.
+                <para>
+                    Invoked at startup.
+                </para>
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineLinkedExample">
             <summary>
-            Defines a single entity within
-            the given ModelBuilder of
-            a specif Logical Module DbContext.
+                Defines a single entity within
+                the given ModelBuilder of
+                a specif Logical Module DbContext.
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.ModuleSpecificDbContextModelBuilderDefineBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineLinkedExample.DefineSchema(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            Defines the Module specific DbContext schema
-            for a given entity.
-            <para>
-            Invoked at startup.
-            </para>
+                Defines the Module specific DbContext schema
+                for a given entity.
+                <para>
+                    Invoked at startup.
+                </para>
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineTenantedExample">
             <summary>
-            Defines a single entity within
-            the given ModelBuilder of
-            a specif Logical Module DbContext.
+                Defines a single entity within
+                the given ModelBuilder of
+                a specif Logical Module DbContext.
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Schema.ModuleSpecificDbContextModelBuilderDefineBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Schema.AppModuleDbContextModelBuilderDefineTenantedExample.DefineSchema(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            Defines the Module specific DbContext schema
-            for a given entity.
-            <para>
-            Invoked at startup.
-            </para>
+                Defines the Module specific DbContext schema
+                for a given entity.
+                <para>
+                    Invoked at startup.
+                </para>
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
-        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederExample">
+        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederExample">
             <summary>
-            Implementation of a seeder that is invoked
-            as part of DbContext migration
-            to immutable reference data.
+                Implementation of a seeder that is invoked
+                as part of DbContext migration
+                to immutable reference data.
             </summary>
-            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
+            <seealso
+                cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
         </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            Invoke to create immutable data
-            as part of the current Migration.
-            </summary>
-            <param name="modelBuilder">The model builder.</param>
-        </member>
-        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederLinkedExample">
-            <summary>
-            Implementation of a seeder that is invoked
-            as part of DbContext migration
-            to immutable reference data.
-            </summary>
-            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
-        </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederLinkedExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <summary>
-            Invoke to create immutable data
-            as part of the current Migration.
+                Invoke to create immutable data
+                as part of the current Migration.
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
-        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederTenantedExample">
+        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederLinkedExample">
             <summary>
-            Implementation of a seeder that is invoked
-            as part of DbContext migration
-            to immutable reference data.
+                Implementation of a seeder that is invoked
+                as part of DbContext migration
+                to immutable reference data.
             </summary>
-            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
+            <seealso
+                cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
         </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableSeederTenantedExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederLinkedExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <summary>
-            Invoke to create immutable data
-            as part of the current Migration.
+                Invoke to create immutable data
+                as part of the current Migration.
+            </summary>
+            <param name="modelBuilder">The model builder.</param>
+        </member>
+        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederTenantedExample">
+            <summary>
+                Implementation of a seeder that is invoked
+                as part of DbContext migration
+                to immutable reference data.
+            </summary>
+            <seealso
+                cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.ImutableData.ModuleSpecificDbContextModelBuilderImmutableSeederTenantedExample.DefineImmutableData(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+                Invoke to create immutable data
+                as part of the current Migration.
             </summary>
             <param name="modelBuilder">The model builder.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.MutableData.ExampleSeeder">
             <summary>
-            Implementation of a seeder that is optionally
-            invoked, to seed optional demo data.
+                Implementation of a seeder that is optionally
+                invoked, to seed optional demo data.
             </summary>
-            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" />
+            <seealso
+                cref="T:App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.MutableData.ExampleSeeder.SeedMutableData(App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase)">
             <summary>
-            If and when invoked,
-            seeds the given dbContext with
-            mutable data (ie, optional/demo data).
+                If and when invoked,
+                seeds the given dbContext with
+                mutable data (ie, optional/demo data).
             </summary>
             <param name="context">The context.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.DependencyResolution.ModuleServiceRegistry">
             <summary>
-            
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.DependencyResolution.ModuleServiceRegistryBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.DependencyResolution.ModuleServiceRegistry.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            <para>
-            Invoked by Constructor.
-            </para>
-            Override to provide Module/Assembly specific scanning rules.
+                <para>
+                    Invoked by Constructor.
+                </para>
+                Override to provide Module/Assembly specific scanning rules.
             </summary>
             <param name="assemblyScanner">The assembly scanner.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_Example_ExampleDto">
             <summary>
-            Create custom Maps for the Entity and its Dto.
+                Create custom Maps for the Entity and its Dto.
             </summary>
             <seealso cref="T:App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base.MapUntenantedRecordStatedTimestampedNoIdBase`2" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_Example_ExampleDto.ConfigureMapFromEntityToDto(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Entities.Example,App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto})">
             <summary>
-            Configures the map from entity to dto.
+                Configures the map from entity to dto.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_Example_ExampleDto.ConfigureMapFromDtoToEntity(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Messages.ExampleDto,App.Modules.KWMODULE.Shared.Models.Entities.Example})">
             <summary>
-            Configures the map from dto to entity.
+                Configures the map from dto to entity.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_LinkedExample_LinkedExampleDto">
             <summary>
-            Create custom Maps for the Entity and its Dto.
+                Create custom Maps for the Entity and its Dto.
             </summary>
             <seealso cref="T:App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base.MapUntenantedRecordStatedTimestampedNoIdBase`2" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_LinkedExample_LinkedExampleDto.ConfigureMapFromEntityToDto(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample,App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto})">
             <summary>
-            Configures the map from entity to dto.
+                Configures the map from entity to dto.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_LinkedExample_LinkedExampleDto.ConfigureMapFromDtoToEntity(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Messages.LinkedExampleDto,App.Modules.KWMODULE.Shared.Models.Entities.LinkedExample})">
             <summary>
-            Configures the map from dto to entity.
+                Configures the map from dto to entity.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_TenantedExample_TenantedExampleDto">
             <summary>
-            
             </summary>
             <seealso cref="T:App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base.MapTenantedRecordStatedTimestampedGuidIdBase`2" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_TenantedExample_TenantedExampleDto.ConfigureMapFromEntityToDto(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample,App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto})">
             <summary>
-            Configures the map from entity to dto.
+                Configures the map from entity to dto.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.ObjectMapping.ObjectMap_TenantedExample_TenantedExampleDto.ConfigureMapFromDtoToEntity(AutoMapper.IMappingExpression{App.Modules.KWMODULE.Shared.Models.Messages.TenantedExampleDto,App.Modules.KWMODULE.Shared.Models.Entities.TenantedExample})">
             <summary>
-            Configures the map from dto to entity.
+                Configures the map from dto to entity.
             </summary>
             <param name="mappingExpression">The mapping expression.</param>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService">
             <summary>
-            Example of an Infrastructure Service,
-            invoked by an Application Service.
+                Example of an Infrastructure Service,
+                invoked by an Application Service.
             </summary>
             <seealso cref="T:App.Modules.All.Infrastructure.Services.IInfrastructureService" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService.DoSomething">
             <summary>
-            Does something.
+                Does something.
             </summary>
             <returns></returns>
         </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Services.Implementations.ExampleInfrastructureService">
             <summary>
-            Implementation of <see cref="T:App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService"/>
-            invoked (along with Domain Services)
-            by an Application Service.
+                Implementation of <see cref="T:App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService" />
+                invoked (along with Domain Services)
+                by an Application Service.
             </summary>
             <seealso cref="T:App.Modules.KWMODULE.Infrastructure.Services.IExampleInfrastructureService" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Services.Implementations.ExampleInfrastructureService.DoSomething">
             <summary>
-            Does something.
+                Does something.
             </summary>
             <returns></returns>
         </member>

@@ -1,9 +1,11 @@
+// Copyright MachineBrains, Inc. 2019
+
 namespace App.Modules.Core.Infrastructure.Constants.KeyStores
 {
     /// <summary>
-    /// Names of Keys within an KeyStore,
-    /// where secrets were registered, in order to not have 
-    /// security credentials in the AppConfig.
+    ///     Names of Keys within an KeyStore,
+    ///     where secrets were registered, in order to not have
+    ///     security credentials in the AppConfig.
     /// </summary>
     public static class Keys
     {

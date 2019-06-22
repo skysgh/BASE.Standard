@@ -1,13 +1,15 @@
-﻿using App.Modules.Core.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.Services;
 
 namespace App.Modules.Core.AppFacade.Services.Implementations
 {
     /// <summary>
-    /// A collection of commonly used services.
-    /// <para>
-    /// Facilitates and simplifies the creation of
-    /// Controllers.
-    /// </para>
+    ///     A collection of commonly used services.
+    ///     <para>
+    ///         Facilitates and simplifies the creation of
+    ///         Controllers.
+    ///     </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.AppFacade.Services.IControllerCommonServicesService" />
     public class ControllerCommonServicesService
@@ -16,7 +18,7 @@ namespace App.Modules.Core.AppFacade.Services.Implementations
         //<TDbContext> where TDbContext : DbContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ControllerCommonServicesService"/> class.
+        ///     Initializes a new instance of the <see cref="ControllerCommonServicesService" /> class.
         /// </summary>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="principalService">The principal service.</param>
@@ -40,41 +42,43 @@ namespace App.Modules.Core.AppFacade.Services.Implementations
         //public TDbContext DbContext { get; }
 
         /// <summary>
-        /// Gets the diagnostics tracing service.
+        ///     Gets the diagnostics tracing service.
         /// </summary>
         /// <value>
-        /// The diagnostics tracing service.
+        ///     The diagnostics tracing service.
         /// </value>
         public IDiagnosticsTracingService DiagnosticsTracingService { get; }
 
         /// <summary>
-        /// Gets the principal service.
+        ///     Gets the principal service.
         /// </summary>
         /// <value>
-        /// The principal service.
+        ///     The principal service.
         /// </value>
 
         public IPrincipalService PrincipalService { get; }
 
         /// <summary>
-        /// Gets the tenant service.
+        ///     Gets the tenant service.
         /// </summary>
         /// <value>
-        /// The tenant service.
+        ///     The tenant service.
         /// </value>
         public ITenantService TenantService { get; }
+
         /// <summary>
-        /// Gets the object mapping service.
+        ///     Gets the object mapping service.
         /// </summary>
         /// <value>
-        /// The object mapping service.
+        ///     The object mapping service.
         /// </value>
         public IObjectMappingService ObjectMappingService { get; }
+
         /// <summary>
-        /// Gets the secure API message attribute.
+        ///     Gets the secure API message attribute.
         /// </summary>
         /// <value>
-        /// The secure API message attribute.
+        ///     The secure API message attribute.
         /// </value>
         public ISecureAPIMessageAttributeService SecureApiMessageAttribute { get; }
     }

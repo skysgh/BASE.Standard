@@ -1,13 +1,11 @@
-﻿using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Copyright MachineBrains, Inc. 2019
+
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Messages;
+using Newtonsoft.Json;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -25,13 +23,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             using (var httpClient = new HttpClient())
             {
                 var url = _geolocationServiceConfiguration.Configuration.BaseUri + CreateQueryString(ip);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+                var request = new HttpRequestMessage(HttpMethod.Get, url);
                 var response = httpClient.SendAsync(request).Result;
                 var json = response.Content.ReadAsStringAsync().Result;
-                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<GeoInformation>(json);
+                var obj = JsonConvert.DeserializeObject<GeoInformation>(json);
                 return obj;
             }
-                
         }
 
         public string CreateQueryString(string ip)
@@ -40,9 +37,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             query["subscription-key"] = _geolocationServiceConfiguration.Configuration.Secret;
             query["api-version"] = "1.0";
             query["ip"] = ip;
-            return "?" + query.ToString();
+            return "?" + query;
         }
-
-
     }
 }

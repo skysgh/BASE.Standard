@@ -1,7 +1,5 @@
-﻿// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
-namespace App.Modules.All.Application.Initialization.DependencyResolution
+namespace App.Modules.All.Application.DependencyResolution
 {
-
 }
-

@@ -1,4 +1,8 @@
-﻿namespace App.Modules.Core.Infrastructure.Services
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAzureService { }
+    public interface IAzureService
+    {
+    }
 }

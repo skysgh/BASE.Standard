@@ -1,13 +1,15 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
     /// <summary>
-    /// Contract for an common Infrastructure Service to 
-    /// manage Host specific, immutable Settings
-    /// (commonly this wraps web.config, etc. settings
-    /// that were injected at deployment time by the 
-    /// Build Engine).
+    ///     Contract for an common Infrastructure Service to
+    ///     manage Host specific, immutable Settings
+    ///     (commonly this wraps web.config, etc. settings
+    ///     that were injected at deployment time by the
+    ///     Build Engine).
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IImmutableSetingsService" />
     /// <seealso cref="IInfrastructureService" />

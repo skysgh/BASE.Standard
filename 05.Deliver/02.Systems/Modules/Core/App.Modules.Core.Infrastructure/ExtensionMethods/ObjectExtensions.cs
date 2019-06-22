@@ -1,5 +1,4 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using System.Collections.Generic;
@@ -42,12 +41,13 @@ namespace App
         }
 
 
-        public static TTarget ConvertTo<TTarget>(this object source, TTarget defaultValue = default(TTarget))
+        public static TTarget ConvertTo<TTarget>(this object source, TTarget defaultValue = default)
         {
             if (source == null)
             {
                 return defaultValue;
             }
+
             return (TTarget) source.ConvertTo(typeof(TTarget));
         }
 
@@ -83,6 +83,7 @@ namespace App
                     //Might as well get out early...
                     return source;
                 }
+
                 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
                 if (string.IsNullOrEmpty((string) source))
                     // ReSharper restore ConvertIfStatementToConditionalTernaryExpression
@@ -129,6 +130,7 @@ namespace App
                 {
                 }
             }
+
             return targetType.IsValueType
                 ? Activator.CreateInstance(targetType)
                 : null;

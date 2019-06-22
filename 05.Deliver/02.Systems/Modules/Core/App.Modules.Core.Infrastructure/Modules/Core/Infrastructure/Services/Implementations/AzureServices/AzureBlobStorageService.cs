@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.IO;
+using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
@@ -9,10 +12,10 @@ using Microsoft.Azure.Storage.Blob;
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     /// <summary>
-    /// Dependencies:
-    /// * Nuget Packages:   
-    ///   * WindowsAzure.Storage" version="8.6.0" 
-    ///    * Microsoft.sAzure.ConfigurationManager" version="3.2.3" 
+    ///     Dependencies:
+    ///     * Nuget Packages:
+    ///     * WindowsAzure.Storage" version="8.6.0"
+    ///     * Microsoft.sAzure.ConfigurationManager" version="3.2.3"
     /// </summary>
     public class AzureBlobStorageService : AppCoreServiceBase, IAzureBlobStorageService
     {
@@ -21,35 +24,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureBlobStorageService(IDiagnosticsTracingService diagnosticsTracingService
             /*,AzureBlobStorageServiceConfiguration configuration*/
-            )
+        )
         {
-            this._diagnosticsTracingService = diagnosticsTracingService;
+            _diagnosticsTracingService = diagnosticsTracingService;
             // In this case, the configuration doesn't have much/any settings (it's all in the Context objects).
             //Configuration = configuration;
         }
 
-
-        /// <summary>
-        /// Use Service Locator to return specified context.
-        /// </summary>
-        /// <param name="storageAccountContextKey">The storage account context key.</param>
-        /// <returns></returns>
-        private IAzureStorageBlobContext GetStorageAccountContext(string storageAccountContextKey)
-        {
-
-            // If no name given, fall back to the default one:
-            if (string.IsNullOrWhiteSpace(storageAccountContextKey))
-            {
-                storageAccountContextKey = Constants.Storage.StorageAccountNames.Default;
-            }
-
-            var result = DependencyLocator.Current.GetInstance<IAzureStorageBlobContext>(storageAccountContextKey);
-
-            return result;
-
-        }
-
-        public void EnsureContainer(string storageAccountContextKey, string containerName, BlobContainerPublicAccessType BlobContainerPublicAccessTypeIfNew = BlobContainerPublicAccessType.Blob)
+        public void EnsureContainer(string storageAccountContextKey, string containerName,
+            BlobContainerPublicAccessType BlobContainerPublicAccessTypeIfNew = BlobContainerPublicAccessType.Blob)
         {
             var storageAccountContext = GetStorageAccountContext(storageAccountContextKey);
 
@@ -62,11 +45,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         public void UploadAText(string storageAccountContextKey, string containerName, string remoteBlobName,
             string text)
         {
-
             var storageAccountContext = GetStorageAccountContext(storageAccountContextKey);
             var cloudBlobContainer = storageAccountContext.GetContainer(containerName);
 
-            CloudBlockBlob blob =
+            var blob =
                 cloudBlobContainer.GetBlockBlobReference(remoteBlobName);
 
             // It's faster to try to upload, and fallback to making the container if need be:
@@ -75,10 +57,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                 blob.UploadText(text);
             }
 #pragma warning disable 168
-            catch (Microsoft.Azure.Storage.StorageException e)
+            catch (StorageException e)
 #pragma warning restore 168
             {
-                this._diagnosticsTracingService.Trace(TraceLevel.Error, $"Container '{containerName}' does not exist to upload to.");
+                _diagnosticsTracingService.Trace(TraceLevel.Error,
+                    $"Container '{containerName}' does not exist to upload to.");
             }
         }
 
@@ -88,41 +71,55 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             var storageAccountContext = GetStorageAccountContext(storageAccountContextKey);
             var cloudBlobContainer = storageAccountContext.GetContainer(containerName);
 
-            CloudBlockBlob blob =
+            var blob =
                 cloudBlobContainer.GetBlockBlobReference(remoteBlobBame);
 
             var result = blob.DownloadText();
 
             return result;
-
         }
 
         public void UploadAFile(string storageAccountContextKey, string containerName, string localFilePath)
         {
-
             var storageAccountContext = GetStorageAccountContext(storageAccountContextKey);
             var cloudBlobContainer = storageAccountContext.GetContainer(containerName);
 
-            string remoteFileName = Path.GetFileName(localFilePath);
+            var remoteFileName = Path.GetFileName(localFilePath);
 
             // It's faster to try to upload, and fallback to making the container if need be:
             CloudBlockBlob blob;
             blob = cloudBlobContainer.GetBlockBlobReference(remoteFileName);
             try
             {
-
                 blob.UploadFromFile(localFilePath);
             }
 #pragma warning disable 168
             catch (StorageException e)
 #pragma warning restore 168
             {
-                this._diagnosticsTracingService.Trace(TraceLevel.Error,
+                _diagnosticsTracingService.Trace(TraceLevel.Error,
                     $"Container '{containerName}' does not exist to upload to.");
             }
-
         }
 
+
+        /// <summary>
+        ///     Use Service Locator to return specified context.
+        /// </summary>
+        /// <param name="storageAccountContextKey">The storage account context key.</param>
+        /// <returns></returns>
+        private IAzureStorageBlobContext GetStorageAccountContext(string storageAccountContextKey)
+        {
+            // If no name given, fall back to the default one:
+            if (string.IsNullOrWhiteSpace(storageAccountContextKey))
+            {
+                storageAccountContextKey = StorageAccountNames.Default;
+            }
+
+            var result = DependencyLocator.Current.GetInstance<IAzureStorageBlobContext>(storageAccountContextKey);
+
+            return result;
+        }
 
 
         //        public void Persist(byte[] bytes, string targetRelativePath)
@@ -144,13 +141,5 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         //            // Create or overwrite the "myblob" blob with contents from a local file.
         //            blockBlob.UploadFromStream(contents);
         //        }
-
-
-
-
-
-
-
-
     }
 }

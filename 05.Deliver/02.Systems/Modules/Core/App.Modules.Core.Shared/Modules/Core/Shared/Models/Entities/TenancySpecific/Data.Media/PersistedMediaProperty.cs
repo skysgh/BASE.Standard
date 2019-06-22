@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 
@@ -14,6 +16,15 @@ namespace App.Modules.Core.Shared.Models.Entities
         IHasTag
     {
         /// <summary>
+        ///     Gets or sets the Id of the
+        ///     <see cref="PersistedMedia" />
+        ///     that manages a collection of these
+        ///     <see cref="PersistedMedia" />
+        ///     attributes.
+        /// </summary>
+        public virtual Guid PersistedMediaFK { get; set; }
+
+        /// <summary>
         ///     Gets or sets the key.
         ///     <para>Member defined in<see cref="IHasKey" /></para>
         /// </summary>
@@ -26,13 +37,13 @@ namespace App.Modules.Core.Shared.Models.Entities
 
 
         /// <summary>
-        ///     Gets or sets the Id of the
-        ///     <see cref="PersistedMedia" />
-        ///     that manages a collection of these
-        ///     <see cref="PersistedMedia" />
-        ///     attributes.
+        ///     Gets the FK of the owner <see cref="PersistedMedia" />.
         /// </summary>
-        public virtual Guid PersistedMediaFK { get; set; }
+        /// <returns></returns>
+        public Guid GetOwnerFk()
+        {
+            return PersistedMediaFK;
+        }
 
         /// <summary>
         ///     Gets the tag of the object.
@@ -40,15 +51,5 @@ namespace App.Modules.Core.Shared.Models.Entities
         ///     <para>Can be used to associate information -- such as an image ref -- to a SelectableItem.</para>
         /// </summary>
         public virtual string Tag { get; set; }
-
-
-        /// <summary>
-        /// Gets the FK of the owner <see cref="PersistedMedia"/>.
-        /// </summary>
-        /// <returns></returns>
-        public Guid GetOwnerFk()
-        {
-            return PersistedMediaFK;
-        }
     }
 }

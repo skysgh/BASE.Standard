@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Infrastructure.Services
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Infrastructure.Services
 //{
 //    using App.Modules.Core.Infrastructure.Services.Enums;
 //    using App.Modules.Core.Shared.Contracts.Services;
@@ -21,3 +23,4 @@
 //    }
 
 //}
+

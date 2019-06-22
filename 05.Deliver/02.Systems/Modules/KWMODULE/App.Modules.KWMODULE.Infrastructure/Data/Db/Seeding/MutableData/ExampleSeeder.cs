@@ -1,22 +1,20 @@
-﻿using System.Linq;
-using App;
-using App.Modules.All.Infrastructure.Data.Db.Contexts;
+﻿using App.Modules.All.Infrastructure.Data.Db.Contexts;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
-using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.MutableData
 {
     /// <summary>
-    /// Implementation of a seeder that is optionally
-    /// invoked, to seed optional demo data.
+    ///     Implementation of a seeder that is optionally
+    ///     invoked, to seed optional demo data.
     /// </summary>
-    /// <seealso cref="App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" />
+    /// <seealso
+    ///     cref="App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData.IHasModuleSpecificDbContextMutableDataSeedingInitializer" />
     public class ExampleSeeder : IHasModuleSpecificDbContextMutableDataSeedingInitializer
     {
         /// <summary>
-        /// If and when invoked,
-        /// seeds the given dbContext with
-        /// mutable data (ie, optional/demo data).
+        ///     If and when invoked,
+        ///     seeds the given dbContext with
+        ///     mutable data (ie, optional/demo data).
         /// </summary>
         /// <param name="context">The context.</param>
         public void SeedMutableData(ModuleDbContextBase context)
@@ -49,7 +47,6 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Seeding.MutableData
             //});
 
             //bool hasChanges2 = context.ChangeTracker.HasChanges();
-
         }
     }
 }

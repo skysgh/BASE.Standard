@@ -1,4 +1,6 @@
-﻿//using App.Modules.Core.Shared.Models.Entities.Enums;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using App.Modules.Core.Shared.Models.Entities.Enums;
 //using System;
 
 //namespace App.Modules.Core.Shared.Models.Entities
@@ -91,3 +93,4 @@
 //    }
 
 //}
+

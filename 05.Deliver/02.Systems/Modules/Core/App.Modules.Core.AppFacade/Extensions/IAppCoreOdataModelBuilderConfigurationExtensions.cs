@@ -1,4 +1,4 @@
-// Copyright MachineBrains, Inc.
+// Copyright MachineBrains, Inc. 2019
 
 using System;
 using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
@@ -6,28 +6,28 @@ using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 namespace App.Extensions
 {
     /// <summary>
-    /// Methods that extend
-    /// <see cref="IModuleOdataModelBuilderConfiguration"/>
-    /// instances.
+    ///     Methods that extend
+    ///     <see cref="IModuleOdataModelBuilderConfiguration" />
+    ///     instances.
     /// </summary>
     public static class IAppCoreOdataModelBuilderConfigurationExtensions
     {
-
         /// <summary>
-        /// Gets the controller name from the given Entity, by convention.
-        /// <para>
-        /// Eg: "Principal" gives "PrincipalsController"
-        /// </para>
+        ///     Gets the controller name from the given Entity, by convention.
+        ///     <para>
+        ///         Eg: "Principal" gives "PrincipalsController"
+        ///     </para>
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="dtoType">Type of the dto.</param>
         /// <param name="pluralise">if set to <c>true</c> [pluralise].</param>
         /// <returns></returns>
-        public static string GetControllerNameByConvention(this IModuleOdataModelBuilderConfiguration x, Type dtoType, bool pluralise=true)
+        public static string GetControllerNameByConvention(this IModuleOdataModelBuilderConfiguration x, Type dtoType,
+            bool pluralise = true)
         {
-            string className = dtoType.Name;
+            var className = dtoType.Name;
 
-            int pos = className.IndexOf("dto",StringComparison.InvariantCultureIgnoreCase);
+            var pos = className.IndexOf("dto", StringComparison.InvariantCultureIgnoreCase);
 
             if (pos > -1)
             {
@@ -54,10 +54,6 @@ namespace App.Extensions
             }
 
             return className;
-
-
-
         }
-
     }
 }

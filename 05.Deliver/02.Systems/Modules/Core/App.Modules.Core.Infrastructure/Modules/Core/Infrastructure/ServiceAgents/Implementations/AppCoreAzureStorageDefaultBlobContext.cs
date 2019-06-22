@@ -1,7 +1,10 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
-using App.Modules.Core.Shared.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Shared.Models.Entities;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
@@ -15,28 +18,23 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
     //[Key(Constants.Storage.StorageAccountNames.Default)]
     public class AppCoreAzureStorageDefaultBlobContext : IAzureStorageBlobContext
     {
-        private readonly string ConnectionString;
+        private static readonly object _lock = new object();
 
-        private static object _lock = new Object();
-        private static Dictionary<string, CloudBlobContainer> ContainersCache = new Dictionary<string, CloudBlobContainer>();
+        private static readonly Dictionary<string, CloudBlobContainer> ContainersCache =
+            new Dictionary<string, CloudBlobContainer>();
+
         private static bool ContainersInitialized;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-
-        public CloudBlobClient Client
-        {
-            get
-            {
-                return this._client ?? (this._client = Initialize());
-            }
-        }
+        private readonly string ConnectionString;
         private CloudBlobClient _client;
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppCoreAzureStorageDefaultBlobContext"/> class.
+        ///     Initializes a new instance of the <see cref="AppCoreAzureStorageDefaultBlobContext" /> class.
         /// </summary>
         /// <param name="keyVaultService">The key vault service.</param>
-        public AppCoreAzureStorageDefaultBlobContext(IAzureKeyVaultService keyVaultService, IDiagnosticsTracingService diagnosticsTracingService)
+        public AppCoreAzureStorageDefaultBlobContext(IAzureKeyVaultService keyVaultService,
+            IDiagnosticsTracingService diagnosticsTracingService)
         {
             _diagnosticsTracingService = diagnosticsTracingService;
             var configuration =
@@ -51,7 +49,8 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
                 configuration.ResourceName = commonConfiguration.RootResourceName;
             }
 
-            ConnectionString = $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName}{configuration.ResourceNameSuffix};AccountKey={configuration.Key};EndpointSuffix=core.windows.net";
+            ConnectionString =
+                $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName}{configuration.ResourceNameSuffix};AccountKey={configuration.Key};EndpointSuffix=core.windows.net";
 
             if (!ContainersInitialized)
             {
@@ -59,44 +58,11 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
             }
         }
 
-        public CloudBlobClient Initialize()
-        {
-            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(this.ConnectionString);
-
-            return _client = cloudStorageAccount.CreateCloudBlobClient();
-        }
-
-        public void CreateContainers()
-        {
-            lock (_lock)
-            {
-                try
-                {
-                    // Develop any known required Containers, with rights as needed:
-                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Public),
-                        BlobContainerPublicAccessType.Blob);
-                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Private),
-                        BlobContainerPublicAccessType.Off);
-                    EnsureContainer(GetContainer(Constants.Storage.BlobStorageContainers.Testing),
-                        BlobContainerPublicAccessType.Blob);
-                }
-                catch (System.Exception ex)
-
-                {
-                    _diagnosticsTracingService.Trace(TraceLevel.Error, ConnectionString); //dont do this normally but am really 
-                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.Message);
-                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.StackTrace);
-                    throw;
-                }
-
-                ContainersInitialized = true;
-            }
-        }
+        public CloudBlobClient Client => _client ?? (_client = Initialize());
 
 
         public CloudBlobContainer GetContainer(string containerName)
         {
-
             // If you don't clean name first you will get a 400
             // when creating the container.
             containerName = CleanContainerName(containerName);
@@ -109,7 +75,7 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
             }
 
             // Retrieve a reference to a container.
-            result = this.Client.GetContainerReference(containerName);
+            result = Client.GetContainerReference(containerName);
 
             //Cache:
             lock (this)
@@ -120,9 +86,44 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
             return result;
         }
 
-        public void EnsureContainer(CloudBlobContainer container, BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off)
+        public void EnsureContainer(CloudBlobContainer container,
+            BlobContainerPublicAccessType blobContainerPublicAccessType = BlobContainerPublicAccessType.Off)
         {
             container.CreateIfNotExists(blobContainerPublicAccessType);
+        }
+
+        public CloudBlobClient Initialize()
+        {
+            var cloudStorageAccount = CloudStorageAccount.Parse(ConnectionString);
+
+            return _client = cloudStorageAccount.CreateCloudBlobClient();
+        }
+
+        public void CreateContainers()
+        {
+            lock (_lock)
+            {
+                try
+                {
+                    // Develop any known required Containers, with rights as needed:
+                    EnsureContainer(GetContainer(BlobStorageContainers.Public),
+                        BlobContainerPublicAccessType.Blob);
+                    EnsureContainer(GetContainer(BlobStorageContainers.Private));
+                    EnsureContainer(GetContainer(BlobStorageContainers.Testing),
+                        BlobContainerPublicAccessType.Blob);
+                }
+                catch (Exception ex)
+
+                {
+                    _diagnosticsTracingService.Trace(TraceLevel.Error,
+                        ConnectionString); //dont do this normally but am really 
+                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.Message);
+                    _diagnosticsTracingService.Trace(TraceLevel.Error, ex.StackTrace);
+                    throw;
+                }
+
+                ContainersInitialized = true;
+            }
         }
 
 

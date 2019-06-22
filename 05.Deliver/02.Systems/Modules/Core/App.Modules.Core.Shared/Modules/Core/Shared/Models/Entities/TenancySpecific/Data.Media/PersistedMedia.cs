@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 
@@ -73,10 +75,10 @@ namespace App.Modules.Core.Shared.Models.Entities
         {
             get
             {
-                this._size = this.Value?.Length ?? 0;
-                return this._size;
+                _size = Value?.Length ?? 0;
+                return _size;
             }
-            protected set => this._size = value;
+            protected set => _size = value;
         }
 
         /// <summary>
@@ -119,16 +121,17 @@ namespace App.Modules.Core.Shared.Models.Entities
         /// <value>The name.</value>
         public virtual string Name
         {
-            get => this._name;
+            get => _name;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     // ReSharper disable LocalizableElement
-                    throw new ArgumentException("String is Null or Empty.", nameof(this.Value));
+                    throw new ArgumentException("String is Null or Empty.", nameof(Value));
                     // ReSharper restore LocalizableElement
                 }
-                this._name = value;
+
+                _name = value;
             }
         }
 

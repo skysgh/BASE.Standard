@@ -1,16 +1,17 @@
-﻿using System.Security.Cryptography;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Security.Cryptography;
 using System.Text;
 
 namespace App
 {
     public static class StringExtensions
     {
-
         public static string SplitCamelCase(this string text)
         {
             var result = new StringBuilder();
 
-            char prevChar = (char)0;
+            var prevChar = (char) 0;
 
             foreach (var ch in text)
             {
@@ -20,6 +21,7 @@ namespace App
                     {
                         result.Append(' ');
                     }
+
                     result.Append(ch);
                 }
                 else
@@ -33,21 +35,26 @@ namespace App
                             {
                                 result.Append(' ');
                             }
+
                             result.Append(char.ToUpper(ch));
                         }
-                        else{
+                        else
+                        {
                             if (result.Length == 0)
                             {
                                 result.Append(char.ToUpper(ch));
                             }
-                            else {
+                            else
+                            {
                                 result.Append(ch);
                             }
                         }
                     }
                 }
+
                 prevChar = ch;
             }
+
             var r = result.ToString();
             return r;
         }
@@ -57,20 +64,21 @@ namespace App
         {
             using (var ha = HashAlgorithm.Create(algorithm))
             {
-                var hash = ha.ComputeHash(Encoding.UTF8.GetBytes(media));
+                byte[] hash = ha.ComputeHash(Encoding.UTF8.GetBytes(media));
                 return hash;
             }
-
         }
+
         public static string GetHashAsString(this string media, string algorithm = "SHA-256")
         {
-            var hash = media.GetHashAsByteArray(algorithm);
+            byte[] hash = media.GetHashAsByteArray(algorithm);
 
             var sb = new StringBuilder();
             for (var i = 0; i < hash.Length; i++)
             {
                 sb.Append(hash[i].ToString("X2"));
             }
+
             return sb.ToString();
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Messages;
@@ -7,11 +9,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     public class AzureMapsService : AppCoreServiceBase, IAzureMapsService
     {
-        private readonly AzureMapsServiceConfiguration _azureMapsServiceConfiguration;
         private readonly IAzureDeploymentEnvironmentService _azureDeploymentEnvironmentService;
+        private readonly AzureMapsServiceConfiguration _azureMapsServiceConfiguration;
         private readonly IRestService _restService;
 
-        public AzureMapsService(AzureMapsServiceConfiguration azuresMapServiceConfiguration, IAzureDeploymentEnvironmentService azureDeploymentEnvironmentService, IRestService restService)
+        public AzureMapsService(AzureMapsServiceConfiguration azuresMapServiceConfiguration,
+            IAzureDeploymentEnvironmentService azureDeploymentEnvironmentService, IRestService restService)
         {
             _azureMapsServiceConfiguration = azuresMapServiceConfiguration;
             _azureDeploymentEnvironmentService = azureDeploymentEnvironmentService;
@@ -20,10 +23,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true)
         {
+            var subscriptionKey = _azureMapsServiceConfiguration.Key;
 
-            string subscriptionKey = _azureMapsServiceConfiguration.Key;
-
-            Uri uri = new Uri(
+            var uri = new Uri(
                 _azureMapsServiceConfiguration.RootUri
                 + $"/search/address/json?subscription-key={subscriptionKey}&api-version=1.0&query={searchTerm}&limit=10&countrySet={countrySetCsv}");
 
@@ -39,7 +41,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             //&language ={ language}
             //&extendedPostalCodesFor ={ extendedPostalCodesFor}
 
-            AzureMapsSearchResponse result = _restService.Get<AzureMapsSearchResponse>(uri, null);
+            var result = _restService.Get<AzureMapsSearchResponse>(uri);
 
             return result;
         }
@@ -47,18 +49,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureMapsReverseSearchResponse ReverseAddressSearch(decimal latitude, decimal longtitude)
         {
-            Guid subscriptionKey = _azureDeploymentEnvironmentService.SubscriptionId;
+            var subscriptionKey = _azureDeploymentEnvironmentService.SubscriptionId;
 
 
-            Uri uri = new Uri(
+            var uri = new Uri(
                 _azureMapsServiceConfiguration.RootUri
                 + $"/search/address/reverse/json?subscription-key={subscriptionKey}&api-version=1.0&query={latitude},{longtitude}");
 
-            AzureMapsReverseSearchResponse result = _restService.Get<AzureMapsReverseSearchResponse>(uri, null);
+            var result = _restService.Get<AzureMapsReverseSearchResponse>(uri);
 
             return result;
         }
-
-
     }
 }

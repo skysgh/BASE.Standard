@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Infrastructure.Factories
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Infrastructure.Factories
 //{
 //    using App.Modules.Core.Infrastructure.Integration.Azure.KeyVault;
 //    using App.Modules.Core.Shared.Models.Configuration;
@@ -34,3 +36,4 @@
 //        }
 //    }
 //}
+

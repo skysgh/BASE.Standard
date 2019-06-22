@@ -1,16 +1,23 @@
-﻿using App.Modules.Core.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.All.Shared.Models.Entities
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasTimestamp" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasRecordState" />
-    public abstract class UntenantedRecordStatedTimestampedNoIdEntityBase : 
+    public abstract class UntenantedRecordStatedTimestampedNoIdEntityBase :
         IHasTimestamp,
         IHasRecordState
     {
+        /// <summary>
+        ///     Gets or sets the logical state of the record.
+        /// </summary>
+        public virtual RecordPersistenceState RecordState { get; set; }
+
         /// <summary>
         ///     Gets or sets the datastore concurrency check timestamp.
         ///     <para>
@@ -19,10 +26,5 @@ namespace App.Modules.All.Shared.Models.Entities
         ///     </para>
         /// </summary>
         public virtual byte[] Timestamp { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logical state of the record.
-        /// </summary>
-        public virtual RecordPersistenceState RecordState { get; set; }
     }
 }

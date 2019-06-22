@@ -1,4 +1,5 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -9,14 +10,15 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantSecurityProfile
 {
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
-    public class AppModuleDbContextModelBuilderDefineAccountGroup : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineAccountGroup : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<TenantSecurityProfileRoleGroup>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
 
@@ -40,8 +42,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantSecurityProfile
                 .IsRequired(false);
 
 
-
-            modelBuilder.DefineTitleAndDescription<TenantSecurityProfileRoleGroup>(ref order, TextFieldSizes.X64, true, false);
+            modelBuilder.DefineTitleAndDescription<TenantSecurityProfileRoleGroup>(ref order);
 
             // --------------------------------------------------
             // Entity Navigation Properties:
@@ -59,8 +60,6 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantSecurityProfile
 
 
             // --------------------------------------------------
-
         }
     }
 }
-

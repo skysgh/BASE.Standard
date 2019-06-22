@@ -1,20 +1,22 @@
-﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
-    /// <summary>
-    /// Create custom Maps for the Entity and its Dto.
-    /// </summary>
-    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{PrincipalTag, PrincipalTagDto}" />
-    public class ObjectMap_PrincipalTag_PrincipalTagDto
-        : MapUntenantedRecordStatedTimestampedNoIdBase<PrincipalTag, PrincipalTagDto>
-    {
 
         /// <summary>
-        /// Configures the map from entity to dto.
+        ///     Create custom Maps for the Entity and its Dto.
+        /// </summary>
+        /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{TEntity,TDto}" />
+        public class ObjectMap_PrincipalTag_PrincipalTagDto
+        : MapUntenantedRecordStatedTimestampedNoIdBase<PrincipalTag, PrincipalTagDto>
+    {
+        /// <summary>
+        ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
@@ -32,7 +34,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         }
 
         /// <summary>
-        /// Configures the map from dto to entity.
+        ///     Configures the map from dto to entity.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(

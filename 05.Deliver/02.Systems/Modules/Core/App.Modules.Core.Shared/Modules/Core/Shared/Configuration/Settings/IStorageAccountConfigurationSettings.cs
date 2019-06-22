@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Shared.Configuration.Settings
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Shared.Configuration.Settings
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public interface IStorageAccountConfigurationSettings

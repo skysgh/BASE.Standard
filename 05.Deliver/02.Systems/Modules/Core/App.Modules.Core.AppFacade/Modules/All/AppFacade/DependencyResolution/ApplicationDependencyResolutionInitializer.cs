@@ -1,8 +1,8 @@
-﻿// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using System.Linq;
-using App.Modules.All.Infrastructure.DependencyResolution;
+using System.Reflection;
 using App.Modules.All.Shared.Initialization;
 using AutoMapper;
 using Lamar;
@@ -12,22 +12,21 @@ namespace App.Modules.All.AppFacade.DependencyResolution
 {
     /// <summary>
     ///     Class invoked from both of the following:
-    /// * Startup's ConfigureContainer method (in App.Host)
-    /// * see DependencyResolutionContainerInitializer
+    ///     * Startup's ConfigureContainer method (in App.Host)
+    ///     * see DependencyResolutionContainerInitializer
     ///     (when running UnitTests)
     ///     to initialize all that is not specific to HTML.
     /// </summary>
     public class ApplicationDependencyResolutionInitializer : IHasInitialize<ServiceRegistry>
     {
-
         /// <summary>
-        /// Initializes the specified service registry.
+        ///     Initializes the specified service registry.
         /// </summary>
         /// <param name="serviceRegistry">The service registry.</param>
         public void Initialize(ServiceRegistry serviceRegistry)
         {
             AppDomain.CurrentDomain.LoadAllAppAssemblies();
-            var appAssemblies = AppDomain.CurrentDomain.GetAppAssemblies().ToArray();
+            Assembly[] appAssemblies = AppDomain.CurrentDomain.GetAppAssemblies().ToArray();
             serviceRegistry.AddAutoMapper(appAssemblies, ServiceLifetime.Singleton);
 
             // This will of course depend on whether we are coming in from one of:
@@ -65,10 +64,7 @@ namespace App.Modules.All.AppFacade.DependencyResolution
 
 
                 assemblyScanner.LookForRegistries();
-
-
             });
-
         }
 
 
@@ -90,6 +86,5 @@ namespace App.Modules.All.AppFacade.DependencyResolution
 
             serviceRegistry.For<IMapper>().Use(iMapper);
         }
-
     }
 }

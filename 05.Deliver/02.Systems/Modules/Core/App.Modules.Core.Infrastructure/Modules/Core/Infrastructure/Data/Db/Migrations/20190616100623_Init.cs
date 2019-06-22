@@ -1,218 +1,190 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace App.Modules.core.Infrastructure.Data.Db.Migrations
+namespace App.Modules.Core.Infrastructure.Data.Db.Migrations
 {
     public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "Core");
+                "Core");
 
             migrationBuilder.CreateTable(
-                name: "DataClassifications",
+                "DataClassifications",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true),
-                    DisplayOrderHint = table.Column<int>(nullable: false),
+                    DisplayOrderHint = table.Column<int>(),
                     DisplayStyleHint = table.Column<string>(maxLength: 64, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DataClassifications", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_DataClassifications", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "DataTokens",
+                "DataTokens",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Value = table.Column<string>(maxLength: 32768, nullable: false)
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Value = table.Column<string>(maxLength: 32768)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DataTokens", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_DataTokens", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "ExceptionRecords",
+                "ExceptionRecords",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    UtcDateTimeCreated = table.Column<DateTimeOffset>(nullable: false),
-                    Level = table.Column<int>(nullable: false),
+                    Id = table.Column<Guid>(),
+                    UtcDateTimeCreated = table.Column<DateTimeOffset>(),
+                    Level = table.Column<int>(),
                     ThreadId = table.Column<string>(nullable: true),
                     ClientId = table.Column<string>(nullable: true),
-                    Message = table.Column<string>(maxLength: 32768, nullable: false),
-                    Stack = table.Column<string>(nullable: false)
+                    Message = table.Column<string>(maxLength: 32768),
+                    Stack = table.Column<string>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExceptionRecords", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_ExceptionRecords", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Notifications",
+                "Notifications",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    Level = table.Column<int>(nullable: false),
-                    PrincipalFK = table.Column<Guid>(nullable: false),
-                    DateTimeCreatedUtc = table.Column<DateTime>(nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Type = table.Column<int>(),
+                    Level = table.Column<int>(),
+                    PrincipalFK = table.Column<Guid>(),
+                    DateTimeCreatedUtc = table.Column<DateTime>(),
                     DateTimeReadUtc = table.Column<DateTimeOffset>(nullable: true),
-                    From = table.Column<string>(maxLength: 64, nullable: false),
-                    ImageUrl = table.Column<string>(maxLength: 64, nullable: false),
-                    Class = table.Column<string>(maxLength: 64, nullable: false),
-                    Value = table.Column<int>(nullable: false),
-                    Text = table.Column<string>(nullable: false)
+                    From = table.Column<string>(maxLength: 64),
+                    ImageUrl = table.Column<string>(maxLength: 64),
+                    Class = table.Column<string>(maxLength: 64),
+                    Value = table.Column<int>(),
+                    Text = table.Column<string>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notifications", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Notifications", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalCategories",
+                "PrincipalCategories",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    DisplayOrderHint = table.Column<int>(nullable: false),
+                    DisplayOrderHint = table.Column<int>(),
                     DisplayStyleHint = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PrincipalCategories", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_PrincipalCategories", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalTags",
+                "PrincipalTags",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(nullable: true),
-                    DisplayOrderHint = table.Column<int>(nullable: false),
+                    DisplayOrderHint = table.Column<int>(),
                     DisplayStyleHint = table.Column<string>(maxLength: 64, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PrincipalTags", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_PrincipalTags", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfileCategories",
+                "TenantMemberProfileCategories",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    DisplayOrderHint = table.Column<int>(nullable: false),
+                    DisplayOrderHint = table.Column<int>(),
                     DisplayStyleHint = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantMemberProfileCategories", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantMemberProfileCategories", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfileTags",
+                "TenantMemberProfileTags",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(nullable: true),
-                    DisplayOrderHint = table.Column<int>(nullable: false),
+                    DisplayOrderHint = table.Column<int>(),
                     DisplayStyleHint = table.Column<string>(maxLength: 64, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantMemberProfileTags", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantMemberProfileTags", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfilePermissions",
+                "TenantSecurityProfilePermissions",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantSecurityProfilePermissions", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantSecurityProfilePermissions", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileResponsibilities",
+                "TenantSecurityProfileResponsibilities",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantSecurityProfileResponsibilities", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantSecurityProfileResponsibilities", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileRoleGroups",
+                "TenantSecurityProfileRoleGroups",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true),
                     ParentFK = table.Column<Guid>(nullable: true),
                     ParentId = table.Column<Guid>(nullable: true)
@@ -221,8 +193,8 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 {
                     table.PrimaryKey("PK_TenantSecurityProfileRoleGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRoleGroups_TenantSecurityProfileRoleGroups_ParentId",
-                        column: x => x.ParentId,
+                        "FK_TenantSecurityProfileRoleGroups_TenantSecurityProfileRoleGroups_ParentId",
+                        x => x.ParentId,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoleGroups",
                         principalColumn: "Id",
@@ -230,57 +202,51 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileRoles",
+                "TenantSecurityProfileRoles",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantSecurityProfileRoles", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantSecurityProfileRoles", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfiles",
+                "TenantSecurityProfiles",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    Title = table.Column<string>(maxLength: 64),
                     Description = table.Column<string>(maxLength: 32768, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantSecurityProfiles", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_TenantSecurityProfiles", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "MediaMetadatas",
+                "MediaMetadatas",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    DataClassificationFK = table.Column<int>(nullable: false),
-                    UploadedDateTimeUtc = table.Column<DateTime>(nullable: false),
-                    ContentSize = table.Column<long>(nullable: false),
-                    MimeType = table.Column<string>(maxLength: 256, nullable: false),
-                    SourceFileName = table.Column<string>(maxLength: 256, nullable: false),
-                    ContentHash = table.Column<string>(maxLength: 256, nullable: false),
-                    LocalName = table.Column<string>(maxLength: 256, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    DataClassificationFK = table.Column<int>(),
+                    UploadedDateTimeUtc = table.Column<DateTime>(),
+                    ContentSize = table.Column<long>(),
+                    MimeType = table.Column<string>(maxLength: 256),
+                    SourceFileName = table.Column<string>(maxLength: 256),
+                    ContentHash = table.Column<string>(maxLength: 256),
+                    LocalName = table.Column<string>(maxLength: 256),
                     LatestScanDateTimeUtc = table.Column<DateTimeOffset>(nullable: true),
                     LatestScanMalwareDetetected = table.Column<bool>(nullable: true),
                     LatestScanResults = table.Column<string>(nullable: true)
@@ -290,8 +256,8 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                     table.PrimaryKey("PK_MediaMetadatas", x => x.Id);
                     table.UniqueConstraint("IX_MediaMetadata_LocalName", x => x.LocalName);
                     table.ForeignKey(
-                        name: "FK_MediaMetadatas_DataClassifications_DataClassificationFK",
-                        column: x => x.DataClassificationFK,
+                        "FK_MediaMetadatas_DataClassifications_DataClassificationFK",
+                        x => x.DataClassificationFK,
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
@@ -299,26 +265,26 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tenants",
+                "Tenants",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
+                    Key = table.Column<string>(maxLength: 64),
                     IsDefault = table.Column<bool>(nullable: true),
                     HostName = table.Column<string>(maxLength: 64, nullable: true),
-                    DisplayName = table.Column<string>(maxLength: 64, nullable: false),
-                    DataClassificationFK = table.Column<int>(nullable: false)
+                    DisplayName = table.Column<string>(maxLength: 64),
+                    DataClassificationFK = table.Column<int>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenants", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tenants_DataClassifications_DataClassificationFK",
-                        column: x => x.DataClassificationFK,
+                        "FK_Tenants_DataClassifications_DataClassificationFK",
+                        x => x.DataClassificationFK,
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
@@ -326,34 +292,34 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Principals",
+                "Principals",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
+                    RecordState = table.Column<int>(),
                     EnabledBeginningUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
                     EnabledEndingUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
-                    Enabled = table.Column<bool>(nullable: false),
+                    Enabled = table.Column<bool>(),
                     FullName = table.Column<string>(maxLength: 128, nullable: true),
                     DisplayName = table.Column<string>(maxLength: 128, nullable: true),
-                    DataClassificationFK = table.Column<int>(nullable: false),
-                    CategoryFK = table.Column<Guid>(nullable: false)
+                    DataClassificationFK = table.Column<int>(),
+                    CategoryFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Principals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Principals_PrincipalCategories_CategoryFK",
-                        column: x => x.CategoryFK,
+                        "FK_Principals_PrincipalCategories_CategoryFK",
+                        x => x.CategoryFK,
                         principalSchema: "Core",
                         principalTable: "PrincipalCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Principals_DataClassifications_DataClassificationFK",
-                        column: x => x.DataClassificationFK,
+                        "FK_Principals_DataClassifications_DataClassificationFK",
+                        x => x.DataClassificationFK,
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
@@ -361,30 +327,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileRole2PermissionAssignments",
+                "TenantSecurityProfileRole2PermissionAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    RoleFK = table.Column<Guid>(nullable: false),
-                    PermissionFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    RoleFK = table.Column<Guid>(),
+                    PermissionFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfileRole2PermissionAssignments", x => new { x.TenantFK, x.RoleFK, x.PermissionFK });
+                    table.PrimaryKey("PK_TenantSecurityProfileRole2PermissionAssignments",
+                        x => new {x.TenantFK, x.RoleFK, x.PermissionFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRole2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
-                        column: x => x.PermissionFK,
+                        "FK_TenantSecurityProfileRole2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
+                        x => x.PermissionFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfilePermissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRole2PermissionAssignments_TenantSecurityProfileRoles_RoleFK",
-                        column: x => x.RoleFK,
+                        "FK_TenantSecurityProfileRole2PermissionAssignments_TenantSecurityProfileRoles_RoleFK",
+                        x => x.RoleFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoles",
                         principalColumn: "Id",
@@ -392,30 +359,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileRole2ResponsibilityAssignments",
+                "TenantSecurityProfileRole2ResponsibilityAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    RoleFK = table.Column<Guid>(nullable: false),
-                    ResponsibilityFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    RoleFK = table.Column<Guid>(),
+                    ResponsibilityFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfileRole2ResponsibilityAssignments", x => new { x.TenantFK, x.RoleFK, x.ResponsibilityFK });
+                    table.PrimaryKey("PK_TenantSecurityProfileRole2ResponsibilityAssignments",
+                        x => new {x.TenantFK, x.RoleFK, x.ResponsibilityFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRole2ResponsibilityAssignments_TenantSecurityProfileResponsibilities_ResponsibilityFK",
-                        column: x => x.ResponsibilityFK,
+                        "FK_TenantSecurityProfileRole2ResponsibilityAssignments_TenantSecurityProfileResponsibilities_ResponsibilityFK",
+                        x => x.ResponsibilityFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileResponsibilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRole2ResponsibilityAssignments_TenantSecurityProfileRoles_RoleFK",
-                        column: x => x.RoleFK,
+                        "FK_TenantSecurityProfileRole2ResponsibilityAssignments_TenantSecurityProfileRoles_RoleFK",
+                        x => x.RoleFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoles",
                         principalColumn: "Id",
@@ -423,30 +391,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfileRoleGroup2RoleAssignments",
+                "TenantSecurityProfileRoleGroup2RoleAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    GroupFK = table.Column<Guid>(nullable: false),
-                    RoleFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    GroupFK = table.Column<Guid>(),
+                    RoleFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfileRoleGroup2RoleAssignments", x => new { x.TenantFK, x.GroupFK, x.RoleFK });
+                    table.PrimaryKey("PK_TenantSecurityProfileRoleGroup2RoleAssignments",
+                        x => new {x.TenantFK, x.GroupFK, x.RoleFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRoleGroup2RoleAssignments_TenantSecurityProfileRoleGroups_GroupFK",
-                        column: x => x.GroupFK,
+                        "FK_TenantSecurityProfileRoleGroup2RoleAssignments_TenantSecurityProfileRoleGroups_GroupFK",
+                        x => x.GroupFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoleGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfileRoleGroup2RoleAssignments_TenantSecurityProfileRoles_RoleFK",
-                        column: x => x.RoleFK,
+                        "FK_TenantSecurityProfileRoleGroup2RoleAssignments_TenantSecurityProfileRoles_RoleFK",
+                        x => x.RoleFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoles",
                         principalColumn: "Id",
@@ -454,42 +423,42 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfiles",
+                "TenantMemberProfiles",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
                     EnabledBeginningUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
                     EnabledEndingUtcDateTime = table.Column<DateTimeOffset>(nullable: true),
-                    Enabled = table.Column<bool>(nullable: false),
+                    Enabled = table.Column<bool>(),
                     DisplayName = table.Column<string>(nullable: true),
                     DataClassificationFK = table.Column<int>(nullable: true),
-                    CategoryFK = table.Column<Guid>(nullable: false),
-                    SecurityProfileFK = table.Column<Guid>(nullable: false)
+                    CategoryFK = table.Column<Guid>(),
+                    SecurityProfileFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantMemberProfiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfiles_TenantMemberProfileCategories_CategoryFK",
-                        column: x => x.CategoryFK,
+                        "FK_TenantMemberProfiles_TenantMemberProfileCategories_CategoryFK",
+                        x => x.CategoryFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberProfileCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfiles_DataClassifications_DataClassificationFK",
-                        column: x => x.DataClassificationFK,
+                        "FK_TenantMemberProfiles_DataClassifications_DataClassificationFK",
+                        x => x.DataClassificationFK,
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfiles_TenantSecurityProfiles_SecurityProfileFK",
-                        column: x => x.SecurityProfileFK,
+                        "FK_TenantMemberProfiles_TenantSecurityProfiles_SecurityProfileFK",
+                        x => x.SecurityProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfiles",
                         principalColumn: "Id",
@@ -497,23 +466,23 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberSecurityProfiles",
+                "TenantMemberSecurityProfiles",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    SecurityProfileFK = table.Column<Guid>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    SecurityProfileFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantMemberSecurityProfiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantMemberSecurityProfiles_TenantSecurityProfiles_SecurityProfileFK",
-                        column: x => x.SecurityProfileFK,
+                        "FK_TenantMemberSecurityProfiles_TenantSecurityProfiles_SecurityProfileFK",
+                        x => x.SecurityProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfiles",
                         principalColumn: "Id",
@@ -521,30 +490,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfile2PermissionAssignments",
+                "TenantSecurityProfile2PermissionAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    ProfileFK = table.Column<Guid>(nullable: false),
-                    PermissionFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    ProfileFK = table.Column<Guid>(),
+                    PermissionFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfile2PermissionAssignments", x => new { x.TenantFK, x.ProfileFK, x.PermissionFK });
+                    table.PrimaryKey("PK_TenantSecurityProfile2PermissionAssignments",
+                        x => new {x.TenantFK, x.ProfileFK, x.PermissionFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
-                        column: x => x.PermissionFK,
+                        "FK_TenantSecurityProfile2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
+                        x => x.PermissionFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfilePermissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2PermissionAssignments_TenantSecurityProfiles_ProfileFK",
-                        column: x => x.ProfileFK,
+                        "FK_TenantSecurityProfile2PermissionAssignments_TenantSecurityProfiles_ProfileFK",
+                        x => x.ProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfiles",
                         principalColumn: "Id",
@@ -552,30 +522,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfile2RoleAssignments",
+                "TenantSecurityProfile2RoleAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    ProfileFK = table.Column<Guid>(nullable: false),
-                    RoleFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    ProfileFK = table.Column<Guid>(),
+                    RoleFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfile2RoleAssignments", x => new { x.TenantFK, x.ProfileFK, x.RoleFK });
+                    table.PrimaryKey("PK_TenantSecurityProfile2RoleAssignments",
+                        x => new {x.TenantFK, x.ProfileFK, x.RoleFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2RoleAssignments_TenantSecurityProfiles_ProfileFK",
-                        column: x => x.ProfileFK,
+                        "FK_TenantSecurityProfile2RoleAssignments_TenantSecurityProfiles_ProfileFK",
+                        x => x.ProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2RoleAssignments_TenantSecurityProfileRoles_RoleFK",
-                        column: x => x.RoleFK,
+                        "FK_TenantSecurityProfile2RoleAssignments_TenantSecurityProfileRoles_RoleFK",
+                        x => x.RoleFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoles",
                         principalColumn: "Id",
@@ -583,30 +554,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantSecurityProfile2RoleGroupAssignments",
+                "TenantSecurityProfile2RoleGroupAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    ProfileFK = table.Column<Guid>(nullable: false),
-                    RoleGroupFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    ProfileFK = table.Column<Guid>(),
+                    RoleGroupFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantSecurityProfile2RoleGroupAssignments", x => new { x.TenantFK, x.ProfileFK, x.RoleGroupFK });
+                    table.PrimaryKey("PK_TenantSecurityProfile2RoleGroupAssignments",
+                        x => new {x.TenantFK, x.ProfileFK, x.RoleGroupFK});
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2RoleGroupAssignments_TenantSecurityProfiles_ProfileFK",
-                        column: x => x.ProfileFK,
+                        "FK_TenantSecurityProfile2RoleGroupAssignments_TenantSecurityProfiles_ProfileFK",
+                        x => x.ProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantSecurityProfile2RoleGroupAssignments_TenantSecurityProfileRoleGroups_RoleGroupFK",
-                        column: x => x.RoleGroupFK,
+                        "FK_TenantSecurityProfile2RoleGroupAssignments_TenantSecurityProfileRoleGroups_RoleGroupFK",
+                        x => x.RoleGroupFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfileRoleGroups",
                         principalColumn: "Id",
@@ -614,25 +586,25 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantClaims",
+                "TenantClaims",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Authority = table.Column<string>(maxLength: 64, nullable: false),
-                    AuthoritySignature = table.Column<string>(maxLength: 1024, nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Authority = table.Column<string>(maxLength: 64),
+                    AuthoritySignature = table.Column<string>(maxLength: 1024),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    TenantFK = table.Column<Guid>(nullable: false)
+                    TenantFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantClaims_Tenants_TenantFK",
-                        column: x => x.TenantFK,
+                        "FK_TenantClaims_Tenants_TenantFK",
+                        x => x.TenantFK,
                         principalSchema: "Core",
                         principalTable: "Tenants",
                         principalColumn: "Id",
@@ -640,23 +612,23 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantProperties",
+                "TenantProperties",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    TenantFK = table.Column<Guid>(nullable: false)
+                    TenantFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantProperties_Tenants_TenantFK",
-                        column: x => x.TenantFK,
+                        "FK_TenantProperties_Tenants_TenantFK",
+                        x => x.TenantFK,
                         principalSchema: "Core",
                         principalTable: "Tenants",
                         principalColumn: "Id",
@@ -664,25 +636,25 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalClaims",
+                "PrincipalClaims",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Authority = table.Column<string>(maxLength: 64, nullable: false),
-                    AuthoritySignature = table.Column<string>(maxLength: 32768, nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Authority = table.Column<string>(maxLength: 64),
+                    AuthoritySignature = table.Column<string>(maxLength: 32768),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    PrincipalFK = table.Column<Guid>(nullable: false)
+                    PrincipalFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrincipalClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PrincipalClaims_Principals_PrincipalFK",
-                        column: x => x.PrincipalFK,
+                        "FK_PrincipalClaims_Principals_PrincipalFK",
+                        x => x.PrincipalFK,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
@@ -690,26 +662,26 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalLogins",
+                "PrincipalLogins",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    PrincipalFK = table.Column<Guid>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    IdPLogin = table.Column<string>(maxLength: 1024, nullable: false),
-                    SubLogin = table.Column<string>(maxLength: 256, nullable: false),
-                    LastLoggedInUtc = table.Column<DateTime>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    PrincipalFK = table.Column<Guid>(),
+                    Enabled = table.Column<bool>(),
+                    IdPLogin = table.Column<string>(maxLength: 1024),
+                    SubLogin = table.Column<string>(maxLength: 256),
+                    LastLoggedInUtc = table.Column<DateTime>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrincipalLogins", x => x.Id);
-                    table.UniqueConstraint("IX_PrincipalLogin_IdpLoginSubLogin", x => new { x.IdPLogin, x.SubLogin });
+                    table.UniqueConstraint("IX_PrincipalLogin_IdpLoginSubLogin", x => new {x.IdPLogin, x.SubLogin});
                     table.ForeignKey(
-                        name: "FK_PrincipalLogins_Principals_PrincipalFK",
-                        column: x => x.PrincipalFK,
+                        "FK_PrincipalLogins_Principals_PrincipalFK",
+                        x => x.PrincipalFK,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
@@ -717,23 +689,23 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalProperties",
+                "PrincipalProperties",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    PrincipalFK = table.Column<Guid>(nullable: false)
+                    PrincipalFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PrincipalProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PrincipalProperties_Principals_PrincipalFK",
-                        column: x => x.PrincipalFK,
+                        "FK_PrincipalProperties_Principals_PrincipalFK",
+                        x => x.PrincipalFK,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
@@ -741,28 +713,28 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrincipalTagAssignments",
+                "PrincipalTagAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    PrincipalFK = table.Column<Guid>(nullable: false),
-                    TagFK = table.Column<Guid>(nullable: false),
+                    PrincipalFK = table.Column<Guid>(),
+                    TagFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(nullable: true),
-                    RecordState = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PrincipalTagAssignments", x => new { x.PrincipalFK, x.TagFK });
+                    table.PrimaryKey("PK_PrincipalTagAssignments", x => new {x.PrincipalFK, x.TagFK});
                     table.ForeignKey(
-                        name: "FK_PrincipalTagAssignments_Principals_PrincipalFK",
-                        column: x => x.PrincipalFK,
+                        "FK_PrincipalTagAssignments_Principals_PrincipalFK",
+                        x => x.PrincipalFK,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PrincipalTagAssignments_PrincipalTags_TagFK",
-                        column: x => x.TagFK,
+                        "FK_PrincipalTagAssignments_PrincipalTags_TagFK",
+                        x => x.TagFK,
                         principalSchema: "Core",
                         principalTable: "PrincipalTags",
                         principalColumn: "Id",
@@ -770,25 +742,25 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sessions",
+                "Sessions",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
-                    UniqueIdentifier = table.Column<string>(maxLength: 64, nullable: false),
-                    UtcDateTimeCreated = table.Column<DateTimeOffset>(nullable: false),
-                    PrincipalFK = table.Column<Guid>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
+                    UniqueIdentifier = table.Column<string>(maxLength: 64),
+                    UtcDateTimeCreated = table.Column<DateTimeOffset>(),
+                    PrincipalFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sessions", x => x.Id);
                     table.UniqueConstraint("IX_Session_UniqueIdentifier", x => x.UniqueIdentifier);
                     table.ForeignKey(
-                        name: "FK_Sessions_Principals_PrincipalFK",
-                        column: x => x.PrincipalFK,
+                        "FK_Sessions_Principals_PrincipalFK",
+                        x => x.PrincipalFK,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
@@ -796,32 +768,32 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SystemRoles",
+                "SystemRoles",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    Enabled = table.Column<bool>(nullable: false),
+                    RecordState = table.Column<int>(),
+                    Enabled = table.Column<bool>(),
                     ModuleKey = table.Column<string>(nullable: true),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
-                    DataClassificationFK = table.Column<int>(nullable: false),
+                    Key = table.Column<string>(maxLength: 64),
+                    DataClassificationFK = table.Column<int>(),
                     PrincipalId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SystemRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SystemRoles_DataClassifications_DataClassificationFK",
-                        column: x => x.DataClassificationFK,
+                        "FK_SystemRoles_DataClassifications_DataClassificationFK",
+                        x => x.DataClassificationFK,
                         principalSchema: "Core",
                         principalTable: "DataClassifications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SystemRoles_Principals_PrincipalId",
-                        column: x => x.PrincipalId,
+                        "FK_SystemRoles_Principals_PrincipalId",
+                        x => x.PrincipalId,
                         principalSchema: "Core",
                         principalTable: "Principals",
                         principalColumn: "Id",
@@ -829,29 +801,30 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfile2TagAssignments",
+                "TenantMemberProfile2TagAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    TenantPrincipalFK = table.Column<Guid>(nullable: false),
-                    TagFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    TenantPrincipalFK = table.Column<Guid>(),
+                    TagFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(nullable: true),
-                    RecordState = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantMemberProfile2TagAssignments", x => new { x.TenantFK, x.TenantPrincipalFK, x.TagFK });
+                    table.PrimaryKey("PK_TenantMemberProfile2TagAssignments",
+                        x => new {x.TenantFK, x.TenantPrincipalFK, x.TagFK});
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfile2TagAssignments_TenantMemberProfileTags_TagFK",
-                        column: x => x.TagFK,
+                        "FK_TenantMemberProfile2TagAssignments_TenantMemberProfileTags_TagFK",
+                        x => x.TagFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberProfileTags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfile2TagAssignments_TenantMemberProfiles_TenantPrincipalFK",
-                        column: x => x.TenantPrincipalFK,
+                        "FK_TenantMemberProfile2TagAssignments_TenantMemberProfiles_TenantPrincipalFK",
+                        x => x.TenantPrincipalFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberProfiles",
                         principalColumn: "Id",
@@ -859,27 +832,28 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfileClaims",
+                "TenantMemberProfileClaims",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Authority = table.Column<string>(maxLength: 64, nullable: false),
-                    AuthoritySignature = table.Column<string>(maxLength: 32768, nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Authority = table.Column<string>(maxLength: 64),
+                    AuthoritySignature = table.Column<string>(maxLength: 32768),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    PrincipalProfileFK = table.Column<Guid>(nullable: false)
+                    PrincipalProfileFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantMemberProfileClaims", x => x.Id);
-                    table.UniqueConstraint("IX_TenantMemberProfileClaim_CompositeIndex", x => new { x.PrincipalProfileFK, x.Key });
+                    table.UniqueConstraint("IX_TenantMemberProfileClaim_CompositeIndex",
+                        x => new {x.PrincipalProfileFK, x.Key});
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfileClaims_TenantMemberProfiles_PrincipalProfileFK",
-                        column: x => x.PrincipalProfileFK,
+                        "FK_TenantMemberProfileClaims_TenantMemberProfiles_PrincipalProfileFK",
+                        x => x.PrincipalProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberProfiles",
                         principalColumn: "Id",
@@ -887,25 +861,26 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberProfileProperties",
+                "TenantMemberProfileProperties",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    RecordState = table.Column<int>(),
+                    TenantFK = table.Column<Guid>(),
+                    Key = table.Column<string>(maxLength: 64),
                     Value = table.Column<string>(maxLength: 1024, nullable: true),
-                    PrincipalProfileFK = table.Column<Guid>(nullable: false)
+                    PrincipalProfileFK = table.Column<Guid>()
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TenantMemberProfileProperties", x => x.Id);
-                    table.UniqueConstraint("IX_TenantMemberProfileProperty_CompositeIndex", x => new { x.PrincipalProfileFK, x.Key });
+                    table.UniqueConstraint("IX_TenantMemberProfileProperty_CompositeIndex",
+                        x => new {x.PrincipalProfileFK, x.Key});
                     table.ForeignKey(
-                        name: "FK_TenantMemberProfileProperties_TenantMemberProfiles_PrincipalProfileFK",
-                        column: x => x.PrincipalProfileFK,
+                        "FK_TenantMemberProfileProperties_TenantMemberProfiles_PrincipalProfileFK",
+                        x => x.PrincipalProfileFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberProfiles",
                         principalColumn: "Id",
@@ -913,30 +888,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantMemberSecurityProfile2PermissionAssignments",
+                "TenantMemberSecurityProfile2PermissionAssignments",
                 schema: "Core",
                 columns: table => new
                 {
-                    TenantFK = table.Column<Guid>(nullable: false),
-                    MemberFK = table.Column<Guid>(nullable: false),
-                    PermissionFK = table.Column<Guid>(nullable: false),
+                    TenantFK = table.Column<Guid>(),
+                    MemberFK = table.Column<Guid>(),
+                    PermissionFK = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
-                    AssignmentType = table.Column<int>(nullable: false)
+                    RecordState = table.Column<int>(),
+                    AssignmentType = table.Column<int>()
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantMemberSecurityProfile2PermissionAssignments", x => new { x.TenantFK, x.MemberFK, x.PermissionFK });
+                    table.PrimaryKey("PK_TenantMemberSecurityProfile2PermissionAssignments",
+                        x => new {x.TenantFK, x.MemberFK, x.PermissionFK});
                     table.ForeignKey(
-                        name: "FK_TenantMemberSecurityProfile2PermissionAssignments_TenantMemberSecurityProfiles_MemberFK",
-                        column: x => x.MemberFK,
+                        "FK_TenantMemberSecurityProfile2PermissionAssignments_TenantMemberSecurityProfiles_MemberFK",
+                        x => x.MemberFK,
                         principalSchema: "Core",
                         principalTable: "TenantMemberSecurityProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TenantMemberSecurityProfile2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
-                        column: x => x.PermissionFK,
+                        "FK_TenantMemberSecurityProfile2PermissionAssignments_TenantSecurityProfilePermissions_PermissionFK",
+                        x => x.PermissionFK,
                         principalSchema: "Core",
                         principalTable: "TenantSecurityProfilePermissions",
                         principalColumn: "Id",
@@ -944,31 +920,31 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SessionOperations",
+                "SessionOperations",
                 schema: "Core",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Timestamp = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    RecordState = table.Column<int>(nullable: false),
+                    RecordState = table.Column<int>(),
                     SessionFK = table.Column<Guid>(nullable: true),
-                    ClientIp = table.Column<string>(maxLength: 64, nullable: false),
-                    Url = table.Column<string>(maxLength: 32768, nullable: false),
+                    ClientIp = table.Column<string>(maxLength: 64),
+                    Url = table.Column<string>(maxLength: 32768),
                     ResourceTenantKey = table.Column<string>(nullable: true),
-                    ControllerName = table.Column<string>(maxLength: 64, nullable: false),
-                    ActionName = table.Column<string>(maxLength: 64, nullable: false),
-                    ActionArguments = table.Column<string>(nullable: false),
-                    BeginDateTimeUtc = table.Column<DateTimeOffset>(nullable: false),
-                    EndDateTimeUtc = table.Column<DateTimeOffset>(nullable: false),
-                    Duration = table.Column<TimeSpan>(nullable: false),
-                    ResponseCode = table.Column<string>(maxLength: 64, nullable: false)
+                    ControllerName = table.Column<string>(maxLength: 64),
+                    ActionName = table.Column<string>(maxLength: 64),
+                    ActionArguments = table.Column<string>(),
+                    BeginDateTimeUtc = table.Column<DateTimeOffset>(),
+                    EndDateTimeUtc = table.Column<DateTimeOffset>(),
+                    Duration = table.Column<TimeSpan>(),
+                    ResponseCode = table.Column<string>(maxLength: 64)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SessionOperations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SessionOperations_Sessions_SessionFK",
-                        column: x => x.SessionFK,
+                        "FK_SessionOperations_Sessions_SessionFK",
+                        x => x.SessionFK,
                         principalSchema: "Core",
                         principalTable: "Sessions",
                         principalColumn: "Id",
@@ -978,785 +954,860 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 1, null, 1, null, false, 0, "Unspecified" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {1, null, 1, null, false, 0, "Unspecified"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 2, null, 2, null, false, 0, "Unclassified" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {2, null, 2, null, false, 0, "Unclassified"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 3, null, 3, null, false, 0, "In Confidence" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {3, null, 3, null, false, 0, "In Confidence"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 4, null, 4, null, false, 0, "Sensitive" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {4, null, 4, null, false, 0, "Sensitive"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 5, null, 5, null, false, 0, "Restricted" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {5, null, 5, null, false, 0, "Restricted"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 6, null, 6, null, false, 0, "Confidential" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {6, null, 6, null, false, 0, "Confidential"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 7, null, 7, null, false, 0, "Secret" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {7, null, 7, null, false, 0, "Secret"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "DataClassifications",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { 8, null, 8, null, false, 0, "TopSecret" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[] {8, null, 8, null, false, 0, "TopSecret"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "ExceptionRecords",
-                columns: new[] { "Id", "ClientId", "Level", "Message", "Stack", "ThreadId", "UtcDateTimeCreated" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), null, 3, "Installation of System occurred on: 6/16/2019 10:06:23 AM +00:00", "", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
+                columns: new[] {"Id", "ClientId", "Level", "Message", "Stack", "ThreadId", "UtcDateTimeCreated"},
+                values: new object[]
+                {
+                    new Guid("00000001-0000-0000-0000-000000000000"), null, 3,
+                    "Installation of System occurred on: 6/16/2019 10:06:23 AM +00:00", "", null,
+                    new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                        new TimeSpan(0, 0, 0, 0, 0))
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "An error state as Principal type is not defined.", 0, null, true, 0, "Unspecified" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                {
+                    new Guid("00000000-0000-0000-0000-000000000000"),
+                    "An error state as Principal type is not defined.", 0, null, true, 0, "Unspecified"
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), "An error state as Principal type is unclear.", 0, null, true, 0, "Unknown" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                {
+                    new Guid("00000001-0000-0000-0000-000000000000"), "An error state as Principal type is unclear.", 0,
+                    null, true, 0, "Unknown"
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000002-0000-0000-0000-000000000000"), "This system.", 0, null, true, 0, "System" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                    {new Guid("00000002-0000-0000-0000-000000000000"), "This system.", 0, null, true, 0, "System"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000003-0000-0000-0000-000000000000"), "A remote service or user.", 0, null, true, 0, "Default" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                {
+                    new Guid("00000003-0000-0000-0000-000000000000"), "A remote service or user.", 0, null, true, 0,
+                    "Default"
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000004-0000-0000-0000-000000000000"), "A remote service (whether owned by organisation or other.", 0, null, true, 0, "Service" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                {
+                    new Guid("00000004-0000-0000-0000-000000000000"),
+                    "A remote service (whether owned by organisation or other.", 0, null, true, 0, "Service"
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalCategories",
-                columns: new[] { "Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title" },
-                values: new object[] { new Guid("00000005-0000-0000-0000-000000000000"), "General users.", 0, null, true, 0, "User" });
+                columns: new[]
+                    {"Id", "Description", "DisplayOrderHint", "DisplayStyleHint", "Enabled", "RecordState", "Title"},
+                values: new object[]
+                    {new Guid("00000005-0000-0000-0000-000000000000"), "General users.", 0, null, true, 0, "User"});
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "Principals",
-                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime", "EnabledEndingUtcDateTime", "FullName", "RecordState" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), new Guid("00000002-0000-0000-0000-000000000000"), 2, "Anon", true, null, null, null, 0 });
+                columns: new[]
+                {
+                    "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime",
+                    "EnabledEndingUtcDateTime", "FullName", "RecordState"
+                },
+                values: new object[]
+                {
+                    new Guid("00000001-0000-0000-0000-000000000000"), new Guid("00000002-0000-0000-0000-000000000000"),
+                    2, "Anon", true, null, null, null, 0
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "Principals",
-                columns: new[] { "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime", "EnabledEndingUtcDateTime", "FullName", "RecordState" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000003-0000-0000-0000-000000000000"), 2, "Anon", true, null, null, null, 0 });
+                columns: new[]
+                {
+                    "Id", "CategoryFK", "DataClassificationFK", "DisplayName", "Enabled", "EnabledBeginningUtcDateTime",
+                    "EnabledEndingUtcDateTime", "FullName", "RecordState"
+                },
+                values: new object[]
+                {
+                    new Guid("00000000-0000-0000-0000-000000000000"), new Guid("00000003-0000-0000-0000-000000000000"),
+                    2, "Anon", true, null, null, null, 0
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "Tenants",
-                columns: new[] { "Id", "DataClassificationFK", "DisplayName", "Enabled", "HostName", "IsDefault", "Key", "RecordState" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), 2, "Default", true, "Default", true, "Default", 0 });
+                columns: new[]
+                {
+                    "Id", "DataClassificationFK", "DisplayName", "Enabled", "HostName", "IsDefault", "Key",
+                    "RecordState"
+                },
+                values: new object[]
+                {
+                    new Guid("00000001-0000-0000-0000-000000000000"), 2, "Default", true, "Default", true, "Default", 0
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalProperties",
-                columns: new[] { "Id", "Key", "PrincipalFK", "RecordState", "Value" },
-                values: new object[] { new Guid("00000000-0000-0000-0000-000000000000"), "Description", new Guid("00000000-0000-0000-0000-000000000000"), 0, "Principal shared by all unauthenticated users, but with distinct Sessions." });
+                columns: new[] {"Id", "Key", "PrincipalFK", "RecordState", "Value"},
+                values: new object[]
+                {
+                    new Guid("00000000-0000-0000-0000-000000000000"), "Description",
+                    new Guid("00000000-0000-0000-0000-000000000000"), 0,
+                    "Principal shared by all unauthenticated users, but with distinct Sessions."
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalProperties",
-                columns: new[] { "Id", "Key", "PrincipalFK", "RecordState", "Value" },
-                values: new object[] { new Guid("00000001-0000-0000-0000-000000000000"), "FavoriteSong", new Guid("00000000-0000-0000-0000-000000000000"), 0, "https://www.youtube.com/watch?v=B1BdQcJ2ZYY" });
+                columns: new[] {"Id", "Key", "PrincipalFK", "RecordState", "Value"},
+                values: new object[]
+                {
+                    new Guid("00000001-0000-0000-0000-000000000000"), "FavoriteSong",
+                    new Guid("00000000-0000-0000-0000-000000000000"), 0, "https://www.youtube.com/watch?v=B1BdQcJ2ZYY"
+                });
 
             migrationBuilder.InsertData(
                 schema: "Core",
                 table: "PrincipalProperties",
-                columns: new[] { "Id", "Key", "PrincipalFK", "RecordState", "Value" },
-                values: new object[] { new Guid("00000002-0000-0000-0000-000000000000"), "Seeking", new Guid("00000000-0000-0000-0000-000000000000"), 0, "Romance (what?! You think computers can't dream?!)." });
+                columns: new[] {"Id", "Key", "PrincipalFK", "RecordState", "Value"},
+                values: new object[]
+                {
+                    new Guid("00000002-0000-0000-0000-000000000000"), "Seeking",
+                    new Guid("00000000-0000-0000-0000-000000000000"), 0,
+                    "Romance (what?! You think computers can't dream?!)."
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DataClassification_RecordState",
+                "IX_DataClassification_RecordState",
                 schema: "Core",
                 table: "DataClassifications",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DataClassification_Title",
+                "IX_DataClassification_Title",
                 schema: "Core",
                 table: "DataClassifications",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DataToken_RecordState",
+                "IX_DataToken_RecordState",
                 schema: "Core",
                 table: "DataTokens",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DataToken_TenantFK",
+                "IX_DataToken_TenantFK",
                 schema: "Core",
                 table: "DataTokens",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MediaMetadata_ContentHash",
+                "IX_MediaMetadata_ContentHash",
                 schema: "Core",
                 table: "MediaMetadatas",
                 column: "ContentHash");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MediaMetadatas_DataClassificationFK",
+                "IX_MediaMetadatas_DataClassificationFK",
                 schema: "Core",
                 table: "MediaMetadatas",
                 column: "DataClassificationFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MediaMetadata_RecordState",
+                "IX_MediaMetadata_RecordState",
                 schema: "Core",
                 table: "MediaMetadatas",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MediaMetadata_SourceFileName",
+                "IX_MediaMetadata_SourceFileName",
                 schema: "Core",
                 table: "MediaMetadatas",
                 column: "SourceFileName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification_From",
+                "IX_Notification_From",
                 schema: "Core",
                 table: "Notifications",
                 column: "From");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification_PrincipalFK",
+                "IX_Notification_PrincipalFK",
                 schema: "Core",
                 table: "Notifications",
                 column: "PrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notification_RecordState",
+                "IX_Notification_RecordState",
                 schema: "Core",
                 table: "Notifications",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalCategory_RecordState",
+                "IX_PrincipalCategory_RecordState",
                 schema: "Core",
                 table: "PrincipalCategories",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalClaim_Authority",
+                "IX_PrincipalClaim_Authority",
                 schema: "Core",
                 table: "PrincipalClaims",
                 column: "Authority");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalClaim_Key",
+                "IX_PrincipalClaim_Key",
                 schema: "Core",
                 table: "PrincipalClaims",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalClaims_PrincipalFK",
+                "IX_PrincipalClaims_PrincipalFK",
                 schema: "Core",
                 table: "PrincipalClaims",
                 column: "PrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalClaim_RecordState",
+                "IX_PrincipalClaim_RecordState",
                 schema: "Core",
                 table: "PrincipalClaims",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalLogins_PrincipalFK",
+                "IX_PrincipalLogins_PrincipalFK",
                 schema: "Core",
                 table: "PrincipalLogins",
                 column: "PrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalLogin_RecordState",
+                "IX_PrincipalLogin_RecordState",
                 schema: "Core",
                 table: "PrincipalLogins",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalProperty_Key",
+                "IX_PrincipalProperty_Key",
                 schema: "Core",
                 table: "PrincipalProperties",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalProperties_PrincipalFK",
+                "IX_PrincipalProperties_PrincipalFK",
                 schema: "Core",
                 table: "PrincipalProperties",
                 column: "PrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalProperty_RecordState",
+                "IX_PrincipalProperty_RecordState",
                 schema: "Core",
                 table: "PrincipalProperties",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Principals_CategoryFK",
+                "IX_Principals_CategoryFK",
                 schema: "Core",
                 table: "Principals",
                 column: "CategoryFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Principals_DataClassificationFK",
+                "IX_Principals_DataClassificationFK",
                 schema: "Core",
                 table: "Principals",
                 column: "DataClassificationFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Principal_RecordState",
+                "IX_Principal_RecordState",
                 schema: "Core",
                 table: "Principals",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalTagAssignments_TagFK",
+                "IX_PrincipalTagAssignments_TagFK",
                 schema: "Core",
                 table: "PrincipalTagAssignments",
                 column: "TagFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalTag_RecordState",
+                "IX_PrincipalTag_RecordState",
                 schema: "Core",
                 table: "PrincipalTags",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrincipalTag_Title",
+                "IX_PrincipalTag_Title",
                 schema: "Core",
                 table: "PrincipalTags",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SessionOperation_ActionName",
+                "IX_SessionOperation_ActionName",
                 schema: "Core",
                 table: "SessionOperations",
                 column: "ActionName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SessionOperation_ControllerName",
+                "IX_SessionOperation_ControllerName",
                 schema: "Core",
                 table: "SessionOperations",
                 column: "ControllerName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SessionOperation_RecordState",
+                "IX_SessionOperation_RecordState",
                 schema: "Core",
                 table: "SessionOperations",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SessionOperations_SessionFK",
+                "IX_SessionOperations_SessionFK",
                 schema: "Core",
                 table: "SessionOperations",
                 column: "SessionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sessions_PrincipalFK",
+                "IX_Sessions_PrincipalFK",
                 schema: "Core",
                 table: "Sessions",
                 column: "PrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Session_RecordState",
+                "IX_Session_RecordState",
                 schema: "Core",
                 table: "Sessions",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SystemRoles_DataClassificationFK",
+                "IX_SystemRoles_DataClassificationFK",
                 schema: "Core",
                 table: "SystemRoles",
                 column: "DataClassificationFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SystemRole_Key",
+                "IX_SystemRole_Key",
                 schema: "Core",
                 table: "SystemRoles",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SystemRoles_PrincipalId",
+                "IX_SystemRoles_PrincipalId",
                 schema: "Core",
                 table: "SystemRoles",
                 column: "PrincipalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SystemRole_RecordState",
+                "IX_SystemRole_RecordState",
                 schema: "Core",
                 table: "SystemRoles",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantClaim_Authority",
+                "IX_TenantClaim_Authority",
                 schema: "Core",
                 table: "TenantClaims",
                 column: "Authority");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantClaim_Key",
+                "IX_TenantClaim_Key",
                 schema: "Core",
                 table: "TenantClaims",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantClaim_RecordState",
+                "IX_TenantClaim_RecordState",
                 schema: "Core",
                 table: "TenantClaims",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantClaims_TenantFK",
+                "IX_TenantClaims_TenantFK",
                 schema: "Core",
                 table: "TenantClaims",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfile2TagAssignments_TagFK",
+                "IX_TenantMemberProfile2TagAssignments_TagFK",
                 schema: "Core",
                 table: "TenantMemberProfile2TagAssignments",
                 column: "TagFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfile2TagAssignments_TenantPrincipalFK",
+                "IX_TenantMemberProfile2TagAssignments_TenantPrincipalFK",
                 schema: "Core",
                 table: "TenantMemberProfile2TagAssignments",
                 column: "TenantPrincipalFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileCategory_RecordState",
+                "IX_TenantMemberProfileCategory_RecordState",
                 schema: "Core",
                 table: "TenantMemberProfileCategories",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileCategory_TenantFK",
+                "IX_TenantMemberProfileCategory_TenantFK",
                 schema: "Core",
                 table: "TenantMemberProfileCategories",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileClaim_Authority",
+                "IX_TenantMemberProfileClaim_Authority",
                 schema: "Core",
                 table: "TenantMemberProfileClaims",
                 column: "Authority");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileClaim_RecordState",
+                "IX_TenantMemberProfileClaim_RecordState",
                 schema: "Core",
                 table: "TenantMemberProfileClaims",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileProperty_RecordState",
+                "IX_TenantMemberProfileProperty_RecordState",
                 schema: "Core",
                 table: "TenantMemberProfileProperties",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileProperty_TenantFK",
+                "IX_TenantMemberProfileProperty_TenantFK",
                 schema: "Core",
                 table: "TenantMemberProfileProperties",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfiles_CategoryFK",
+                "IX_TenantMemberProfiles_CategoryFK",
                 schema: "Core",
                 table: "TenantMemberProfiles",
                 column: "CategoryFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfiles_DataClassificationFK",
+                "IX_TenantMemberProfiles_DataClassificationFK",
                 schema: "Core",
                 table: "TenantMemberProfiles",
                 column: "DataClassificationFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfile_RecordState",
+                "IX_TenantMemberProfile_RecordState",
                 schema: "Core",
                 table: "TenantMemberProfiles",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfiles_SecurityProfileFK",
+                "IX_TenantMemberProfiles_SecurityProfileFK",
                 schema: "Core",
                 table: "TenantMemberProfiles",
                 column: "SecurityProfileFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfile_TenantFK",
+                "IX_TenantMemberProfile_TenantFK",
                 schema: "Core",
                 table: "TenantMemberProfiles",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileTag_RecordState",
+                "IX_TenantMemberProfileTag_RecordState",
                 schema: "Core",
                 table: "TenantMemberProfileTags",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberProfileTag_Title",
+                "IX_TenantMemberProfileTag_Title",
                 schema: "Core",
                 table: "TenantMemberProfileTags",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile2PermissionAssignments_MemberFK",
+                "IX_TenantMemberSecurityProfile2PermissionAssignments_MemberFK",
                 schema: "Core",
                 table: "TenantMemberSecurityProfile2PermissionAssignments",
                 column: "MemberFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile2PermissionAssignments_PermissionFK",
+                "IX_TenantMemberSecurityProfile2PermissionAssignments_PermissionFK",
                 schema: "Core",
                 table: "TenantMemberSecurityProfile2PermissionAssignments",
                 column: "PermissionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile2PermissionAssignment_RecordState",
+                "IX_TenantMemberSecurityProfile2PermissionAssignment_RecordState",
                 schema: "Core",
                 table: "TenantMemberSecurityProfile2PermissionAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile2PermissionAssignment_TenantFK",
+                "IX_TenantMemberSecurityProfile2PermissionAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantMemberSecurityProfile2PermissionAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile_RecordState",
+                "IX_TenantMemberSecurityProfile_RecordState",
                 schema: "Core",
                 table: "TenantMemberSecurityProfiles",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfiles_SecurityProfileFK",
+                "IX_TenantMemberSecurityProfiles_SecurityProfileFK",
                 schema: "Core",
                 table: "TenantMemberSecurityProfiles",
                 column: "SecurityProfileFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantMemberSecurityProfile_TenantFK",
+                "IX_TenantMemberSecurityProfile_TenantFK",
                 schema: "Core",
                 table: "TenantMemberSecurityProfiles",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantProperty_Key",
+                "IX_TenantProperty_Key",
                 schema: "Core",
                 table: "TenantProperties",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantProperty_RecordState",
+                "IX_TenantProperty_RecordState",
                 schema: "Core",
                 table: "TenantProperties",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantProperties_TenantFK",
+                "IX_TenantProperties_TenantFK",
                 schema: "Core",
                 table: "TenantProperties",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tenants_DataClassificationFK",
+                "IX_Tenants_DataClassificationFK",
                 schema: "Core",
                 table: "Tenants",
                 column: "DataClassificationFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tenant_DisplayName",
+                "IX_Tenant_DisplayName",
                 schema: "Core",
                 table: "Tenants",
                 column: "DisplayName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tenant_Key",
+                "IX_Tenant_Key",
                 schema: "Core",
                 table: "Tenants",
                 column: "Key");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tenant_RecordState",
+                "IX_Tenant_RecordState",
                 schema: "Core",
                 table: "Tenants",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2PermissionAssignments_PermissionFK",
+                "IX_TenantSecurityProfile2PermissionAssignments_PermissionFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2PermissionAssignments",
                 column: "PermissionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2PermissionAssignments_ProfileFK",
+                "IX_TenantSecurityProfile2PermissionAssignments_ProfileFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2PermissionAssignments",
                 column: "ProfileFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2PermissionAssignment_RecordState",
+                "IX_TenantSecurityProfile2PermissionAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfile2PermissionAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2PermissionAssignment_TenantFK",
+                "IX_TenantSecurityProfile2PermissionAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2PermissionAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleAssignments_ProfileFK",
+                "IX_TenantSecurityProfile2RoleAssignments_ProfileFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleAssignments",
                 column: "ProfileFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleAssignment_RecordState",
+                "IX_TenantSecurityProfile2RoleAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleAssignments_RoleFK",
+                "IX_TenantSecurityProfile2RoleAssignments_RoleFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleAssignments",
                 column: "RoleFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleAssignment_TenantFK",
+                "IX_TenantSecurityProfile2RoleAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleGroupAssignments_ProfileFK",
+                "IX_TenantSecurityProfile2RoleGroupAssignments_ProfileFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleGroupAssignments",
                 column: "ProfileFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleGroupAssignment_RecordState",
+                "IX_TenantSecurityProfile2RoleGroupAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleGroupAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleGroupAssignments_RoleGroupFK",
+                "IX_TenantSecurityProfile2RoleGroupAssignments_RoleGroupFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleGroupAssignments",
                 column: "RoleGroupFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile2RoleGroupAssignment_TenantFK",
+                "IX_TenantSecurityProfile2RoleGroupAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfile2RoleGroupAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfilePermission_RecordState",
+                "IX_TenantSecurityProfilePermission_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfilePermissions",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfilePermission_TenantFK",
+                "IX_TenantSecurityProfilePermission_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfilePermissions",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfilePermission_Title",
+                "IX_TenantSecurityProfilePermission_Title",
                 schema: "Core",
                 table: "TenantSecurityProfilePermissions",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileResponsibility_RecordState",
+                "IX_TenantSecurityProfileResponsibility_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileResponsibilities",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileResponsibility_TenantFK",
+                "IX_TenantSecurityProfileResponsibility_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileResponsibilities",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileResponsibility_Title",
+                "IX_TenantSecurityProfileResponsibility_Title",
                 schema: "Core",
                 table: "TenantSecurityProfileResponsibilities",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2PermissionAssignments_PermissionFK",
+                "IX_TenantSecurityProfileRole2PermissionAssignments_PermissionFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2PermissionAssignments",
                 column: "PermissionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2PermissionAssignment_RecordState",
+                "IX_TenantSecurityProfileRole2PermissionAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2PermissionAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2PermissionAssignments_RoleFK",
+                "IX_TenantSecurityProfileRole2PermissionAssignments_RoleFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2PermissionAssignments",
                 column: "RoleFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2PermissionAssignment_TenantFK",
+                "IX_TenantSecurityProfileRole2PermissionAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2PermissionAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2ResponsibilityAssignment_RecordState",
+                "IX_TenantSecurityProfileRole2ResponsibilityAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2ResponsibilityAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2ResponsibilityAssignments_ResponsibilityFK",
+                "IX_TenantSecurityProfileRole2ResponsibilityAssignments_ResponsibilityFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2ResponsibilityAssignments",
                 column: "ResponsibilityFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2ResponsibilityAssignments_RoleFK",
+                "IX_TenantSecurityProfileRole2ResponsibilityAssignments_RoleFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2ResponsibilityAssignments",
                 column: "RoleFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole2ResponsibilityAssignment_TenantFK",
+                "IX_TenantSecurityProfileRole2ResponsibilityAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRole2ResponsibilityAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup2RoleAssignments_GroupFK",
+                "IX_TenantSecurityProfileRoleGroup2RoleAssignments_GroupFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroup2RoleAssignments",
                 column: "GroupFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup2RoleAssignment_RecordState",
+                "IX_TenantSecurityProfileRoleGroup2RoleAssignment_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroup2RoleAssignments",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup2RoleAssignments_RoleFK",
+                "IX_TenantSecurityProfileRoleGroup2RoleAssignments_RoleFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroup2RoleAssignments",
                 column: "RoleFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup2RoleAssignment_TenantFK",
+                "IX_TenantSecurityProfileRoleGroup2RoleAssignment_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroup2RoleAssignments",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroups_ParentId",
+                "IX_TenantSecurityProfileRoleGroups_ParentId",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroups",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup_RecordState",
+                "IX_TenantSecurityProfileRoleGroup_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroups",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup_TenantFK",
+                "IX_TenantSecurityProfileRoleGroup_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroups",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRoleGroup_Title",
+                "IX_TenantSecurityProfileRoleGroup_Title",
                 schema: "Core",
                 table: "TenantSecurityProfileRoleGroups",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole_RecordState",
+                "IX_TenantSecurityProfileRole_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfileRoles",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole_TenantFK",
+                "IX_TenantSecurityProfileRole_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfileRoles",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfileRole_Title",
+                "IX_TenantSecurityProfileRole_Title",
                 schema: "Core",
                 table: "TenantSecurityProfileRoles",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile_RecordState",
+                "IX_TenantSecurityProfile_RecordState",
                 schema: "Core",
                 table: "TenantSecurityProfiles",
                 column: "RecordState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile_TenantFK",
+                "IX_TenantSecurityProfile_TenantFK",
                 schema: "Core",
                 table: "TenantSecurityProfiles",
                 column: "TenantFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantSecurityProfile_Title",
+                "IX_TenantSecurityProfile_Title",
                 schema: "Core",
                 table: "TenantSecurityProfiles",
                 column: "Title");
@@ -1765,152 +1816,152 @@ namespace App.Modules.core.Infrastructure.Data.Db.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DataTokens",
-                schema: "Core");
+                "DataTokens",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "ExceptionRecords",
-                schema: "Core");
+                "ExceptionRecords",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "MediaMetadatas",
-                schema: "Core");
+                "MediaMetadatas",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "Notifications",
-                schema: "Core");
+                "Notifications",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalClaims",
-                schema: "Core");
+                "PrincipalClaims",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalLogins",
-                schema: "Core");
+                "PrincipalLogins",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalProperties",
-                schema: "Core");
+                "PrincipalProperties",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalTagAssignments",
-                schema: "Core");
+                "PrincipalTagAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "SessionOperations",
-                schema: "Core");
+                "SessionOperations",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "SystemRoles",
-                schema: "Core");
+                "SystemRoles",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantClaims",
-                schema: "Core");
+                "TenantClaims",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfile2TagAssignments",
-                schema: "Core");
+                "TenantMemberProfile2TagAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfileClaims",
-                schema: "Core");
+                "TenantMemberProfileClaims",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfileProperties",
-                schema: "Core");
+                "TenantMemberProfileProperties",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberSecurityProfile2PermissionAssignments",
-                schema: "Core");
+                "TenantMemberSecurityProfile2PermissionAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantProperties",
-                schema: "Core");
+                "TenantProperties",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfile2PermissionAssignments",
-                schema: "Core");
+                "TenantSecurityProfile2PermissionAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfile2RoleAssignments",
-                schema: "Core");
+                "TenantSecurityProfile2RoleAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfile2RoleGroupAssignments",
-                schema: "Core");
+                "TenantSecurityProfile2RoleGroupAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileRole2PermissionAssignments",
-                schema: "Core");
+                "TenantSecurityProfileRole2PermissionAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileRole2ResponsibilityAssignments",
-                schema: "Core");
+                "TenantSecurityProfileRole2ResponsibilityAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileRoleGroup2RoleAssignments",
-                schema: "Core");
+                "TenantSecurityProfileRoleGroup2RoleAssignments",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalTags",
-                schema: "Core");
+                "PrincipalTags",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "Sessions",
-                schema: "Core");
+                "Sessions",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfileTags",
-                schema: "Core");
+                "TenantMemberProfileTags",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfiles",
-                schema: "Core");
+                "TenantMemberProfiles",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberSecurityProfiles",
-                schema: "Core");
+                "TenantMemberSecurityProfiles",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "Tenants",
-                schema: "Core");
+                "Tenants",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfilePermissions",
-                schema: "Core");
+                "TenantSecurityProfilePermissions",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileResponsibilities",
-                schema: "Core");
+                "TenantSecurityProfileResponsibilities",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileRoleGroups",
-                schema: "Core");
+                "TenantSecurityProfileRoleGroups",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfileRoles",
-                schema: "Core");
+                "TenantSecurityProfileRoles",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "Principals",
-                schema: "Core");
+                "Principals",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantMemberProfileCategories",
-                schema: "Core");
+                "TenantMemberProfileCategories",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "TenantSecurityProfiles",
-                schema: "Core");
+                "TenantSecurityProfiles",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "PrincipalCategories",
-                schema: "Core");
+                "PrincipalCategories",
+                "Core");
 
             migrationBuilder.DropTable(
-                name: "DataClassifications",
-                schema: "Core");
+                "DataClassifications",
+                "Core");
         }
     }
 }

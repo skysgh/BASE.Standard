@@ -1,23 +1,24 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.CommitInterceptions;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.CommitInterceptions;
 using App.Modules.All.Infrastructure.ServiceAgents;
+using Lamar;
 using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
 {
     /// <summary>
-    /// <para>
-    /// Invoked by magic. 
-    /// ie, found because App.Host/DependencyInjection/ServiceRegistry 
-    /// had an 'LookForRegistries' statement.
-    /// </para>
+    ///     <para>
+    ///         Invoked by magic.
+    ///         ie, found because App.Host/DependencyInjection/ServiceRegistry
+    ///         had an 'LookForRegistries' statement.
+    ///     </para>
     /// </summary>
-    public class AllModulesInfrastructureServiceRegistry : Lamar.ServiceRegistry
+    public class AllModulesInfrastructureServiceRegistry : ServiceRegistry
     {
         public AllModulesInfrastructureServiceRegistry()
         {
             Scan();
-
-
         }
 
         private void Scan()
@@ -60,8 +61,6 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         }
 
 
-
-
         //private void ScanAllModulesForAllModulesOIDCFullyQualifiesScopes(IAssemblyScanner assemblyScanner)
         //{
         //    assemblyScanner.AddAllTypesOf<IHasOidcScopeInitializer>();
@@ -97,8 +96,5 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         //                            .Use(y => (IAppCoreCacheItem)AppDependencyLocator.Current.GetInstance(t)).Named(name);
         //    }
         //}
-
-
-
     }
 }

@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using Newtonsoft.Json;
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
-
     /// <summary>
-    /// 
     /// </summary>
     public class AzureMapsSearchResponse
     {
@@ -14,4 +14,3 @@ namespace App.Modules.Core.Shared.Models.Messages
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
-

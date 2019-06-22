@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Shared.Models;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Entities
@@ -9,12 +11,12 @@ namespace App.Modules.Core.Shared.Models.Entities
     ///     inadvertently leaked, the data is basically
     ///     useless.
     /// </summary>
-    public class DataToken 
+    public class DataToken
         : TenantFKRecordStatedTimestampedGuidIdEntityBase,
             IHasValue<string>
     {
         /// <summary>
-        /// Gets or sets the value.
+        ///     Gets or sets the value.
         /// </summary>
         public virtual string Value { get; set; }
     }

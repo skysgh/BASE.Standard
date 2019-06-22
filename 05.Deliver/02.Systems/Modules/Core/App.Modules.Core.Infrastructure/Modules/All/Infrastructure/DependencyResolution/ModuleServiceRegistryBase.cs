@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.All.Infrastructure.DependencyResolution.Conventions;
@@ -6,24 +8,21 @@ using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
 {
-
     /// <summary>
-    /// The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
-    /// <para>
-    /// To avoid undesired side effects, It's important that each Module
-    /// inherits from this Module as it is set up to only search for dependencies
-    /// within this Module's group of assemblies (it's filtering on the Assembly name)
-    /// </para>
+    ///     The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
+    ///     <para>
+    ///         To avoid undesired side effects, It's important that each Module
+    ///         inherits from this Module as it is set up to only search for dependencies
+    ///         within this Module's group of assemblies (it's filtering on the Assembly name)
+    ///     </para>
     /// </summary>
     public abstract class ModuleServiceRegistryBase : ModuleServiceRegistryBaseBase
     {
-
-
         /// <summary>
-        /// <para>
-        /// Invoked by Constructor.
-        /// </para>
-        /// Override to provide Module/Assembly specific scanning rules.
+        ///     <para>
+        ///         Invoked by Constructor.
+        ///     </para>
+        ///     Override to provide Module/Assembly specific scanning rules.
         /// </summary>
         /// <param name="assemblyScanner">The assembly scanner.</param>
         protected override void InnerScan(IAssemblyScanner assemblyScanner)

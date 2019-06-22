@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 //using System.Linq;
 //using App.Modules.Core.AppFacade.Controllers.Api.odata.Base;
 //using App.Modules.Core.Infrastructure.Services;
@@ -54,3 +56,4 @@
 
 //    }
 //}
+

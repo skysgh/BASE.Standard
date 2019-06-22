@@ -1,5 +1,4 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using System.Collections.Generic;
@@ -11,21 +10,20 @@ using App.Modules.All.Shared.Constants;
 namespace App
 {
     /// <summary>
-    /// Extensions to <see cref="AppDomain"/> objects.
+    ///     Extensions to <see cref="AppDomain" /> objects.
     /// </summary>
     public static class AppDomainExtensions
     {
-
         /// <summary>
-        /// Loads all assemblies specific to this application.
+        ///     Loads all assemblies specific to this application.
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
         public static void LoadAllAppAssemblies(this AppDomain appDomain)
         {
             List<Assembly> allAssemblies = new List<Assembly>();
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var files =
+            string[] files =
                 Directory.GetFiles(path, $"{Application.AssemblyPrefix}*.dll")
                     .ToArray();
 
@@ -34,26 +32,26 @@ namespace App
 
 
         /// <summary>
-        /// Gets this application assemblies
-        /// (those that start with "App."
+        ///     Gets this application assemblies
+        ///     (those that start with "App."
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
         /// <returns></returns>
         public static IEnumerable<Assembly> GetAppAssemblies(this AppDomain appDomain)
         {
-            var results = appDomain.GetAssemblies().Where(x => x.IsSameApp());
+            IEnumerable<Assembly> results = appDomain.GetAssemblies().Where(x => x.IsSameApp());
 
             return results;
         }
 
         /// <summary>
-        /// Gets all derived instantiable types, instantiates them 
-        /// (using <see cref="Activator"/> - *not* <see cref="AppDependencyLocator"/>!)
-        /// then runs the new instance through the provided action.
-        /// <para>
-        /// Invoked at least when scanning for StructureMap scanners
-        /// in all assemblies.
-        /// </para>
+        ///     Gets all derived instantiable types, instantiates them
+        ///     (using <see cref="Activator" /> - *not* <see cref="AppDependencyLocator" />!)
+        ///     then runs the new instance through the provided action.
+        ///     <para>
+        ///         Invoked at least when scanning for StructureMap scanners
+        ///         in all assemblies.
+        ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appDomain">The application domain.</param>
@@ -70,52 +68,53 @@ namespace App
 
 
         /// <summary>
-        /// Gets all derived instantiable types, within the domain.
-        /// <para>
-        /// An example use case would be to find all API Controllers
-        /// in order to associate them with a specific version.
-        /// </para>
+        ///     Gets all derived instantiable types, within the domain.
+        ///     <para>
+        ///         An example use case would be to find all API Controllers
+        ///         in order to associate them with a specific version.
+        ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appDomain">The application domain.</param>
         /// <returns>
-        /// the found types.
+        ///     the found types.
         /// </returns>
         public static IEnumerable<Type> GetInstantiableTypesImplementing<T>(this AppDomain appDomain)
         {
             return appDomain.GetInstantiableTypesImplementing(typeof(T));
         }
 
-        
 
-            /// <summary>
-            /// Gets all derived instantiable types, within the domain.
-            /// <para>
-            /// An example use case would be to find all API Controllers
-            /// in order to associate them with a specific version.
-            /// </para>
-            /// </summary>
-            /// <param name="appDomain">The application domain.</param>
-            /// <param name="type">The type.</param>
-            /// <returns>the found types.</returns>
-            public static IEnumerable<Type> GetInstantiableTypesImplementing(this AppDomain appDomain, Type type)
+        /// <summary>
+        ///     Gets all derived instantiable types, within the domain.
+        ///     <para>
+        ///         An example use case would be to find all API Controllers
+        ///         in order to associate them with a specific version.
+        ///     </para>
+        /// </summary>
+        /// <param name="appDomain">The application domain.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>the found types.</returns>
+        public static IEnumerable<Type> GetInstantiableTypesImplementing(this AppDomain appDomain, Type type)
         {
-            var results = new List<Type>();
-            var tmp = appDomain.GetAssemblies();
+            List<Type> results = new List<Type>();
+            Assembly[] tmp = appDomain.GetAssemblies();
             foreach (var assembly in tmp)
             {
-                var r = assembly.GetInstantiableTypesImplementing(type);
+                IEnumerable<Type> r = assembly.GetInstantiableTypesImplementing(type);
                 if (r == null)
                 {
                     continue;
                 }
+
                 results.AddRange(r);
             }
+
             return results;
         }
 
         /// <summary>
-        /// Loads all assemblies in the bin directory.
+        ///     Loads all assemblies in the bin directory.
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
         public static void LoadAllBinDirectoryAssemblies(this AppDomain appDomain)
@@ -127,7 +126,8 @@ namespace App
             {
                 binPath = appDomain.BaseDirectory;
             }
-            var filenames = Directory.GetFiles(binPath, "*.dll", SearchOption.AllDirectories);
+
+            string[] filenames = Directory.GetFiles(binPath, "*.dll", SearchOption.AllDirectories);
 
             foreach (var fileName in filenames)
             {

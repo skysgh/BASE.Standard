@@ -1,4 +1,6 @@
-﻿//using Microsoft.Azure.Documents.Client;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using Microsoft.Azure.Documents.Client;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -18,3 +20,4 @@
 //        IQueryable<TDocument> GetDocuments<TDocument>(Uri collectionLinkUri, FeedOptions feedoptions);
 //    }
 //}
+

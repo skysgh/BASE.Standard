@@ -1,66 +1,43 @@
-﻿using System;
-using App.Modules.Core.Shared.Configuration.Settings;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     public class AzureDeploymentEnvironmentService : AppCoreServiceBase, IAzureDeploymentEnvironmentService
     {
-        Guid _subscriptionId = Guid.Empty;
-        Guid _tenantId = Guid.Empty;
-        AzureEnvironmentSettings _settings;
+        private readonly AzureEnvironmentSettings _settings;
+        private readonly Guid _tenantId = Guid.Empty;
+        private Guid _subscriptionId = Guid.Empty;
 
-        public AzureDeploymentEnvironmentService(AzureDeploymentEnvironmentServiceConfiguration azureDeploymentEnvironmentServiceConfiguration)
+        public AzureDeploymentEnvironmentService(
+            AzureDeploymentEnvironmentServiceConfiguration azureDeploymentEnvironmentServiceConfiguration)
         {
             _settings = azureDeploymentEnvironmentServiceConfiguration.Settings;
 
             Guid.TryParse(_settings.SubscriptionId, out _subscriptionId);
             Guid.TryParse(_settings.TenantId, out _tenantId);
-
         }
 
         /// <summary>
-        /// The Key to the Subscription within which 
-        /// this system was deployed to.
+        ///     The Key to the Subscription within which
+        ///     this system was deployed to.
         /// </summary>
-        public Guid SubscriptionId
-        {
-            get
-            {
-                return SubscriptionId;
-            }
-        }
+        public Guid SubscriptionId => SubscriptionId;
 
-        public Guid TenantId
-        {
-            get
-            {
-                return _tenantId;
-            }
-        }
+        public Guid TenantId => _tenantId;
 
         /// <summary>
-        /// The name of the ResourceString to which thi
+        ///     The name of the ResourceString to which thi
         /// </summary>
-        public string ResourceGroupName
-        {
-            get
-            {
-                return _settings.ResourceGroupName;
-            }
-        }
+        public string ResourceGroupName => _settings.ResourceGroupName;
 
         /// <summary>
-        /// The name of the ResourceString to which thi
+        ///     The name of the ResourceString to which thi
         /// </summary>
-        public string ResourceGroupLocation
-        {
-            get
-            {
-                return _settings.ResourceGroupName;
-            }
-        }
-
+        public string ResourceGroupLocation => _settings.ResourceGroupName;
     }
 }

@@ -1,38 +1,25 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
 {
     /// <summary>
-    /// 
-    /// <para>
-    /// Inherits from <see cref="ICoreServiceConfigurationObject"/>
-    /// whic inherits from <see cref="IHasSingletonLifecycle"/>
-    /// to hint at startup that the Configuration object should be 
-    /// IoC registered for the duration of the application (not the thread).
-    /// as some configuration hits remote services (eg: Azure KeyVault)
-    /// which would be rather slow.
-    /// </para>
+    ///     <para>
+    ///         Inherits from <see cref="ICoreServiceConfigurationObject" />
+    ///         whic inherits from <see cref="IHasSingletonLifecycle" />
+    ///         to hint at startup that the Configuration object should be
+    ///         IoC registered for the duration of the application (not the thread).
+    ///         as some configuration hits remote services (eg: Azure KeyVault)
+    ///         which would be rather slow.
+    ///     </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
     public class AzureDocumentDbServiceConfiguration : ICoreServiceConfigurationObject
     {
-        public Uri EndpointUrl
-        {
-            get; set;
-        }
-        public string AuthorizationKey
-        {
-            get; set;
-        }
-
-        public int TimeoutMilliseconds
-        {
-            get; set;
-        }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentDbServiceConfiguration" /> class.
+        ///     Initializes a new instance of the <see cref="DocumentDbServiceConfiguration" /> class.
         /// </summary>
         public AzureDocumentDbServiceConfiguration(IAzureKeyVaultService keyVaultService)
         {
@@ -44,9 +31,15 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
             }
 
             //this.EndpointUrl = configuration.EndpointUrl;
-            this.AuthorizationKey = configuration.AuthorizationKey;
+            AuthorizationKey = configuration.AuthorizationKey;
 
-            this.TimeoutMilliseconds = 10 * 1000;
+            TimeoutMilliseconds = 10 * 1000;
         }
+
+        public Uri EndpointUrl { get; set; }
+
+        public string AuthorizationKey { get; set; }
+
+        public int TimeoutMilliseconds { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
 {
@@ -10,7 +12,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
             ConfigureMapFromDtoToEntity(CreateMap<TDto, TEntity>());
         }
 
- 
+
         protected abstract void ConfigureMapFromEntityToDto(
             IMappingExpression<TEntity, TDto> mappingExpression);
 
@@ -18,5 +20,4 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
         protected abstract void ConfigureMapFromDtoToEntity(
             IMappingExpression<TDto, TEntity> mappingExpression);
     }
-
 }

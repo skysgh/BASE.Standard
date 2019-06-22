@@ -1,12 +1,13 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Helpers;
+using App.Modules.Core.Infrastructure.Factories;
 using App.Modules.Core.Infrastructure.Services.Caches.Implementations;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
-using App.Modules.Core.Infrastructure.Factories;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
@@ -22,65 +23,43 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     ///     Implementation of the
     ///     <see cref="IAzureKeyVaultService" />
     ///     Infrastructure Service Contract.
-    /// <para>
-    /// Application's that use Azure KeyVault are hosted in Azure. 
-    /// Within Azure Application Registration, when registered, they get an Id. 
-    /// Which is automatically mapped to a Service Principal Name (SPN)
-    /// (New-AzureRmADServicePrincipal -ApplicationId {Guid} is invoked behind the scene)
-    /// (and for now think of it as a Psuedo User that this not visible in AAD Users).
-    /// Then within KeyVault, access is granted to the SPN. 
-    /// When you sign in, you're using the AppClientId and AppSecret over a secure line.
-    /// That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
-    /// And hence why the App is given acces to the KeyVault to retrieve secrets and keys.
-    /// </para>
-    /// <para>
-    /// Depends on:
-    ///  Nuget:
-    ///    * Microsoft.Azure.KeyVault
-    ///    * Microsoft.IdentityModel.Clients.ActiveDirectory
-    ///      * NOTE: Which relieas on ADAL, as oposed to the newer MSAL...
-    ///  * PowerShell:
-    ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
-    /// </para>
+    ///     <para>
+    ///         Application's that use Azure KeyVault are hosted in Azure.
+    ///         Within Azure Application Registration, when registered, they get an Id.
+    ///         Which is automatically mapped to a Service Principal Name (SPN)
+    ///         (New-AzureRmADServicePrincipal -ApplicationId {Guid} is invoked behind the scene)
+    ///         (and for now think of it as a Psuedo User that this not visible in AAD Users).
+    ///         Then within KeyVault, access is granted to the SPN.
+    ///         When you sign in, you're using the AppClientId and AppSecret over a secure line.
+    ///         That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
+    ///         And hence why the App is given acces to the KeyVault to retrieve secrets and keys.
+    ///     </para>
+    ///     <para>
+    ///         Depends on:
+    ///         Nuget:
+    ///         * Microsoft.Azure.KeyVault
+    ///         * Microsoft.IdentityModel.Clients.ActiveDirectory
+    ///         * NOTE: Which relieas on ADAL, as oposed to the newer MSAL...
+    ///         * PowerShell:
+    ///         * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
+    ///     </para>
     /// </summary>
     public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
     {
-        // The max number is surprisingly low:
-        private int _maxKeysRetrieved = 25;
-
-        private string _keyVaultUrl;
-
-
-        /// <summary>
-        /// Gets the configuration object for this service.
-        /// </summary>
-        public AzureKeyVaultServiceConfiguration Configuration
-        {
-            get
-            {
-                return this._configuration;
-            }
-        }
-        private readonly AzureKeyVaultServiceConfiguration _configuration;
+        private readonly IConfigurationStepService _configurationStepService;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
-        private readonly IConfigurationStepService _configurationStepService;
 
-        // One of the very few objects not created by Dependency Injection.
-        // Lazy...but I can't think of how else to solve it right now:
-        private KeyVaultConfigurationObjectFactory ConfigurationObjectFactory
+        private readonly string _keyVaultUrl;
 
-        {
-            get
-            {
-                return this._configurationObjectFactory ?? (this._configurationObjectFactory =
-                           new KeyVaultConfigurationObjectFactory(this._diagnosticsTracingService, this));
-            }
-        }
+        // The max number is surprisingly low:
+        private readonly int _maxKeysRetrieved = 25;
 
         private KeyVaultConfigurationObjectFactory _configurationObjectFactory;
+        private KeyVaultClient _keyVaultClient;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzureKeyVaultService"/> class.
+        ///     Initializes a new instance of the <see cref="AzureKeyVaultService" /> class.
         /// </summary>
         /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
@@ -91,38 +70,49 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             IHostSettingsService hostSettingsService,
             IConfigurationStepService configurationStepService)
         {
-            this._configuration = azureKeyVaultServiceConfiguration;
-            this._diagnosticsTracingService = diagnosticsTracingService;
-            this._hostSettingsService = hostSettingsService;
-            this._configurationStepService = configurationStepService;
+            Configuration = azureKeyVaultServiceConfiguration;
+            _diagnosticsTracingService = diagnosticsTracingService;
+            _hostSettingsService = hostSettingsService;
+            _configurationStepService = configurationStepService;
 
             // Not sure if the Url should be in the config object. Probably should...
-            _keyVaultUrl = $"https://{this._configuration.ResourceName}.vault.azure.net";
-
+            _keyVaultUrl = $"https://{Configuration.ResourceName}.vault.azure.net";
         }
 
 
         /// <summary>
-        /// Gets the key vault client.
-        /// <para>
-        /// Note that this is just an authenticated client. 
-        /// It is not associated to a specific keyvault
-        /// (you need to provide that when you request a key).
-        /// </para>
+        ///     Gets the configuration object for this service.
+        /// </summary>
+        public AzureKeyVaultServiceConfiguration Configuration { get; }
+
+        // One of the very few objects not created by Dependency Injection.
+        // Lazy...but I can't think of how else to solve it right now:
+        private KeyVaultConfigurationObjectFactory ConfigurationObjectFactory =>
+            _configurationObjectFactory ?? (_configurationObjectFactory =
+                new KeyVaultConfigurationObjectFactory(_diagnosticsTracingService, this));
+
+
+        /// <summary>
+        ///     Gets the key vault client.
+        ///     <para>
+        ///         Note that this is just an authenticated client.
+        ///         It is not associated to a specific keyvault
+        ///         (you need to provide that when you request a key).
+        ///     </para>
         /// </summary>
         private KeyVaultClient KeyVaultClient
         {
             get
             {
-                if (this._keyVaultClient != null)
+                if (_keyVaultClient != null)
                 {
-                    return this._keyVaultClient;
+                    return _keyVaultClient;
                 }
 
                 using (var elapsedTime = new ElapsedTime())
                 {
-                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "Beginning getting MSI Token...(40 secs not atypical...)");
-
+                    _diagnosticsTracingService.Trace(TraceLevel.Verbose,
+                        "Beginning getting MSI Token...(40 secs not atypical...)");
 
 
                     //Are we running in MSI or not?
@@ -135,7 +125,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                     var azureServiceTokenProvider = new AzureServiceTokenProvider();
                     //string accessToken = azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").Result;
                     //OR
-                    this._keyVaultClient =
+                    _keyVaultClient =
                         new KeyVaultClient(
                             new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
                     //}
@@ -148,10 +138,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
                     //return this._keyVaultClient;
 
-                    string msg =
+                    var msg =
                         $"Took {elapsedTime.ElapsedText} to get an MSI token to build a KeyVaultClient.";
 
-                    this._diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
+                    _diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
 
 
                     var color = ConfigurationStepStatus.White;
@@ -159,6 +149,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                     {
                         color = ConfigurationStepStatus.Orange;
                     }
+
                     if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
                     {
                         color = ConfigurationStepStatus.Red;
@@ -171,18 +162,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                             "Authentication",
                             $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}.");
 
-                    return this._keyVaultClient;
+                    return _keyVaultClient;
                 }
             }
         }
-        KeyVaultClient _keyVaultClient;
 
         /// <summary>
-        /// Applications that use a key vault must authenticate by using a token from Azure Active Directory.
-        /// The application must first register the application in their Azure Active Directory,
-        /// get the ApplicationId and AuthenticationKey (the shared secret).
-        /// clientID and clientSecret are obtained by registering
-        /// the application in Azure AD
+        ///     Applications that use a key vault must authenticate by using a token from Azure Active Directory.
+        ///     The application must first register the application in their Azure Active Directory,
+        ///     get the ApplicationId and AuthenticationKey (the shared secret).
+        ///     clientID and clientSecret are obtained by registering
+        ///     the application in Azure AD
         /// </summary>
         /// <param name="secretKey">The secret key.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
@@ -193,15 +183,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = this._keyVaultUrl;
+                keyVaultUrl = _keyVaultUrl;
             }
-            KeyBundle keyBundle = await this.KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
+
+            var keyBundle = await KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
 
             return keyBundle.Key;
         }
 
         /// <summary>
-        /// Retrieves the secret.
+        ///     Retrieves the secret.
         /// </summary>
         /// <param name="secretKey">The secret key.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
@@ -216,22 +207,23 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             {
                 keyVaultUrl = _keyVaultUrl;
             }
+
             try
             {
-                var secret = Task.Run(()=>this.KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey)).Result;
+                var secret = Task.Run(() => KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey)).Result;
                 return secret.Value;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                _diagnosticsTracingService.Trace(TraceLevel.Warn, $"KeyVault Secret '{secretKey}' not found. Reason given: '{e.Message}'");
+                _diagnosticsTracingService.Trace(TraceLevel.Warn,
+                    $"KeyVault Secret '{secretKey}' not found. Reason given: '{e.Message}'");
                 throw;
             }
-
         }
 
 
         /// <summary>
-        /// Sets the secret.
+        ///     Sets the secret.
         /// </summary>
         /// <param name="secretKey">The secret key.</param>
         /// <param name="secret">The secret.</param>
@@ -245,88 +237,90 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             {
                 keyVaultUrl = _keyVaultUrl;
             }
-            var secrectBundle = await this.KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey, secret);
+
+            var secrectBundle = await KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey, secret);
 
             return secrectBundle;
         }
 
         /// <summary>
-        /// Gets the secrets.
+        ///     Gets the secrets.
         /// </summary>
         /// <param name="returnFQIdentifier">if set to <c>true</c> [return fq identifier].</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetSecretsAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
+        public async Task<IDictionary<string, string>> GetSecretsAsync(bool returnFQIdentifier = false,
+            int pageSize = 0, string keyVaultUrl = null)
         {
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
                 keyVaultUrl = _keyVaultUrl;
             }
+
             //More than this and you get an error:
             if (pageSize == 0)
             {
-                pageSize = this._maxKeysRetrieved;
+                pageSize = _maxKeysRetrieved;
             }
 
-            IPage<SecretItem> secrets = await this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+            IPage<SecretItem> secrets = await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
             //return this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, 500).GetAwaiter().GetResult().Select(x=>x.Id).ToArray();
 
             //    KeyValuePair<string> 
             //var x = new Tuple<string, string>("a","b;");
 
-            var results = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            Dictionary<string, string> results =
+                new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
 
-            foreach (SecretItem x in secrets)
+            foreach (var x in secrets)
             {
-                string key = returnFQIdentifier ? x.Identifier.Name : x.Id;
-                string value = await RetrieveSecretAsync(x.Identifier.Name);
+                var key = returnFQIdentifier ? x.Identifier.Name : x.Id;
+                var value = await RetrieveSecretAsync(x.Identifier.Name);
                 results[key] = value;
             }
 
             return results;
-
         }
 
 
         /// <summary>
-        /// Lists the secrets keys.
+        ///     Lists the secrets keys.
         /// </summary>
         /// <param name="returnFQIdentifier">if set to <c>true</c> [return fq identifier].</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier = false, int pageSize = 0, string keyVaultUrl = null)
+        public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier = false, int pageSize = 0,
+            string keyVaultUrl = null)
         {
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
                 keyVaultUrl = _keyVaultUrl;
             }
+
             //More than this and you get an error:
             if (pageSize == 0)
             {
-                pageSize = this._maxKeysRetrieved;
+                pageSize = _maxKeysRetrieved;
             }
 
-            IPage<SecretItem> secrets = await this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+            IPage<SecretItem> secrets = await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
 
             string[] results = returnFQIdentifier
                 ? secrets.Select(x => x.Identifier.Name).ToArray()
                 : secrets.Select(x => x.Id).ToArray();
 
             return results;
-
         }
 
 
-
-
         /// <summary>
-        /// Create a Configuration object and fill properties from KeyVault Secrets with the same name.
-        /// <para>
-        /// Note that default values are not provided if the property value = default(T)
-        /// </para>
+        ///     Create a Configuration object and fill properties from KeyVault Secrets with the same name.
+        ///     <para>
+        ///         Note that default values are not provided if the property value = default(T)
+        ///     </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="prefix"></param>
@@ -334,23 +328,22 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <returns></returns>
         public T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class
         {
-
-                if (string.IsNullOrWhiteSpace(keyVaultUrl))
-                {
-                    keyVaultUrl = _keyVaultUrl;
-                }
-
-
-                // Build a unique Key to see if the object has already been created
-                // and stored in cache.
-                var key = typeof(T).FullName + ":" + prefix;
+            if (string.IsNullOrWhiteSpace(keyVaultUrl))
+            {
+                keyVaultUrl = _keyVaultUrl;
+            }
 
 
-                // Call the KeyVault specific cache:
-                if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
-                {
-                    return (T) KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
-                }
+            // Build a unique Key to see if the object has already been created
+            // and stored in cache.
+            var key = typeof(T).FullName + ":" + prefix;
+
+
+            // Call the KeyVault specific cache:
+            if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
+            {
+                return (T) KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
+            }
 
             using (var elapsedTime = new ElapsedTime())
             {
@@ -359,18 +352,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                 var result = _hostSettingsService.GetObject<T>(prefix);
 
                 // And override any values with KeyValues
-                ConfigurationObjectFactory.Provision<T>(result, prefix);
+                ConfigurationObjectFactory.Provision(result, prefix);
 
                 // Then cache it:
                 HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
 
-                string msg =
+                var msg =
                     $"Took {elapsedTime.ElapsedText} to build and provision the {result.GetType()} configuration object (using KeyVault/AppHost settings).";
 
-                this._diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
+                _diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
                 return result;
             }
-
         }
 
         //public void Do()
@@ -389,27 +381,23 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         //}
 
 
-
         /// <summary>
-        /// Gets or sets the standard key divider character ('-').
-        /// <para>
-        /// Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so
-        /// they must be converted to this character (eg: '-', or '_', or maybe even '')
-        /// </para>
+        ///     Gets or sets the standard key divider character ('-').
+        ///     <para>
+        ///         Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so
+        ///         they must be converted to this character (eg: '-', or '_', or maybe even '')
+        ///     </para>
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public string CleanKeyName(string key)
         {
-
-            foreach (string k in this._configuration.KeyIllegalCharacters)
+            foreach (var k in Configuration.KeyIllegalCharacters)
             {
-                key = key.Replace(k, this._configuration.KeyStandardNameComponentDivider);
+                key = key.Replace(k, Configuration.KeyStandardNameComponentDivider);
             }
+
             return key;
         }
-
     }
 }
-
-

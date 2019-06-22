@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
 using App.Modules.All.Shared.Factories;
 using App.Modules.All.Shared.Models;
@@ -6,15 +8,15 @@ using App.Modules.All.Shared.Models;
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// DTO
+    ///     DTO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class SecurityProfileDto 
-        : IHasGuidId, 
+    public class SecurityProfileDto
+        : IHasGuidId,
             IHasKey
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecurityProfileDto"/> class.
+        ///     Initializes a new instance of the <see cref="SecurityProfileDto" /> class.
         /// </summary>
         public SecurityProfileDto()
         {
@@ -22,44 +24,46 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         }
 
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the account groups.
         /// </summary>
         /// <value>
-        /// The identifier.
-        /// </value>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique key of the object,
-        /// by which it is indexed when persisted
-        /// (in additional to any primary Id).
-        /// <para>
-        /// Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" /></para>.
-        /// </summary>
-        public string Key { get; set; }
-
-        /// <summary>
-        /// Gets or sets the account groups.
-        /// </summary>
-        /// <value>
-        /// The account groups.
+        ///     The account groups.
         /// </value>
         public ICollection<SecurityProfileRoleGroupDto> AccountGroups { get; set; }
 
         /// <summary>
-        /// Gets or sets the roles.
+        ///     Gets or sets the roles.
         /// </summary>
         /// <value>
-        /// The roles.
+        ///     The roles.
         /// </value>
         public ICollection<SecurityProfileRoleDto> Roles { get; set; }
 
         /// <summary>
-        /// Gets or sets the permissions assignments.
+        ///     Gets or sets the permissions assignments.
         /// </summary>
         /// <value>
-        /// The permissions assignments.
+        ///     The permissions assignments.
         /// </value>
         public ICollection<SecurityProfileSecurityProfilePermissionAssignmentDto> PermissionsAssignments { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        ///     The identifier.
+        /// </value>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the unique key of the object,
+        ///     by which it is indexed when persisted
+        ///     (in additional to any primary Id).
+        ///     <para>
+        ///         Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" />
+        ///     </para>
+        ///     .
+        /// </summary>
+        public string Key { get; set; }
     }
 }

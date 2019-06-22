@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Linq;
 using App.Modules.All.Infrastructure.Initialization;
 using App.Modules.Core.Shared.Models.Messages;
 

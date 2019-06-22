@@ -1,4 +1,6 @@
-﻿using App.Modules.Core.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Models.Entities;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Entities
@@ -7,7 +9,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Entities
     {
         public ObjectMap_Principal()
         {
-            var mapping = CreateMap<Principal, Principal>()
+            IMappingExpression<Principal, Principal> mapping = CreateMap<Principal, Principal>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CategoryFK, opt => opt.Ignore())
                 .ForMember(dest => dest.Category, opt => opt.Ignore())

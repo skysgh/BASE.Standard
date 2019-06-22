@@ -1,10 +1,12 @@
-﻿namespace App.Modules.Design.Shared.Models.Entities
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Design.Shared.Models.Entities
 {
     /// <summary>
-    /// A description of a registered Mvc Route.
-    /// <para>
-    /// Used for diagnostics purposes.
-    /// </para>
+    ///     A description of a registered Mvc Route.
+    ///     <para>
+    ///         Used for diagnostics purposes.
+    ///     </para>
     /// </summary>
     public class Route
     {

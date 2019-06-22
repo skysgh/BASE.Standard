@@ -1,85 +1,43 @@
-﻿using App.Modules.Core.Shared.Configuration.Settings;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
     /// <summary>
-    /// Configuration object to be injected into the 
-    /// implementation of <see cref="IAzureKeyVaultService"/>
-    /// <para>
-    /// Inherits from <see cref="ICoreServiceConfigurationObject"/>
-    /// whic inherits from <see cref="IHasSingletonLifecycle"/>
-    /// to hint at startup that the Configuration object should be 
-    /// IoC registered for the duration of the application (not the thread).
-    /// as some configuration hits remote services (eg: Azure KeyVault)
-    /// which would be rather slow.
-    /// </para>
+    ///     Configuration object to be injected into the
+    ///     implementation of <see cref="IAzureKeyVaultService" />
+    ///     <para>
+    ///         Inherits from <see cref="ICoreServiceConfigurationObject" />
+    ///         whic inherits from <see cref="IHasSingletonLifecycle" />
+    ///         to hint at startup that the Configuration object should be
+    ///         IoC registered for the duration of the application (not the thread).
+    ///         as some configuration hits remote services (eg: Azure KeyVault)
+    ///         which would be rather slow.
+    ///     </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
     public class AzureKeyVaultServiceConfiguration : ICoreServiceConfigurationObject
     {
-        /// <summary>
-        /// Gets or sets the standard key divider character ('-').
-        /// <para>
-        /// Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so 
-        /// they must be converted to this character (eg: '-', or '_', or maybe even '')
-        /// </para>
-        /// </summary>
-        public string KeyStandardNameComponentDivider { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the key illegal characters.
-        /// <para>
-        /// Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so 
-        /// they must be converted to this character (eg: '-', or '_', or maybe even '')
-        /// </para>
-        /// </summary>
-        /// <value>
-        /// The key illegal characters.
-        /// </value>
-        public string[] KeyIllegalCharacters { get; private set; }
-
-
-
-
-        /// <summary>
-        /// Gets the name of the KeyVault Resource.
-        /// <para>
-        /// If not defined in AppSettings using 
-        /// <see cref="ConfigurationKeys.AppCoreIntegrationAzureKeyVaultStoreResourceName"/>
-        /// will fall back to value provided by <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName"/>
-        /// </para>
-        /// </summary>
-        public string ResourceName { get; private set; }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string KeyPrefix
-        {
-            get;
-            private set;
-        }
-
         //public readonly AadApplicationRegistrationInformationHostConfiguration AADClientInfo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzureKeyVaultServiceConfiguration"/> class.
-        /// <para>
-        /// Note that this one of the only settings that goes directly to HostSettingsService.
-        /// </para>
+        ///     Initializes a new instance of the <see cref="AzureKeyVaultServiceConfiguration" /> class.
+        ///     <para>
+        ///         Note that this one of the only settings that goes directly to HostSettingsService.
+        ///     </para>
         /// </summary>
         /// <param name="hostSettingsService">The host settings service.</param>
         public AzureKeyVaultServiceConfiguration(IHostSettingsService hostSettingsService /*NO: IAzureKeyVaultService*/)
         {
             KeyStandardNameComponentDivider = "-";
-            KeyIllegalCharacters = new[] { ":", "." };
+            KeyIllegalCharacters = new[] {":", "."};
 
             var configuration = hostSettingsService.GetObject<AzureKeyVaultConfigurationSettings>();
 
             //Get the resourceName for the KeyVault
-            this.ResourceName = configuration.ResourceName;
+            ResourceName = configuration.ResourceName;
             if (string.IsNullOrEmpty(ResourceName))
             {
                 // Get the configuration for this service:
@@ -98,5 +56,42 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
             //this.AADClientInfo = hostSettingsService.GetObject<AadApplicationRegistrationInformationHostConfiguration>();
         }
 
+        /// <summary>
+        ///     Gets or sets the standard key divider character ('-').
+        ///     <para>
+        ///         Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so
+        ///         they must be converted to this character (eg: '-', or '_', or maybe even '')
+        ///     </para>
+        /// </summary>
+        public string KeyStandardNameComponentDivider { get; }
+
+        /// <summary>
+        ///     Gets or sets the key illegal characters.
+        ///     <para>
+        ///         Whereas AppHost keys can contain ':', etc. -- KeyVault cannot, so
+        ///         they must be converted to this character (eg: '-', or '_', or maybe even '')
+        ///     </para>
+        /// </summary>
+        /// <value>
+        ///     The key illegal characters.
+        /// </value>
+        public string[] KeyIllegalCharacters { get; }
+
+
+        /// <summary>
+        ///     Gets the name of the KeyVault Resource.
+        ///     <para>
+        ///         If not defined in AppSettings using
+        ///         <see cref="ConfigurationKeys.AppCoreIntegrationAzureKeyVaultStoreResourceName" />
+        ///         will fall back to value provided by
+        ///         <see cref="Shared.Constants.ConfigurationKeys.AppCoreIntegrationAzureCommonResourceName" />
+        ///     </para>
+        /// </summary>
+        public string ResourceName { get; }
+
+
+        /// <summary>
+        /// </summary>
+        public string KeyPrefix { get; private set; }
     }
 }

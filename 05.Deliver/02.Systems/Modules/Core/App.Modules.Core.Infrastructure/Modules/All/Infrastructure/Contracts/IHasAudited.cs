@@ -1,4 +1,6 @@
-﻿namespace App.Modules.All.Infrastructure.Contracts
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Infrastructure.Contracts
 {
     public interface IHasAudited
     {

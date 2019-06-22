@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Infrastructure.Factories
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Infrastructure.Factories
 //{
 //    using System;
 //    using System.ComponentModel;
@@ -8,7 +10,6 @@
 //    using App.Modules.Core.Infrastructure.Services;
 //    using App.Modules.Core.Shared.Attributes;
 //    using Microsoft.Azure;
-
 
 
 //    /// <summary>
@@ -85,7 +86,7 @@
 //        public virtual T Provision<T>(T target, string prefix = null) where T : class
 //        {
 //            var objectName = target.GetType().Name;
-                
+
 //            // Iterate over the public properties of the target object
 //            // using the property's name, o
 //            foreach (var propertyInfo in typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public |
@@ -162,8 +163,6 @@
 
 //            return target;
 //        }
-
-
 
 
 //        ///// <summary>
@@ -244,3 +243,4 @@
 //    }
 
 //}
+

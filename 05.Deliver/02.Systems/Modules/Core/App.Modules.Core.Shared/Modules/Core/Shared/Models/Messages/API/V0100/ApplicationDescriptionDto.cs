@@ -1,65 +1,57 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// DTO Message for <see cref="ApplicationDescriptionConfigurationSettings"/>
-    /// summarizing the Application's Name, Description, Creator, Distributor.
-    /// For use by any User Agent to render on their Header View.
+    ///     DTO Message for <see cref="ApplicationDescriptionConfigurationSettings" />
+    ///     summarizing the Application's Name, Description, Creator, Distributor.
+    ///     For use by any User Agent to render on their Header View.
     /// </summary>
     /// <seealso cref="IHasGuidId" />
     public class ApplicationDescriptionDto : IHasGuidId
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The identifier.
-        /// </value>
-        public Guid Id
-        {
-            get; set;
-        }
-
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
+        ///     The name.
         /// </value>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>
-        /// The description.
+        ///     The description.
         /// </value>
-        public string Description
-        {
-            get; set;
-        }
+        public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the creator.
+        ///     Gets or sets the creator.
         /// </summary>
         /// <value>
-        /// The creator.
+        ///     The creator.
         /// </value>
         public ApplicationProviderInformationDto Creator { get; set; }
 
         /// <summary>
-        /// Gets or sets the distributor.
+        ///     Gets or sets the distributor.
         /// </summary>
         /// <value>
-        /// The distributor.
+        ///     The distributor.
         /// </value>
-        public ApplicationProviderInformationDto Distributor 
-        {
-            get; set;
-        }
+        public ApplicationProviderInformationDto Distributor { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        ///     The identifier.
+        /// </value>
+        public Guid Id { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 
 //namespace App.Modules.Core.Shared.Models.Implementations
 //{
@@ -13,3 +15,4 @@
 
 //    }
 //}
+

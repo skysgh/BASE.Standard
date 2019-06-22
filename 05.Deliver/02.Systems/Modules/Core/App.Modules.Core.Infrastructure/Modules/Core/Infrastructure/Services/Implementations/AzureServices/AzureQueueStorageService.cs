@@ -1,4 +1,7 @@
-﻿using App.Modules.Core.Infrastructure.DependencyResolution;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.Constants.Storage;
+using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
@@ -7,32 +10,28 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     ///     Implementation of the
     ///     <see cref="IAzureQueueStorageService" />
     ///     Infrastructure Service Contract
-    /// </summary>   
+    /// </summary>
     public class AzureQueueStorageService : IAzureQueueStorageService
     {
-
         /// <summary>
-        /// Use Service Locator to return specified context.
+        ///     Use Service Locator to return specified context.
         /// </summary>
         /// <param name="storageAccountContextKey">The storage account context key.</param>
         /// <returns></returns>
         private IAzureStorageQueueContext GetStorageAccountContext(string storageAccountContextKey)
         {
-
             // If no name given, fall back to the default one:
             if (string.IsNullOrWhiteSpace(storageAccountContextKey))
             {
-                storageAccountContextKey = Constants.Storage.StorageAccountNames.Default;
+                storageAccountContextKey = StorageAccountNames.Default;
             }
 
             var result = DependencyLocator.Current.GetInstance<IAzureStorageQueueContext>(storageAccountContextKey);
 
             return result;
-
         }
 
         // Src: http://gauravmantri.com/2012/11/24/storage-client-library-2-0-migrating-queue-storage-code/
-
 
 
         private void foo()
@@ -118,10 +117,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             //CloudQueueClient cloudQueueClient = storageAccount.CreateCloudQueueClient();
             //CloudQueue queue = cloudQueueClient.GetQueueReference(queueName);
             //queue.Clear();
-
         }
-
-
-
     }
 }

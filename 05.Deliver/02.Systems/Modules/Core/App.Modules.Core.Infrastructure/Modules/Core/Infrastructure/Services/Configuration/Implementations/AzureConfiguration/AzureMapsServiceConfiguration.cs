@@ -1,13 +1,14 @@
-﻿using App.Modules.Core.Shared.Configuration.Settings;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
     public class AzureMapsServiceConfiguration : ICoreServiceConfigurationObject
     {
-
-        public string RootUri = "https://atlas.microsoft.com";// /search/address/reverse/json?subscription-key={subscription-key}&api-version=1.0&query={query}"
-
-        public string Key { get; set; }
+        public string
+            RootUri =
+                "https://atlas.microsoft.com"; // /search/address/reverse/json?subscription-key={subscription-key}&api-version=1.0&query={query}"
 
 
         public AzureMapsServiceConfiguration(IAzureKeyVaultService keyVaultService)
@@ -23,5 +24,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
 
             Key = configuration.Key;
         }
+
+        public string Key { get; set; }
     }
 }

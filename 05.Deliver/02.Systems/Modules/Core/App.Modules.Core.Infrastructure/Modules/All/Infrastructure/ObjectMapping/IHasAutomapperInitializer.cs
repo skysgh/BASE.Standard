@@ -1,4 +1,6 @@
-﻿//using App.Modules.All.Infrastructure.Initialization;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using App.Modules.All.Infrastructure.Initialization;
 //using App.Modules.All.Shared.Initialization;
 //using AutoMapper;
 
@@ -27,3 +29,4 @@
 //                               */
 //    }
 //}
+

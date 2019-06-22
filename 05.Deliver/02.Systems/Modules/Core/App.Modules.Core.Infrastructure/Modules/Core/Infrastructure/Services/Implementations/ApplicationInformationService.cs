@@ -1,12 +1,11 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
 
-using App.Modules.Core.Shared.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IApplicationInformationService" />
@@ -17,22 +16,25 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly ApplicationInformationServiceConfiguration _applicationInformationServiceConfiguration;
 
-        public ApplicationInformationService(ApplicationInformationServiceConfiguration applicationInformationServiceConfiguration)
+        public ApplicationInformationService(
+            ApplicationInformationServiceConfiguration applicationInformationServiceConfiguration)
         {
-            this._applicationInformationServiceConfiguration = applicationInformationServiceConfiguration;
+            _applicationInformationServiceConfiguration = applicationInformationServiceConfiguration;
         }
 
         public ApplicationDescriptionConfigurationSettings GetApplicationInformation()
         {
-            return this._applicationInformationServiceConfiguration.ApplicationInformation;
+            return _applicationInformationServiceConfiguration.ApplicationInformation;
         }
+
         public ApplicationCreatorInformationConfigurationSettings GetApplicationCreatorInformation()
         {
-            return this._applicationInformationServiceConfiguration.ApplicationCreatorInformation;
+            return _applicationInformationServiceConfiguration.ApplicationCreatorInformation;
         }
+
         public ApplicationDistributorInformationConfigurationSettings GetApplicationDistributorInformation()
         {
-            return this._applicationInformationServiceConfiguration.ApplicationDistributorInformation;
+            return _applicationInformationServiceConfiguration.ApplicationDistributorInformation;
         }
     }
 }

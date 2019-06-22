@@ -1,25 +1,28 @@
-﻿namespace App.Modules.Core.Shared.Models.Messages
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
-    /// 
     /// </summary>
     public enum ConfigurationStepType
     {
         /// <summary>
-        /// Step is for undefined
+        ///     Step is for undefined
         /// </summary>
         Undefined = 0,
+
         /// <summary>
-        /// Step is for general
+        ///     Step is for general
         /// </summary>
         General = 1,
+
         /// <summary>
-        /// Step is for security
+        ///     Step is for security
         /// </summary>
         Security = 2,
 
         /// <summary>
-        /// Step is for performance
+        ///     Step is for performance
         /// </summary>
         Performance = 3
     }

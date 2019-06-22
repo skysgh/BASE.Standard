@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
 using App.Modules.All.Shared.Factories;
 using App.Modules.All.Shared.Models;
@@ -6,50 +8,47 @@ using App.Modules.All.Shared.Models;
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// TODO: DTO
+    ///     TODO: DTO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class SecurityProfileRoleDto 
-        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
+    public class SecurityProfileRoleDto
+        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */
         : IHasGuidId,
             IHasTitle,
             IHasDescription
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecurityProfileRoleDto"/> class.
+        ///     Initializes a new instance of the <see cref="SecurityProfileRoleDto" /> class.
         /// </summary>
         public SecurityProfileRoleDto()
         {
-            this.Id = GuidFactory.NewGuid();
-
+            Id = GuidFactory.NewGuid();
         }
 
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the permissions.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The permissions.
         /// </value>
-        public Guid Id { get; set; }
+        public ICollection<SecurityProfilePermissionDto> Permissions { get; set; }
 
         /// <summary>
-        /// Gets or sets the title of the model.
-        /// </summary>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// Gets or sets the optional displayed description.
+        ///     Gets or sets the optional displayed description.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the permissions.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The permissions.
+        ///     The identifier.
         /// </value>
-        public ICollection<SecurityProfilePermissionDto> Permissions { get; set; }
+        public Guid Id { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the title of the model.
+        /// </summary>
+        public string Title { get; set; }
     }
 }
-

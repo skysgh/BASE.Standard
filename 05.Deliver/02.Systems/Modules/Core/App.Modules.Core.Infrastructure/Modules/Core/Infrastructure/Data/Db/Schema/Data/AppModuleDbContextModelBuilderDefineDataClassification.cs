@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Shared.Models.Entities;
@@ -8,14 +10,16 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Data
 {
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
-    public class AppModuleDbContextModelBuilderDefineDataClassification : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineDataClassification :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<DataClassification>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
@@ -26,6 +30,5 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Data
 
             modelBuilder.DefineDisplayableReferenceData<DataClassification>(ref order);
         }
-
     }
 }

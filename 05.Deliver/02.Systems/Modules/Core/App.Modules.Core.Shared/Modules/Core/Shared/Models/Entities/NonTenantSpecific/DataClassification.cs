@@ -1,13 +1,15 @@
-﻿using App.Modules.All.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Entities
 {
     /// <summary>
-    /// Entity to record
-    /// DataClassification of objects.
+    ///     Entity to record
+    ///     DataClassification of objects.
     /// </summary>
-    /// <seealso cref="UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase{NZDataClassification}" />
-    public class DataClassification 
+    /// <seealso cref="UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase{TId}" />
+    public class DataClassification
         : UntenantedRecordStatedTimestampedCustomIdReferenceDataEntityBase<NZDataClassification>
     {
     }

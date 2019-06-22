@@ -1,19 +1,21 @@
-﻿using App.Modules.All.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
 {
     /// <summary>
-    /// Base class for mapping
-    /// between
-    /// ReferenceData
-    /// Dtos and Entities
-    /// that have
-    /// Timestamps (all Entities do),
-    /// and RecordState (most entities do),
-    /// and Tenancy Id attribute,
-    /// and Guid Id
+    ///     Base class for mapping
+    ///     between
+    ///     ReferenceData
+    ///     Dtos and Entities
+    ///     that have
+    ///     Timestamps (all Entities do),
+    ///     and RecordState (most entities do),
+    ///     and Tenancy Id attribute,
+    ///     and Guid Id
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TDto">The type of the dto.</typeparam>
@@ -23,10 +25,8 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
         where TEntity : TenantFKRecordStatedTimestampedGuidIdReferenceDataEntityBase
         where TDto : TenantedRecordStateGuidIdReferenceDtoBase
     {
-
-
         /// <summary>
-        /// Configures the map from entity to dto.
+        ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
@@ -42,7 +42,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
         }
 
         /// <summary>
-        /// Configures the map from dto to entity.
+        ///     Configures the map from dto to entity.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
@@ -53,6 +53,5 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base
                 ;
             //base.ConfigureMapFromDtoToEntity(mappingExpression);
         }
-
     }
 }

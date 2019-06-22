@@ -1,14 +1,16 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// DTO
+    ///     DTO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class SessionOperationDto 
-        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
+    public class SessionOperationDto
+        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */
         : IHasGuidId
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -24,10 +26,10 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         public virtual string ResponseCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
         public virtual Guid Id { get; set; }
 

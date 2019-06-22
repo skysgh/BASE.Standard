@@ -6,7 +6,7 @@ using Xunit;
 namespace App.Modules.Core.Infrastructure.Tests.Extensions
 {
 
-    public class StringExtensions
+    public class StringExtensions : TestClassBase
     {
         [SelfNamingTheory]
         [InlineData("thisIsATest")]

@@ -1,9 +1,11 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Models.Entities
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.Entities.UntenantedRecordStatedTimestampedNoIdEntityBase" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasTenantFK" />
@@ -12,13 +14,11 @@ namespace App.Modules.All.Shared.Models.Entities
         IHasTenantFK
     {
         /// <summary>
-        /// Gets or sets the FK of the Tenancy this mutable model belongs to.
+        ///     Gets or sets the FK of the Tenancy this mutable model belongs to.
         /// </summary>
         /// <value>
-        /// The tenant fk.
+        ///     The tenant fk.
         /// </value>
         public virtual Guid TenantFK { get; set; }
     }
-
-
 }

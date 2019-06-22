@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 //using System.Collections.Generic;
 //using System.Text;
 
@@ -6,7 +8,6 @@
 //{
 //    class Class1
 //    {
-
 
 
 //        protected override void SeedImmutableData(ModelBuilder modelBuilder)
@@ -55,3 +56,4 @@
 //    }
 //}
 //}
+

@@ -1,15 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.All.Infrastructure.Data.Db.Schema.Conventions
 {
     public class DefaultTableAndSchemaNamingConvention
     {
-        public void Define<T>(ModelBuilder modelBuilder, 
-            string schema 
-            )
+        public void Define<T>(ModelBuilder modelBuilder,
+            string schema
+        )
             where T : class
         {
-            string name = typeof(T).Name;
+            var name = typeof(T).Name;
 
             if (name.EndsWith("y"))
             {
@@ -21,8 +23,6 @@ namespace App.Modules.All.Infrastructure.Data.Db.Schema.Conventions
             }
 
             modelBuilder.Entity<T>().ToTable(name, schema);
-
         }
     }
-
 }

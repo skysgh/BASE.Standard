@@ -1,4 +1,5 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
 //namespace App.Modules.Core.Infrastructure.Initialization.Search.Implementations
 //{
 //    using System;
@@ -17,7 +18,7 @@
 //            IPrincipalService principalService, IRepositoryService repositoryService) : base(diagnosticsTracingService,
 //            principalService, repositoryService)
 //        {
-            
+
 //        }
 
 //        public override IQueryable<SearchResponseItem> Search(string searchTerm)
@@ -41,3 +42,4 @@
 //        }
 //    }
 //}
+

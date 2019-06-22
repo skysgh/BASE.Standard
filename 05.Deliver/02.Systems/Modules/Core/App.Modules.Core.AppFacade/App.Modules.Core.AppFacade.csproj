@@ -59,7 +59,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Modules\All\AppFacade\Views\" />
+    <Folder Include="Modules\All\AppFacade\Controllers\View\" />
     <Folder Include="Modules\Core\AppFacade\Controllers\Api\Classic\Base\" />
     <Folder Include="Modules\Core\AppFacade\Controllers\Api\OData\HOLD\" />
     <Folder Include="Modules\Core\AppFacade\Views\" />

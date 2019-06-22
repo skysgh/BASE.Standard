@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using App;
 using App.Modules.All.AppFacade.Controllers.Api.Classic;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
@@ -8,16 +7,16 @@ using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.KWMODULE.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Modules.KWMODULE.AppFacade.Controllers.Apis.Classic
+namespace App.Modules.KWMODULE.AppFacade.Controllers.Api.Classic
 {
-    [Route(App.Modules.All.Shared.Constants.Apis.BasePath + "diagnostics/" + "[controller]")]
+    [Route(All.Shared.Constants.Apis.BasePath + "diagnostics/" + "[controller]")]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class DependencyResolutionController : AllModulesApiControllerBase
     {
         private readonly IExampleInfrastructureService _exampleInfrastructureService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyResolutionController"/> class.
+        ///     Initializes a new instance of the <see cref="DependencyResolutionController" /> class.
         /// </summary>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="principalService">The principal service.</param>
@@ -32,7 +31,7 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Apis.Classic
         {
             _exampleInfrastructureService = exampleInfrastructureService;
 
-            int x = dbContext.Set<DataClassification>().Count();
+            var x = dbContext.Set<DataClassification>().Count();
         }
 
         // GET api/values
@@ -41,7 +40,7 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Apis.Classic
         public ActionResult<IEnumerable<string>> Get()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            return new string[] { "value1", "valueDiagnostics" };
+            return new[] {"value1", "valueDiagnostics"};
         }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

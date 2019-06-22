@@ -1,3 +1,5 @@
+// Copyright MachineBrains, Inc. 2019
+
 using System;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Services;
@@ -8,17 +10,17 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
 {
     /// <summary>
     ///     Abstract base class for a strategy to be applied when persisting changes.
-    /// <para>
-    /// Invoked when the Request is wrapping up, 
-    /// and invokes <see cref="IUnitOfWorkService"/>'s 
-    /// commit operation, 
-    /// which in turn invokes each DbContext's SaveChanges, 
-    /// which are individually overridden, to in turn 
-    /// invoke <see cref="IDbContextPreCommitService"/>
-    /// which invokes 
-    /// all PreCommitProcessingStrategy implementations, such 
-    /// as this.
-    /// </para>
+    ///     <para>
+    ///         Invoked when the Request is wrapping up,
+    ///         and invokes <see cref="IUnitOfWorkService" />'s
+    ///         commit operation,
+    ///         which in turn invokes each DbContext's SaveChanges,
+    ///         which are individually overridden, to in turn
+    ///         invoke <see cref="IDbContextPreCommitService" />
+    ///         which invokes
+    ///         all PreCommitProcessingStrategy implementations, such
+    ///         as this.
+    ///     </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class DbContextPreCommitProcessingStrategyBase<T> : IDbCommitPreCommitProcessingStrategy
@@ -53,7 +55,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
 
         /// <summary>
         ///     Initializes a new instance of the
-        /// <see cref="DbContextPreCommitProcessingStrategyBase{T}" /> class.
+        ///     <see cref="DbContextPreCommitProcessingStrategyBase{T}" /> class.
         /// </summary>
         /// <param name="principalService"></param>
         /// <param name="states">The states.</param>
@@ -63,26 +65,26 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
             IPrincipalService principalService,
             params EntityState[] states)
         {
-            this.Enabled = true;
-            this._interfaceType = typeof(T);
-            this._dateTimeService = dateTimeService;
-            this._dateTimeService = dateTimeService;
-            this._principalService = principalService;
-            this._states = states;
+            Enabled = true;
+            _interfaceType = typeof(T);
+            _dateTimeService = dateTimeService;
+            _dateTimeService = dateTimeService;
+            _principalService = principalService;
+            _states = states;
         }
 
         /// <summary>
         ///     The interface the <see cref="DbEntityEntry.Entity" />
-        /// must match before the Strategy is applied.
+        ///     must match before the Strategy is applied.
         /// </summary>
         /// <value></value>
-        public Type InterfaceType => this._interfaceType;
+        public Type InterfaceType => _interfaceType;
 
         /// <summary>
         ///     The <see cref="EntityState" /> the <see cref="DbEntityEntry.State" /> must match before the Strategy is applied.
         /// </summary>
         /// <value></value>
-        public EntityState[] States => this._states;
+        public EntityState[] States => _states;
 
 
         /// <summary>
@@ -99,30 +101,31 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
         /// </summary>
         public virtual void Process(DbContext dbContext)
         {
-            this._dbContext = dbContext;
-            this._dbChangeTracker = this._dbContext.ChangeTracker;
+            _dbContext = dbContext;
+            _dbChangeTracker = _dbContext.ChangeTracker;
 
-            this._nowUtc = this._dateTimeService.NowUtc();
-            this._currentUser = this._principalService.CurrentPrincipalName;
+            _nowUtc = _dateTimeService.NowUtc();
+            _currentUser = _principalService.CurrentPrincipalName;
 
-            this.Enabled = true;
+            Enabled = true;
 
 
             //Iterate through entities
             //Could only find a way to interate through all entities
             //so loop through them first (there won't be many in most cases):
-            foreach (var dbEntityEntry in this._dbChangeTracker.Entries())
+            foreach (var dbEntityEntry in _dbChangeTracker.Entries())
             {
                 //Get the Entity Type (History, Vertex, etc.)
                 //In order to find out if any interfaces the entity impleemnts
                 //match cached save strategies:
                 var entityType = dbEntityEntry.Entity.GetType();
 
-                if (!this.InterfaceType.IsAssignableFrom(entityType))
+                if (!InterfaceType.IsAssignableFrom(entityType))
                 {
                     //Go to next entity:
                     continue;
                 }
+
                 //Have an entity that matches interface, so ok to process:
                 var entity = InspectDbEntityEntry(dbEntityEntry);
                 if (entity != null)
@@ -141,13 +144,14 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
         /// <param name="dbEntityEntry">The <see cref="DbEntityEntry" />.</param>
         protected virtual T InspectDbEntityEntry(EntityEntry dbEntityEntry)
         {
-            foreach (var dbEntityEntry2 in this.States)
+            foreach (var dbEntityEntry2 in States)
             {
                 if (((int) dbEntityEntry.State).BitIsSet((int) dbEntityEntry2))
                 {
                     return dbEntityEntry.Entity as T;
                 }
             }
+
             return null;
         }
 
@@ -159,7 +163,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.CommitInterceptions
         /// <returns></returns>
         protected EntityState GetEntityState(T entity)
         {
-            return this._dbContext.Entry(entity).State;
+            return _dbContext.Entry(entity).State;
         }
 
         /// <summary>

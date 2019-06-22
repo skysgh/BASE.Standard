@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Linq;
 using App.Modules.All.Infrastructure.Search;
 using App.Modules.All.Shared.Attributes;
@@ -16,7 +18,6 @@ namespace App.Modules.Core.Infrastructure.Search.Implementations
             IPrincipalService principalService, ModuleDbContext repositoryService) : base(diagnosticsTracingService,
             principalService, repositoryService)
         {
-
         }
 
         public override IQueryable<SearchResponseItem> Search(string searchTerm)

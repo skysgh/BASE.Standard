@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Infrastructure.Services.Implementations
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Infrastructure.Services.Implementations
 //{
 //    using System;
 //    using System.ComponentModel;
@@ -130,3 +132,4 @@
 //        }
 //    }
 //}
+

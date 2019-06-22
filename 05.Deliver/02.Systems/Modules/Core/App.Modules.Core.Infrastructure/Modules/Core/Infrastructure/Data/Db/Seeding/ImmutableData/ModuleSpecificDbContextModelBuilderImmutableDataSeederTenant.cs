@@ -1,22 +1,26 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData;
+using App.Modules.Core.Infrastructure.Constants.Tenancy;
 using App.Modules.Core.Shared.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.ImmutableData
 {
     /// <summary>
-    /// Class for
-    ///  seeding of immutable data
-    /// as part of 
-    /// DbContext Migrations.
+    ///     Class for
+    ///     seeding of immutable data
+    ///     as part of
+    ///     DbContext Migrations.
     /// </summary>
-    /// <seealso cref="App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
+    /// <seealso
+    ///     cref="App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData.ModuleSpecificDbContextModelBuilderImmutableDataSeederBase" />
     public class ModuleSpecificDbContextModelBuilderImmutableDataSeederTenant :
         ModuleSpecificDbContextModelBuilderImmutableDataSeederBase
     {
         /// <summary>
-        /// Invoke to create immutable data
-        /// as part of the current Migration.
+        ///     Invoke to create immutable data
+        ///     as part of the current Migration.
         /// </summary>
         /// <param name="modelBuilder">The model builder.</param>
         public override void DefineImmutableData(ModelBuilder modelBuilder)
@@ -27,21 +31,21 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.ImmutableData
         private static void DefineDefaultTenant(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tenant>().HasData(
-                App.Modules.Core.Infrastructure.Constants.Tenancy.Default.DefaultTenant
-                );
+                Default.DefaultTenant
+            );
         }
+
         private static void DefineDefaultTenantProperties(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TenantProperty>().HasData(
                 new TenantProperty
                 {
                     Id = 1.ToGuid(),
-                    TenantFK = Constants.Tenancy.Default.DefaultTenant.Id,
+                    TenantFK = Default.DefaultTenant.Id,
                     Key = "Purpose",
                     Value = "Default parent Tenancy."
                 }
-                );
-
+            );
         }
     }
 }

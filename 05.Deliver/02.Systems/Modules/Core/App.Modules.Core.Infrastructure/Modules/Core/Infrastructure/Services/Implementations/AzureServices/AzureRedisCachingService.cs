@@ -1,11 +1,10 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.Core.Infrastructure.ServiceAgents;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using CachingFramework.Redis;
 using CachingFramework.Redis.Contracts.Providers;
-using StackExchange.Redis;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
@@ -13,23 +12,21 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     {
         private readonly IOperationContextService _operationContextService;
         private readonly Lazy<RedisContext> _redisContext;
- 
 
-        public AzureRedisCacheService (
-            IOperationContextService operationContextService, 
+
+        public AzureRedisCacheService(
+            IOperationContextService operationContextService,
             IAzureRedisServiceAgent azureRedisConnection)
         {
-            this._operationContextService = operationContextService;
-            if(azureRedisConnection.Enabled) 
+            _operationContextService = operationContextService;
+            if (azureRedisConnection.Enabled)
             {
-                _redisContext = 
-                    new Lazy<RedisContext>(() => 
-                    new RedisContext(azureRedisConnection.ConnectionMultiplexer));
+                _redisContext =
+                    new Lazy<RedisContext>(() =>
+                        new RedisContext(azureRedisConnection.ConnectionMultiplexer));
             }
-                //To make this library's context:
-             
 
-            
+            //To make this library's context:
         }
 
         private ICacheProvider Cache
@@ -47,7 +44,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public void Set<T>(string key, T value, TimeSpan? duration = null)
         {
-            if(Cache == null ) { return; }
+            if (Cache == null)
+            {
+                return;
+            }
 
             if (!duration.HasValue)
             {
@@ -63,17 +63,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
             // And for faster retrieval, set it also in local context:
             var localKey = GetOperationKey(key);
-            _operationContextService.Set<T>(localKey, value);
-
+            _operationContextService.Set(localKey, value);
         }
 
 
-
-        public void Set<T>(string key, string subKey, T value, TimeSpan? duration=null)
+        public void Set<T>(string key, string subKey, T value, TimeSpan? duration = null)
         {
-            if (Cache == null) { return; }
+            if (Cache == null)
+            {
+                return;
+            }
 
-            if ((duration == null) || (!duration.HasValue))
+            if (duration == null || !duration.HasValue)
             {
                 duration = TimeSpan.FromSeconds(60);
             }
@@ -84,7 +85,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             }
 
             Cache.SetHashed(key, subKey, value, duration);
-
         }
 
         public T Get<T>(string key)
@@ -95,19 +95,29 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             {
                 return result;
             }
-            if (Cache == null) { return default(T); }
+
+            if (Cache == null)
+            {
+                return default;
+            }
+
             result = Cache.GetObject<T>(key);
             if (result != null)
             {
                 _operationContextService.Set(localKey, result);
             }
+
             return result;
         }
 
         public T Get<T>(string key, string subKey)
         {
-            if (Cache == null) { return default(T); }
-            return Cache.GetHashed<T>(key,subKey);
+            if (Cache == null)
+            {
+                return default;
+            }
+
+            return Cache.GetHashed<T>(key, subKey);
         }
 
 
@@ -116,5 +126,4 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             return "_redis:" + key;
         }
     }
-
 }

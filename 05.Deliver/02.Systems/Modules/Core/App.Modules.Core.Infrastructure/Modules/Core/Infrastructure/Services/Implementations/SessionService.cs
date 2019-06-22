@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
+using System.Linq;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ISessionService" />
@@ -22,20 +19,20 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         //private static readonly string _currentRequestCacheKey = "_CurrentSessionKey";
         private static readonly string _resourceListCacheKey = "_SessionCache";
-        private readonly ModuleDbContext _coreRepositoryService;
-        private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IObjectMappingService _objectMappingService;
+        private readonly IOperationContextService _operationContextService;
 
         public SessionService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService,
             IObjectMappingService objectMappingService)
         {
-            this._coreRepositoryService = repositoryService;
+            _coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
-            this._objectMappingService = objectMappingService;
+            _objectMappingService = objectMappingService;
         }
 
         public Session Get(string uniqueCacheId, TimeSpan? timespanToCache = null)
@@ -44,6 +41,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             {
                 return null;
             }
+
             //First, search in Request Cache:
             var result = GetFromLocalCache();
             if (result == null)
@@ -51,6 +49,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 //Otherwise look in shared cache:
                 result = GetFromDistributedCacheAndCacheLocally(uniqueCacheId);
             }
+
             if (result != null)
             {
                 return MaptoEntity(result);
@@ -68,13 +67,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public Session Create(Principal principal, string uniqueCacheId, TimeSpan? timespanToCache = null)
         {
-            Session session = new Session()
+            var session = new Session
             {
                 PrincipalFK = principal.Id,
                 UniqueIdentifier = uniqueCacheId
             };
 
-            this._coreRepositoryService.AddOnCommit<Session>(session);
+            _coreRepositoryService.AddOnCommit(session);
             AddToCache(uniqueCacheId, session, timespanToCache);
 
             return session;
@@ -82,12 +81,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public SessionDto GetFromLocalCache()
         {
-            return this._operationContextService.Get<SessionDto>(_resourceListCacheKey);
+            return _operationContextService.Get<SessionDto>(_resourceListCacheKey);
         }
 
         public SessionDto GetFromDistributedCacheAndCacheLocally(string uniqueCacheId)
         {
-            string redisKey = GetRedisKey() + uniqueCacheId.ToLower();
+            var redisKey = GetRedisKey() + uniqueCacheId.ToLower();
             var result = _azureRedisCacheService.Get<SessionDto>(redisKey);
             if (result != null)
             {
@@ -121,8 +120,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public void AddToLocalCache(SessionDto result)
         {
-            if(result == null) { return; } 
-            this._operationContextService.Set(_resourceListCacheKey, result);
+            if (result == null)
+            {
+                return;
+            }
+
+            _operationContextService.Set(_resourceListCacheKey, result);
         }
 
         public void AddToLocalCache(Session result)
@@ -137,8 +140,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public void AddToDistributedCache(string uniqueCacheId, SessionDto result, TimeSpan? timespan = null)
         {
-            if (string.IsNullOrWhiteSpace(uniqueCacheId) || result == null) { return; }
-            string redisKey = GetRedisKey() + uniqueCacheId.ToLower();
+            if (string.IsNullOrWhiteSpace(uniqueCacheId) || result == null)
+            {
+                return;
+            }
+
+            var redisKey = GetRedisKey() + uniqueCacheId.ToLower();
             _azureRedisCacheService.Set(redisKey, result, timespan ?? TimeSpan.FromMinutes(5));
         }
 

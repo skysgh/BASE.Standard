@@ -1,4 +1,6 @@
-﻿//using App.Modules.Core.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using App.Modules.Core.Shared.Models.Entities;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -15,3 +17,4 @@
 //    }
 
 //}
+

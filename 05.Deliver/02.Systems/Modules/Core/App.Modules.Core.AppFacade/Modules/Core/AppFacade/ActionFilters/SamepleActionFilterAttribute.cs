@@ -1,25 +1,18 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace App.Modules.Core.AppFacade.ActionFilters
 
 {
     /// <summary>
-    /// An example of a Sample filter that can be applied to all Requests.
+    ///     An example of a Sample filter that can be applied to all Requests.
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute" />
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class SamepleActionFilterAttribute : ActionFilterAttribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SamepleActionFilterAttribute"/> class.
-        /// </summary>
-        public SamepleActionFilterAttribute()
-        {
-
-        }
-
-
         /// <summary>
         /// </summary>
         /// <param name="context"></param>
@@ -36,5 +29,3 @@ namespace App.Modules.Core.AppFacade.ActionFilters
         }
     }
 }
-
-

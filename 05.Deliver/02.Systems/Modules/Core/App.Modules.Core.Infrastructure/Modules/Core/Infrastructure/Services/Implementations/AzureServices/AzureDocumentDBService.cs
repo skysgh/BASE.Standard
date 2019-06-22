@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 //using System.Collections.ObjectModel;
 //using System.Linq;
 //using System.Reflection;
@@ -59,7 +61,6 @@
 //        }
 
 
-
 //        private static string GetDocumentIdByReflection<TDocument>(TDocument document)
 //        {
 //            var propertyInfo = document.GetType().GetProperty("Id",
@@ -89,7 +90,6 @@
 //            CreateDatabaseAsync(databaseId, throwExceptionIfAlreadyExisting)
 //                .Wait(this._configuration.TimeoutMilliseconds);
 //        }
-
 
 
 //        /// <summary>
@@ -252,7 +252,6 @@
 //        }
 
 
-
 //        public void SaveDocument<TDocument>(string databaseId, string collectionId, TDocument document)
 //        {
 //            // Can come up with the following:
@@ -334,8 +333,6 @@
 //            TDocument result = documentQuery.FirstOrDefault(predicate);
 //            return result;
 //        }
-
-
 
 
 //        /// <summary>
@@ -435,7 +432,6 @@
 //        }
 
 
-
 //        public void DeleteDocument(Document document, bool throwExceptionIfNotFound = true)
 //        {
 //            DeleteDocumentAsync(document, throwExceptionIfNotFound).Wait(this._configuration.TimeoutMilliseconds);
@@ -457,7 +453,6 @@
 //        {
 //            DeleteDocumentAsync(documentUri).Wait(this._configuration.TimeoutMilliseconds);
 //        }
-
 
 
 //        public async Task DeleteDocumentAsync(Document document, bool throwExceptionIfNotFound = true)
@@ -534,7 +529,6 @@
 //        }
 
 
-
 //        public async Task DeleteDocumentsAsync<TDocument>(string databaseId, string collectionId, Func<TDocument, bool> predicate)
 //        {
 //            if (predicate == null)
@@ -553,7 +547,7 @@
 //            // Don't yet understand how to mix Queryability and AsDocumentQuery()
 //            //var r = this._documentClient.CreateDocumentQuery<TDocument>(collectionUri).Where(predicate).AsDocumentQuery();
 //            //var r = this._documentClient.CreateDocumentQuery(collectionUri).Where(predicate).AsDocumentQuery();
-            
+
 //            // r.HasMoreResults
 //            foreach (var x in this._documentClient.CreateDocumentQuery<TDocument>(collectionUri).Where(predicate))
 //            {
@@ -563,9 +557,6 @@
 //            // https://steveblank.com/2018/04/11/why-entrepreneurs-start-companies-rather-than-join-them/
 
 //        }
-
-
-
 
 
 //        /// <summary>
@@ -637,3 +628,4 @@
 
 //    }
 //}
+

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Attributes
 {
@@ -7,11 +9,10 @@ namespace App.Modules.All.Shared.Attributes
     {
         public KeyAttribute(string key)
         {
-            this.Key = key;
+            Key = key;
         }
 
         public string Key { get; set; }
-
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -1,4 +1,6 @@
-﻿using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
@@ -6,17 +8,16 @@ using AutoMapper;
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     /// <summary>
-    /// Create custom Maps for the Entity and its Dto.
+    ///     Create custom Maps for the Entity and its Dto.
     /// </summary>
-    /// <seealso cref="MapBase{ExceptionRecord, ExceptionRecordDto}" />
+    /// <seealso cref="MapBase{TEntity,TDto}" />
     public class ObjectMap_ExceptionRecord_ExceptionRecordDto
         : MapBase<
             ExceptionRecord,
             ExceptionRecordDto>
     {
-
         /// <summary>
-        /// Configures the map from entity to dto.
+        ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
@@ -29,14 +30,22 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
                 .ForMember(t => t.CreatedOnUtc, opt => opt.MapFrom(s => s.UtcDateTimeCreated))
                 .ForMember(t => t.ThreadId, opt => { opt.MapFrom(s => s.ThreadId); })
                 .ForMember(t => t.ClientId, opt => { opt.MapFrom(s => s.ClientId); })
-                .ForMember(t => t.Title, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Message); })
-                .ForMember(t => t.Stack, opt => { opt.ExplicitExpansion(); opt.MapFrom(s => s.Stack); })
+                .ForMember(t => t.Title, opt =>
+                {
+                    opt.ExplicitExpansion();
+                    opt.MapFrom(s => s.Message);
+                })
+                .ForMember(t => t.Stack, opt =>
+                {
+                    opt.ExplicitExpansion();
+                    opt.MapFrom(s => s.Stack);
+                })
                 ;
             //base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
         /// <summary>
-        /// Configures the map from dto to entity.
+        ///     Configures the map from dto to entity.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(

@@ -1,32 +1,35 @@
-﻿namespace App.Modules.Core.Shared.Models.Messages
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     public enum ConfigurationStepStatus
     {
         /// <summary>
-        /// Undentified (Error state)
+        ///     Undentified (Error state)
         /// </summary>
         Undefined = 0,
+
         /// <summary>
-        /// Step 
+        ///     Step
         /// </summary>
         White = 1,
 
         /// <summary>
-        /// Green (Ok)
+        ///     Green (Ok)
         /// </summary>
         Green = 2,
 
         /// <summary>
-        /// Orange (warning)
+        ///     Orange (warning)
         /// </summary>
         Orange = 3,
 
         /// <summary>
-        /// Red (error)
+        ///     Red (error)
         /// </summary>
-        Red = 4,
+        Red = 4
     }
 }

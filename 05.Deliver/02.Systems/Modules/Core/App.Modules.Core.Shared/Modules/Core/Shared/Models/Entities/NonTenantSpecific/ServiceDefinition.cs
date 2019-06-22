@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Shared.Models;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Entities
@@ -43,30 +45,30 @@ namespace App.Modules.Core.Shared.Models.Entities
 
 
     /// <summary>
-    /// The individual Services offered on this platform.
-    /// Makes up the Service Catalogue.
+    ///     The individual Services offered on this platform.
+    ///     Makes up the Service Catalogue.
     /// </summary>
-    public class ServiceDefinition 
-        : UntenantedRecordStatedTimestampedGuidIdReferenceDataEntityBase, IHasKey {
-
+    public class ServiceDefinition
+        : UntenantedRecordStatedTimestampedGuidIdReferenceDataEntityBase, IHasKey
+    {
         //There isn't much that can be said about a service.
 
         /// <summary>
-        /// Gets or sets the unique key of the object,
-        /// by which it is indexed when persisted
-        /// (in additional to any primary Id).
-        /// <para>
-        /// Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" /></para>.
+        ///     Gets or sets the unique key of the object,
+        ///     by which it is indexed when persisted
+        ///     (in additional to any primary Id).
+        ///     <para>
+        ///         Not the same as <see cref="T:App.Modules.All.Shared.Models.IHasName" />
+        ///     </para>
+        ///     .
         /// </summary>
         public virtual string Key { get; set; }
 
         //The underlying fields provide a means to render a Title, Description  and Icon.
-        
+
         // Note that this Definition class does not 
         // define any constraints/limits. 
         // That's defined within 
         // ServicePlanServiceOfferingDefinition
-
     }
-
 }

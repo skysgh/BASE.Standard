@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using Microsoft.ApplicationInsights;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using Microsoft.ApplicationInsights;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ITelemetryService" />
@@ -19,7 +15,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         public void TrackEvent(string message)
         {
-
             new TelemetryClient().TrackEvent(message);
         }
     }

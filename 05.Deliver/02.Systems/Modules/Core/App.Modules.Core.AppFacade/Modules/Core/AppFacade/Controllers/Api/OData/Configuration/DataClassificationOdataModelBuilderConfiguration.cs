@@ -1,3 +1,5 @@
+// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using Microsoft.AspNet.OData.Builder;
@@ -5,24 +7,24 @@ using Microsoft.AspNet.OData.Builder;
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
 {
     /// <summary>
-    /// Configuration object to describe the DTO and the Controller from which to retrieve it.
+    ///     Configuration object to describe the DTO and the Controller from which to retrieve it.
     /// </summary>
-    /// <seealso cref="ModuleODataModelBuilderConfigurationBase{DataClassificationDto}" />
+    /// <seealso cref="ModuleODataModelBuilderConfigurationBase{T}" />
     public class DataClassificationOdataModelBuilderConfiguration
         : ModuleODataModelBuilderConfigurationBase<DataClassificationDto>
     {
         /// <summary>
-        /// Defines the entity set for T.
-        /// <para>
-        /// Note that the Key is not set (it is up to a subclass to define which
-        /// property of the DTO is the Key).
-        /// </para>
+        ///     Defines the entity set for T.
+        ///     <para>
+        ///         Note that the Key is not set (it is up to a subclass to define which
+        ///         property of the DTO is the Key).
+        ///     </para>
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <returns></returns>
         public override EntityTypeConfiguration<DataClassificationDto> Define(ODataModelBuilder builder)
         {
-            var r = base.Define(builder);
+            EntityTypeConfiguration<DataClassificationDto> r = base.Define(builder);
 
             var a = r.Action("Get");
             a.Parameter<string>("key");

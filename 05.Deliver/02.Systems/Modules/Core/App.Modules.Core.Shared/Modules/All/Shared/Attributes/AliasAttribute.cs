@@ -1,20 +1,21 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Attributes
 {
-
     /// <summary>
-    /// The name under which the Configuration name is persisted.
-    /// <para>
-    /// In effect, should maybe be called
-    /// something like "ConfigurationKey"
-    /// </para>
+    ///     The name under which the Configuration name is persisted.
+    ///     <para>
+    ///         In effect, should maybe be called
+    ///         something like "ConfigurationKey"
+    ///     </para>
     /// </summary>
     /// <seealso cref="System.Attribute" />
     public class AliasAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AliasAttribute"/> class.
+        ///     Initializes a new instance of the <see cref="AliasAttribute" /> class.
         /// </summary>
         /// <param name="displayName">The display name.</param>
         public AliasAttribute(string displayName)
@@ -24,8 +25,8 @@ namespace App.Modules.All.Shared.Attributes
 
 
         /// <summary>
-        /// Gets or sets the display name.
+        ///     Gets or sets the display name.
         /// </summary>
-         public string DisplayName { get; set; }
+        public string DisplayName { get; set; }
     }
 }

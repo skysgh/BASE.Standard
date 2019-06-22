@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright MachineBrains, Inc. 2019
+
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages
 {
     public class Test : Profile
     {
-        public Test()
-        {
-        }
     }
 }

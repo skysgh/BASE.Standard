@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Infrastructure.Db.Schema.Conventions
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Infrastructure.Db.Schema.Conventions
 //{
 //    using System;
 //    using System.ComponentModel.DataAnnotations.Schema;
@@ -27,3 +29,4 @@
 //        }
 //    }
 //}
+

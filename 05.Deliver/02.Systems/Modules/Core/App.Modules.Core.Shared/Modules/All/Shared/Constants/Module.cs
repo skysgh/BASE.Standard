@@ -1,17 +1,17 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Constants
 {
     /// <summary>
-    /// Constants related to Modules.
+    ///     Constants related to Modules.
     /// </summary>
     public static class Module
     {
-
-
         /// <summary>
-        /// Returns something like "Core" (note, without trailing Dot)
-        /// derived from the given Type's Assembly name (not its Namespace).
+        ///     Returns something like "Core" (note, without trailing Dot)
+        ///     derived from the given Type's Assembly name (not its Namespace).
         /// </summary>
         public static string Id(Type moduleType)
         {
@@ -19,8 +19,8 @@ namespace App.Modules.All.Shared.Constants
         }
 
         /// <summary>
-        /// Dot ended prefix of Assembly names belonging to this module.
-        /// returns something like "App.Modules." + "Core."
+        ///     Dot ended prefix of Assembly names belonging to this module.
+        ///     returns something like "App.Modules." + "Core."
         /// </summary>
         public static string GetAssemblyNamePrefix(Type moduleType)
         {

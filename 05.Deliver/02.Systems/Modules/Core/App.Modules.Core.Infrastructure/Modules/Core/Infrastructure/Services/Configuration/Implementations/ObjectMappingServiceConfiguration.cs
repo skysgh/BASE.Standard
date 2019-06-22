@@ -1,4 +1,6 @@
-﻿//using App.Modules.All.Infrastructure.Contracts;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using App.Modules.All.Infrastructure.Contracts;
 //using App.Modules.All.Infrastructure.Helpers;
 //using App.Modules.All.Shared.Initialization;
 //using App.Modules.Core.Infrastructure.ObjectMapping;
@@ -86,7 +88,6 @@
 //                            $"Maps have been installed. Took {elapsedTime.ElapsedText}.");
 
 
-
 //                }
 
 //            }
@@ -94,6 +95,5 @@
 
 //    }
 //}
-
 
 

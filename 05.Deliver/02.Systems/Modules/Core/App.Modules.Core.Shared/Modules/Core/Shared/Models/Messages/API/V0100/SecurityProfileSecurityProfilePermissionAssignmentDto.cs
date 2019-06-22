@@ -1,27 +1,28 @@
-﻿using App.Modules.Core.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// DTO
+    ///     DTO
     /// </summary>
     public class SecurityProfileSecurityProfilePermissionAssignmentDto
     {
         /// <summary>
-        /// Gets or sets the permission assigned to a PRofile.
+        ///     Gets or sets the permission assigned to a PRofile.
         /// </summary>
         /// <value>
-        /// The permission.
+        ///     The permission.
         /// </value>
         public SecurityProfilePermissionDto Permission { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the assignment.
+        ///     Gets or sets the type of the assignment.
         /// </summary>
         /// <value>
-        /// The type of the assignment.
+        ///     The type of the assignment.
         /// </value>
         public AssignmentType AssignmentType { get; set; }
     }
-
 }

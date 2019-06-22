@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -9,6 +11,5 @@ namespace App.Modules.Core.Infrastructure.Services
 
         void Subscribe(string key, Action<string, string> onReceive);
         void Publish(string key, string message);
-
     }
 }

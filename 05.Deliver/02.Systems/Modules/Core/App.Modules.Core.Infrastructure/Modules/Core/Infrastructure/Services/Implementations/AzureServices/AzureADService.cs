@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     //using ADAL:
     //using Nuget: https://www.nuget.org/packages/Microsoft.IdentityModel.Clients.ActiveDirectory/

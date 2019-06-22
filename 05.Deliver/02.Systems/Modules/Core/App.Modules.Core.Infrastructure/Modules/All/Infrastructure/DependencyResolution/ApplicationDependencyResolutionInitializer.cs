@@ -1,4 +1,4 @@
-﻿//// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
 //using System;
 //using App.Modules.All.Shared.Initialization;
@@ -67,7 +67,7 @@
 //        {
 //            var serviceDescriptor = 
 //                serviceRegistry.Find(x => x.ServiceType == typeof(IMapper));
-            
+
 
 //            if (serviceDescriptor != null)
 //            {
@@ -84,3 +84,4 @@
 
 //    }
 //}
+

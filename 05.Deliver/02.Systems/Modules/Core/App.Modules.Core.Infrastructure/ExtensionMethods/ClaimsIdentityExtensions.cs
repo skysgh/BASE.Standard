@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Linq;
 using System.Security.Claims;
 using App.Modules.Core.Infrastructure.Constants.IDA;
@@ -24,7 +26,7 @@ namespace App
 
         public static DateTimeOffset GetIssuedAtTime(this ClaimsIdentity identity)
         {
-            var epoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0,TimeSpan.Zero);
+            var epoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
             return epoch.AddSeconds(Convert.ToUInt64(GetIat(identity)));
         }

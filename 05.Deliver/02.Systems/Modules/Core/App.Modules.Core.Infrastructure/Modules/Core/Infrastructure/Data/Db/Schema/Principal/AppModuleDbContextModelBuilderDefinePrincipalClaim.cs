@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -9,36 +11,38 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Principal
 {
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
-    public class AppModuleDbContextModelBuilderDefinePrincipalClaim : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefinePrincipalClaim : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<PrincipalClaim>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
 
 
-            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalClaim>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<PrincipalClaim>(modelBuilder,
+                ref order);
 
-            modelBuilder.AssignIndex<PrincipalClaim>(x=>x.Authority,false);
+            modelBuilder.AssignIndex<PrincipalClaim>(x => x.Authority);
 
             modelBuilder.Entity<PrincipalClaim>()
                 .Property(x => x.PrincipalFK)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<PrincipalClaim>()
                 .Property(x => x.Authority)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.DefineNonUniqueKey<PrincipalClaim>(ref order);
-                
+
 
             modelBuilder.Entity<PrincipalClaim>()
                 .Property(x => x.Value)
@@ -49,7 +53,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Principal
                 .Property(x => x.AuthoritySignature)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X2048)
-                .IsRequired(true);
+                .IsRequired();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Core.Shared.Models.Entities
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Shared.Models.Entities
 {
     // TODO: Enums are evil (offset issue of Interface Localization)
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -18,6 +20,7 @@
         Restricted = 5,
         Confidential = 6,
         Secret = 7,
+
         //
         TopSecret = 8
     }

@@ -1,14 +1,16 @@
-﻿namespace App.Modules.All.Shared.Models
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Contract for a model that has a
-    /// <see cref="DisplayStyleHint"/>
-    /// property.
+    ///     Contract for a model that has a
+    ///     <see cref="DisplayStyleHint" />
+    ///     property.
     /// </summary>
     public interface IHasDisplayStyleHint
     {
         /// <summary>
-        /// A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+        ///     A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
         /// </summary>
         string DisplayStyleHint { get; set; }
     }

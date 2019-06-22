@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -14,29 +16,28 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Tenants
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
-                .Define<Shared.Models.Entities.Tenant>(
+                .Define<Tenant>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
 
-            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Shared.Models.Entities.Tenant>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Tenant>(modelBuilder, ref order);
 
             // --------------------------------------------------
             // FK Properties:
 
 
-
             // --------------------------------------------------
             // Model Specific Properties:
             //modelBuilder.AssignIndex<Tenant>(x => x.IsDefault,true);
-            modelBuilder.AssignIndex<Shared.Models.Entities.Tenant>(x => x.Key, false);
+            modelBuilder.AssignIndex<Tenant>(x => x.Key);
             //modelBuilder.AssignIndex<Tenant>(x => x.HostName, true);
-            modelBuilder.AssignIndex<Shared.Models.Entities.Tenant>(x => x.DisplayName, false);
+            modelBuilder.AssignIndex<Tenant>(x => x.DisplayName);
 
 
-            modelBuilder.Entity<Shared.Models.Entities.Tenant>()
+            modelBuilder.Entity<Tenant>()
                 .Property(x => x.IsDefault)
                 //.HasColumnOrder(order++)
                 .IsRequired(false);
@@ -44,10 +45,10 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Tenants
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.Enabled)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
-            modelBuilder.Entity<Shared.Models.Entities.Tenant>()
-                .HasOne(x=>x.DataClassification)
+            modelBuilder.Entity<Tenant>()
+                .HasOne(x => x.DataClassification)
                 .WithMany()
                 .HasForeignKey(x => x.DataClassificationFK);
 
@@ -55,7 +56,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Tenants
                 .Property(x => x.Key)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
             modelBuilder.Entity<Tenant>()
                 .Property(x => x.HostName)
                 //.HasColumnOrder(order++)
@@ -66,7 +67,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Tenants
                 .Property(x => x.DisplayName)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Tenant>()
                 .HasMany(x => x.Properties)

@@ -1,25 +1,30 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
 {
-    public class AppModuleDbContextModelBuilderDefineTenantMemberProfile : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineTenantMemberProfile :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
 
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention()
+                .Define<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>(modelBuilder, ref order);
 
             // --------------------------------------------------
             // FK Properties:
@@ -29,7 +34,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
             // Model Specific Properties:
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
                 .Property(x => x.Enabled)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
                 .Property(x => x.EnabledBeginningUtcDateTime)
@@ -45,9 +50,9 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
                 .HasForeignKey(x => x.DataClassificationFK);
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
-               .HasOne(x => x.Category)
-               .WithMany()
-               .HasForeignKey(x => x.CategoryFK);
+                .HasOne(x => x.Category)
+                .WithMany()
+                .HasForeignKey(x => x.CategoryFK);
 
             modelBuilder.Entity<Shared.Models.Entities.TenantMember.Profile.TenantMemberProfile>()
                 .HasMany(x => x.Properties)
@@ -69,7 +74,6 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
             // Collection Navigation Properties:                               
 
             // --------------------------------------------------
-
         }
     }
 }

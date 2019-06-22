@@ -1,4 +1,6 @@
-﻿using App.Modules.Core.Shared.Configuration.Settings;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration
 {
@@ -15,7 +17,7 @@ namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
                 configuration.ResourceName = commonConfigurationSettings.RootResourceName;
             }
 
-            string authKey = configuration.Key;
+            var authKey = configuration.Key;
 
             // https://australiaeast.api.cognitive.microsoft.com/vision/v1.0
         }

@@ -1,18 +1,18 @@
-﻿// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 
 namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Contract for a model that has a
-    /// <see cref="EnabledBeginningUtcDateTime"/>
-    /// property.
+    ///     Contract for a model that has a
+    ///     <see cref="EnabledBeginningUtcDateTime" />
+    ///     property.
     /// </summary>
     public interface IHasEnabledBeginningUtcDateTime
     {
         /// <summary>
-        /// Gets or sets when the the record will be disabled.
+        ///     Gets or sets when the the record will be disabled.
         /// </summary>
         DateTimeOffset? EnabledBeginningUtcDateTime { get; set; }
     }

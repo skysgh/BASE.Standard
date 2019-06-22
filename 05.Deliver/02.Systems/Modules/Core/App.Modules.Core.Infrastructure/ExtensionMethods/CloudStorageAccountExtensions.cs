@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.Storage;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
 
 namespace App

@@ -1,4 +1,4 @@
-﻿// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Diagrams.PlantUml.Uml;
 
@@ -18,14 +18,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public string DevelopImageUrl(string umlText)
         {
-            string result = _plantUmlDiagramService.DevelopImageUrl(umlText);
+            var result = _plantUmlDiagramService.DevelopImageUrl(umlText);
             return result;
         }
+
         public byte[] DevelopImageByteArray(string umlText)
         {
-            var result = _plantUmlDiagramService.RetrieveImageAsByteArray(umlText);
+            byte[] result = _plantUmlDiagramService.RetrieveImageAsByteArray(umlText);
             return result;
         }
     }
 }
-

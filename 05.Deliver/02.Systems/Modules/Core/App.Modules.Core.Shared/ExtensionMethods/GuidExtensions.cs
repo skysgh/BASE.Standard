@@ -1,19 +1,17 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using App.Modules.All.Shared.Factories;
 
 namespace App
 {
-    using System;
-    using App.Modules.All.Shared.Factories;
-
-
     /// <summary>
-    /// Extensions to <see cref="Guid"/>
+    ///     Extensions to <see cref="Guid" />
     /// </summary>
     public static class GuidExtensions
     {
         /// <summary>
-        /// Generates a new unique sequential identifier.
+        ///     Generates a new unique sequential identifier.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <returns></returns>

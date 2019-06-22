@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright MachineBrains, Inc. 2019
 
 namespace App.Modules.Core.Infrastructure.Services
 {
@@ -8,6 +6,5 @@ namespace App.Modules.Core.Infrastructure.Services
     {
         string DevelopImageUrl(string umlText);
         byte[] DevelopImageByteArray(string umlText);
-
     }
 }

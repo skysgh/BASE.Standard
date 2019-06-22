@@ -1,4 +1,6 @@
-﻿//namespace App.Modules.Core.Shared.Models.Entities
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Shared.Models.Entities
 //{
 //    using App.Modules.Core.Shared.Models;
 //    using App.Modules.Core.Shared.Models.Entities;
@@ -20,7 +22,6 @@
 //            }
 //        }
 //        public ICollection<TenancySecurityProfilePermission> _permissions;
-
 
 
 //        public ICollection<TenancySecurityProfileRoleTenancySecurityProfilePermissionAssignment> PermissionsAssignments

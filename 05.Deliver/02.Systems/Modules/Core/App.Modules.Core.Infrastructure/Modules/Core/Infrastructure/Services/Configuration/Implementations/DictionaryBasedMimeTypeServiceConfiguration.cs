@@ -1,24 +1,26 @@
-﻿namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
-{
-    using System;
-    using System.Collections.Generic;
+﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
+using System.Collections.Generic;
+
+namespace App.Modules.Core.Infrastructure.Services.Configuration.Implementations
+{
     /// <summary>
-    /// <para>
-    /// Inherits from <see cref="ICoreServiceConfigurationObject"/>
-    /// whic inherits from <see cref="IHasSingletonLifecycle"/>
-    /// to hint at startup that the Configuration object should be 
-    /// IoC registered for the duration of the application (not the thread).
-    /// as some configuration hits remote services (eg: Azure KeyVault)
-    /// which would be rather slow.
-    /// </para>
+    ///     <para>
+    ///         Inherits from <see cref="ICoreServiceConfigurationObject" />
+    ///         whic inherits from <see cref="IHasSingletonLifecycle" />
+    ///         to hint at startup that the Configuration object should be
+    ///         IoC registered for the duration of the application (not the thread).
+    ///         as some configuration hits remote services (eg: Azure KeyVault)
+    ///         which would be rather slow.
+    ///     </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
     public class DictionaryBasedMimeTypeServiceConfiguration : ICoreServiceConfigurationObject
     {
         public DictionaryBasedMimeTypeServiceConfiguration()
         {
-            this.Cache =
+            Cache =
                 new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
                 {
                     // combination of values from Windows 7 Registry and 

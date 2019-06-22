@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using App.Modules.All.Shared.Models;
@@ -8,30 +10,30 @@ namespace App
 {
     public static class DbSetExtensions
     {
-
-
         private static DbContext GetContext<TEntity>(this DbSet<TEntity> dbSet)
-where TEntity : class
+            where TEntity : class
         {
-            return (DbContext)dbSet
+            return (DbContext) dbSet
                 .GetType().GetTypeInfo()
                 .GetField("_context", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(dbSet);
         }
 
 
-        public static void AddOrUpdateBasedOnId<TModel>(this DbSet<TModel> dbSet, Expression<Func<TModel, object>> identifierExpression, params TModel[] entities)
+        public static void AddOrUpdateBasedOnId<TModel>(this DbSet<TModel> dbSet,
+            Expression<Func<TModel, object>> identifierExpression, params TModel[] entities)
             where TModel : class
         {
-            foreach (var entity in entities) {
+            foreach (var entity in entities)
+            {
                 dbSet.Upsert(entity).On(identifierExpression);
             }
         }
 
-        public static void AddOrUpdateBasedOnId<TModel>(this DbSet<TModel> dbSet,  params TModel[] entities)
-            where TModel :class, IHasId<Guid>
+        public static void AddOrUpdateBasedOnId<TModel>(this DbSet<TModel> dbSet, params TModel[] entities)
+            where TModel : class, IHasId<Guid>
         {
-            DbContext dbContext = dbSet.GetContext();
+            var dbContext = dbSet.GetContext();
 
             foreach (var entity in entities)
             {

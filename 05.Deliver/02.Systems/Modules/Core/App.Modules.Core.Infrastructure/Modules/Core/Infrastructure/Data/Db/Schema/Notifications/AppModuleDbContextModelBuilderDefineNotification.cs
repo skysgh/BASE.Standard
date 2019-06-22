@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.Core.Shared.Models.Entities;
@@ -14,27 +16,28 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Notifications
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Notification>(modelBuilder,
-                    this.DefaultSchemaName
+                    DefaultSchemaName
                 );
 
             var order = 1;
 
-            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Notification>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Notification>(modelBuilder,
+                ref order);
 
 
-            modelBuilder.AssignIndex<Notification>(x=>x.PrincipalFK, false);
-            modelBuilder.AssignIndex<Notification>(x => x.From, false);
+            modelBuilder.AssignIndex<Notification>(x => x.PrincipalFK);
+            modelBuilder.AssignIndex<Notification>(x => x.From);
 
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.Type)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.Level)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Ignore(x => x.IsRead);
@@ -43,12 +46,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Notifications
             modelBuilder.Entity<Notification>()
                 .Property(x => x.PrincipalFK)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.DateTimeCreatedUtc)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.DateTimeReadUtc)
@@ -56,39 +59,35 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Notifications
                 .IsRequired(false);
 
 
-
-
             modelBuilder.Entity<Notification>()
                 .Property(x => x.From)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.Class)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.ImageUrl)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.Value)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Notification>()
                 .Property(x => x.Text)
                 //.HasColumnOrder(order++)
                 .IsFixedLength(false)
-                .IsRequired(true);
-
+                .IsRequired();
         }
-
     }
 }

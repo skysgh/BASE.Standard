@@ -1,58 +1,52 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     public class ApplicationProviderInformationDto
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
-        public Guid Id {
-            get; set;
-        }
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The name.
+        ///     The name.
         /// </value>
-        public string Name
-        {
-            get; set;
-        }
+        public string Name { get; set; }
+
         /// <summary>
-        /// Gets or sets the description.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>
-        /// The description.
+        ///     The description.
         /// </value>
-        public string Description
-        {
-            get; set;
-        }
+        public string Description { get; set; }
+
         /// <summary>
-        /// Gets or sets the site URL.
+        ///     Gets or sets the site URL.
         /// </summary>
         /// <value>
-        /// The site URL.
+        ///     The site URL.
         /// </value>
         public string SiteUrl { get; set; }
+
         /// <summary>
-        /// Gets or sets the contact URL.
+        ///     Gets or sets the contact URL.
         /// </summary>
         /// <value>
-        /// The contact URL.
+        ///     The contact URL.
         /// </value>
-        public string ContactUrl
-        {
-            get; set;
-        }
+        public string ContactUrl { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Shared.Constants;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Constants;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
@@ -8,10 +10,8 @@ namespace App
 {
     public static class IConfigurationBuilderExtensionMethods
     {
-
-        public static void AddKeyVaultSettingsConfig(this IConfigurationBuilder config, bool enabled=true)
+        public static void AddKeyVaultSettingsConfig(this IConfigurationBuilder config, bool enabled = true)
         {
-
             var builtConfig = config.Build();
 
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
@@ -25,7 +25,7 @@ namespace App
                 return;
             }
 
-            string keyVaultName = builtConfig[Storage.KeyVaultName];
+            var keyVaultName = builtConfig[Storage.KeyVaultName];
             if (keyVaultName.StartsWith("TODO:"))
             {
                 return;
@@ -34,8 +34,8 @@ namespace App
             config.AddAzureKeyVault(
                 $"https://{keyVaultName}.vault.azure.net/",
                 keyVaultClient,
-                defaultKeyVaultSecretManager 
-                );
+                defaultKeyVaultSecretManager
+            );
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using App.Modules.All.Shared.Constants;
@@ -11,26 +11,26 @@ using Module = App.Modules.All.Shared.Constants.Module;
 namespace App
 {
     /// <summary>
-    /// Extensions to an Assembly object.
+    ///     Extensions to an Assembly object.
     /// </summary>
     public static class AssemblyExtensions
     {
         public static bool IsSameApp(this Assembly assembly)
         {
-            string name = assembly.GetName().Name;
+            var name = assembly.GetName().Name;
             return name.StartsWith(
                 Application.AssemblyPrefix);
         }
+
         public static bool IsSameModuleAs(this Assembly assembly, Type referenceType)
         {
-            string name = assembly.GetName().Name;
+            var name = assembly.GetName().Name;
             return name.StartsWith(
-                Module.
-                GetAssemblyNamePrefix(referenceType));
+                Module.GetAssemblyNamePrefix(referenceType));
         }
 
 
-        [System.Diagnostics.DebuggerHidden]
+        [DebuggerHidden]
         public static IEnumerable<Type> GetInstantiableTypesImplementing(this Assembly assembly, Type type)
         {
             // Return only types that are subsets of the given type (or are same)
@@ -53,8 +53,9 @@ namespace App
             catch (ReflectionTypeLoadException)
             {
                 //No biggie
-                System.Diagnostics.Trace.TraceInformation($"Running 'GetInstantiableTypesImplementing', could not find {type.Name}");
+                Trace.TraceInformation($"Running 'GetInstantiableTypesImplementing', could not find {type.Name}");
             }
+
             return null;
         }
     }

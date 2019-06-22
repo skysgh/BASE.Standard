@@ -1,20 +1,28 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
+    public class RestResponseHandler
+    {
+        public RestResponseHandler()
+        {
+        }
 
-    public class RestResponseHandler {
+        public RestResponseHandler(int responseCode, Action<string> responseHandler)
+        {
+            ResponseCode = responseCode;
+            Handler = responseHandler;
+        }
+
         public int ResponseCode { get; set; }
         public Action<string> Handler { get; set; }
-        public RestResponseHandler() { }
-        public RestResponseHandler(int responseCode, Action<string> responseHandler) { ResponseCode = responseCode; Handler = responseHandler; }
     }
 
     public class RestService : AppCoreServiceBase, IRestService
@@ -26,15 +34,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             _jsonService = jsonService;
         }
 
-        public string Get(Uri uri, String bearerToken=null, params RestResponseHandler[] alternateResponseHandlers)
+        public string Get(Uri uri, string bearerToken = null, params RestResponseHandler[] alternateResponseHandlers)
         {
             var httpWebRequest = CreateHttpWebRequest("GET", uri, bearerToken);
 
-            string result=null;
+            string result = null;
 
             List<RestResponseHandler> handlers = new List<RestResponseHandler>();
-            handlers.Add(new RestResponseHandler(200, (x) => { result = x; }));
-            if (alternateResponseHandlers != null) { handlers.AddRange(alternateResponseHandlers); }
+            handlers.Add(new RestResponseHandler(200, x => { result = x; }));
+            if (alternateResponseHandlers != null)
+            {
+                handlers.AddRange(alternateResponseHandlers);
+            }
 
 
             HandleResponse(httpWebRequest, handlers);
@@ -43,50 +54,61 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         public T Get<T>(Uri uri, string bearerToken = null, params RestResponseHandler[] alternateResponseHandlers)
-            where T:class
+            where T : class
         {
             var httpWebRequest = CreateHttpWebRequest("GET", uri, bearerToken);
 
             T result = null;
             List<RestResponseHandler> handlers = new List<RestResponseHandler>();
-            handlers.Add(new RestResponseHandler(200, (x) =>  result = _jsonService.Parse<T>(x)));
-            if (alternateResponseHandlers != null) { handlers.AddRange(alternateResponseHandlers); }
+            handlers.Add(new RestResponseHandler(200, x => result = _jsonService.Parse<T>(x)));
+            if (alternateResponseHandlers != null)
+            {
+                handlers.AddRange(alternateResponseHandlers);
+            }
 
             HandleResponse(httpWebRequest, handlers);
 
             return result;
         }
 
-        public void Put(Uri uri, string body, String bearerToken = null, params RestResponseHandler[] alternateResponseHandlers)
+        public void Put(Uri uri, string body, string bearerToken = null,
+            params RestResponseHandler[] alternateResponseHandlers)
         {
             var httpWebRequest = CreateHttpWebRequest("PUT", uri, bearerToken);
             WriteRequestBody(body, httpWebRequest);
 
             string result = null;
             List<RestResponseHandler> handlers = new List<RestResponseHandler>();
-            handlers.Add(new RestResponseHandler(200, (x) => result = x));
-            if (alternateResponseHandlers != null) { handlers.AddRange(alternateResponseHandlers); }
+            handlers.Add(new RestResponseHandler(200, x => result = x));
+            if (alternateResponseHandlers != null)
+            {
+                handlers.AddRange(alternateResponseHandlers);
+            }
+
             HandleResponse(httpWebRequest, handlers);
         }
 
 
-
-        public void Post(Uri uri, string body, String bearerToken = null, params RestResponseHandler[] alternateResponseHandlers)
+        public void Post(Uri uri, string body, string bearerToken = null,
+            params RestResponseHandler[] alternateResponseHandlers)
         {
             var httpWebRequest = CreateHttpWebRequest("PUT", uri, bearerToken);
 
             string result = null;
             List<RestResponseHandler> handlers = new List<RestResponseHandler>();
-            handlers.Add(new RestResponseHandler(200, (x) => result = x));
-            if (alternateResponseHandlers != null) { handlers.AddRange(alternateResponseHandlers); }
+            handlers.Add(new RestResponseHandler(200, x => result = x));
+            if (alternateResponseHandlers != null)
+            {
+                handlers.AddRange(alternateResponseHandlers);
+            }
+
             HandleResponse(httpWebRequest, handlers);
         }
 
 
-
         private static HttpWebRequest CreateHttpWebRequest(string verb, Uri uri, string bearerToken = null)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(uri);
             AttachBearerToken(httpWebRequest, bearerToken);
 
             httpWebRequest.ContentType = "application/json";
@@ -105,44 +127,36 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         private static void WriteRequestBody(string body, HttpWebRequest httpWebRequest)
         {
-            try
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    streamWriter.Write(body);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
-            }
-#pragma warning disable CS0168 // Variable is declared but never used
-            catch (Exception ex)
-#pragma warning restore CS0168 // Variable is declared but never used
-            {
-                throw;
+                streamWriter.Write(body);
+                streamWriter.Flush();
+                streamWriter.Close();
             }
         }
 
         private static HttpWebResponse GetResponse(HttpWebRequest httpWebRequest)
         {
             HttpWebResponse httpResponse = null;
-            httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
             return httpResponse;
         }
 
         private static string GetStringResponse(HttpWebRequest httpWebRequest)
         {
-            HttpWebResponse httpResponse = GetResponse(httpWebRequest);
+            var httpResponse = GetResponse(httpWebRequest);
 
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                string result = streamReader.ReadToEnd();
+                var result = streamReader.ReadToEnd();
                 return result;
             }
         }
 
-            private static void HandleResponse(HttpWebRequest httpWebRequest, IEnumerable<RestResponseHandler> alternateResponseHandlers)
+        private static void HandleResponse(HttpWebRequest httpWebRequest,
+            IEnumerable<RestResponseHandler> alternateResponseHandlers)
         {
-            HttpWebResponse httpResponse = GetResponse(httpWebRequest);
+            var httpResponse = GetResponse(httpWebRequest);
 
             string result;
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
@@ -151,18 +165,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
 
 
-            if (alternateResponseHandlers!= null)
+            if (alternateResponseHandlers != null)
             {
-                var handler = alternateResponseHandlers.FirstOrDefault(x => x.ResponseCode == (int)httpResponse.StatusCode);
+                var handler =
+                    alternateResponseHandlers.FirstOrDefault(x => x.ResponseCode == (int) httpResponse.StatusCode);
                 if (handler != null)
                 {
                     handler.Handler.Invoke(result);
-                    return;
                 }
             }
-
-
         }
-
     }
 }

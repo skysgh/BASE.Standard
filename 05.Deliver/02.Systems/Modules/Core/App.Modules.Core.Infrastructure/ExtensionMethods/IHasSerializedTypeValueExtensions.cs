@@ -1,5 +1,4 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Shared.Models;
 

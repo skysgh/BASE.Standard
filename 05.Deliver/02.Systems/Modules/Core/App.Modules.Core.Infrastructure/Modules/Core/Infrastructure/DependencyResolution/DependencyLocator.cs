@@ -1,23 +1,31 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
 using Lamar;
 
 namespace App.Modules.Core.Infrastructure.DependencyResolution
 {
     /// <summary>
-    /// See: https://dotnetcoretutorials.com/2018/05/06/servicelocator-shim-for-net-core/
+    ///     See: https://dotnetcoretutorials.com/2018/05/06/servicelocator-shim-for-net-core/
     /// </summary>
     public class DependencyLocator
     {
+        private static DependencyLocator _current;
+
+        private static IServiceProvider _serviceProvider;
+
+        // The lamar container:
+        private static IContainer _container;
 
         /// <summary>
-        /// Gets the current DependencyLocator
-        /// singleton.
-        /// <para>
-        /// If never invoked before creates a new one
-        /// (although it won't yet be Initialized
-        /// with the <see cref="Initialize"/> method.
-        /// </para>
+        ///     Gets the current DependencyLocator
+        ///     singleton.
+        ///     <para>
+        ///         If never invoked before creates a new one
+        ///         (although it won't yet be Initialized
+        ///         with the <see cref="Initialize" /> method.
+        ///     </para>
         /// </summary>
         public static DependencyLocator Current
         {
@@ -27,40 +35,24 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
                 {
                     _current = new DependencyLocator();
                 }
+
                 return _current;
             }
         }
-        private static DependencyLocator _current;
 
-        private static IServiceProvider _serviceProvider;
-
-        public IServiceProvider ServiceProvider
-        {
-            get => _serviceProvider;
-        }
-        // The lamar container:
-        private static IContainer _container;
+        public IServiceProvider ServiceProvider => _serviceProvider;
 
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="DependencyLocator"/> class.
-        /// </summary>
-        public DependencyLocator()
-        {
-
-        }
-
-        /// <summary>
-        /// Initializes this DependencyLocator
-        /// with the Lamar Container
-        /// created during Startup (or by Unit Tests).
+        ///     Initializes this DependencyLocator
+        ///     with the Lamar Container
+        ///     created during Startup (or by Unit Tests).
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
         /// <exception cref="System.Exception">Should not be reinitializing DependencyResolutionService.</exception>
         public void Initialize(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _container = (IContainer)serviceProvider;
+            _container = (IContainer) serviceProvider;
 
             //if (_current != null) && (serviceProvider !=null)
             //{
@@ -74,7 +66,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
 
 
         /// <summary>
-        /// Gets the dependency.
+        ///     Gets the dependency.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns></returns>
@@ -84,7 +76,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets the instance.
+        ///     Gets the instance.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns></returns>
@@ -94,7 +86,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets the named dependency.
+        ///     Gets the named dependency.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <param name="key">The key.</param>
@@ -105,7 +97,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets all instances associated to the given type.
+        ///     Gets all instances associated to the given type.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns></returns>
@@ -117,7 +109,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets the specified instance.
+        ///     Gets the specified instance.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <returns></returns>
@@ -127,7 +119,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets the named instance.
+        ///     Gets the named instance.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <param name="key">The key.</param>
@@ -138,7 +130,7 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         }
 
         /// <summary>
-        /// Gets all instances.
+        ///     Gets all instances.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <returns></returns>
@@ -146,6 +138,5 @@ namespace App.Modules.Core.Infrastructure.DependencyResolution
         {
             return _container.GetAllInstances<TService>();
         }
-
     }
 }

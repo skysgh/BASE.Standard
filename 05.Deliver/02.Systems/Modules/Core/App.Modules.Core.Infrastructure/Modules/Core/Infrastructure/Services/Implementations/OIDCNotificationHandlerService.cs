@@ -1,16 +1,15 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Security.Claims;
 using System.Threading;
 using App.Modules.Core.Infrastructure.Constants.IDA;
-
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Security.Claims;
-    using App.Modules.Core.Infrastructure.Services;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IOIDCNotificationHandlerService" />
@@ -19,12 +18,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IOIDCNotificationHandlerService" />
     public class OIDCNotificationHandlerService : AppCoreServiceBase, IOIDCNotificationHandlerService
     {
-        private readonly ISessionService _sessionService;
-        private readonly IPrincipalManagmentService _principalManagmentService;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly SemaphoreSlim _mutex;
+        private readonly IPrincipalManagmentService _principalManagmentService;
+        private readonly ISessionService _sessionService;
 
-        public OIDCNotificationHandlerService(ISessionService sessionService, IDiagnosticsTracingService diagnosticsTracingService,
+        public OIDCNotificationHandlerService(ISessionService sessionService,
+            IDiagnosticsTracingService diagnosticsTracingService,
             IPrincipalManagmentService principalManagmentService)
         {
             _sessionService = sessionService;
@@ -57,6 +57,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
 
+        public void OnAuthorizationCodeReceived(AuthorizationCodeReceivedMessage authorizationCodeReceivedMessage)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnAuthenticationError(AuthenticationErrorMessage authenticationErrorMessage)
+        {
+            //throw new NotImplementedException();
+        }
+
 
         private void AddClaims(ClaimsIdentity identity, Principal principal)
         {
@@ -65,9 +75,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             // ADD Claims that our DB has set out
         }
 
-        private Principal GetOrCreatePrincipal(AuthenticationSuccessMessage authenticationSuccessMessage, TimeSpan? cacheTimeSpan = null)
+        private Principal GetOrCreatePrincipal(AuthenticationSuccessMessage authenticationSuccessMessage,
+            TimeSpan? cacheTimeSpan = null)
         {
-            var principalManagmentService = _principalManagmentService;//AppDependencyLocator.Current.GetInstance<PrincipalManagmentService>();
+            var principalManagmentService =
+                _principalManagmentService; //AppDependencyLocator.Current.GetInstance<PrincipalManagmentService>();
             var identity = authenticationSuccessMessage.Identity;
             var idp = identity.GetIdp();
             var sub = identity.GetSub();
@@ -92,23 +104,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 {
                     _mutex.Release();
                 }
+
                 _diagnosticsTracingService.Trace(TraceLevel.Info, $"new user created idp : {idp}, sub : {sub}");
             }
+
             return principal;
         }
-
-
-        public void OnAuthorizationCodeReceived(AuthorizationCodeReceivedMessage authorizationCodeReceivedMessage)
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void OnAuthenticationError(AuthenticationErrorMessage authenticationErrorMessage)
-        {
-            //throw new NotImplementedException();
-        }
-
-
 
 
         private string GetSessionUniqueIdentifierValue(ClaimsIdentity identity)
@@ -118,7 +119,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         private void AddSessionUniqueIdentifier(ClaimsIdentity identity)
         {
-            identity.AddClaim(new Claim(ClaimTitles.UniqueSessionIdentifier, GetSessionUniqueIdentifierValue(identity)));
+            identity.AddClaim(new Claim(ClaimTitles.UniqueSessionIdentifier,
+                GetSessionUniqueIdentifierValue(identity)));
         }
     }
 }

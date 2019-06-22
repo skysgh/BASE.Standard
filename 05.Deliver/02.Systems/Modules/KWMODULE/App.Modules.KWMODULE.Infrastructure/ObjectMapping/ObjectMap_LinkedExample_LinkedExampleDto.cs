@@ -6,16 +6,15 @@ using AutoMapper;
 namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
 {
     /// <summary>
-    /// Create custom Maps for the Entity and its Dto.
+    ///     Create custom Maps for the Entity and its Dto.
     /// </summary>
-    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{LinkedExample, LinkedExampleDto}" />
+    /// <seealso cref="MapUntenantedRecordStatedTimestampedNoIdBase{TEntity,TDto}" />
     public class ObjectMap_LinkedExample_LinkedExampleDto
         : MapUntenantedRecordStatedTimestampedNoIdBase<LinkedExample, LinkedExampleDto>
-            
-    {
 
+    {
         /// <summary>
-        /// Configures the map from entity to dto.
+        ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
@@ -27,13 +26,13 @@ namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
                 .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 //More interesting:
                 .ForMember(t => t.DataClassificationFK, opt => opt.MapFrom(s => s.DataClassificationFK))
-                .ForMember(t => t.DataClassification, opt => opt.MapFrom(s=>s.DataClassification))
+                .ForMember(t => t.DataClassification, opt => opt.MapFrom(s => s.DataClassification))
                 ;
             base.ConfigureMapFromEntityToDto(mappingExpression);
         }
 
         /// <summary>
-        /// Configures the map from dto to entity.
+        ///     Configures the map from dto to entity.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
@@ -48,6 +47,5 @@ namespace App.Modules.KWMODULE.Infrastructure.ObjectMapping
                 ;
             base.ConfigureMapFromDtoToEntity(mappingExpression);
         }
-
     }
 }

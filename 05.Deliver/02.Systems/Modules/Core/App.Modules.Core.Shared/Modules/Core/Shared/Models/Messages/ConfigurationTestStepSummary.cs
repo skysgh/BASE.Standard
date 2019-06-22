@@ -1,15 +1,18 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Factories;
 using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
-    /// A model to hold the results of a 
-    /// self debasement of integration, etc.
-    /// Again, this is to provide to support
-    /// stakeholders a way of ensuring the system
-    /// is up and running.    /// </summary>
+    ///     A model to hold the results of a
+    ///     self debasement of integration, etc.
+    ///     Again, this is to provide to support
+    ///     stakeholders a way of ensuring the system
+    ///     is up and running.    ///
+    /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
     public class ConfigurationTestStepSummary : IHasGuidId
     {
@@ -17,53 +20,56 @@ namespace App.Modules.Core.Shared.Models.Messages
         // a datastore, an Id is still required, as it is expressed
         // via OData.
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConfigurationTestStepSummary"/> class.
+        ///     Initializes a new instance of the <see cref="ConfigurationTestStepSummary" /> class.
         /// </summary>
         public ConfigurationTestStepSummary()
         {
-            this.Id = GuidFactory.NewGuid();
+            Id = GuidFactory.NewGuid();
         }
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the type.
+        ///     Gets or sets the type.
         /// </summary>
         /// <value>
-        /// The type.
+        ///     The type.
         /// </value>
         public ConfigurationStepType Type { get; set; }
+
         /// <summary>
-        /// Gets or sets the status.
+        ///     Gets or sets the status.
         /// </summary>
         /// <value>
-        /// The status.
+        ///     The status.
         /// </value>
         public ConfigurationStepStatus Status { get; set; }
+
         /// <summary>
-        /// Gets or sets the date time.
+        ///     Gets or sets the date time.
         /// </summary>
         /// <value>
-        /// The date time.
+        ///     The date time.
         /// </value>
         public DateTimeOffset? DateTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the title.
+        ///     Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The title.
+        ///     The title.
         /// </value>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>
-        /// The description.
+        ///     The description.
         /// </value>
         public string Description { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the identifier.
+        /// </summary>
+        public Guid Id { get; set; }
     }
 }

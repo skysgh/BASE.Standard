@@ -1,4 +1,6 @@
-﻿//using App.Modules.Core.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using App.Modules.Core.Infrastructure.Services;
 //using App.Modules.Core.Shared.Models.Entities;
 //using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -93,3 +95,4 @@
 //        }
 //    }
 //}
+

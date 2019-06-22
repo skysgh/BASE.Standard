@@ -1,11 +1,13 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Runtime.Caching;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using Microsoft.Extensions.Caching.Memory;
+using MemoryCache = System.Runtime.Caching.MemoryCache;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using System.Runtime.Caching;
-    using Microsoft.Extensions.Caching.Memory;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ICacheItemService" />
@@ -20,13 +22,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             _dateTimeService = dateTimeService;
             _memoryCache = memoryCache;
-
-         
         }
 
-        public T Get<T>(string key) {
-            ObjectCache cache = System.Runtime.Caching.MemoryCache.Default;
-            T result = (T) cache[key];
+        public T Get<T>(string key)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            var result = (T) cache[key];
             // Can be null:
             return result;
         }
@@ -62,25 +63,24 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             //_memoryCache.Set("someKey", "SomeValue",)
 
 
-            ObjectCache cache = System.Runtime.Caching.MemoryCache.Default;
+            ObjectCache cache = MemoryCache.Default;
 
-            CacheItemPolicy cacheItemPolicy =
+            var cacheItemPolicy =
                 new CacheItemPolicy
                 {
-                    AbsoluteExpiration = this._dateTimeService.NowUtc().Add(duration)
+                    AbsoluteExpiration = _dateTimeService.NowUtc().Add(duration)
                 };
 
             // We want the item to be be self-invoking
-            cacheItemPolicy.RemovedCallback = (CacheEntryRemovedArguments arguments) =>
+            cacheItemPolicy.RemovedCallback = arguments =>
             {
                 //Get the current (future) value:
                 value = expiredCallback();
                 //Reset it, reusing the policy (ie, duration), and callback:
-                arguments.Source.Set(arguments.CacheItem.Key, value, cacheItemPolicy, regionName: null);
+                arguments.Source.Set(arguments.CacheItem.Key, value, cacheItemPolicy);
             };
 
             cache.Set(key, value, cacheItemPolicy);
         }
-
     }
 }

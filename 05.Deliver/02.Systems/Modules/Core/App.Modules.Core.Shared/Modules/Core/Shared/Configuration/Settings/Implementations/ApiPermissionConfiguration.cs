@@ -1,10 +1,12 @@
-﻿using App.Modules.All.Shared.Attributes;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     public class ApiPermissionConfiguration
     {
@@ -30,15 +32,16 @@ namespace App.Modules.Core.Shared.Configuration.Settings
         {
             get
             {
-                if (!string.IsNullOrEmpty(this._serviceIdentifier) && !this._serviceIdentifier.EndsWith("/"))
+                if (!string.IsNullOrEmpty(_serviceIdentifier) && !_serviceIdentifier.EndsWith("/"))
                 {
                     //Ensure it ends with a slash, so that it can be easily 
                     // joined up with Scope.
-                    this._serviceIdentifier += "/";
+                    _serviceIdentifier += "/";
                 }
-                return this._serviceIdentifier;
+
+                return _serviceIdentifier;
             }
-            set => this._serviceIdentifier = value;
+            set => _serviceIdentifier = value;
         }
     }
 }

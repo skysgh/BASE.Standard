@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 //using System.Linq;
 //using System.Threading.Tasks;
 //using Microsoft.Azure.Documents;
@@ -15,7 +17,7 @@
 //            IDiagnosticsTracingService diagnosticsTracingService)
 //            :this (new Uri(endpoint), authKey, diagnosticsTracingService)
 //        {
-            
+
 //        }
 
 //        public AzureDocumentDbBaseService(Uri endpointUrl, string authKey,
@@ -53,7 +55,6 @@
 //        {
 //            return this._documentClient.CreateDocumentQuery<TDocument>(collectionLinkUri, feedoptions);
 //        }
-
 
 
 //        public async Task<V> ExecuteDocumentDbWithRetries<V>(Func<Task<V>> function)
@@ -95,3 +96,4 @@
 
 //    }
 //}
+

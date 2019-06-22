@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IStorageService" />
@@ -20,13 +16,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public StorageService(ITransientLocalFileStorageService transientLocalFileStorageService)
         {
-            this._transientLocalFileStorageService = transientLocalFileStorageService;
-
+            _transientLocalFileStorageService = transientLocalFileStorageService;
         }
+
         public void Persist(byte[] bytes, string fileName)
         {
-            this._transientLocalFileStorageService.Persist(bytes, fileName);
+            _transientLocalFileStorageService.Persist(bytes, fileName);
         }
     }
-
 }

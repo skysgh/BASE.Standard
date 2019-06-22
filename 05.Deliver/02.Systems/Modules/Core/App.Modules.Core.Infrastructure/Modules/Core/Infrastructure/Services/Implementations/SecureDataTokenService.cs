@@ -1,13 +1,12 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using App.Modules.Core.Infrastructure.Constants;
-    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ISecureDataTokenService" />
@@ -20,12 +19,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public SecureDataTokenService(ModuleDbContext repositoryService)
         {
-            this._coreRepositoryService = repositoryService;
+            _coreRepositoryService = repositoryService;
         }
 
         public string Get(Guid tokenKey)
         {
-            var result = this._coreRepositoryService.GetSingle<DataToken>(x => x.Id == tokenKey)?.Value;
+            var result = _coreRepositoryService.GetSingle<DataToken>(x => x.Id == tokenKey)?.Value;
 
             return result;
         }
@@ -34,7 +33,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             var dataToken = new DataToken();
             dataToken.Value = value;
-            this._coreRepositoryService.AddOnCommit(dataToken);
+            _coreRepositoryService.AddOnCommit(dataToken);
 
             return dataToken.Id.ToString("D").ToLower();
         }

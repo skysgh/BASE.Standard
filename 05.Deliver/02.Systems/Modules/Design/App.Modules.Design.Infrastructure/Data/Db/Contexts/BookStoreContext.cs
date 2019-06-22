@@ -1,4 +1,6 @@
-﻿//using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+//using System;
 //using System.Collections.Generic;
 //using System.Text;
 //using App.Modules.Design.Shared.Models.Entities;
@@ -28,3 +30,4 @@
 //        }
 //    }
 //}
+

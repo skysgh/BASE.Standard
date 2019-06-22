@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using App.Modules.All.AppFacade.Controllers.Configuration.Routes;
 using App.Modules.All.AppFacade.DependencyResolution;
-using App.Modules.All.AppFacade.Initialization.Views;
+using App.Modules.All.AppFacade.Initialization;
+using App.Modules.All.AppFacade.Views.Configuration;
 using App.Modules.Core.AppFacade.ActionFilters;
-using App.Modules.Core.AppFacade.Initialization.Startup;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
 using AutoMapper;
@@ -338,13 +339,6 @@ namespace App.Host
         }
 
 
-    }
-
-    public class SomeCustomConfig
-    {
-        public string Foo { get; set; }
-        public int Biz { get; set; }
-        public string Uno { get; set; }
     }
 
 }

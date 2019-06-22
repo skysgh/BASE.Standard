@@ -1,14 +1,13 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Linq;
 using System.Linq.Expressions;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
-using Lamar;
+using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Linq;
-    using AutoMapper;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IObjectMappingService" />
@@ -23,10 +22,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public ObjectMappingService(
             //ObjectMappingServiceConfiguration objectMappingServiceConfiguration, 
             IMapper mapper
-            )
+        )
         {
-            this._mapper = mapper;
+            _mapper = mapper;
         }
+
         public TTarget Map<TSource, TTarget>(TSource source) where TSource : class where TTarget : new()
         {
             var target = _mapper.Map<TSource, TTarget>(source);
@@ -44,22 +44,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             params Expression<Func<TTarget, object>>[] expand)
             where TTarget : new()
         {
-            return _mapper.ProjectTo<TTarget>(source, parameters, expand);
+            return _mapper.ProjectTo(source, parameters, expand);
         }
 
-        public IQueryable<TTarget> ProjectTo<TSource, TTarget>(IQueryable<TSource> source, 
+        public IQueryable<TTarget> ProjectTo<TSource, TTarget>(IQueryable<TSource> source,
             object parameters = null,
             params Expression<Func<TTarget, object>>[] expand)
-            where TSource : class 
+            where TSource : class
             where TTarget : new()
         {
-            return _mapper.ProjectTo<TTarget>(source, parameters, expand);
+            return _mapper.ProjectTo(source, parameters, expand);
         }
-
-
-
-
-
-
     }
 }

@@ -1,29 +1,31 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Constants
 {
     /// <summary>
-    /// Constants regarding API development.
+    ///     Constants regarding API development.
     /// </summary>
     public static class Apis
     {
         //Old way:            Id = typeof(Module).Assembly.GetModuleIdentifier();
         /// <summary>
-        /// The path prefix of all APIs ("api/")
+        ///     The path prefix of all APIs ("api/")
         /// </summary>
         public const string BasePath = "api/";
 
         /// <summary>
-        /// The path prefix of all OData based APIs ("api/odata/")
+        ///     The path prefix of all OData based APIs ("api/odata/")
         /// </summary>
         public const string BaseODataPath = BasePath + "odata/";
 
 
         /// <summary>
-        /// The Identifier of the given Logical Module (eg: "Core", "etc.").
-        /// <para>
-        /// The closest one can get to a Constant...
-        /// </para>
+        ///     The Identifier of the given Logical Module (eg: "Core", "etc.").
+        ///     <para>
+        ///         The closest one can get to a Constant...
+        ///     </para>
         /// </summary>
         /// <param name="moduleType">Type of the module.</param>
         /// <returns></returns>
@@ -33,4 +35,3 @@ namespace App.Modules.All.Shared.Constants
         }
     }
 }
-

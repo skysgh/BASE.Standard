@@ -1,10 +1,11 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Globalization;
+using System.Threading;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Globalization;
-    using System.Threading;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ILocalisationService" />
@@ -19,7 +20,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(clientLocalisationCode);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(clientLocalisationCode);
-            this.ThreadCultureSet = true;
+            ThreadCultureSet = true;
         }
 
 
@@ -35,10 +36,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             {
                 return false;
             }
+
             if (clientLocalisationCode == "--")
             {
                 return false;
             }
+
             if (clientLocalisationCode.Length != 2 &&
                 (clientLocalisationCode.Length != 5 || clientLocalisationCode[3] != '-'))
             {
@@ -56,6 +59,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             catch
             {
             }
+
             return false;
         }
     }

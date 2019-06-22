@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Linq;
 using App.Modules.All.AppFacade.Controllers.Api.Classic;
 using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
@@ -10,18 +12,18 @@ using Microsoft.AspNetCore.Routing;
 namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />
-    [Route(Apis.BasePath + "diagnostics/"+"[controller]")]
+    [Route(Apis.BasePath + "diagnostics/" + "[controller]")]
     public class StatusController : AllModulesApiControllerBase
     {
-        private readonly IDependencyResolutionService _dependencyResolutionService;
         private readonly ModuleDbContext _dbContext;
+        private readonly IDependencyResolutionService _dependencyResolutionService;
 
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="StatusController"/> class.
+        ///     Initializes a new instance of the
+        ///     <see cref="StatusController" /> class.
         /// </summary>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="principalService">The principal service.</param>
@@ -32,15 +34,14 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
             IPrincipalService principalService,
             IDependencyResolutionService dependencyResolutionService,
             ModuleDbContext dbContext)
-            : base(diagnosticsTracingService,principalService)
+            : base(diagnosticsTracingService, principalService)
         {
             _dependencyResolutionService = dependencyResolutionService;
             _dbContext = dbContext;
-
         }
 
         /// <summary>
-        /// TODO: Gets the specified identifier.
+        ///     TODO: Gets the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
@@ -60,24 +61,22 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
 
 
         /// <summary>
-        /// TODO: Checks the routes.
+        ///     TODO: Checks the routes.
         /// </summary>
         /// <returns></returns>
         public ActionResult CheckRoutes()
         {
-            return (_dependencyResolutionService.GetAllInstances<IRouteBuilder>().Count() > 0)
+            return _dependencyResolutionService.GetAllInstances<IRouteBuilder>().Count() > 0
                 ? Ok($"{TraceLevel.Info}: More than one Mvc/Api Route registered.")
                 : StatusCode(500, "Module Routes not found.");
         }
-
 
 
         private ActionResult CheckODataModels()
         {
             try
             {
-
-                int x = _dbContext.Set<DataClassification>().Count();
+                var x = _dbContext.Set<DataClassification>().Count();
                 return Ok($"{TraceLevel.Info}: Database online.");
             }
             catch
@@ -90,7 +89,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics
         {
             try
             {
-                int x = _dbContext.Set<DataClassification>().Count();
+                var x = _dbContext.Set<DataClassification>().Count();
                 return Ok($"{TraceLevel.Info}: Database online.");
             }
             catch

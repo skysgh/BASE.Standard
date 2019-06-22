@@ -1,43 +1,42 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.ComponentModel;
+using System.Reflection;
 using App.Modules.All.Shared.Attributes;
+using App.Modules.All.Shared.Attributes.Enums;
+using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Factories
 {
-    using System;
-    using System.ComponentModel;
-    using System.Reflection;
-    using App.Modules.All.Shared.Attributes.Enums;
-    using App.Modules.Core.Infrastructure.Services;
-    using App.Modules.Core.Shared.Models.Entities;
-
-
     /// <summary>
-    /// A Factory to create a Configuration object 
-    /// and provision it from Key Vault Secrets
-    /// with keys that match the names of the properties
-    /// or <see cref="AliasAttribute"/> they have been decorated with.
-    /// <para>
-    /// Used by the implementation of <see cref="IAzureKeyVaultService"/>.
-    /// </para>
-    /// <para>
-    /// It's much more maintainable and practical
-    /// to work with configuration objects
-    /// of multiple related properties than multiple
-    /// configuration values 'flying in close formation'.
-    /// And they are also cachable, for better performance.
-    /// </para>
-    /// <para>
-    /// When working on prem, Configuration settings
-    /// are sourced directly from AppSettings using
-    /// ConfigurationManager.
-    /// When deployed to cloud, there's
-    /// CloudConfigurationManager to handle a more layered
-    /// approach. At least, that's the theory (if it worked).
-    /// Rather than leave it in <see cref="IHostSettingsService"/>
-    /// the access logic is externalized to this class.
-    /// </para>
-    /// This might be overkill...(and it doesn't work for now).
-    /// On 
+    ///     A Factory to create a Configuration object
+    ///     and provision it from Key Vault Secrets
+    ///     with keys that match the names of the properties
+    ///     or <see cref="AliasAttribute" /> they have been decorated with.
+    ///     <para>
+    ///         Used by the implementation of <see cref="IAzureKeyVaultService" />.
+    ///     </para>
+    ///     <para>
+    ///         It's much more maintainable and practical
+    ///         to work with configuration objects
+    ///         of multiple related properties than multiple
+    ///         configuration values 'flying in close formation'.
+    ///         And they are also cachable, for better performance.
+    ///     </para>
+    ///     <para>
+    ///         When working on prem, Configuration settings
+    ///         are sourced directly from AppSettings using
+    ///         ConfigurationManager.
+    ///         When deployed to cloud, there's
+    ///         CloudConfigurationManager to handle a more layered
+    ///         approach. At least, that's the theory (if it worked).
+    ///         Rather than leave it in <see cref="IHostSettingsService" />
+    ///         the access logic is externalized to this class.
+    ///     </para>
+    ///     This might be overkill...(and it doesn't work for now).
+    ///     On
     /// </summary>
     public class KeyVaultConfigurationObjectFactory
     {
@@ -46,24 +45,24 @@ namespace App.Modules.Core.Infrastructure.Factories
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyVaultConfigurationObjectFactory" /> class.
+        ///     Initializes a new instance of the <see cref="KeyVaultConfigurationObjectFactory" /> class.
         /// </summary>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="keyVaultService">The key vault service.</param>
-        public KeyVaultConfigurationObjectFactory(IDiagnosticsTracingService diagnosticsTracingService, IAzureKeyVaultService keyVaultService)
+        public KeyVaultConfigurationObjectFactory(IDiagnosticsTracingService diagnosticsTracingService,
+            IAzureKeyVaultService keyVaultService)
         {
-            this._diagnosticsTracingService = diagnosticsTracingService;
-            this._keyVaultService = keyVaultService;
-
+            _diagnosticsTracingService = diagnosticsTracingService;
+            _keyVaultService = keyVaultService;
         }
 
 
         /// <summary>
-        /// Instantiates a new blank target object, 
-        /// then <see cref="Provision{T}"/>'s it's properties
-        /// from host settings (ie AppSettings)
-        /// with keys match the property's name, or any <see cref="AliasAttribute"/>
-        /// the property has been decorated with.
+        ///     Instantiates a new blank target object,
+        ///     then <see cref="Provision{T}" />'s it's properties
+        ///     from host settings (ie AppSettings)
+        ///     with keys match the property's name, or any <see cref="AliasAttribute" />
+        ///     the property has been decorated with.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="prefix">The prefix.</param>
@@ -75,10 +74,10 @@ namespace App.Modules.Core.Infrastructure.Factories
         }
 
         /// <summary>
-        /// Provisions the specified target object's properties
-        /// from host settings (ie AppSettings)
-        /// with keys match the property's name, or any <see cref="AliasAttribute"/>
-        /// the property has been decorated with.
+        ///     Provisions the specified target object's properties
+        ///     from host settings (ie AppSettings)
+        ///     with keys match the property's name, or any <see cref="AliasAttribute" />
+        ///     the property has been decorated with.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target">The target object .</param>
@@ -86,11 +85,9 @@ namespace App.Modules.Core.Infrastructure.Factories
         /// <returns></returns>
         public virtual T Provision<T>(T target, string prefix = null, bool skipIfAlreadyHasValue = true) where T : class
         {
-
             var objectType = target.GetType();
 
-            var validSources = new[]
-                {SourceType.Any, SourceType.KeyVault};
+            SourceType[] validSources = {SourceType.Any, SourceType.KeyVault};
 
 
             // Iterate over the public properties of the target object
@@ -98,9 +95,6 @@ namespace App.Modules.Core.Infrastructure.Factories
             foreach (var propertyInfo in typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public |
                                                                  BindingFlags.IgnoreCase))
             {
-
-
-
                 var hostKey = propertyInfo.Name;
 
 
@@ -110,10 +104,10 @@ namespace App.Modules.Core.Infrastructure.Factories
                 if (sourceAttribute == null)
                 {
                     var o = propertyInfo.GetValue(target, null);
-                    if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
+                    if (!o.IsDefault() && skipIfAlreadyHasValue)
                     {
                         //Already set, move on to next property.
-                        this._diagnosticsTracingService.Trace(TraceLevel.Verbose,
+                        _diagnosticsTracingService.Trace(TraceLevel.Verbose,
                             $"Setting {objectType}.{propertyInfo.Name} is already set via AppHost. Skipping setting it by KeyVault.");
                         continue;
                     }
@@ -130,18 +124,17 @@ namespace App.Modules.Core.Infrastructure.Factories
                             continue;
                         case SourceType.Any:
                             var o = propertyInfo.GetValue(target, null);
-                            if ((!o.IsDefault()) && (skipIfAlreadyHasValue))
+                            if (!o.IsDefault() && skipIfAlreadyHasValue)
                             {
                                 //Already set, move on to next property.
-                                this._diagnosticsTracingService.Trace(TraceLevel.Verbose,
+                                _diagnosticsTracingService.Trace(TraceLevel.Verbose,
                                     $"Setting {objectType}.{propertyInfo.Name} is already set via AppHost. Skipping setting it by KeyVault.");
                                 continue;
                             }
+
                             break;
                         case SourceType.KeyVault:
                             //For sure it was supposed to be obtained here:
-                            break;
-                        default:
                             break;
                     }
                 }
@@ -167,7 +160,6 @@ namespace App.Modules.Core.Infrastructure.Factories
                 string s = null;
                 if (!string.IsNullOrEmpty(prefix))
                 {
-
                     var tmp = prefix + hostKey;
                     try
                     {
@@ -180,6 +172,7 @@ namespace App.Modules.Core.Infrastructure.Factories
                         // key does not exist.
                     }
                 }
+
                 // If not set/not found, work with just the key
                 // without prefix:
                 if (!set)
@@ -205,6 +198,7 @@ namespace App.Modules.Core.Infrastructure.Factories
                     {
                         continue;
                     }
+
                     var typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
 
                     var typedValue =
@@ -213,18 +207,15 @@ namespace App.Modules.Core.Infrastructure.Factories
                                 s);
                     propertyInfo.SetValue(target, typedValue);
                 }
-            }//~ iterate to the next property
+            } //~ iterate to the next property
 
             return target;
         }
 
 
-
-
-
         /// <summary>
-        /// Helper method to gets the application setting (as a string, 
-        /// to be subseqently Typed).
+        ///     Helper method to gets the application setting (as a string,
+        ///     to be subseqently Typed).
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
@@ -235,24 +226,24 @@ namespace App.Modules.Core.Infrastructure.Factories
 
             try
             {
-                var result = this._keyVaultService.RetrieveSecretAsync(key).Result;
+                var result = _keyVaultService.RetrieveSecretAsync(key).Result;
                 return result;
             }
             catch (AggregateException e)
             {
-                this._diagnosticsTracingService.Trace(TraceLevel.Warn, $"Did not find an KeyVault Secret with id '{key}'.");
-                this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.Message);
-                this._diagnosticsTracingService.Trace(TraceLevel.Debug, e.StackTrace);
+                _diagnosticsTracingService.Trace(TraceLevel.Warn, $"Did not find an KeyVault Secret with id '{key}'.");
+                _diagnosticsTracingService.Trace(TraceLevel.Debug, e.Message);
+                _diagnosticsTracingService.Trace(TraceLevel.Debug, e.StackTrace);
 
                 if (e.InnerExceptions != null)
                 {
                     foreach (var ex in e.InnerExceptions)
                     {
-                        this._diagnosticsTracingService.Trace(TraceLevel.Debug, ex.Message);
-                        this._diagnosticsTracingService.Trace(TraceLevel.Debug, ex.StackTrace);
+                        _diagnosticsTracingService.Trace(TraceLevel.Debug, ex.Message);
+                        _diagnosticsTracingService.Trace(TraceLevel.Debug, ex.StackTrace);
                     }
-
                 }
+
                 throw;
             }
         }
@@ -274,7 +265,5 @@ namespace App.Modules.Core.Infrastructure.Factories
         //    }
         //    return (T)Convert.ChangeType(s, typeof(T));
         //}
-
     }
-
 }

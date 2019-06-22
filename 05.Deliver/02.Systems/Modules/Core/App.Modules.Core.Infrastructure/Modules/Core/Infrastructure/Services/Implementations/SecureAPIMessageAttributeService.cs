@@ -1,13 +1,13 @@
-﻿using App.Modules.All.Shared.Attributes;
+﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
+using System.Collections;
+using System.Reflection;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using System.Collections;
-    using System.Reflection;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ISecureAPIMessageAttributeService" />
@@ -22,8 +22,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public SecureAPIMessageAttributeService(IConversionService conversionService,
             IPrincipalService principalService)
         {
-            this._conversionService = conversionService;
-            this._principalService = principalService;
+            _conversionService = conversionService;
+            _principalService = principalService;
         }
 
         public void Process(IEnumerable models)
@@ -46,13 +46,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
                 if (!string.IsNullOrWhiteSpace(attribute.Roles)
                     &&
-                    this._principalService.IsInRole(attribute.Roles.Split(new[] { ',', ';', ':' },
+                    _principalService.IsInRole(attribute.Roles.Split(new[] {',', ';', ':'},
                         StringSplitOptions.RemoveEmptyEntries)))
                 {
                     continue;
                 }
+
                 return true;
             }
+
             return false;
         }
 
@@ -62,6 +64,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             {
                 return;
             }
+
             foreach (var pi in model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 var attribute = pi.GetCustomAttribute<RoleSecuredDtoModelAttributeAttribute>(true);
@@ -72,11 +75,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
                 if (!string.IsNullOrWhiteSpace(attribute.Roles)
                     &&
-                    this._principalService.IsInRole(attribute.Roles.Split(new[] { ',', ';', ':' },
+                    _principalService.IsInRole(attribute.Roles.Split(new[] {',', ';', ':'},
                         StringSplitOptions.RemoveEmptyEntries)))
                 {
                     continue;
                 }
+
                 //Clear Out Properties:
                 var defaultValue = pi.PropertyType.GetDefaultValue();
                 pi.SetValue(model, defaultValue, null);

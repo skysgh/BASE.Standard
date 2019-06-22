@@ -1,13 +1,13 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Collections.Generic;
+using App.Modules.Core.Infrastructure.Constants.Context;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Collections.Generic;
-    using App.Modules.Core.Infrastructure.Constants;
-    using App.Modules.Core.Infrastructure.Constants.Context;
-    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ISessionOperationLogService" />
@@ -16,22 +16,22 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.ISessionOperationLogService" />
     public class SessionOperationLogService : AppCoreServiceBase, ISessionOperationLogService
     {
-        private readonly IOperationContextService _operationContextService;
         private readonly ModuleDbContext _coreRepositoryService;
- 
-        public SessionOperationLogService(IOperationContextService operationContextService, ModuleDbContext repositoryService)
-        {
-            this._operationContextService = operationContextService;
-            this._coreRepositoryService = repositoryService;
-        }
+        private readonly IOperationContextService _operationContextService;
 
+        public SessionOperationLogService(IOperationContextService operationContextService,
+            ModuleDbContext repositoryService)
+        {
+            _operationContextService = operationContextService;
+            _coreRepositoryService = repositoryService;
+        }
 
 
         public SessionOperation Current
         {
             get
             {
-                var r = this._operationContextService.Get< SessionOperation>(AppContextKeys.SessionOperation);
+                var r = _operationContextService.Get<SessionOperation>(AppContextKeys.SessionOperation);
 
                 if (r != null)
                 {
@@ -39,55 +39,61 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 }
 
                 r = new SessionOperation();
-                this._operationContextService.Set(AppContextKeys.SessionOperation, r);
-                
+                _operationContextService.Set(AppContextKeys.SessionOperation, r);
+
 
                 return r;
             }
         }
+
         public object GetDetail(string key)
         {
-            var d = CurrentDetails;
+            Dictionary<string, object> d = CurrentDetails;
             object r;
             if (d.TryGetValue(key, out r))
             {
                 return r;
             }
+
             return null;
         }
+
         public void SetDetail(string key, object value)
         {
-            var d = CurrentDetails;
+            Dictionary<string, object> d = CurrentDetails;
             d[key] = value;
         }
+
         public void IncrementDetail(string key)
         {
-            var d = CurrentDetails;
+            Dictionary<string, object> d = CurrentDetails;
             object r;
             if (d.TryGetValue(key, out r))
             {
-                r = ((int)r)+1;
+                r = (int) r + 1;
                 return;
             }
+
             d[key] = 1;
         }
 
 
-        public Dictionary<string,object> CurrentDetails
+        public Dictionary<string, object> CurrentDetails
         {
             get
             {
-                var r = this._operationContextService.Get<Dictionary<string, object>>(AppContextKeys.SessionOperationDetails);
+                Dictionary<string, object> r =
+                    _operationContextService.Get<Dictionary<string, object>>(AppContextKeys.SessionOperationDetails);
 
                 if (r != null)
                 {
                     return r;
                 }
-                r = new Dictionary<string,object>();
-                this._operationContextService.Set(AppContextKeys.SessionOperationDetails, r);
+
+                r = new Dictionary<string, object>();
+                _operationContextService.Set(AppContextKeys.SessionOperationDetails, r);
                 return r;
             }
-
         }
     }
 }

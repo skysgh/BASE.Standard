@@ -1,11 +1,13 @@
+// Copyright MachineBrains, Inc. 2019
+
 using System;
 
 namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Contract to define that the model
-    /// has sufficient attributes to record who and when
-    /// created, updated, and deleted a record.
+    ///     Contract to define that the model
+    ///     has sufficient attributes to record who and when
+    ///     created, updated, and deleted a record.
     /// </summary>
     public interface IHasInRecordAuditability
     {

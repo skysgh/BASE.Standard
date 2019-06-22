@@ -1,5 +1,4 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 namespace App
 {
@@ -33,7 +32,7 @@ namespace App
         /// </internal>
         public static bool BitIsNotSet(this int number, int flags)
         {
-            return (number & ~flags) == 0;
+            return (number & flags) == 0;
         }
 
         public static int BitSet(this int number, int flags)

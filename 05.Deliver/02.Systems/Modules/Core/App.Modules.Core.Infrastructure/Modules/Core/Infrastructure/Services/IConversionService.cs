@@ -1,18 +1,19 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using System;
-
     /// <summary>
-    /// Contract for an Infrastructure Service to 
+    ///     Contract for an Infrastructure Service to
     ///     to convert types to alternate types.
     ///     <para>
     ///         Refer to implementations of
     ///         <see cref="IHostSettingsService" />
-    /// that use it to convert settings for persistence
-    /// in datastores, and back again. It's used in other 
-    /// places too (front end conversion).
+    ///         that use it to convert settings for persistence
+    ///         in datastores, and back again. It's used in other
+    ///         places too (front end conversion).
     ///     </para>
     /// </summary>
     public interface IConversionService : IInfrastructureService
@@ -25,7 +26,7 @@ namespace App.Modules.Core.Infrastructure.Services
         /// <param name="source">The source object</param>
         /// <param name="defaultValue">The default target value</param>
         /// <returns></returns>
-        T ConvertTo<T>(object source, T defaultValue = default(T));
+        T ConvertTo<T>(object source, T defaultValue = default);
 
         /// <summary>
         ///     Get the default value of the provided Type.

@@ -1,5 +1,4 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace App
 {
     public static class TypeExtensions
     {
-
         public static bool IsSameOrSubclassOf(this Type potentialDescendant, Type potentialBase)
         {
             return potentialDescendant.IsSubclassOf(potentialBase)
@@ -31,9 +29,9 @@ namespace App
             return aliasAttribute?.Key;
         }
 
-        public static T GetCustomAttribute<T>(this Type type, bool inherit=true) where T:Attribute
+        public static T GetCustomAttribute<T>(this Type type, bool inherit = true) where T : Attribute
         {
-            T result = (T)type.GetCustomAttributes(typeof(T), inherit).FirstOrDefault();
+            var result = (T) type.GetCustomAttributes(typeof(T), inherit).FirstOrDefault();
             return result;
         }
     }

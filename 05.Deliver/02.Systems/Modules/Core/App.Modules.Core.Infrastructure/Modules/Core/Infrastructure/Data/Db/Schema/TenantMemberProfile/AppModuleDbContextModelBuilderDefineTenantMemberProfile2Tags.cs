@@ -1,3 +1,5 @@
+// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -6,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
 {
-    public class AppModuleDbContextModelBuilderDefineTenantMemberProfile2Tags : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineTenantMemberProfile2Tags :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
-
-
             new DefaultTableAndSchemaNamingConvention()
                 .Define<TenantMemberProfile2TagAssignment>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
 
@@ -28,7 +30,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberProfile
                 });
 
             modelBuilder.Entity<TenantMemberProfile2TagAssignment>()
-                .HasOne(x=>x.TenantPrincipal)
+                .HasOne(x => x.TenantPrincipal)
                 .WithMany(x => x.TagAssignments)
                 .HasForeignKey(x => x.TenantPrincipalFK);
 

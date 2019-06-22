@@ -1,20 +1,21 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Linq;
+using System.Security.Claims;
+using App.Modules.Core.Infrastructure.Constants.IDA;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using System.Linq;
-    using System.Security.Claims;
-
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IPrincipalService" />
     ///     Infrastructure Service Contract
-    /// to work with the current thread Principal.
-    /// It does not work with any datastorage (ie it does not know how to
-    /// retrieve a Principal record from the database). For that, use the
-    /// PrincipalRecordService.
+    ///     to work with the current thread Principal.
+    ///     It does not work with any datastorage (ie it does not know how to
+    ///     retrieve a Principal record from the database). For that, use the
+    ///     PrincipalRecordService.
     /// </summary>
     /// <seealso cref="AppCoreServiceBase" />
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IPrincipalService" />
@@ -23,25 +24,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         // OWIN auth middleware constants
 
         /// <summary>
-        /// Gets the current identity.
+        ///     Gets the current identity.
         /// </summary>
         public ClaimsIdentity CurrentIdentity => ClaimsPrincipal.Current.Identities.FirstOrDefault();
 
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrincipalService"/> class.
-        /// </summary>
-        public PrincipalService()
-        {
-
-            //Does not rely on other services -- just the thread.
-        }
-
-        /// <summary>
-        /// Gets the current thread's Principal's NameIdentifier (not same as ObjectIdElementId).
+        ///     Gets the current thread's Principal's NameIdentifier (not same as ObjectIdElementId).
         /// </summary>
         /// <value>
-        /// The name of the current.
+        ///     The name of the current.
         /// </value>
         public string CurrentPrincipalName
         {
@@ -49,69 +40,69 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             {
                 //http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier (ie ID)
                 // not 'Name' (ie: "SSmith").
-                var signedInUserID = this.CurrentPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (signedInUserID == null) {
+                var signedInUserID = CurrentPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (signedInUserID == null)
+                {
                     signedInUserID = "UNNOWN";
                 }
+
                 return signedInUserID;
             }
         }
 
 
         /// <summary>
-        /// Gets a value indicating whether this
-        /// thread's Principal is authenticated.
+        ///     Gets a value indicating whether this
+        ///     thread's Principal is authenticated.
         /// </summary>
-        public bool IsAuthenticated
-        {
-            get => CurrentIdentity.IsAuthenticated;
-        }
+        public bool IsAuthenticated => CurrentIdentity.IsAuthenticated;
+
         /// <summary>
-        /// Gets the current Thread's <see cref="ClaimsPrincipal" />.
+        ///     Gets the current Thread's <see cref="ClaimsPrincipal" />.
         /// </summary>
         public ClaimsPrincipal CurrentPrincipal => ClaimsPrincipal.Current;
 
         /// <summary>
-        /// Validate the current thread Principal has the necessary scopes.
+        ///     Validate the current thread Principal has the necessary scopes.
         /// </summary>
         /// <param name="permission">The permission.</param>
         /// <param name="scopeElement">The scope element.</param>
         /// <returns>
-        ///   <c>true</c> if [has required scopes] [the specified permission]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [has required scopes] [the specified permission]; otherwise, <c>false</c>.
         /// </returns>
-        public bool HasRequiredScopes(string permission, string scopeElement = Constants.IDA.ClaimTitles.ScopeElementId)
+        public bool HasRequiredScopes(string permission, string scopeElement = ClaimTitles.ScopeElementId)
         {
-            var value = this.CurrentPrincipal?.FindFirst(scopeElement)?.Value?.Contains(permission);
+            bool? value = CurrentPrincipal?.FindFirst(scopeElement)?.Value?.Contains(permission);
             return value != null && value.Value;
         }
 
 
         /// <summary>
-        /// Gets the current thread's Principal's
-        /// Object/Record Identifier
-        /// (not same as NameIdentifier).
+        ///     Gets the current thread's Principal's
+        ///     Object/Record Identifier
+        ///     (not same as NameIdentifier).
         /// </summary>
         /// <value>
-        /// The current principal identifier.
+        ///     The current principal identifier.
         /// </value>
         public string CurrentPrincipalIdentifier
         {
             get
             {
-                var owner = ClaimsPrincipal.Current?.FindFirst(Constants.IDA.ClaimTitles.UserIdentifier)?.Value;
+                var owner = ClaimsPrincipal.Current?.FindFirst(ClaimTitles.UserIdentifier)?.Value;
                 return owner;
             }
         }
 
         /// <summary>
-        /// Gets the current principal record identifier
-        /// as a Guid (if it can be parsed.
+        ///     Gets the current principal record identifier
+        ///     as a Guid (if it can be parsed.
         /// </summary>
         public Guid? CurrentPrincipalIdentifierGuid
         {
             get
             {
-                if (Guid.TryParse(CurrentPrincipalIdentifier, out Guid result))
+                if (Guid.TryParse(CurrentPrincipalIdentifier, out var result))
                 {
                     return result;
                 }
@@ -121,32 +112,34 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// A unique Id assigned from the issuing Token
+        ///     A unique Id assigned from the issuing Token
         /// </summary>
-        public string UniqueSessionIdentifier => ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.UniqueSessionIdentifier)?.Value;
+        public string UniqueSessionIdentifier =>
+            ClaimsPrincipal.Current.FindFirst(ClaimTitles.UniqueSessionIdentifier)?.Value;
 
         /// <summary>
-        /// The FK to the current Session Record.
+        ///     The FK to the current Session Record.
         /// </summary>
         public Guid? CurrentSessionIdentifier
         {
             get
             {
-                var sessionFK = ClaimsPrincipal.Current.FindFirst(Constants.IDA.ClaimTitles.SessionIdentifier)?.Value;
+                var sessionFK = ClaimsPrincipal.Current.FindFirst(ClaimTitles.SessionIdentifier)?.Value;
 
                 if (!string.IsNullOrWhiteSpace(sessionFK))
                 {
-                    Guid result = Guid.Parse(sessionFK);
+                    var result = Guid.Parse(sessionFK);
                     return result;
                 }
+
                 return null;
             }
         }
 
 
         /// <summary>
-        /// Determines whether the
-        /// Current Principal has the specified Role(s).
+        ///     Determines whether the
+        ///     Current Principal has the specified Role(s).
         /// </summary>
         /// <param name="roles">One or more roles.</param>
         /// <returns></returns>
@@ -157,12 +150,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
 
         /// <summary>
-        /// Gets or sets the current identity's preferred Culture Id.
+        ///     Gets or sets the current identity's preferred Culture Id.
         /// </summary>
         public string ClaimPreferredCultureCode
         {
-            get => GetClaimValue(Constants.IDA.ClaimTitles.CultureElementId);
-            set => SetClaimValue(Constants.IDA.ClaimTitles.CultureElementId, value);
+            get => GetClaimValue(ClaimTitles.CultureElementId);
+            set => SetClaimValue(ClaimTitles.CultureElementId, value);
         }
 
         /// <summary>
@@ -171,27 +164,28 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// </summary>
         public string PrincipalTenantKey
         {
-            get => GetClaimValue(Constants.IDA.ClaimTitles.PrincipalKeyElementId);
-            set => SetClaimValue(Constants.IDA.ClaimTitles.PrincipalKeyElementId, value);
+            get => GetClaimValue(ClaimTitles.PrincipalKeyElementId);
+            set => SetClaimValue(ClaimTitles.PrincipalKeyElementId, value);
         }
 
 
         private string GetClaimValue(string claimName)
         {
-            var cultureInfoCode = this.CurrentPrincipal.FindFirst(claimName)?.Value;
+            var cultureInfoCode = CurrentPrincipal.FindFirst(claimName)?.Value;
             return cultureInfoCode;
         }
 
         private void SetClaimValue(string claimName, string value)
         {
-            var claim = this.CurrentPrincipal.FindFirst(claimName);
+            var claim = CurrentPrincipal.FindFirst(claimName);
             if (claim != null)
             {
-                this.CurrentIdentity
+                CurrentIdentity
                     .TryRemoveClaim(claim);
             }
+
             claim = new Claim(claimName, value);
-            this.CurrentIdentity.AddClaim(claim);
+            CurrentIdentity.AddClaim(claim);
         }
     }
 }

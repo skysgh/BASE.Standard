@@ -1,5 +1,7 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using App.Modules.Core.Shared.Configuration.Settings;
 using Microsoft.Azure.KeyVault;
@@ -8,43 +10,40 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 namespace App.Modules.Core.Infrastructure.Factories
 {
     /// <summary>
-    /// <para>
-    /// Depends on:
-    ///  Nuget:
-    ///    * Microsoft.Azure.KeyVault
-    ///    * Microsoft.IdentityModel.Clients.ActiveDirectory
-    ///  * PowerShell:
-    ///    * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
-    /// </para>
+    ///     <para>
+    ///         Depends on:
+    ///         Nuget:
+    ///         * Microsoft.Azure.KeyVault
+    ///         * Microsoft.IdentityModel.Clients.ActiveDirectory
+    ///         * PowerShell:
+    ///         * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
+    ///     </para>
     /// </summary>
     public class KeyVaultClientFactory
     {
         /// <summary>
-        /// Application's that use Azure KeyVault are hosted in Azure. 
-        /// Within Azure Application Registration, when registered, they get an Id. 
-        /// Which is automatically mapped to a Service Principal Name (SPN)
-        /// (New-AzureRmADServicePrincipal -ApplicationId {Guid} is invoked behind the scene)
-        /// (and for now think of it as a Pseudo User that this not visible in AAD Users).
-        /// Then within KeyVault, access is granted to the SPN. 
-        /// When you sign in, you're using the AppClientId and AppSecret over a secure line.
-        /// That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
-        /// And hence why the App is given access to the KeyVault to retrieve secrets and keys.
+        ///     Application's that use Azure KeyVault are hosted in Azure.
+        ///     Within Azure Application Registration, when registered, they get an Id.
+        ///     Which is automatically mapped to a Service Principal Name (SPN)
+        ///     (New-AzureRmADServicePrincipal -ApplicationId {Guid} is invoked behind the scene)
+        ///     (and for now think of it as a Pseudo User that this not visible in AAD Users).
+        ///     Then within KeyVault, access is granted to the SPN.
+        ///     When you sign in, you're using the AppClientId and AppSecret over a secure line.
+        ///     That's how Azure recognizes the app (as an SPN, not a proper User or Service Account).
+        ///     And hence why the App is given access to the KeyVault to retrieve secrets and keys.
         /// </summary>
         /// <param name="aadClientInfo"></param>
         /// <returns></returns>
         public KeyVaultClient Build(AadApplicationRegistrationInformationConfigurationSettings aadClientInfo)
         {
-
             throw new NotImplementedException();
             //var clientCredential = new ClientCredentialFactory().Build(aadClientInfo);
 
             //return Build(clientCredential);
-
-
         }
 
         /// <summary>
-        /// Builds the specified client, given credentials.
+        ///     Builds the specified client, given credentials.
         /// </summary>
         /// <param name="clientCredential">The client credential.</param>
         /// <returns></returns>
@@ -56,20 +55,18 @@ namespace App.Modules.Core.Infrastructure.Factories
             //clientID and clientSecret are obtained by registering
             //the application in Azure AD
 
-            var httpClient = new System.Net.Http.HttpClient();
+            var httpClient = new HttpClient();
 
-            KeyVaultClient keyVaultClient =
+            var keyVaultClient =
                 new KeyVaultClient(
-                    new KeyVaultClient.AuthenticationCallback(
-                        (a, r, s) => GetAccessTokenAsync(
-                            authority: a,
-                            resource: r,
-                            scope: s,
-                            clientCredential: clientCredential)),
+                    (a, r, s) => GetAccessTokenAsync(
+                        a,
+                        r,
+                        s,
+                        clientCredential),
                     httpClient);
 
             return keyVaultClient;
-
         }
 
         // Helper to extract access token.
@@ -79,12 +76,11 @@ namespace App.Modules.Core.Infrastructure.Factories
             string scope,
             ClientCredential clientCredential)
         {
-
             var context = new AuthenticationContext(
                 authority,
                 TokenCache.DefaultShared);
 
-            AuthenticationResult authenticationResult = await context.AcquireTokenAsync(
+            var authenticationResult = await context.AcquireTokenAsync(
                 resource,
                 clientCredential);
 

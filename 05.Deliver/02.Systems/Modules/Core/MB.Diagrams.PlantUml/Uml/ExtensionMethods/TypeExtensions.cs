@@ -70,8 +70,45 @@ namespace App.Diagrams.PlantUml.Uml
             return retType.ToString();
         }
 
+        /// <summary>
+        /// Determines whether given type implements the given interface.
+        /// </summary>
+        /// <typeparam name="TInterfaceType">The type of the interface type.</typeparam>
+        /// <param name="instanceType">Type of the instance.</param>
+        /// <returns></returns>
+        public static bool ImplementsInterface<TInterfaceType>(
+            this Type instanceType)
+        {
+            return instanceType.ImplementsInterface(typeof(TInterfaceType));
+        }
 
 
+        /// <summary>
+        /// Determines whether given type implements the given interface.
+        /// </summary>
+        /// <param name="instanceType">Type of the instance.</param>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <returns></returns>
+        public static bool ImplementsInterface(this Type instanceType, Type interfaceType)
+        {
+            if (!interfaceType.IsInterface)
+            {
+                return false;
+
+            }
+            return interfaceType.IsAssignableFrom(instanceType);
+        }
+
+        /// <summary>
+        /// Gets the constructor with the most arguments.
+        /// <para>
+        /// In most cases this will be the constructor that will
+        /// be referenced by a Dependency Injector.  
+        /// </para>
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="bindingFlags">The binding flags.</param>
+        /// <returns></returns>
         public static ConstructorInfo GetConstructorWithMostArguments(this Type type,
             BindingFlags bindingFlags =
                 BindingFlags.Instance | BindingFlags.Public |

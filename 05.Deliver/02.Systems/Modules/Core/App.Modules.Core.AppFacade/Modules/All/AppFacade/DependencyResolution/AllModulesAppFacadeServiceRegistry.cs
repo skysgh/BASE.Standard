@@ -1,25 +1,27 @@
-﻿using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
-using App.Modules.All.AppFacade.Initialization.Views;
-using App.Modules.Core.AppFacade.Initialization.Startup;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
+using App.Modules.All.AppFacade.Controllers.Configuration.Routes;
+using App.Modules.All.AppFacade.Initialization;
+using App.Modules.All.AppFacade.Views.Configuration;
 using Lamar;
 using Lamar.Scanning.Conventions;
 
 namespace App.Modules.All.AppFacade.DependencyResolution
 {
     /// <summary>
-    /// A <see cref="ServiceRegistry"/>
-    /// that scans all Assemblies in all Logical Modules.
+    ///     A <see cref="ServiceRegistry" />
+    ///     that scans all Assemblies in all Logical Modules.
     /// </summary>
     /// <seealso cref="Lamar.ServiceRegistry" />
-    public class AllModulesAppFacadeServiceRegistry : Lamar.ServiceRegistry
+    public class AllModulesAppFacadeServiceRegistry : ServiceRegistry
     {
         /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="AllModulesAppFacadeServiceRegistry"/> class.
+        ///     Initializes a new instance of the
+        ///     <see cref="AllModulesAppFacadeServiceRegistry" /> class.
         /// </summary>
         public AllModulesAppFacadeServiceRegistry()
         {
-
             Scan(assemblyScanner =>
             {
                 // Want to search in all Assemblies related to this system.
@@ -35,7 +37,6 @@ namespace App.Modules.All.AppFacade.DependencyResolution
                 ScanAllModulesForViewAssemblyRegistration(assemblyScanner);
                 ScanAllModulesForODataModelDefinitions(assemblyScanner);
             });
-
         }
 
         private void ScanAllModulesForStartupExtensions(IAssemblyScanner assemblyScanner)
@@ -47,6 +48,7 @@ namespace App.Modules.All.AppFacade.DependencyResolution
         {
             assemblyScanner.AddAllTypesOf<IModuleRoutes>().NameBy(x => x.FullName);
         }
+
         private void ScanAllModulesForViewAssemblyRegistration(IAssemblyScanner assemblyScanner)
         {
             assemblyScanner.AddAllTypesOf<IAllModulesViewArtifactRegistration>().NameBy(x => x.FullName);

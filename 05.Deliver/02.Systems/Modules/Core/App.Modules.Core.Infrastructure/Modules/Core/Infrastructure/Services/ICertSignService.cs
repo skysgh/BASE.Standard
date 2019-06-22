@@ -1,14 +1,14 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using System.Security.Cryptography;
-    using System.Security.Cryptography.X509Certificates;
-
-    
     /// <summary>
-    /// Contract for an Infrastructure Service to 
-    /// Sign data.
+    ///     Contract for an Infrastructure Service to
+    ///     Sign data.
     ///     <para>
     ///         Use to sign OperationLog entries.
     ///     </para>

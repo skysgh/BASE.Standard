@@ -1,4 +1,6 @@
-﻿using App.Modules.Core.Shared.Models.Entities;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Constants.Tenancy
 {
@@ -12,7 +14,7 @@ namespace App.Modules.Core.Infrastructure.Constants.Tenancy
             DataClassificationFK = NZDataClassification.Unclassified,
             Key = "Default",
             DisplayName = "Default",
-            HostName = "Default",
+            HostName = "Default"
         };
     }
 }

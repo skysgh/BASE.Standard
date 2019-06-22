@@ -1,18 +1,15 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-    using AutoMapper.QueryableExtensions;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ITenantService" />
@@ -23,39 +20,38 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private static readonly string _currentRequestCacheKey = "_CurrentTenantKey";
         private static readonly string _ResourceListCacheKey = "_TenantCache";
+
+        private static string _defaultTenantString;
+
         //private readonly ICacheItemService _cacheItemService;
         //private readonly IAzureRedisCacheService _azureRedisCacheService;
         private readonly ModuleDbContext _coreRepositoryService;
+        private readonly IObjectMappingService _objectMappingService;
         private readonly IOperationContextService _operationContextService;
         private readonly IPrincipalService _principalService;
-        private readonly IObjectMappingService _objectMappingService;
 
         //private readonly IAppHostNamesService _hostNamesService;
         private Guid _id;
-        private static string _defaultTenantString; 
 
         public TenantService(
-            IOperationContextService operationContextService, 
+            IOperationContextService operationContextService,
             IPrincipalService principalService,
             IObjectMappingService objectMappingService,
             //IAzureRedisCacheService azureRedisCacheService, 
             ModuleDbContext repositoryService
             //,
             //IAppHostNamesService appHostNamesService
-            )
+        )
         {
-            this._operationContextService = operationContextService;
-            this._principalService = principalService;
-            this._objectMappingService = objectMappingService;
+            _operationContextService = operationContextService;
+            _principalService = principalService;
+            _objectMappingService = objectMappingService;
 
             //this._azureRedisCacheService = azureRedisCacheService;
-            this._coreRepositoryService = repositoryService;
+            _coreRepositoryService = repositoryService;
             //this._hostNamesService = appHostNamesService;
             _id = Guid.NewGuid();
         }
-
-
-
 
 
         /// <summary>
@@ -66,10 +62,54 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// </summary>
         public TenantDto CurrentTenant
         {
-            get => this._operationContextService.Get<TenantDto>(_currentRequestCacheKey);
-            private set => this._operationContextService.Set(_currentRequestCacheKey, value);
+            get => _operationContextService.Get<TenantDto>(_currentRequestCacheKey);
+            private set => _operationContextService.Set(_currentRequestCacheKey, value);
         }
 
+
+        /// <summary>
+        ///     <para>
+        ///         Inovked by Middleware Module
+        ///         (before Routing gets involved)
+        ///     </para>
+        /// </summary>
+        /// <param name="tenantKeyOrPath"></param>
+        /// <param name="hostName"></param>
+        /// <returns></returns>
+        public TenantDto SetTenantFromUrl(string tenantKeyOrPath, string hostName = null)
+        {
+            var result = GetTenantAndAddToCache(tenantKeyOrPath, hostName);
+
+            CurrentTenant = result;
+            return result;
+        }
+
+
+        /// <summary>
+        ///     <para>
+        ///         Can be invoked by Route Condition
+        ///         to verify that first part of route is valid.
+        ///         (note that when done from there,
+        ///         this will be the same as what was resolved
+        ///         within the Middleware, when it set the Tenancy).
+        ///     </para>
+        ///     <para>
+        ///         If invoked from another location, will be slower.
+        ///     </para>
+        /// </summary>
+        /// <param name="tenantKey"></param>
+        /// <param name="hostName"></param>
+        /// <returns></returns>
+        public bool IsValidTenantKey(string tenantKey, string hostName = null)
+        {
+            // Since this is after the Middleware has parsed it, 
+            // it's already in cache... so can use local cache.
+            tenantKey = tenantKey.ToLowerInvariant();
+
+            var result = GetTenant(tenantKey, hostName, false);
+
+            return result != null;
+        }
 
 
         ///// <summary>
@@ -91,80 +131,37 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             if (!string.IsNullOrWhiteSpace(GetDefaultTenantKey()))
             {
                 result = GetTenant(_defaultTenantString, false);
-                if (result != null) { return result; }
+                if (result != null)
+                {
+                    return result;
+                }
             }
-           
-            result = 
+
+            result =
                 //this._coreRepositoryService
                 //.GetQueryableSet<Tenant>()
                 //.Where(x => (x.IsDefault == true))
                 //.ProjectTo<TenantDto>((object)null, x => x.Properties)
-                
-                this
-                    ._objectMappingService
+                _objectMappingService
                     .ProjectTo<Tenant, TenantDto>(
                         _coreRepositoryService
-                        .GetQueryableSet<Tenant>()
-                        .Where(x => (x.IsDefault == true))
+                            .GetQueryableSet<Tenant>()
+                            .Where(x => x.IsDefault == true)
                     )
-                .FirstOrDefault();
+                    .FirstOrDefault();
 
             if (result != null)
             {
                 _defaultTenantString = result.Key;
                 AddToCache(result);
             }
+
             return result;
         }
 
         public string GetDefaultTenantKey()
         {
             return _defaultTenantString;
-        }
-
-
-        /// <summary>
-        /// <para>
-        /// Inovked by Middleware Module 
-        /// (before Routing gets involved)
-        /// </para>
-        /// </summary>
-        /// <param name="tenantKeyOrPath"></param>
-        /// <param name="hostName"></param>
-        /// <returns></returns>
-        public TenantDto SetTenantFromUrl(string tenantKeyOrPath, string hostName = null)
-        {
-            TenantDto result = GetTenantAndAddToCache(tenantKeyOrPath, hostName);
-
-            this.CurrentTenant = result;
-            return result;
-        }
-
-
-        /// <summary>
-        /// <para>
-        ///     Can be invoked by Route Condition
-        ///     to verify that first part of route is valid.
-        ///     (note that when done from there, 
-        ///     this will be the same as what was resolved 
-        ///     within the Middleware, when it set the Tenancy).
-        /// </para>
-        /// <para>
-        /// If invoked from another location, will be slower.
-        /// </para>
-        /// </summary>
-        /// <param name="tenantKey"></param>
-        /// <param name="hostName"></param>
-        /// <returns></returns>
-        public bool IsValidTenantKey(string tenantKey, string hostName = null)
-        {
-            // Since this is after the Middleware has parsed it, 
-            // it's already in cache... so can use local cache.
-            tenantKey = tenantKey.ToLowerInvariant();
-
-            var result = GetTenant(tenantKey, hostName, false);
-
-            return result != null;
         }
 
         public TenantDto GetTenant(string tenantKeyOrPath, string hostName = null, bool defaultIfNotFound = true)
@@ -180,11 +177,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
                 result = SearchCacheForTenantByKey(searchKey);
-            }    
+            }
+
             if (defaultIfNotFound)
             {
                 return GetDefaultTenant();
             }
+
             return result;
         }
 
@@ -198,7 +197,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private TenantDto GetTenantAndAddToCache(string searchKey)
         {
             var result = GetTenant(searchKey, false);
-            if (result != null) { return result; }
+            if (result != null)
+            {
+                return result;
+            }
 
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
@@ -208,18 +210,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 //    .ProjectTo<TenantDto>((object)null, x => x.Properties)
                 //    .FirstOrDefault();
 
-                result = 
-                    this
-                        ._objectMappingService
+                result =
+                    _objectMappingService
                         .ProjectTo<Tenant, TenantDto>(
                             _coreRepositoryService
                                 .GetQueryableSet<Tenant>()
-                                .Where(x => (x.Key == searchKey)),
+                                .Where(x => x.Key == searchKey),
                             null,
                             x => x.Properties
                         )
                         .FirstOrDefault();
-
             }
 
             if (result != null)
@@ -244,7 +244,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
 
             return hostTenancy;
-
         }
 
         public string GetHostNameTenant(string hostName)
@@ -303,6 +302,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                     hostName = hostName.Substring(4, hostName.Length - 4);
                 }
             }
+
             return hostName;
         }
 
@@ -344,19 +344,19 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets the list of cached Resources retrieved during this request:
+        ///     Gets the list of cached Resources retrieved during this request:
         /// </summary>
         /// <returns></returns>
         private List<TenantDto> GetContextCache()
         {
-            var result = this._operationContextService.Get<List<TenantDto>>(_ResourceListCacheKey);
+            List<TenantDto> result = _operationContextService.Get<List<TenantDto>>(_ResourceListCacheKey);
             if (result == null)
             {
                 result = new List<TenantDto>();
-                this._operationContextService.Set(_ResourceListCacheKey, result);
+                _operationContextService.Set(_ResourceListCacheKey, result);
             }
+
             return result;
         }
-
     }
 }

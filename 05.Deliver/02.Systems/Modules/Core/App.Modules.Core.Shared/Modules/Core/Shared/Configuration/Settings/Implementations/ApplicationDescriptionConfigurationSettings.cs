@@ -1,57 +1,56 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Attributes;
 using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Shared.Models;
+using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Shared.Configuration.Settings
 {
     /// <summary>
-    /// An immutable host configuration object 
-    /// describing the Application (ie, shows up on the header).
+    ///     An immutable host configuration object
+    ///     describing the Application (ie, shows up on the header).
     /// </summary>
-    public class ApplicationDescriptionConfigurationSettings 
+    public class ApplicationDescriptionConfigurationSettings
         : IHostSettingsBasedConfigurationObject, IHasName, IHasDescription
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDescriptionConfigurationSettings"/> class.
+        ///     Initializes a new instance of the <see cref="ApplicationDescriptionConfigurationSettings" /> class.
         /// </summary>
         public ApplicationDescriptionConfigurationSettings()
         {
-            this.Id = new Guid();
+            Id = new Guid();
         }
 
         // OData always needs an Id. It can be another field, but too much bother
         // to configure it...
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The identifier.
         /// </value>
-        public Guid Id
-        {
-            get; set;
-        }
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the Application
+        ///     Gets or sets the description/byline of the Application.
         /// </summary>
         /// <value>
-        /// The name.
+        ///     The description.
         /// </value>
         [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias (Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationName)]
-        public string Name { get;set; }
+        [Alias(ConfigurationKeys.AppCoreApplicationDescription)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the description/byline of the Application.
+        ///     Gets or sets the name of the Application
         /// </summary>
         /// <value>
-        /// The description.
+        ///     The name.
         /// </value>
         [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(Core.Shared.Constants.ConfigurationKeys.AppCoreApplicationDescription)]
-        public string Description { get;set; }
+        [Alias(ConfigurationKeys.AppCoreApplicationName)]
+        public string Name { get; set; }
     }
 }

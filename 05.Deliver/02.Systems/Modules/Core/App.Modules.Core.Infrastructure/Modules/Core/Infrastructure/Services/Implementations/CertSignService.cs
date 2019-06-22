@@ -1,12 +1,13 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System;
-    using System.Security.Cryptography;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Text;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="ICertSignService" />
@@ -14,15 +15,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// </summary>
     public class CertSignService : AppCoreServiceBase, ICertSignService
     {
-        public CertSignService()
-        {
-        }
-
-
         public byte[] Sign(string text, X509FindType certFindType, string certSearchTerm)
         {
             var encoding = new UnicodeEncoding();
-            var data = encoding.GetBytes(text);
+            byte[] data = encoding.GetBytes(text);
             return Sign(data, certFindType, certSearchTerm);
         }
 
@@ -36,21 +32,21 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             var sha512 = new SHA512Managed();
 
-            var privateKeyBlob = cryptoServiceProvider.ExportCspBlob(true);
+            byte[] privateKeyBlob = cryptoServiceProvider.ExportCspBlob(true);
             var cp = new CspParameters(24);
             cryptoServiceProvider = new RSACryptoServiceProvider(cp);
             cryptoServiceProvider.ImportCspBlob(privateKeyBlob);
 
-            var hash = sha512.ComputeHash(data);
+            byte[] hash = sha512.ComputeHash(data);
             // Sign the hash
-            var signature = cryptoServiceProvider.SignHash(hash, CryptoConfig.MapNameToOID("SHA-512"));
+            byte[] signature = cryptoServiceProvider.SignHash(hash, CryptoConfig.MapNameToOID("SHA-512"));
             return signature;
         }
 
         public bool Verify(string clearText, byte[] signature, X509FindType certFindType, string certSearchTerm)
         {
             var encoding = new UnicodeEncoding();
-            var data = encoding.GetBytes(clearText);
+            byte[] data = encoding.GetBytes(clearText);
             return Verify(data, signature, certFindType, certSearchTerm);
         }
 
@@ -76,24 +72,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             {
                 throw new Exception("No valid cert was certsFound");
             }
+
             if (certsFound.Count > 1)
             {
                 throw new Exception("More than one valid cert was certsFound");
             }
+
             var cert = certsFound[0];
             RSACryptoServiceProvider cryptoServiceProvider;
-            try
-            {
-                var b = cert.HasPrivateKey;
-                var pk = cert.PrivateKey;
-                cryptoServiceProvider = pk as RSACryptoServiceProvider;
-            }
-#pragma warning disable CS0168 // Variable is declared but never used
-            catch (Exception e)
-#pragma warning restore CS0168 // Variable is declared but never used
-            {
-                throw;
-            }
+            var b = cert.HasPrivateKey;
+            var pk = cert.PrivateKey;
+            cryptoServiceProvider = pk as RSACryptoServiceProvider;
             return cryptoServiceProvider;
         }
     }

@@ -1,15 +1,13 @@
-﻿// Copyright MachineBrains, Inc.
+﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
 using App.Modules.All.Shared.Models;
-using App.Modules.Design.Shared.Models.Entities.Enums;
+using App.Modules.Design.Shared.Models.Entities;
 
 namespace App.Modules.Design.Shared.Models.Messages
 {
-
-
     /// <summary>
-    /// Creates a Dto
+    ///     Creates a Dto
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasTitleAndDescription" />
@@ -18,36 +16,35 @@ namespace App.Modules.Design.Shared.Models.Messages
         : IHasGuidId, IHasTitleAndDescription
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the ISO-25010 quality.
         /// </summary>
         /// <value>
-        /// The identifier.
-        /// </value>
-        public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ISO-25010 quality.
-        /// </summary>
-        /// <value>
-        /// The quality.
+        ///     The quality.
         /// </value>
         public ISO25010 Quality { get; set; }
 
         /// <summary>
-        /// Gets or sets the title.
+        ///     Gets or sets the identifier.
         /// </summary>
         /// <value>
-        /// The title.
+        ///     The identifier.
+        /// </value>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the title.
+        /// </summary>
+        /// <value>
+        ///     The title.
         /// </value>
         public string Title { get; set; }
 
         /// <summary>
-        /// Gets or sets the description.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>
-        /// The description.
+        ///     The description.
         /// </value>
         public string Description { get; set; }
-
     }
 }

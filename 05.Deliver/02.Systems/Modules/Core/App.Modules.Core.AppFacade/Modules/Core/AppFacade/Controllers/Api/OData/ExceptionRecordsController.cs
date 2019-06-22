@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Linq;
 using App.Modules.All.AppFacade.Controllers.Api.OData;
 using App.Modules.Core.AppFacade.Services;
@@ -14,10 +16,10 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     /// <summary>
-    /// OData Queryable REST Controller for
-    /// <see cref="ExceptionRecordDto"/> messages 
-    /// for Application Support Specialists to 
-    /// query what Exceptions have happened of late.
+    ///     OData Queryable REST Controller for
+    ///     <see cref="ExceptionRecordDto" /> messages
+    ///     for Application Support Specialists to
+    ///     query what Exceptions have happened of late.
     /// </summary>
     //[ODataRoutePrefix("ExceptionRecords")]
     public class ExceptionRecordsController :
@@ -27,26 +29,26 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
             ExceptionRecordDto>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionRecordsController"/> class.
+        ///     Initializes a new instance of the <see cref="ExceptionRecordsController" /> class.
         /// </summary>
         /// <param name="controllerCommonServicesService">The controller common services service.</param>
         /// <param name="dbContext">The database context.</param>
         public ExceptionRecordsController(
             IControllerCommonServicesService controllerCommonServicesService,
             ModuleDbContext dbContext
-            ) :
+        ) :
             base
             (
-            controllerCommonServicesService,
-            dbContext
+                controllerCommonServicesService,
+                dbContext
             )
         {
         }
 
 
         /// <summary>
-        /// Invokes InternalGet
-        /// to return a single Dto.
+        ///     Invokes InternalGet
+        ///     to return a single Dto.
         /// </summary>
         /// <returns></returns>
         // GET api/values 
@@ -56,23 +58,22 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         [HttpGet("")]
         [HttpGet("List")]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<ExceptionRecordDto> Get()
+        public override ActionResult<IQueryable<ExceptionRecordDto>> Get()
         {
-            return InternalGet();
+            return InternalGet(RecordPersistenceState.Active);
         }
 
 
         //[ODataRoute("({key})")]
         /// <summary>
-        /// Invokes InternalGet
-        /// to return a single dto object.
+        ///     Invokes InternalGet
+        ///     to return a single dto object.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public ExceptionRecordDto Get(Guid key)
+        public override ActionResult<ExceptionRecordDto> Get(Guid key)
         {
-            return InternalGet(key);
+            return InternalGet(key, RecordPersistenceState.Active);
         }
-
     }
 }

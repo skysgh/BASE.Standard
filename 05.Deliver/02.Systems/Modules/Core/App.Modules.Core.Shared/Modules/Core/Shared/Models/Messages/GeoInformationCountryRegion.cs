@@ -1,12 +1,14 @@
-﻿namespace App.Modules.Core.Shared.Models.Messages
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
-    /// TODO
+    ///     TODO
     /// </summary>
     public class GeoInformationCountryRegion
     {
         /// <summary>
-        /// Gets or sets the iso code.
+        ///     Gets or sets the iso code.
         /// </summary>
         public string IsoCode { get; set; }
     }

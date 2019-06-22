@@ -1,4 +1,7 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Shared.Models.Entities;
@@ -6,20 +9,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityProfile
 {
-    public class AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile2PermissionsAssignment : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile2PermissionsAssignment :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             if (modelBuilder == null)
             {
-                throw new System.ArgumentNullException(nameof(modelBuilder));
+                throw new ArgumentNullException(nameof(modelBuilder));
             }
 
-            
+
             new DefaultTableAndSchemaNamingConvention()
                 .Define<TenantMemberSecurityProfile2PermissionAssignment>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
@@ -30,19 +35,20 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityPro
             // Create Composite Index:
             // See: https://stackoverflow.com/a/9960987
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
-                 .HasKey(x => new
-                 {
-                     x.TenantFK,
-                     x.MemberFK,
-                     x.PermissionFK
-                 });
+                .HasKey(x => new
+                {
+                    x.TenantFK,
+                    x.MemberFK,
+                    x.PermissionFK
+                });
 
 
             // --------------------------------------------------
             // Standard Properties:
 
             // Re/Do the usual columns:
-            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention().Define<TenantMemberSecurityProfile2PermissionAssignment>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedNoIdDataConvention()
+                .Define<TenantMemberSecurityProfile2PermissionAssignment>(modelBuilder, ref order);
 
             // Add the tenancy:
             modelBuilder.DefineTenantFK<TenantMemberSecurityProfile2PermissionAssignment>(ref order);
@@ -51,34 +57,34 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityPro
             // Model Specific Properties:
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
                 .Property(x => x.AssignmentType)
-                .IsRequired(true);
+                .IsRequired();
             // --------------------------------------------------
             // FK Properties:
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
                 .Property(x => x.MemberFK)
                 //.HasColumnOrder(order++)
                 .ValueGeneratedNever()
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
-                    .Property(x => x.PermissionFK)
-                    //.HasColumnOrder(order++)
-                    .ValueGeneratedNever()
-                    .IsRequired(true);
+                .Property(x => x.PermissionFK)
+                //.HasColumnOrder(order++)
+                .ValueGeneratedNever()
+                .IsRequired();
 
             // --------------------------------------------------
             // Entity Navigation Properties:
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
-             .HasOne(x => x.Member)
-             .WithMany(x => x.PermissionsAssignments)
-             .HasForeignKey(x => x.MemberFK)
-             ;
+                .HasOne(x => x.Member)
+                .WithMany(x => x.PermissionsAssignments)
+                .HasForeignKey(x => x.MemberFK)
+                ;
 
             modelBuilder.Entity<TenantMemberSecurityProfile2PermissionAssignment>()
-             .HasOne(x => x.Permission)
-             .WithMany() // To many people assigned permissions...
-             .HasForeignKey(x => x.PermissionFK)
-             ;
+                .HasOne(x => x.Permission)
+                .WithMany() // To many people assigned permissions...
+                .HasForeignKey(x => x.PermissionFK)
+                ;
 
             // --------------------------------------------------
             // Collection Navigation Properties:
@@ -88,12 +94,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityPro
             //// are defined in the other objects.
 
 
-
-
             // --------------------------------------------------
         }
     }
-
-
 }
-

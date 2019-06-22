@@ -1,7 +1,7 @@
-﻿namespace App.Modules.Core.Infrastructure.Constants.Db
-{
-    using System;
+﻿// Copyright MachineBrains, Inc. 2019
 
+namespace App.Modules.Core.Infrastructure.Constants.Db
+{
     //public static class AppCoreDbConnectionStringNames
     //{
     //    public const string Default = "Default";

@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -8,26 +10,28 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Principal
 {
     // A single DbContext Entity model map, 
     // invoked via a Module's specific DbContext ModelBuilderOrchestrator
-    public class AppModuleDbContextModelBuilderDefinePrincipal : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefinePrincipal : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Shared.Models.Entities.Principal>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
 
             var order = 1;
 
 
-            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Shared.Models.Entities.Principal>(modelBuilder, ref order);
+            new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Shared.Models.Entities.Principal>(
+                modelBuilder, ref order);
 
 
             modelBuilder.Entity<Shared.Models.Entities.Principal>()
                 .Property(x => x.Enabled)
-                .IsRequired(true);
+                .IsRequired();
 
             modelBuilder.Entity<Shared.Models.Entities.Principal>()
                 .HasOne(x => x.DataClassification)
@@ -52,7 +56,6 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Principal
                 .HasOne(x => x.Category)
                 .WithMany()
                 .HasForeignKey(x => x.CategoryFK);
-
 
 
             modelBuilder.Entity<Shared.Models.Entities.Principal>()

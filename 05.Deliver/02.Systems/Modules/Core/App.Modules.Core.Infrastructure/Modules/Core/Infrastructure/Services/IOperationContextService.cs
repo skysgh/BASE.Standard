@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
@@ -10,15 +12,16 @@ namespace App.Modules.Core.Infrastructure.Services
     public interface IOperationContextService : IInfrastructureService
     {
         /// <summary>
-        /// Gets the value of the specified key.
+        ///     Gets the value of the specified key.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns></returns>
-        T Get<T>(string key, T defaultValue = default(T));
+        T Get<T>(string key, T defaultValue = default);
+
         /// <summary>
-        /// Sets the specified value.
+        ///     Sets the specified value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key">The key.</param>

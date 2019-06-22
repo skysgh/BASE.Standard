@@ -1,12 +1,12 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App.Modules.All.Shared.Factories
 {
-
-
     /// <summary>
-    /// A factory to develop a sequential Guid
-    /// to make ordering in database ok.
+    ///     A factory to develop a sequential Guid
+    ///     to make ordering in database ok.
     /// </summary>
     public class GuidFactory
     {
@@ -17,7 +17,7 @@ namespace App.Modules.All.Shared.Factories
         }
 
         /// <summary>
-        /// Creates new guid.
+        ///     Creates new guid.
         /// </summary>
         /// <returns></returns>
         public static Guid NewGuid()
@@ -26,13 +26,13 @@ namespace App.Modules.All.Shared.Factories
         }
 
         /// <summary>
-        /// Creates new guid.
+        ///     Creates new guid.
         /// </summary>
         /// <param name="guidType">Type of the unique identifier.</param>
         /// <returns></returns>
         public static Guid NewGuid(SequentialGuidType guidType)
         {
-            var randomBytes = new byte[10];
+            byte[] randomBytes = new byte[10];
             _random.NextBytes(randomBytes);
 
             //private static readonly RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
@@ -40,14 +40,14 @@ namespace App.Modules.All.Shared.Factories
 
 
             var timestamp = DateTimeOffset.UtcNow.Ticks / 10000L;
-            var timestampBytes = BitConverter.GetBytes(timestamp);
+            byte[] timestampBytes = BitConverter.GetBytes(timestamp);
 
             if (BitConverter.IsLittleEndian)
             {
                 Array.Reverse(timestampBytes);
             }
 
-            var guidBytes = new byte[16];
+            byte[] guidBytes = new byte[16];
 
             switch (guidType)
             {
@@ -63,6 +63,7 @@ namespace App.Modules.All.Shared.Factories
                         Array.Reverse(guidBytes, 0, 4);
                         Array.Reverse(guidBytes, 4, 2);
                     }
+
                     break;
 
                 case SequentialGuidType.SequentialAtEnd:
@@ -70,6 +71,7 @@ namespace App.Modules.All.Shared.Factories
                     Buffer.BlockCopy(timestampBytes, 2, guidBytes, 10, 6);
                     break;
             }
+
             return new Guid(guidBytes);
         }
     }

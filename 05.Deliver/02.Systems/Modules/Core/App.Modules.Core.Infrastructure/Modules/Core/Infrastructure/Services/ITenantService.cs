@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -40,7 +42,5 @@ namespace App.Modules.Core.Infrastructure.Services
 
 
         TenantDto SetTenantFromUrl(string tenantKeyOrPath, string hostName = null);
-
- 
     }
 }

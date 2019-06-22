@@ -1,7 +1,9 @@
-﻿namespace App.Modules.All.Shared.Models
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Shared.Models
 {
     /// Contract for a model that has a
-    /// <see cref="Timestamp"/>
+    /// <see cref="Timestamp" />
     /// property.
     public interface IHasTimestamp
     {

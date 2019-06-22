@@ -1,15 +1,15 @@
-﻿namespace App.Modules.All.Shared.Models
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Contract for objects that define a remote Image.
+    ///     Contract for objects that define a remote Image.
     /// </summary>
     public interface IHasImageUrl
     {
         /// <summary>
-        /// Gets or sets the image URL.
+        ///     Gets or sets the image URL.
         /// </summary>
         string ImageUrl { get; set; }
     }
-
-
 }

@@ -6,59 +6,59 @@
     <members>
         <member name="T:App.Modules.All.Application.DependencyResolution.ModuleServiceRegistryBase">
             <summary>
-            The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
-            <para>
-            To avoid undesired side effects, It's important that each Module
-            inherits from this Module as it is set up to only search for dependencies
-            within this Module's group of assemblies (it's filtering on the Assembly name)
-            </para>
+                The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
+                <para>
+                    To avoid undesired side effects, It's important that each Module
+                    inherits from this Module as it is set up to only search for dependencies
+                    within this Module's group of assemblies (it's filtering on the Assembly name)
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.All.Application.DependencyResolution.ModuleServiceRegistryBase.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            Override to define what to find
-            and register 
-            within this logical Module's assemblies.
-            <para>
-            Not that it already been scoped to the
-            logical module's assemblies.
-            </para>
+                Override to define what to find
+                and register
+                within this logical Module's assemblies.
+                <para>
+                    Not that it already been scoped to the
+                    logical module's assemblies.
+                </para>
             </summary>
             <param name="assemblyScanner">The assembly scanner.</param>
         </member>
         <member name="T:App.Modules.All.Application.Services.IApplicationService">
             <summary>
-            Optional contract that all Application Services
-            should inherit from.
-            <para>
-            The contract does not add or enforce any functionality
-            bar specifying a specific IoC Lifecycle (making it a Singleton
-            by inheriting from
-            <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle"/>)
-            and allowing for filtering per Core/Module.
-            </para>
+                Optional contract that all Application Services
+                should inherit from.
+                <para>
+                    The contract does not add or enforce any functionality
+                    bar specifying a specific IoC Lifecycle (making it a Singleton
+                    by inheriting from
+                    <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle" />)
+                    and allowing for filtering per Core/Module.
+                </para>
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Services.ISystemService" />
         </member>
         <member name="T:App.Modules.Core.Application.DependencyResolution.ModuleServiceRegistry">
             <summary>
-            Discoverable (by Reflection) Module specific configuration
-            of the DependencyLocator.
-            <para>
-            Note that it is important that these common classes
-            are just called 'Module'Something and not 'ModuleXXX'Something,
-            (and just use the Namespace to distinguish between Modules)
-            so that it is easier to start new development just using Search/Replace
-            within namespaces (it's easier to find `Module1` within `.Module1`
-            than find the same thing within `Module1Something`.
-            </para>
+                Discoverable (by Reflection) Module specific configuration
+                of the DependencyLocator.
+                <para>
+                    Note that it is important that these common classes
+                    are just called 'Module'Something and not 'ModuleXXX'Something,
+                    (and just use the Namespace to distinguish between Modules)
+                    so that it is easier to start new development just using Search/Replace
+                    within namespaces (it's easier to find `Module1` within `.Module1`
+                    than find the same thing within `Module1Something`.
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.Core.Application.DependencyResolution.ModuleServiceRegistry.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            Develop Module specific conditions
-            (the assemblyScanner is already scoped to
-            this logicalModule.
+                Develop Module specific conditions
+                (the assemblyScanner is already scoped to
+                this logicalModule.
             </summary>
             <param name="assemblyScanner">The assembly scanner.</param>
         </member>

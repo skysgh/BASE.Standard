@@ -1,25 +1,28 @@
-using App.Modules.Core.Shared.Configuration.Settings;
+// Copyright MachineBrains, Inc. 2019
+
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 {
     /// <summary>
-    /// Create custom Maps for the Entity and its Dto.
+    ///     Create custom Maps for the Entity and its Dto.
     /// </summary>
-    /// <seealso cref="MapBase{ApplicationCreatorInformationConfigurationSettings, ApplicationProviderInformationDto}" />
+    /// <seealso cref="MapBase{TEntity,TDto}" />
     public class ObjectMap_ApplicationCreatorInformation_ApplicationProviderInformationDto
         : MapBase<
-            ApplicationCreatorInformationConfigurationSettings, 
+            ApplicationCreatorInformationConfigurationSettings,
             ApplicationProviderInformationDto>
     {
         /// <summary>
-        /// Configures the map from entity to dto.
+        ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ApplicationCreatorInformationConfigurationSettings, ApplicationProviderInformationDto> mappingExpression)
+            IMappingExpression<ApplicationCreatorInformationConfigurationSettings, ApplicationProviderInformationDto>
+                mappingExpression)
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
@@ -33,11 +36,12 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
 
 
         /// <summary>
-        /// Configures the map from dto to entity.
+        ///     Configures the map from dto to entity.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ApplicationProviderInformationDto, ApplicationCreatorInformationConfigurationSettings> mappingExpression)
+            IMappingExpression<ApplicationProviderInformationDto, ApplicationCreatorInformationConfigurationSettings>
+                mappingExpression)
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))

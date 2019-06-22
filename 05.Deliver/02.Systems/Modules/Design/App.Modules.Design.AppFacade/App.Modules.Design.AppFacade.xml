@@ -6,95 +6,150 @@
     <members>
         <member name="M:App.Modules.Design.AppFacade.Controllers.Api.Classic.ValueController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Api.Classic.ValueController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Api.Classic.ValueController" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration.BookOdataModelBuilderConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration"/> class.
-            </summary>
-            <internal>
-            Remember to make these constructors public or reflection for 
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/> won't find them.
-            </internal>
-        </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration.PressOdataModelBuilderConfiguration">
             <summary>
-            
             </summary>
             <seealso cref="T:App.Modules.Design.Shared.Models.Entities.Press" />
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration.PressOdataModelBuilderConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration"/> class.
-            </summary>
-            <internal>
-            Remember to make these constructors public or reflection for 
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/> won't find them.
-            </internal>
-        </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.Api.OData.Configuration.RequirementOdataModelBuilderConfiguration">
             <summary>
-            TODO
+                TODO
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController">
             <summary>
-            Controller to return
-            <see cref="T:App.Modules.Design.Shared.Models.Messages.RequirementDto"/>s.
+                Controller to return
+                <see cref="T:App.Modules.Design.Shared.Models.Messages.RequirementDto" />s.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
         </member>
         <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.GetRequirements">
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.Get">
             <summary>
-            Gets the requirements.
+                Gets the requirements.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.GetRequirement(System.Guid)">
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.Get(System.Guid)">
             <summary>
-            Gets the requirement.
+                Gets the requirement.
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes">
+            <summary>
+                Defines this Module's
+                Controller Routes (ie, Api, Views, OData).
+                <para>
+                Scanned for and found by <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/>
+                </para>
+                <para>
+                    Invoked from app.AddMvc(routeBuilder => ...) method.
+                    within App.Host's Setup.cs/Configure method.
+                </para>
+                <para>
+                The base class already defines common routing for View Controllers,
+                API Controllers and OData Controllers found within this Logical Module.
+                </para>
+                <para>
+                The common OData convention setup via the base controller is 
+                "odata/{moduleName}/{controllerName}" based on the
+                implementation of <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>
+                (via <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1"/> for example)
+                it found in this logical module.
+                </para>
+                <para>
+                In general, one should probably not have to define anything,
+                and just let the base class do it's thing -- but if this module
+                has esoteric odata needs, this would be the method to override
+                and append those routes.
+                </para>
+            </summary>
+        </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
+            </summary>
+            <param name="dependencyResolutionService">The dependency resolution service.</param>
+            <param name="configurationStepService">The configuration step service.</param>
+        </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
+            <summary>
+                Initialize routes specific to a Module.
+                <para>
+                    Invoked from app.AddMvc(routeBuilder => ...) method.
+                    within App.Host's Setup/Configure method.
+                </para>
+                <para>
+                The base class already defines common routing for View Controllers,
+                API Controllers and OData Controllers found within this Logical Module.
+                </para>
+                <para>
+                The common OData convention setup via the base controller is 
+                "odata/{moduleName}/{controllerName}" based on the
+                implementation of <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>
+                (via <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1"/> for example)
+                it found in this logical module.
+                </para>
+                <para>
+                In general, one should probably not have to define anything,
+                and just let the base class do it's thing -- but if this module
+                has esoteric odata needs, this would be the method to override
+                and append those routes.
+                </para>
+            </summary>
+            <param name="routeBuilder"></param>
+        </member>
+        <member name="T:App.Modules.Design.AppFacade.Controllers.View.Configuration.ModuleViewRegistrations">
+            <summary>
+                TODO
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Views.Configuration.IAllModulesViewArtifactRegistration" />
+        </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.View.Configuration.ModuleViewRegistrations.Initialize(Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions)">
+            <summary>
+                Initializes the specified razor view engine options.
+            </summary>
+            <param name="razorViewEngineOptions">The razor view engine options.</param>
+        </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.View.DescribeTypesController">
             <summary>
-            <para>
-            Note: because it is an MVC Controller, 
-            we're using default routes. 
-            (If it had been an API controller, would have used
-            Attribute routing).
-            </para>
+                <para>
+                    Note: because it is an MVC Controller,
+                    we're using default routes.
+                    (If it had been an API controller, would have used
+                    Attribute routing).
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.Design.AppFacade.Controllers.View.DescribeTypesController.#ctor(App.Modules.Design.Infrastructure.Services.Implementations.INetClassPlantUmlDiagramService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.View.DescribeTypesController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.View.DescribeTypesController" /> class.
             </summary>
             <param name="netClassPlantUmlDiagramService">The net class plant uml diagram service.</param>
         </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.View.RoutesController">
             <summary>
-            A Router to return all registered Routes.
+                A Router to return all registered Routes.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase" />
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
         </member>
         <member name="M:App.Modules.Design.AppFacade.Controllers.View.RoutesController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.View.RoutesController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.View.RoutesController" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
@@ -102,92 +157,23 @@
         </member>
         <member name="M:App.Modules.Design.AppFacade.Controllers.View.RoutesController.GetAllRoutes">
             <summary>
-            Gets all routes.
+                Gets all routes.
             </summary>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Design.AppFacade.DependencyResolution.ModuleServiceRegistry">
             <summary>
-            Discoverable (by Reflection) Module specific configuration
-            of the DependencyLocator.
-            <para>
-            Note that it is important that these common classes
-            are just called 'Module'Something and not 'ModuleXXX'Something,
-            (and just use the Namespace to distinguish between Modules)
-            so that it is easier to start new development just using Search/Replace
-            within namespaces (it's easier to find `Module1` within `.Module1`
-            than find the same thing within `Module1Something`.
-            </para>
+                Discoverable (by Reflection) Module specific configuration
+                of the DependencyLocator.
+                <para>
+                    Note that it is important that these common classes
+                    are just called 'Module'Something and not 'ModuleXXX'Something,
+                    (and just use the Namespace to distinguish between Modules)
+                    so that it is easier to start new development just using Search/Replace
+                    within namespaces (it's easier to find `Module1` within `.Module1`
+                    than find the same thing within `Module1Something`.
+                </para>
             </summary>
-        </member>
-        <member name="M:App.Modules.Design.AppFacade.DependencyResolution.ModuleServiceRegistry.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
-            <summary>
-            <para>
-            Invoked by Constructor.
-            </para>
-            Override to provide Module/Assembly specific scanning rules.
-            </summary>
-            <param name="assemblyScanner">The assembly scanner.</param>
-        </member>
-        <member name="T:App.Modules.Design.AppFacade.Initialization.DependencyResolution.ModuleServiceRegistry">
-            <summary>
-            Discoverable (by Reflection) Module specific configuration
-            of the DependencyLocator.
-            <para>
-            Note that it is important that these common classes
-            are just called 'Module'Something and not 'ModuleXXX'Something,
-            (and just use the Namespace to distinguish between Modules)
-            so that it is easier to start new development just using Search/Replace
-            within namespaces (it's easier to find `Module1` within `.Module1`
-            than find the same thing within `Module1Something`.
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.Design.AppFacade.Initialization.DependencyResolution.ModuleServiceRegistry.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Initialization.DependencyResolution.ModuleServiceRegistry"/> class.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Design.AppFacade.Initialization.Setup.ModuleRoutes">
-            <summary>
-            This Module's specific routes.
-            <para>
-            Invoked from Startup/Configure method,
-            within .AddMvc...
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.Design.AppFacade.Initialization.Setup.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Initialization.Setup.ModuleRoutes"/> class.
-            </summary>
-            <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
-        </member>
-        <member name="M:App.Modules.Design.AppFacade.Initialization.Setup.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
-            <summary>
-            Initialize routes specific to a Module.
-            <para>
-            Invoked from app.AddMvc(routeBuilder => ...) method.
-            within App.Host's Setup/Configure method.
-            </para>
-            <para>
-            Use as required to register routes specific to a single Module.
-            </para>
-            </summary>
-            <param name="routeBuilder"></param>
-        </member>
-        <member name="T:App.Modules.Design.AppFacade.Initialization.Views.ModuleViewRegistrations">
-            <summary>
-            TODO
-            </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Initialization.Views.IAllModulesViewArtifactRegistration" />
-        </member>
-        <member name="M:App.Modules.Design.AppFacade.Initialization.Views.ModuleViewRegistrations.Initialize(Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions)">
-            <summary>
-            Initializes the specified razor view engine options.
-            </summary>
-            <param name="razorViewEngineOptions">The razor view engine options.</param>
         </member>
     </members>
 </doc>

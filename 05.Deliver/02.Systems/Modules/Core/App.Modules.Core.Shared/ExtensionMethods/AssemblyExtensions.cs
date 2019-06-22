@@ -1,17 +1,19 @@
-﻿using System.Reflection;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Reflection;
 using App.Modules.All.Shared.Constants;
 
 namespace App
 {
     /// <summary>
-    /// Extensions to <see cref="Assembly"/>
+    ///     Extensions to <see cref="Assembly" />
     /// </summary>
     public static class AssemblyExtensions
     {
         /// <summary>
-        /// Extension method that extracts the name of the
-        /// App Module (Core, Module01, etc.)
-        /// from the given Assembly (not the namespace).
+        ///     Extension method that extracts the name of the
+        ///     App Module (Core, Module01, etc.)
+        ///     from the given Assembly (not the namespace).
         /// </summary>
         /// <param name="assembly"></param>
         /// <returns></returns>
@@ -24,7 +26,7 @@ namespace App
             // Then take just "Core".
             result = result.Substring(0, result.IndexOf('.'));
 
-            
+
             return result;
         }
     }

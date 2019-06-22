@@ -1,52 +1,51 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using App.Modules.All.Shared.Factories;
 using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    /// DTO
+    ///     DTO
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class SecurityProfilePermissionDto  
-        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
+    public class SecurityProfilePermissionDto
+        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */
         : IHasGuidId,
             IHasTitle,
             IHasDescription
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecurityProfilePermissionDto"/> class.
+        ///     Initializes a new instance of the <see cref="SecurityProfilePermissionDto" /> class.
         /// </summary>
         public SecurityProfilePermissionDto()
         {
-            this.Id = GuidFactory.NewGuid();
-
+            Id = GuidFactory.NewGuid();
         }
 
         /// <summary>
-        /// Gets or sets the identifier.
+        ///     Gets or sets the description.
         /// </summary>
         /// <value>
-        /// The identifier.
+        ///     The description.
+        /// </value>
+        public string Description { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        ///     The identifier.
         /// </value>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the title.
+        ///     Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The title.
+        ///     The title.
         /// </value>
         public string Title { get; set; }
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
-        public string Description { get; set; }
-
-
     }
 }
-

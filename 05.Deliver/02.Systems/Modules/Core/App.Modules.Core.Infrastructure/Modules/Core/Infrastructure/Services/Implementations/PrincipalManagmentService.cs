@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
+using System.Linq;
+using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
-using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Linq;
-    using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IPrincipalManagmentService" />
@@ -20,28 +18,30 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     public class PrincipalManagmentService : AppCoreServiceBase, IPrincipalManagmentService
     {
         private static readonly string _resourceListCacheKey = "_PrincipalManagmentCache";
-        private readonly ModuleDbContext _coreRepositoryService;
-        private readonly IOperationContextService _operationContextService;
         private readonly IAzureRedisCacheService _azureRedisCacheService;
+        private readonly ModuleDbContext _coreRepositoryService;
         private readonly IObjectMappingService _objectMappingService;
+        private readonly IOperationContextService _operationContextService;
 
         public PrincipalManagmentService(ModuleDbContext repositoryService,
             IOperationContextService operationContextService,
             IAzureRedisCacheService azureRedisCacheService,
             IObjectMappingService objectMappingService)
         {
-            this._coreRepositoryService = repositoryService;
+            _coreRepositoryService = repositoryService;
             _operationContextService = operationContextService;
             _azureRedisCacheService = azureRedisCacheService;
-            this._objectMappingService = objectMappingService;
+            _objectMappingService = objectMappingService;
         }
 
-        public Principal Get(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId, TimeSpan? timespanToCache = null)
+        public Principal Get(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId,
+            TimeSpan? timespanToCache = null)
         {
             if (string.IsNullOrWhiteSpace(uniqueCacheId))
             {
                 return null;
             }
+
             //First, search in Request Cache:
             var result = GetFromLocalCache();
             if (result == null)
@@ -49,6 +49,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                 //Otherwise look in shared cache:
                 result = GetFromDistributedCacheAndCacheLocally(uniqueCacheId);
             }
+
             if (result != null)
             {
                 return MaptoEntity(result);
@@ -58,13 +59,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public Principal CreateIfNotExists(string idpPrincipalKey, string subPrincipalKey, string name,
             string uniqueCacheId, TimeSpan? timespanToCache = null)
         {
             var currentPrincipal = Get(idpPrincipalKey, subPrincipalKey, uniqueCacheId);
-            if (currentPrincipal != null) { return currentPrincipal; }
+            if (currentPrincipal != null)
+            {
+                return currentPrincipal;
+            }
 
             throw new NotImplementedException();
 
@@ -95,30 +98,31 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public Principal Get(Guid id)
         {
-            Principal result = this._coreRepositoryService.GetSingle<Principal>(x => x.Id == id);
+            var result = _coreRepositoryService.GetSingle<Principal>(x => x.Id == id);
             return result;
         }
 
-        public Principal GetFromRepositoryAndCache(string idpPrincipalKey, string subPrincipalKey, string uniqueCacheId = null, TimeSpan? timespanToCache = null)
+        public Principal GetFromRepositoryAndCache(string idpPrincipalKey, string subPrincipalKey,
+            string uniqueCacheId = null, TimeSpan? timespanToCache = null)
         {
-            Principal result = 
-                this._coreRepositoryService
+            var result =
+                _coreRepositoryService
                     .GetQueryableSingle<Principal>(
-                    x => x.Logins.Any(y => y.IdPLogin == idpPrincipalKey && y.SubLogin == subPrincipalKey))
-                .Include(x => x.Claims)
-                .FirstOrDefault();
+                        x => x.Logins.Any(y => y.IdPLogin == idpPrincipalKey && y.SubLogin == subPrincipalKey))
+                    .Include(x => x.Claims)
+                    .FirstOrDefault();
             AddToCache(uniqueCacheId, result, timespanToCache);
             return result;
         }
 
         public PrincipalDto GetFromLocalCache()
         {
-            return this._operationContextService.Get<PrincipalDto>(_resourceListCacheKey);
+            return _operationContextService.Get<PrincipalDto>(_resourceListCacheKey);
         }
 
         public PrincipalDto GetFromDistributedCacheAndCacheLocally(string uniqueCacheId)
         {
-            string redisKey = GetRedisKey() + uniqueCacheId.ToLower();
+            var redisKey = GetRedisKey() + uniqueCacheId.ToLower();
             var result = _azureRedisCacheService.Get<PrincipalDto>(redisKey);
             if (result != null)
             {
@@ -142,8 +146,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public void AddToLocalCache(PrincipalDto result)
         {
-            if (result == null) { return; }
-            this._operationContextService.Set(_resourceListCacheKey, result);
+            if (result == null)
+            {
+                return;
+            }
+
+            _operationContextService.Set(_resourceListCacheKey, result);
         }
 
         public void AddToLocalCache(Principal result)
@@ -158,8 +166,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public void AddToDistributedCache(string uniqueCacheId, PrincipalDto result, TimeSpan? timespan = null)
         {
-            if (string.IsNullOrWhiteSpace(uniqueCacheId) || result == null) { return; }
-            string redisKey = GetRedisKey() + uniqueCacheId.ToLower();
+            if (string.IsNullOrWhiteSpace(uniqueCacheId) || result == null)
+            {
+                return;
+            }
+
+            var redisKey = GetRedisKey() + uniqueCacheId.ToLower();
             _azureRedisCacheService.Set(redisKey, result, timespan ?? TimeSpan.FromMinutes(5));
         }
 
@@ -177,10 +189,5 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             return _resourceListCacheKey + ":" + "Key" + ":";
         }
-
-
-
-
-
     }
 }

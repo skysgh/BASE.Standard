@@ -1,27 +1,29 @@
-﻿namespace App.Modules.All.Shared.Models
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
-    /// Contract for a model that has a
-    /// <see cref="Latitude"/>
-    /// and
-    /// <see cref="Longitude"/>
-    /// property.
+    ///     Contract for a model that has a
+    ///     <see cref="Latitude" />
+    ///     and
+    ///     <see cref="Longitude" />
+    ///     property.
     /// </summary>
     public interface IHasLatitudeAndLongitude
     {
         /// <summary>
-        /// Gets or sets the latitude of the coordinate.
+        ///     Gets or sets the latitude of the coordinate.
         /// </summary>
         /// <value>
-        /// The latitude.
+        ///     The latitude.
         /// </value>
         decimal Latitude { get; set; }
 
         /// <summary>
-        /// Gets or sets the longitude of the coordinate.
+        ///     Gets or sets the longitude of the coordinate.
         /// </summary>
         /// <value>
-        /// The longitude.
+        ///     The longitude.
         /// </value>
         decimal Longitude { get; set; }
     }

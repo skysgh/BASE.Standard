@@ -1,12 +1,11 @@
-﻿// Extensions are always put in root namespace
-// for maximum usability from elsewhere:
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 
 namespace App
 {
-    using System;
-
     /// <summary>
-    /// Extensions to integers
+    ///     Extensions to integers
     /// </summary>
     public static class IntegerExtensions
     {
@@ -20,7 +19,7 @@ namespace App
         /// <returns></returns>
         public static Guid ToGuid(this int value)
         {
-            var bytes = new byte[16];
+            byte[] bytes = new byte[16];
             BitConverter.GetBytes(value).CopyTo(bytes, 0);
             return new Guid(bytes);
         }

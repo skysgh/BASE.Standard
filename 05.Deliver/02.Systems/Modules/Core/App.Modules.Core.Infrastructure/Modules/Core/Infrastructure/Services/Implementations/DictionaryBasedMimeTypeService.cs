@@ -1,10 +1,10 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Infrastructure.Services.Configuration;
-    using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IDictionaryBasedMimeTypeService" />
@@ -22,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         public DictionaryBasedMimeTypeService(
             DictionaryBasedMimeTypeServiceConfiguration dictionaryBasedMimeTypeServiceConfiguration)
         {
-            this.Configuration = dictionaryBasedMimeTypeServiceConfiguration;
+            Configuration = dictionaryBasedMimeTypeServiceConfiguration;
         }
 
         /// <summary>
@@ -48,10 +48,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             string mimeType;
 
-            if (this.Configuration.Cache.TryGetValue(fileNameExtensionWithPrefixDot, out mimeType))
+            if (Configuration.Cache.TryGetValue(fileNameExtensionWithPrefixDot, out mimeType))
             {
                 return mimeType;
             }
+
             return null;
         }
     }

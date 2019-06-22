@@ -1,10 +1,11 @@
-﻿using App.Modules.All.Infrastructure.Services;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Collections;
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    using System;
-    using System.Collections;
-
     public interface ISecureAPIMessageAttributeService : IInfrastructureService
     {
         bool NeedsProcessing(Type type);

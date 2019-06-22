@@ -1,11 +1,12 @@
-﻿using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Collections.Generic;
+using System.Threading;
+using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using System.Collections.Generic;
-    using System.Threading;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IDiagnosticsTracingService" />
@@ -26,7 +27,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         public void Trace(TraceLevel traceLevel, string message, params object[] arguments)
         {
-            _cache.Enqueue(new TraceEntry { TracelLevel = traceLevel, Message = message, Args = arguments });
+            _cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});
             if (_cache.Count > 100)
             {
                 lock (this)
@@ -37,6 +38,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                     }
                 }
             }
+
             if (traceLevel <= _flushLevel)
             {
                 lock (this)
@@ -112,7 +114,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
                     System.Diagnostics.Trace.Write($"VERBOSE: {threadId}: {message}{lineEnding}");
                     break;
             }
-
         }
 
         private class TraceEntry

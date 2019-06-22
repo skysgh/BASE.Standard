@@ -1,12 +1,12 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-    using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
-
     /// <summary>
     ///     Implementation of the
     ///     <see cref="IMediaMetadataService" />
@@ -20,11 +20,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
         private readonly IUniversalDateTimeService _universalDateTimeService;
 
-        public MediaMetadataService(MediaMetadataServiceConfiguration metadataServiceConfiguration, IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
+        public MediaMetadataService(MediaMetadataServiceConfiguration metadataServiceConfiguration,
+            IHostSettingsService hostSettingsService, IUniversalDateTimeService universalDateTimeService)
         {
-            this._metadataServiceConfiguration = metadataServiceConfiguration;
-            this._universalDateTimeService = universalDateTimeService;
-
+            _metadataServiceConfiguration = metadataServiceConfiguration;
+            _universalDateTimeService = universalDateTimeService;
         }
 
         //Service to create a metadata object that describes the uploaded Media file.
@@ -35,10 +35,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             result.ContentSize = uploadedMedia.Length;
             result.SourceFileName = uploadedMedia.FileName;
             result.DataClassificationFK = dataClassification;
-            result.ContentHash = uploadedMedia.Stream.GetHashAsString(this._metadataServiceConfiguration.MediaManagementConfiguration.HashType);
+            result.ContentHash =
+                uploadedMedia.Stream.GetHashAsString(
+                    _metadataServiceConfiguration.MediaManagementConfiguration.HashType);
             result.MimeType = uploadedMedia.ContentType ?? "Unknown";
 
-            result.UploadedDateTimeUtc = this._universalDateTimeService.NowUtc().UtcDateTime;
+            result.UploadedDateTimeUtc = _universalDateTimeService.NowUtc().UtcDateTime;
 
             return result;
         }

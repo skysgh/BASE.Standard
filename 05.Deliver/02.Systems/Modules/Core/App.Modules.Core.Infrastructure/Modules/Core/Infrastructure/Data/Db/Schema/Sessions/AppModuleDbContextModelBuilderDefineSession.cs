@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Constants.Db.Schemas;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Constants.Db.Schemas;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
@@ -16,7 +18,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Sessions
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Session>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
@@ -24,9 +26,9 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Sessions
 
             new UntenantedAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Session>(modelBuilder, ref order);
 
-                // --------------------------------------------------
-                // Indexes:
-                modelBuilder.AssignIndex<Session>(x=>x.UniqueIdentifier,true);
+            // --------------------------------------------------
+            // Indexes:
+            modelBuilder.AssignIndex<Session>(x => x.UniqueIdentifier, true);
             // --------------------------------------------------
             // FK Properties:
 
@@ -44,17 +46,14 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.Sessions
                 .Property(x => x.UniqueIdentifier)
                 //.HasColumnOrder(order++)
                 .HasMaxLength(TextFieldSizes.X64)
-                .IsRequired(true);
+                .IsRequired();
 
             // --------------------------------------------------
             // Model Specific Properties:
             modelBuilder.Entity<Session>()
                 .Property(x => x.Enabled)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
-
-
-
+                .IsRequired();
 
 
             // --------------------------------------------------

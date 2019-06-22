@@ -1,3 +1,5 @@
+// Copyright MachineBrains, Inc. 2019
+
 //namespace App.Modules.Core.Infrastructure.Initialization.Integration.Azure
 //{
 //    using System;
@@ -55,3 +57,4 @@
 
 //    }
 //}
+

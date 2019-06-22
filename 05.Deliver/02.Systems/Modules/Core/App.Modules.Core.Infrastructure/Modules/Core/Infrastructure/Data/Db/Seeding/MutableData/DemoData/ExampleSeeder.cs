@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Linq;
 using App.Modules.All.Infrastructure.Data.Db.Contexts;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.Core.Shared.Models.Entities;
@@ -17,18 +19,18 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.MutableData.DemoData
 
         private void SeedExampleRecord(ModuleDbContextBase context)
         {
-            context.AddOrUpdate<ExceptionRecord>(x => x.Id,
-                new ExceptionRecord()
+            context.AddOrUpdate(x => x.Id,
+                new ExceptionRecord
                 {
                     Id = 1.ToGuid(),
-                    Level =  TraceLevel.Info,
+                    Level = TraceLevel.Info,
                     Stack = "...some stack...",
                     Message = "...sometitle"
                 });
 
-            bool hasChanges = context.ChangeTracker.HasChanges();
+            var hasChanges = context.ChangeTracker.HasChanges();
 
-            context.Add(new ExceptionRecord()
+            context.Add(new ExceptionRecord
             {
                 Id = 2.ToGuid(),
                 Level = TraceLevel.Info,
@@ -36,8 +38,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Seeding.MutableData.DemoData
                 Message = "...sometitle"
             });
 
-            bool hasChanges2 = context.ChangeTracker.HasChanges();
-
+            var hasChanges2 = context.ChangeTracker.HasChanges();
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 using App.Modules.All.AppFacade.Controllers.Api.OData;
 using App.Modules.Core.AppFacade.Services;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
@@ -13,40 +17,39 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
     // NOTE: Each OData API Endpoint MUST be have a corresponding IOdataModelBuilderConfigurationBase ...
 
     /// <summary>
-    /// OData Queryable REST Controller for
-    /// <see cref="ExceptionRecordDto"/> messages 
-    /// for Application Support Specialists to 
-    /// query what Exceptions have happened of late.
+    ///     OData Queryable REST Controller for
+    ///     <see cref="ExceptionRecordDto" /> messages
+    ///     for Application Support Specialists to
+    ///     query what Exceptions have happened of late.
     /// </summary>
     //[ODataRoutePrefix("ExceptionRecords")]
     public class DataClassificationsController :
-        ComparableIdCommonODataControllerBase<
+        IdCommonODataControllerBase<
             DbContext,
             DataClassification,
             DataClassificationDto,
             NZDataClassification>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataClassificationsController"/> class.
+        ///     Initializes a new instance of the <see cref="DataClassificationsController" /> class.
         /// </summary>
         /// <param name="controllerCommonServicesService">The controller common services service.</param>
         /// <param name="dbContext">The database context.</param>
         public DataClassificationsController(
             IControllerCommonServicesService controllerCommonServicesService,
             ModuleDbContext dbContext
-            ) :
+        ) :
             base
             (
-            controllerCommonServicesService,
-            dbContext
+                controllerCommonServicesService,
+                dbContext
             )
         {
-
         }
 
 
         /// <summary>
-        /// Gets a single DTO.
+        ///     Gets a single DTO.
         /// </summary>
         /// <returns></returns>
         // GET api/values 
@@ -56,41 +59,34 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         [HttpGet("")]
         [HttpGet("List")]
         [EnableQuery(PageSize = 100)]
-        public IQueryable<DataClassificationDto> Get()
+        public override ActionResult<IQueryable<DataClassificationDto>> Get()
         {
-            try
-            {
-                return InternalGet();
-            }
-            catch (System.Exception e)
-            {
-                throw e;
-            }
+            return InternalGet(RecordPersistenceState.Active);
         }
 
 
         //[ODataRoute("({key})")]
         /// <summary>
-        /// Gets the specified entity
-        /// via it's Key.
-        /// <para>
-        /// Example request:
-        /// <code>
+        ///     Gets the specified entity
+        ///     via it's Key.
+        ///     <para>
+        ///         Example request:
+        ///         <code>
         /// https://localhost:5001/odata/core/dataclassifications(App.Modules.Models.Entities.NZDataClassification'Unclassified')
         /// </code>
-        /// </para>
+        ///     </para>
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public DataClassificationDto Get(NZDataClassification key)
+        public override ActionResult<DataClassificationDto> Get(NZDataClassification key)
         {
-            var r = base.InternalGet(key);
-
-            return r;
+            return base.InternalGet(
+                key, 
+                RecordPersistenceState.Active);
         }
 
         /// <summary>
-        /// Gets the specified key.
+        ///     Gets the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
@@ -105,10 +101,10 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
 
             //var r = base.InternalGet(val);
             //return r;
-
         }
+
         /// <summary>
-        /// Fuzzs the specified key.
+        ///     Fuzzs the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
@@ -123,9 +119,6 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
 
             //var r = base.InternalGet(val);
             //return r;
-
         }
-
-
     }
 }

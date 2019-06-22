@@ -1,4 +1,6 @@
-﻿namespace App.Modules.Design.Shared.Models.Entities
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.Design.Shared.Models.Entities
 {
     // Address
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

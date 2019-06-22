@@ -1,25 +1,30 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityProfile
 {
-    public class AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineTenantMemberSecurityProfile :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<Shared.Models.Entities.TenantMemberSecurityProfile>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
 
             // --------------------------------------------------
             // Standard Properties:
-            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention().Define<Shared.Models.Entities.TenantMemberSecurityProfile>(modelBuilder, ref order);
+            new TenantFKAuditedRecordStatedTimestampedGuidIdDataConvention()
+                .Define<Shared.Models.Entities.TenantMemberSecurityProfile>(modelBuilder, ref order);
 
             // --------------------------------------------------
             // FK Properties:
@@ -34,7 +39,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityPro
             modelBuilder.Entity<Shared.Models.Entities.TenantMemberSecurityProfile>()
                 .Property(x => x.Enabled)
                 //.HasColumnOrder(order++)
-                .IsRequired(true);
+                .IsRequired();
 
             // --------------------------------------------------
             // Entity Navigation Properties:
@@ -42,9 +47,6 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantMemberSecurityPro
 
             // --------------------------------------------------
             // Collection Navigation Properties:
-
         }
-
     }
 }
-

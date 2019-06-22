@@ -1,4 +1,6 @@
-﻿namespace App.Modules.All.Shared.Factories
+﻿// Copyright MachineBrains, Inc. 2019
+
+namespace App.Modules.All.Shared.Factories
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum SequentialGuidType

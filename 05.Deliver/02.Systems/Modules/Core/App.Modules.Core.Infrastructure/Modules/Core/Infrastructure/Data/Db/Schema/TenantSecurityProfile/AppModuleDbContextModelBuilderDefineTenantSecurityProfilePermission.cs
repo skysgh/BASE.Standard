@@ -1,4 +1,6 @@
-﻿using App.Modules.All.Infrastructure.Data.Db.Schema;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Schema.Conventions;
 using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Shared.Models.Entities;
@@ -6,14 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantSecurityProfile
 {
-    public class AppModuleDbContextModelBuilderDefineTenantSecurityProfilePermission : IHasModuleSpecificDbContextModelBuilderSchemaInitializer
+    public class
+        AppModuleDbContextModelBuilderDefineTenantSecurityProfilePermission :
+            IHasModuleSpecificDbContextModelBuilderSchemaInitializer
     {
         public void DefineSchema(ModelBuilder modelBuilder)
         {
             new DefaultTableAndSchemaNamingConvention()
                 .Define<TenantSecurityProfilePermission>(
                     modelBuilder,
-                    Module.Id(this.GetType())
+                    Module.Id(GetType())
                 );
 
             var order = 1;
@@ -43,7 +47,5 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Schema.TenantSecurityProfile
             // to which they are associated.
             // --------------------------------------------------
         }
-
     }
 }
-

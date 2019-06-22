@@ -1,38 +1,38 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using Microsoft.Azure.Storage.Blob;
 
 namespace App
 {
     public static class CloudBlobExtensions
     {
-
         /// <summary>
-        /// Returns Uri composed of Container + SharedAccessSignature token.
-        /// If PolicyName is provided, will return SAS generated off of the policy,
-        /// otherwise will develop SAS from provided SharedAccessBlobPolicy parameters.
+        ///     Returns Uri composed of Container + SharedAccessSignature token.
+        ///     If PolicyName is provided, will return SAS generated off of the policy,
+        ///     otherwise will develop SAS from provided SharedAccessBlobPolicy parameters.
         /// </summary>
         /// <param name="cloudBlob"></param>
         /// <param name="policyName"></param>
         /// <param name="duration"></param>
         /// <param name="sharedAccessBlobPermissions"></param>
         /// <returns></returns>
-        public static string GetBlobSharedAccessSignatureUri(this CloudBlob cloudBlob, string policyName = null, TimeSpan? duration = null, SharedAccessBlobPermissions sharedAccessBlobPermissions = SharedAccessBlobPermissions.Read)
+        public static string GetBlobSharedAccessSignatureUri(this CloudBlob cloudBlob, string policyName = null,
+            TimeSpan? duration = null,
+            SharedAccessBlobPermissions sharedAccessBlobPermissions = SharedAccessBlobPermissions.Read)
         {
-
             var sharedAccessBlobPolicy = BuildSharedAccessBlobPolicy(duration, sharedAccessBlobPermissions);
 
             //Generate the shared access signature on the blob, setting the constraints directly on the signature.
             // Note token starts with ? for easy appending to container Uri:
-            string blobSharedAccessSignatureToken =
-                (!string.IsNullOrWhiteSpace(policyName))
+            var blobSharedAccessSignatureToken =
+                !string.IsNullOrWhiteSpace(policyName)
                     ? cloudBlob.GetSharedAccessSignature(null, policyName)
                     : cloudBlob.GetSharedAccessSignature(sharedAccessBlobPolicy);
 
             //Return the URI string for the container, including the SAS token.
             return cloudBlob.Uri + blobSharedAccessSignatureToken;
         }
-
-
 
 
         private static SharedAccessBlobPolicy BuildSharedAccessBlobPolicy(TimeSpan? duration = null,
@@ -42,8 +42,9 @@ namespace App
             {
                 duration = TimeSpan.FromMinutes(1);
             }
+
             //Set the expiry time and permissions for the container.
-            SharedAccessBlobPolicy sharedAccessBlobPolicy = new SharedAccessBlobPolicy();
+            var sharedAccessBlobPolicy = new SharedAccessBlobPolicy();
 
             //In this case, the start time is specified as a few minutes in the past, to mitigate clock skew.
             sharedAccessBlobPolicy.SharedAccessStartTime = DateTimeOffset.UtcNow.AddMinutes(-5);
@@ -54,7 +55,5 @@ namespace App
 
             return sharedAccessBlobPolicy;
         }
-
-
     }
 }

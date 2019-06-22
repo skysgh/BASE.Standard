@@ -1,55 +1,32 @@
-﻿using System;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System;
 using System.Collections.Generic;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
-
     /// <summary>
-    /// Implementation of the
-    /// <see cref="IDependencyResolutionService"/>
-    /// service contract to return instances
-    /// associated to types.
+    ///     Implementation of the
+    ///     <see cref="IDependencyResolutionService" />
+    ///     service contract to return instances
+    ///     associated to types.
     /// </summary>
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IDependencyResolutionService" />
     public class DependencyResolutionService : IDependencyResolutionService
     {
         /// <summary>
-        /// Gets the service provider
-        /// <para>
-        /// Note: It can be typed to a Lamar IContainer
-        /// if need be.
-        /// </para>.
+        ///     Gets the service provider
+        ///     <para>
+        ///         Note: It can be typed to a Lamar IContainer
+        ///         if need be.
+        ///     </para>
+        ///     .
         /// </summary>
-        public IServiceProvider ServiceProvider
-        {
-            get
-            {
-                return DependencyLocator.Current.ServiceProvider;
-            }
-        }
+        public IServiceProvider ServiceProvider => DependencyLocator.Current.ServiceProvider;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DependencyResolutionService"/> class.
-        /// </summary>
-        public DependencyResolutionService() : base()
-        {
-            
-
-        }
-
-        /// <summary>
-        /// Gets the service.
-        /// </summary>
-        /// <param name="serviceType">Type of the service.</param>
-        /// <returns></returns>
-        public object GetService(Type serviceType)
-        {
-            return DependencyLocator.Current.GetService(serviceType);
-        }
-
-        /// <summary>
-        /// Gets the instance.
+        ///     Gets the instance.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns></returns>
@@ -59,7 +36,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets the instance.
+        ///     Gets the instance.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <param name="key">The key.</param>
@@ -70,7 +47,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets all instances.
+        ///     Gets all instances.
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns></returns>
@@ -80,7 +57,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets the instance.
+        ///     Gets the instance.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <returns></returns>
@@ -90,7 +67,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets the instance.
+        ///     Gets the instance.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <param name="key">The key.</param>
@@ -101,7 +78,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Gets all instances.
+        ///     Gets all instances.
         /// </summary>
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <returns></returns>
@@ -111,7 +88,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Initializes this instance.
+        ///     Initializes this instance.
         /// </summary>
         /// <param name="argument"></param>
         /// <exception cref="System.NotImplementedException"></exception>
@@ -120,5 +97,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///     Gets the service.
+        /// </summary>
+        /// <param name="serviceType">Type of the service.</param>
+        /// <returns></returns>
+        public object GetService(Type serviceType)
+        {
+            return DependencyLocator.Current.GetService(serviceType);
+        }
     }
 }

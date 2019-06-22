@@ -6,17 +6,17 @@
     <members>
         <member name="T:App.Extensions.IAppCoreOdataModelBuilderConfigurationExtensions">
             <summary>
-            Methods that extend
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>
-            instances.
+                Methods that extend
+                <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration" />
+                instances.
             </summary>
         </member>
         <member name="M:App.Extensions.IAppCoreOdataModelBuilderConfigurationExtensions.GetControllerNameByConvention(App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration,System.Type,System.Boolean)">
             <summary>
-            Gets the controller name from the given Entity, by convention.
-            <para>
-            Eg: "Principal" gives "PrincipalsController"
-            </para>
+                Gets the controller name from the given Entity, by convention.
+                <para>
+                    Eg: "Principal" gives "PrincipalsController"
+                </para>
             </summary>
             <param name="x">The x.</param>
             <param name="dtoType">Type of the dto.</param>
@@ -25,295 +25,600 @@
         </member>
         <member name="T:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase">
             <summary>
-            Base class for all API Controllers
-            (as opposed to OData based controllers, 
-            which inherit from <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase"/>)
-            <para>
-            Decorated with <code>[Route("api/[controller]")]</code>
-            </para>
+                Base class for all API Controllers
+                (as opposed to OData based controllers,
+                which inherit from <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />)
+                <para>
+                    Decorated with <code>[Route("api/[controller]")]</code>
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
         </member>
-        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase">
+        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase">
             <summary>
-            All OData based API Controllers, 
-            whatever module,  
-            *should* inherit in one way or another
-            from this base controller.
-            <para>
-            The advantages include:
-            </para>
-            <para>
-            * only one class that needs to be updated to .NET Core when we get there.
-            </para>
-            <para>
-            * ensures that all classes are injected with an implementation of 
-            <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService"/> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService"/>
-            so there is absolutely no excuse for poor diagnostics logs, or security...
-            </para>
-            <para>
-            That said, still don't trust developers rushing to meet deadlines to take 
-            care of ISO-25010/Maintainability or ISO-25010/Security, so we handle 
-            Security and Logging as Global Filters anyway).
-            </para>
-            <para>
-            Note that one has to decorate all classes
-            with 
-            <c>App.Modules.Core.Shared.Constants.All.Apis.BaseODataPath + "[controller]"</c>
-            or 
-            <c>App.Modules.Core.Shared.Constants.All.Apis.BaseODataPath + "ModuleName/" + "[controller]"</c>
-            </para>
+                All OData based API Controllers,
+                whatever module,
+                *should* inherit in one way or another
+                from this base controller.
+                <para>
+                    The advantages include:
+                </para>
+                <para>
+                    * only one class that needs to be updated to .NET Core when we get there.
+                </para>
+                <para>
+                    * ensures that all classes are injected with an implementation of
+                    <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
+                    so there is absolutely no excuse for poor diagnostics logs, or security...
+                </para>
+                <para>
+                    That said, still don't trust developers rushing to meet deadlines to take
+                    care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
+                    Security and Logging as Global Filters anyway).
+                </para>
+                <para>
+                    Note that one has to decorate all classes
+                    with
+                    <c>App.Modules.Core.Shared.Constants.All.Apis.BaseODataPath + "[controller]"</c>
+                    or
+                    <c>App.Modules.Core.Shared.Constants.All.Apis.BaseODataPath + "ModuleName/" + "[controller]"</c>
+                </para>
             </summary>
             <seealso cref="T:Microsoft.AspNet.OData.ODataController" />
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase._diagnosticsTracingService">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase._diagnosticsTracingService">
             <summary>
-            The diagnostics tracing service.
+                The diagnostics tracing service.
             </summary>
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase._principalService">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase._principalService">
             <summary>
-            The principal service to provide the thread's current principal.
+                The principal service to provide the thread's current principal.
             </summary>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
         </member>
-        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4">
+        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3">
             <summary>
-            The base class for all OData Controllers
-            that deal in DTOs mapper from Entities.
-            <para>
-            The DTOs (and Entities) have an Id property
-            whose type could be a Guid, or Enum, or int. 
-            </para>
-            <para>
-            Advantages are that the class handles the mapping automatically.
-            </para>
-            <para>
-            The advantages include:
-            * has a built in concept of Logical Entity and exposed Dto Message equivalent
-            of that Entity, as well as the logic to leverage AutoMapper to pass the linq
-            through the layers. ie, the Magic of ProjectTo.
-            * only one base class that needs to be updated to .NET Core when we get there.
-            * ensures that all classes are injected with an implementation of
-            <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
-            so there is absolutely no excuse for poor diagnostics logs, or security...
-            </para>
-            <para>
-            that said, still don't trust developers rushing to meet deadlines to take
-            care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
-            Security and Logging as GLobal Filters anyway).
-            </para>
+                Just about every controller, whatever module,
+                *should* inherit in one way or another
+                from this base controller.
+                <para>
+                    The advantages include:
+                    * has a built in concept of Logical Entity and exposed Dto Message equivalent
+                    of that Entity, as well as the logic to leverage AutoMapper to pass the linq
+                    through the layers. ie, the Magic of ProjectTo.
+                    * only one base class that needs to be updated to .NET Core when we get there.
+                    * ensures that all classes are injected with an implementation of
+                    <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
+                    so there is absolutely no excuse for poor diagnostics logs, or security...
+                    (that said, still don't trust developers rushing to meet deadlines to take
+                    care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
+                    Security and Logging as GLobal Filters anyway).
+                </para>
             </summary>
-            <typeparam name="TDbContext">The type of the database context.</typeparam>
-            <typeparam name="TEntity">The type of the entity.</typeparam>
-            <typeparam name="TDto">The type of the dto.</typeparam>
-            <typeparam name="TId">The type of the identifier.</typeparam>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3" />
+            <seealso cref="T:Microsoft.AspNet.OData.ODataController" />
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,Microsoft.EntityFrameworkCore.DbContext)">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3._dbContext">
             <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4" /> class.
+                The database context used to retrieve/save objects.
+            </summary>
+        </member>
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3._objectMappingService">
+            <summary>
+                The object mapping service
+            </summary>
+        </member>
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3._secureApiMessageAttribute">
+            <summary>
+                The secure API message attribute service
+                used to secure messages before they go out.
+            </summary>
+        </member>
+        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3._tenantService">
+            <summary>
+                The tenant service
+            </summary>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4.InternalPost(`2)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Internal method that can be invoked by a subclass,
-            and that already handles the mapping from Dto to Entity.
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttributeService">The secure API message attribute service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="P:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.ControllerCommonServicesService">
+            <summary>
+                Gets the controller common services service.
+            </summary>
+            <value>
+                The controller common services service.
+            </value>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.Get">
+            <summary>
+            Override to
+            return a queryable set of
+            this controller's DTO entities.
             <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
             </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalGetDbSet(App.Modules.Core.Shared.Models.Entities.RecordPersistenceState,System.Nullable{System.Guid})">
+            <summary>
+                Internal method that can be invoked by a subclass.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
+                <para>
+                    Invoked by <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalActiveRecords(App.Modules.Core.Shared.Models.Entities.RecordPersistenceState)" />
+                </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)">
+            <summary>
+                Internal method that can be invoked by a subclass.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
             </summary>
             <param name="value">The value.</param>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4.InternalGet(`3)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalGet(App.Modules.Core.Shared.Models.Entities.RecordPersistenceState,System.Linq.Expressions.Expression{System.Func{`2,System.Object}}[])">
             <summary>
-            Internal method that can be invoked by a subclass,
-            and that already handles the mapping from Entity to Dto.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
+                Internal method that can be invoked by a subclass.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
             </summary>
-            <param name="key">The key.</param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalActiveRecords(App.Modules.Core.Shared.Models.Entities.RecordPersistenceState)">
+            <summary>
+                Gets only Active records.
+                <para>
+                    Invokes <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalGetDbSet(App.Modules.Core.Shared.Models.Entities.RecordPersistenceState,System.Nullable{System.Guid})" />
+                </para>
+            </summary>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4.InternalDelete(System.Guid)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.GetTenantFK">
             <summary>
-            Internal method that can be invoked by a subclass.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
+                Gets the current Tenant Id (in order to limit
+                records retrieved using Get).
             </summary>
-            <param name="key">The key.</param>
+            <returns></returns>
         </member>
         <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration">
             <summary>
-            Contract for all OData ModelBuilder Configuration
-            objects.
-            <para>
-            Objects that derive from this interface
-            (in most cases by being a subclass of
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1"/>)
-            are found by reflection at startup.
-            </para>
+                Contract for all OData ModelBuilder Configuration
+                objects.
+                <para>
+                    Objects that derive from this interface
+                    (in most cases by being a subclass of
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />,
+                    and rarely from <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />)
+                    are found by reflection at startup
+                    (see <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry" />).
+                </para>
+                <para>
+                    Tip: if the DTO does not have a Guid Id property,
+                    derive from the base class and define your own Id
+                    (all OData entities have to have one property designated
+                    as the <c>Key</c> property).
+                </para>
             </summary>
             <seealso cref="T:Microsoft.AspNet.OData.Builder.IModelConfiguration" />
         </member>
         <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1">
             <summary>
-            Module Specific
-            OData Model Definition.
-            <para>
-            Describes the specified DTO,
-            and the Controller
-            from which to retrieve it.
-            </para>
-            <para>
-            Invoked by a Model Builder
-            during Startup.
-            </para>
+                Base class for defining an OData
+                (DTO) Model Definition, defining the shape of the DTO and
+                associating it to the name of the OData Controller
+                used to serve it.
+                <para>
+                    Implements
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration" />
+                    so that it is automatically discovered at startup
+                    (see <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry" />
+                </para>
+                <para>
+                    Used to describes the specified DTO,
+                    and the OData based Controller
+                    from which to retrieve it.
+                </para>
+                <para>
+                    Note: Does not configure the path by which the controller
+                    is found (that is done elsewhere)
+                </para>
+                <para>
+                    Tip: if the DTO does not have a Guid Id property,
+                    derive from the base class and define your own Id
+                    (all OData entities have to have one property designated
+                    as the <c>Key</c> property).
+                </para>
             </summary>
             <typeparam name="T"></typeparam>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
             <summary>
-            Defines the EntityTypeConfiguration for the given Type.
-            <para>
-            Note that the key is set to the property called Id.
-            </para>
+                Defines the OData <see cref="T:Microsoft.AspNet.OData.Builder.EntityTypeConfiguration`1" /> for
+                the given DTO Type.
+                <para>
+                    Note that the OData model Key
+                    is set to the property called Id.
+                </para>
+                <para>
+                    Most overrides won't have to do anything at all
+                    if their DTOs stick to OData based conventions
+                    (which are really pretty straight forward)
+                </para>
             </summary>
             <param name="builder">The builder.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1">
             <summary>
-            Module Specific
-            OData Model Definition.
-            <para>
-            Describes the specified DTO,
-            and the Controller
-            from which to retrieve it.
-            </para>
-            <para>
-            Invoked by a Model Builder
-            during Startup.
-            </para>
+                Base class for defining an OData
+                (DTO) Model Definition, defining the shape of the DTO and
+                associating it to the name of the OData Controller
+                used to serve it.
+                <para>
+                    Implements
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration" />
+                    so that it is automatically discovered at startup
+                    (see <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry" />
+                </para>
+                <para>
+                    Used to describes the specified DTO,
+                    and the OData based Controller
+                    from which to retrieve it.
+                </para>
+                <para>
+                    Note: Does not configure the path by which the controller
+                    is found (that is done elsewhere)
+                </para>
+                <para>
+                    This is the rock bottom base class, which doesn't make
+                    any supposition about the DTO entity being exposed.
+                    Meaning that one must override the <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)" />
+                    method to at least define what is the <c>Key</c> property
+                    of the entity.
+                </para>
+                <para>
+                    Because 99% of entities will have a <see cref="T:System.Guid" /> based <c>Id</c>
+                    (ie, implement <see cref="T:App.Modules.All.Shared.Models.IHasGuidId" />) it is
+                    recommended to instead use
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+                    which derives from this class - but already takes
+                    care of defining the Key as the Guid based Id property.
+                </para>
+                For entities that don't have an Id property (really?)
+                fall back to using this, but override <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)" />
+                to do the needed working.
+                <para>
+                </para>
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="P:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.ControllerName">
-            <summary>
-            Gets or sets the name of the Controller
-            associated to the T.
-            <para>
-            For example, given "Principal", the Controller
-            name will be "PrincipalsController"
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" /> class.
-            </summary>
-        </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1"/> class.
+                Initializes a new instance of the
+                <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" /> class.
             </summary>
-            <param name="controllerName">Name of the controller.</param>
+            <param name="controllerName">
+                Optional Name of the controller. If none supplied the default will be the Plural of the
+                Type name..
+            </param>
+        </member>
+        <member name="P:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.ControllerName">
+            <summary>
+                Gets or sets the name of the Controller
+                associated to the controller's Entity.
+                <para>
+                    For example, given "Principal", the Controller
+                    name will be "PrincipalsController"
+                </para>
+            </summary>
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.Apply(Microsoft.AspNet.OData.Builder.ODataModelBuilder,Microsoft.AspNetCore.Mvc.ApiVersion)">
             <summary>
-            override this when you have more versions of an object 
+                override this when you have more versions of an object
             </summary>
             <param name="builder"></param>
             <param name="apiVersion"></param>
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
             <summary>
-            Defines the entity set for T.
-            <para>
-            Note that the Key is not set (it is up to a subclass to define which
-            property of the DTO is the Key).
-            </para>
+                Defines the entity set for T.
+                <para>
+                    Note that the Key is not set (it is up to a subclass to define which
+                    property of the DTO is the Key).
+                </para>
             </summary>
             <param name="builder">The builder.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3">
             <summary>
-            The base class for Tenanted (ie, specific to a certain client) Controllers
-            whose DTOs expose
-            the internal Guid Id of the logical entities.
-            <para>
-            In the past exposing the storage Id was considering
-            exposing an unnecessary amount of information, that could be
-            maybe leveraged for an attack.
-            As a security concern that's basically false concern. On the other hand,
-            it does cause a contractual dependency to the Guid Id, in between systems,
-            when a Code would be more appropriate.
-            </para><para>
-            The advantages include:
-            * has a built in concept of Logical Entity and exposed Dto Message equivalent
-            of that Entity, as well as the logic to leverage AutoMapper to pass the linq
-            through the layers. ie, the Magic of ProjectTo.
-            * only one base class that needs to be updated to .NET Core when we get there.
-            * ensures that all classes are injected with an implementation of
-            <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
-            so there is absolutely no excuse for poor diagnostics logs, or security...
-            (that said, still don't trust developers rushing to meet deadlines to take
-            care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
-            Security and Logging as GLobal Filters anyway).
-            </para>
+                The common base class for simplifying the building
+                of OData Controllers
+                that return Queryable DTOs (that implement
+                <see cref="T:App.Modules.All.Shared.Models.IHasGuidId" /> based <c>Id</c> property,
+                which is the majority of cases)
+                representing internal EF Entities.
+                <para>
+                    Note: creating an ODataController (using this base class
+                    or using an <see cref="T:Microsoft.AspNet.OData.ODataController" /> directly) is only
+                    a first step. The Dto type, and the controller that returns it (ie this
+                    controller) first needs to be registered as part of the
+                    OData Model before routing to it will occur.
+                    This is achieved by creating a class that implements
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration" />
+                    that is discovered at startup by
+                    (although we recommend deriving/subclassing
+                    from <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
+                    to save effort and make long term maintainability easier).
+                </para>
+                <para>
+                    Finally, note that registering a model/controller within the OData model
+                    map doesn't define the Url Path, which is the last part of what has to be setup
+                    (Path, Controller, Dto, Entity).
+                    OData Paths can be defined by convention, overridden using ODataPath something.
+                    The convention is:
+                    "/"
+                    + "odata/" (as defined in All.Constants)
+                    + "logicalModuleName/" (as determined by AssemblyName)
+                    + "controllerName/" (as defined in using <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>).
+                    and this is configured in each Module's subclass of
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase"/> (which implements <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.IModuleRoutes"/>,
+                    which is how initialization finds it, and uses it to configure routes *per Module*.
+                </para>
+                <para>
+                    Tip: If the <c>Id</c> is a <see cref="T:System.Guid" />,
+                    consider using instead
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4" />
+                    sibling of this class, as it is uses the more flexible
+                    <c>CompareTo()</c>, making it suitable for enum, int, string based Keys).
+                </para>
+                <para>
+                    Using this base class provides several advantages
+                    which speed up development:
+                </para>
+                <para>
+                    * has a built in concept of Logical Entity and exposed Dto Message equivalent
+                    of that Entity, as well as the logic to leverage AutoMapper to pass the linq
+                    through the layers. ie, the Magic of ProjectTo.
+                </para>
+                <para>
+                    * only one base class that needs to be updated to .NET Core when we get there.
+                </para>
+                <para>
+                    * ensures that all classes are injected with an implementation of
+                    <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
+                    so there is absolutely no excuse for poor diagnostics logs, or security...
+                </para>
+                <para>
+                    that said, still don't trust developers rushing to meet deadlines to take
+                    care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
+                    Security and Logging as Global Filters anyway).
+                </para>
             </summary>
             <typeparam name="TDbContext">The type of the database context.</typeparam>
             <typeparam name="TEntity">The type of the entity.</typeparam>
             <typeparam name="TDto">The type of the dto.</typeparam>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.ComparableIdCommonODataControllerBase`4" />
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4" />
             <seealso cref="T:System.Guid" />
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,Microsoft.EntityFrameworkCore.DbContext)">
             <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" /> class.
+                Initializes a new instance of the
+                <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttributeService">The secure API message attribute service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.InternalPost(`2)">
             <summary>
+                Internal method that can be invoked by a subclass,
+                and that already handles the mapping from Dto to Entity.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.InternalGet(System.Guid,App.Modules.Core.Shared.Models.Entities.RecordPersistenceState,System.Linq.Expressions.Expression{System.Func{`2,System.Object}}[])">
+            <summary>
             Internal method that can be invoked by a subclass,
-            and that already handles the mapping from Dto to Entity.
+            and that already handles the mapping from Entity to Dto.
             <para>
             The method is protected and internal to ensure the
             subclass' method is created deliberately, to ensure
             that security is considered.
             </para>
             </summary>
+            <param name="key">The key. Note: the Property is called key to align with OData conventions.</param>
+            <param name="recordPersistenceState">State of the record persistence.</param>
+            <param name="expandProperties">The optional expand properties.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.InternalDelete(System.Guid)">
+            <summary>
+                Internal method that can be invoked by a subclass.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4">
+            <summary>
+                The common base class for simplifying the building
+                of OData Controllers
+                that return Queryable DTOs (that implement
+                <see cref="T:App.Modules.All.Shared.Models.IHasId`1" /> based <c>Id</c> property,
+                which is the majority of cases)
+                representing internal EF Entities.
+                <para>
+                    Note: creating an ODataController (using this base class
+                    or using an <see cref="T:Microsoft.AspNet.OData.ODataController" /> directly) is only
+                    a first step. The Dto type, and the controller that returns it (ie this
+                    controller) first needs to be registered as part of the
+                    OData Model before routing to it will occur.
+                    This is achieved by creating a class that implements
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration" />
+                    that is discovered at startup by
+                    (although we recommend deriving/subclassing
+                    from <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
+                    to save effort and make long term maintainability easier).
+                </para>
+                <para>
+                    Finally, note that registering a model/controller within the OData model
+                    map doesn't define the Url Path, which is the last part of what has to be setup
+                    (Path, Controller, Dto, Entity).
+                    OData Paths can be defined by convention, overridden using ODataPath something.
+                    The convention is:
+                    "/"
+                    + "odata/" (as defined in All.Constants)
+                    + "logicalModuleName/" (as determined by AssemblyName)
+                    + "controllerName/" (as defined in using <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>).
+                    and this is configured in each Module's subclass of
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase"/> (which implements <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.IModuleRoutes"/>,
+                    which is how initialization finds it, and uses it to configure routes *per Module*.
+                </para>
+                <para>
+                    Tip: If the <c>Id</c> is a <see cref="T:System.Guid" />,
+                    consider using instead
+                    <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+                    sibling of this class, as it is probably slightly more efficient
+                    (doesn't rely on the <c>CompareTo()</c>, just the '==' operator).
+                </para>
+                <para>
+                    Using this base class provides several advantages
+                    which speed up development:
+                </para>
+                <para>
+                    * has a built in concept of Logical Entity and exposed Dto Message equivalent
+                    of that Entity, as well as the logic to leverage AutoMapper to pass the linq
+                    through the layers. ie, the Magic of ProjectTo.
+                </para>
+                <para>
+                    * only one base class that needs to be updated to .NET Core when we get there.
+                </para>
+                <para>
+                    * ensures that all classes are injected with an implementation of
+                    <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" /> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService" />
+                    so there is absolutely no excuse for poor diagnostics logs, or security...
+                </para>
+                <para>
+                    that said, still don't trust developers rushing to meet deadlines to take
+                    care of ISO-25010/Maintainability or ISO-25010/Security, so we handle
+                    Security and Logging as Global Filters anyway).
+                </para>
+            </summary>
+            <typeparam name="TDbContext">The type of the database context.</typeparam>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TDto">The type of the dto.</typeparam>
+            <typeparam name="TId">The type of the identifier.</typeparam>
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+                Initializes a new instance of the
+                <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4" /> class.
+            </summary>
+            <param name="controllerCommonServicesService">The controller common services service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttributeService">The secure API message attribute service.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.Get(`3)">
+            <summary>
+            Gets a single entity, from the given Id.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)">
+            <summary>
+                Internal method that can be invoked by a subclass,
+                and that already handles the mapping from Dto to Entity.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
+            </summary>
             <param name="value">The value.</param>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.InternalGet(System.Guid)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalGet(`3,App.Modules.Core.Shared.Models.Entities.RecordPersistenceState,System.Linq.Expressions.Expression{System.Func{`2,System.Object}}[])">
             <summary>
             Internal method that can be invoked by a subclass,
             and that already handles the mapping from Entity to Dto.
@@ -324,200 +629,186 @@
             </para>
             </summary>
             <param name="key">The key.</param>
+            <param name="recordPersistenceState">State of the record persistence.</param>
+            <param name="expandProperties">The expand properties.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3.InternalDelete(System.Guid)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)">
             <summary>
-            Internal method that can be invoked by a subclass.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
+                Internal method that can be invoked by a subclass.
+                <para>
+                    The method is protected and internal to ensure the
+                    subclass' method is created deliberately, to ensure
+                    that security is considered.
+                </para>
             </summary>
             <param name="key">The key.</param>
         </member>
-        <member name="T:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3">
+        <member name="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.IModuleRoutes">
             <summary>
-            Just about every controller, whatever module,  
-            *should* inherit in one way or another
-            from this base controller.
-            <para>
-            The advantages include:
-            * has a built in concept of Logical Entity and exposed Dto Message equivalent 
-              of that Entity, as well as the logic to leverage AutoMapper to pass the linq
-              through the layers. ie, the Magic of ProjectTo.
-            * only one base class that needs to be updated to .NET Core when we get there.
-            * ensures that all classes are injected with an implementation of 
-            <see cref="T:App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService"/> and <see cref="T:App.Modules.Core.Infrastructure.Services.IPrincipalService"/>
-            so there is absolutely no excuse for poor diagnostics logs, or security...
-            (that said, still don't trust developers rushing to meet deadlines to take 
-            care of ISO-25010/Maintainability or ISO-25010/Security, so we handle 
-            Security and Logging as GLobal Filters anyway).
-            </para>
-            </summary>
-            <seealso cref="T:Microsoft.AspNet.OData.ODataController" />
-        </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3._tenantService">
-            <summary>
-            The tenant service
+                Contract for defining a single Module's
+                Controller Routes (ie, Api, Views, OData).
+                <para>
+                Scanned for and found by <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/>
+                </para>
+                <para>
+                    Then Invoked from the Host's Startup.cs
+                </para>
             </summary>
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3._dbContext">
+        <member name="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase">
             <summary>
-            The database context used to retrieve/save objects.
+                Base class to simplify
+                defining a single Module's
+                Controller Routes (ie, Api, Views, OData).
+                <para>
+                Scanned for and found by <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/>
+                </para>
+                <para>
+                    Then Invoked from the Host's Startup.cs
+                </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.IModuleRoutes" />
+        </member>
+        <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase._configurationStepService">
+            <summary>
+                The configuration step service
             </summary>
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3._objectMappingService">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase._dependencyResolutionService">
             <summary>
-            The object mapping service
+                The dependency resolution service
             </summary>
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3._secureApiMessageAttribute">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase._routePrefix">
             <summary>
-            The secure API message attribute service
-            used to secure messages before they go out.
+                The route prefix.
+                Must be unique.
+                Will  be the name of the Module.
             </summary>
         </member>
-        <member name="P:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.ControllerCommonServicesService">
+        <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.ModuleName">
             <summary>
-            Gets the controller common services service.
+                The Name of this Module ("Core", etc.)
             </summary>
-            <value>
-            The controller common services service.
-            </value>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,Microsoft.EntityFrameworkCore.DbContext)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase" /> class.
             </summary>
-            <param name="controllerCommonServicesService">The controller common services service.</param>
-            <param name="dbContext">The database context.</param>
+            <param name="dependencyResolutionService">The dependency resolution service.</param>
+            <param name="configurationStepService">The configuration step service.</param>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalGetDbSet">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
             <summary>
-            Internal method that can be invoked by a subclass.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
-            <para>
-            Invoked by <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalActiveRecords"/>
-            </para>
+                Initializes the specified MVC route builder.
+            </summary>
+            <param name="routeBuilder">The route builder.</param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.CreateODataRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder)">
+            <summary>
+                <para>
+                    Invoked from Startup/Configure method,
+                    within .AddMvc...
+                </para>
+            </summary>
+            <param name="routeBuilder"></param>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.BuildODataModelUsingReflectionAcrossAllAssembliesWithinLogicalModule">
+            <summary>
+                Builds the o data model using reflection across all assemblies within this logical module.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalPut(`2)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.RegisterRoutesToODataController(Microsoft.AspNetCore.Routing.IRouteBuilder,Microsoft.AspNet.OData.Builder.ODataConventionModelBuilder)">
             <summary>
-            Internal method that can be invoked by a subclass.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
+                Called after <see cref="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.BuildODataModelUsingReflectionAcrossAllAssembliesWithinLogicalModule" />
             </summary>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalGet(System.Linq.Expressions.Expression{System.Func{`2,System.Object}}[])">
-            <summary>
-            Internal method that can be invoked by a subclass.
-            <para>
-            The method is protected and internal to ensure the
-            subclass' method is created deliberately, to ensure
-            that security is considered.
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalActiveRecords">
-            <summary>
-            Gets only Active records.
-            <para>
-            Invokes <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.InternalGetDbSet"/>
-            </para>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.MappedCommonODataControllerBase`3.GetTenantFK">
-            <summary>
-            Gets the current Tenant Id (in order to limit
-            records retrieved using Get).
-            </summary>
-            <returns></returns>
+            <param name="routeBuilder"></param>
+            <param name="odataModelBuilder"></param>
         </member>
         <member name="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry">
             <summary>
-            A <see cref="T:Lamar.ServiceRegistry"/>
-            that scans all Assemblies in all Logical Modules.
+                A <see cref="T:Lamar.ServiceRegistry" />
+                that scans all Assemblies in all Logical Modules.
             </summary>
             <seealso cref="T:Lamar.ServiceRegistry" />
         </member>
         <member name="M:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry.#ctor">
             <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/> class.
+                Initializes a new instance of the
+                <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry" /> class.
             </summary>
         </member>
         <member name="T:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer">
             <summary>
                 Class invoked from both of the following:
-            * Startup's ConfigureContainer method (in App.Host)
-            * see DependencyResolutionContainerInitializer
+                * Startup's ConfigureContainer method (in App.Host)
+                * see DependencyResolutionContainerInitializer
                 (when running UnitTests)
                 to initialize all that is not specific to HTML.
             </summary>
         </member>
         <member name="M:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer.Initialize(Lamar.ServiceRegistry)">
             <summary>
-            Initializes the specified service registry.
+                Initializes the specified service registry.
             </summary>
             <param name="serviceRegistry">The service registry.</param>
         </member>
         <member name="T:App.Modules.All.AppFacade.DependencyResolution.ModuleServiceRegistryBase">
             <summary>
-            The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
-            <para>
-            To avoid undesired side effects, It's important that each Module
-            inherits from this Module as it is set up to only search for dependencies
-            within this Module's group of assemblies (it's filtering on the Assembly name)
-            </para>
+                The base class for each Module's (Core, Module1, Module2, etc.) ServiceRegistry.
+                <para>
+                    To avoid undesired side effects, It's important that each Module
+                    inherits from this Module as it is set up to only search for dependencies
+                    within this Module's group of assemblies (it's filtering on the Assembly name)
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.All.AppFacade.DependencyResolution.ModuleServiceRegistryBase.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            Scans this Module's assemblies for
-            as per specifications.
+                Scans this Module's assemblies for
+                as per specifications.
             </summary>
         </member>
-        <member name="T:App.Modules.All.AppFacade.Initialization.Views.IAllModulesViewArtifactRegistration">
+        <member name="T:App.Modules.All.AppFacade.Initialization.IStartupConfigure">
             <summary>
-            TODO
+                Contract for a class that can be invoked from
+                Startup.cs in the host file.
             </summary>
-            <seealso cref="T:App.Modules.All.Shared.Initialization.IHasInitialize`1" />
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Initialization.IStartupConfigure.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+                Invoke from the Startup.cs in the Host app.
+                Configures the specified application.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="env">The env.</param>
         </member>
         <member name="T:App.Modules.All.AppFacade.Services.IAppFacadeService">
             <summary>
-            Optional contract that all AppFacade Services
-            should inherit from.
-            <para>
-            The contract does not add or enforce any functionality
-            bar specifying a specific IoC Lifecycle (making it a Singleton
-            by inheriting from
-            <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle"/>)
-            and allowing for filtering per Core/Module.
-            </para>
+                Optional contract that all AppFacade Services
+                should inherit from.
+                <para>
+                    The contract does not add or enforce any functionality
+                    bar specifying a specific IoC Lifecycle (making it a Singleton
+                    by inheriting from
+                    <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle" />)
+                    and allowing for filtering per Core/Module.
+                </para>
             </summary>
+        </member>
+        <member name="T:App.Modules.All.AppFacade.Views.Configuration.IAllModulesViewArtifactRegistration">
+            <summary>
+                TODO
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Initialization.IHasInitialize`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.ActionFilters.SamepleActionFilterAttribute">
             <summary>
-            An example of a Sample filter that can be applied to all Requests.
+                An example of a Sample filter that can be applied to all Requests.
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute" />
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.ActionFilters.SamepleActionFilterAttribute.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.ActionFilters.SamepleActionFilterAttribute"/> class.
-            </summary>
         </member>
         <member name="M:App.Modules.Core.AppFacade.ActionFilters.SamepleActionFilterAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
             <summary>
@@ -530,31 +821,31 @@
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.DbController">
             <summary>
-            TODO
+                TODO
             </summary>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.DbController.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.DbController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.DbController" /> class.
             </summary>
             <param name="dependencyResolutionService">The dependency resolution service.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.DbController.Seed(System.String)">
             <summary>
-            TODO: Seeds the specified module.
+                TODO: Seeds the specified module.
             </summary>
             <param name="module">The module.</param>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController">
             <summary>
-            TODO
+                TODO
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
             <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController"/> class.
+                Initializes a new instance of the
+                <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
@@ -563,328 +854,324 @@
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController.Get(System.String)">
             <summary>
-            TODO: Gets the specified identifier.
+                TODO: Gets the specified identifier.
             </summary>
             <param name="id">The identifier.</param>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Diagnostics.StatusController.CheckRoutes">
             <summary>
-            TODO: Checks the routes.
+                TODO: Checks the routes.
             </summary>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller">
             <summary>
-            
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.List">
             <summary>
-            TODO: Lists this instance.
+                TODO: Lists this instance.
             </summary>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.Get(System.Int32)">
             <summary>
-            TODO: Gets the specified identifier.
+                TODO: Gets the specified identifier.
             </summary>
             <param name="id">The identifier.</param>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.Post(System.String)">
             <summary>
-            TODO
+                TODO
             </summary>
             <param name="value"></param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.Put(System.Int32,System.String)">
             <summary>
-            TODO: Puts the specified identifier.
+                TODO: Puts the specified identifier.
             </summary>
             <param name="id">The identifier.</param>
             <param name="value">The value.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.Values2Controller.Delete(System.Int32)">
             <summary>
-            TODO: Deletes the specified identifier.
+                TODO: Deletes the specified identifier.
             </summary>
             <param name="id">The identifier.</param>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration"/> class.
-            </summary>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStepRecordOdataModelBuilderConfiguration">
             <summary>
-            Configuration object to describe the DTO and the Controller from which to retrieve it.
+                Configuration object to describe the DTO and the Controller from which to retrieve it.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStepRecordOdataModelBuilderConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStepRecordOdataModelBuilderConfiguration"/> class.
-            </summary>
-            <internal>
-            Remember to make these constructors public or reflection for 
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/> won't find them.
-            </internal>
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.DataClassificationOdataModelBuilderConfiguration">
             <summary>
-            Configuration object to describe the DTO and the Controller from which to retrieve it.
+                Configuration object to describe the DTO and the Controller from which to retrieve it.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.DataClassificationOdataModelBuilderConfiguration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
             <summary>
-            Defines the entity set for T.
-            <para>
-            Note that the Key is not set (it is up to a subclass to define which
-            property of the DTO is the Key).
-            </para>
+                Defines the entity set for T.
+                <para>
+                    Note that the Key is not set (it is up to a subclass to define which
+                    property of the DTO is the Key).
+                </para>
             </summary>
             <param name="builder">The builder.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.EmailODataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.EmailODataModelBuilderConfiguration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
             <summary>
-            Defines the entity set for T.
-            <para>
-            Note that the key is set to the property called Id.
-            </para>
+                Defines the entity set for T.
+                <para>
+                    Note that the key is set to the property called Id.
+                </para>
             </summary>
             <param name="builder">The builder.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the
-            <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration"/> class.
-            </summary>
-            <internal>
-            Remember to make these constructors public or reflection for 
-            <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/> won't find them.
-            </internal>
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.GeoInformationODataMOdelBuilderConfighuration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.GeoInformationODataMOdelBuilderConfighuration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
             <summary>
-            Defines the entity set for T,
-            and sets the Id.
+                Defines the entity set for T,
+                and sets the Id.
             </summary>
             <param name="builder">The builder.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.MediaMetadataOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.NotificationOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalCategoryOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalClaimOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalPropertyOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalTagOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.RoleOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.SessionOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto"/>, and relate it to a Controller.
-            <para>
-            </para>
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <para>
+                </para>
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.SessionOperationOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantClaimOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto" />, and relate it to a Controller.
             </summary>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantPropertyOdataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto" />, and relate it to a Controller.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso
+                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.UserProfileODataModelBuilderConfiguration">
             <summary>
-            An OData Configuration object to define the shape of an
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto"/>, and relate it to a Controller.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController">
             <summary>
-            OData Queryable REST Controller for
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto"/> messages 
-            for Application Support Specialists to 
-            query what Exceptions have happened of late.
+                OData Queryable REST Controller for
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" /> messages
+                for Application Support Specialists to
+                query what Exceptions have happened of late.
             </summary>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Get">
             <summary>
-            Gets a single DTO.
+                Gets a single DTO.
             </summary>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Get(App.Modules.Core.Shared.Models.Entities.NZDataClassification)">
             <summary>
-            Gets the specified entity
-            via it's Key.
-            <para>
-            Example request:
-            <code>
+                Gets the specified entity
+                via it's Key.
+                <para>
+                    Example request:
+                    <code>
             https://localhost:5001/odata/core/dataclassifications(App.Modules.Models.Entities.NZDataClassification'Unclassified')
             </code>
-            </para>
+                </para>
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Get(System.String)">
             <summary>
-            Gets the specified key.
+                Gets the specified key.
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Fuzz(System.String)">
             <summary>
-            Fuzzs the specified key.
+                Fuzzs the specified key.
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController">
             <summary>
-            Controller to return DiagnosticsTrace messages
-            to authorised users.
+                Controller to return DiagnosticsTrace messages
+                to authorised users.
             </summary>
-            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.CommonODataControllerBase" />
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Get">
             <summary>
-            Gets a queryable set of
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto"/>
-            objects.
+                Gets a queryable set of
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto" />
+                objects.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Get(System.Guid)">
+            <summary>
+            Gets a single entity, from the given Id.
+            </summary>
+            <param name="key">The key.</param>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Put(System.String,App.Modules.Core.Shared.Models.Entities.TraceLevel)">
             <summary>
-            Record a Diagnostics Message, if authorised to do so.
+                Record a Diagnostics Message, if authorised to do so.
             </summary>
             <param name="text"></param>
             <param name="traceLevel"></param>
@@ -892,265 +1179,315 @@
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController">
             <summary>
-            OData Queryable REST Controller for
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto"/> messages 
-            for Application Support Specialists to 
-            query what Exceptions have happened of late.
+                OData Queryable REST Controller for
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" /> messages
+                for Application Support Specialists to
+                query what Exceptions have happened of late.
             </summary>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController" /> class.
             </summary>
             <param name="controllerCommonServicesService">The controller common services service.</param>
             <param name="dbContext">The database context.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.Get">
             <summary>
-            Invokes InternalGet
-            to return a single Dto.
+                Invokes InternalGet
+                to return a single Dto.
             </summary>
             <returns></returns>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.Get(System.Guid)">
             <summary>
-            Invokes InternalGet
-            to return a single dto object.
+                Invokes InternalGet
+                to return a single dto object.
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController">
+            <summary>
+            OData Queryable REST Controller for
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto"/> messages 
+            
+            </summary>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Get">
+            <summary>
+            Gets this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Get(System.Guid)">
+            <summary>
+            Gets the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Get">
+            <summary>
+            Gets this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Get(System.Guid)">
+            <summary>
+            Gets the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="valueObject">The value.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto)">
+            <summary>
+            Puts the specified value.
+            </summary>
+            <param name="valueObject">The value.</param>
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController">
+            <summary>
+            
+            </summary>
+            <seealso
+            cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Get">
+            <summary>
+            Gets this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Get(System.Guid)">
+            <summary>
+            Gets the specified value as per provided key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes">
+            <summary>
+                Defines this Module's
+                Controller Routes (ie, Api, Views, OData).
+                <para>
+                Scanned for and found by <see cref="T:App.Modules.All.AppFacade.DependencyResolution.AllModulesAppFacadeServiceRegistry"/>
+                </para>
+                <para>
+                    Invoked from app.AddMvc(routeBuilder => ...) method.
+                    within App.Host's Setup.cs/Configure method.
+                </para>
+                <para>
+                The base class already defines common routing for View Controllers,
+                API Controllers and OData Controllers found within this Logical Module.
+                </para>
+                <para>
+                The common OData convention setup via the base controller is 
+                "odata/{moduleName}/{controllerName}" based on the
+                implementation of <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>
+                (via <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1"/> for example)
+                it found in this logical module.
+                </para>
+                <para>
+                In general, one should probably not have to define anything,
+                and just let the base class do it's thing -- but if this module
+                has esoteric odata needs, this would be the method to override
+                and append those routes.
+                </para>
+            </summary>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
+            </summary>
+            <param name="dependencyResolutionService">The dependency resolution service.</param>
+            <param name="configurationStepService">The configuration step service.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
+            <summary>
+                Initialize routes specific to a Module.
+                <para>
+                    Invoked from app.AddMvc(routeBuilder => ...) method.
+                    within App.Host's Setup.cs/Configure method.
+                </para>
+                <para>
+                The base class already defines common routing for View Controllers,
+                API Controllers and OData Controllers found within this Logical Module.
+                </para>
+                <para>
+                The common OData convention setup via the base controller is 
+                "odata/{moduleName}/{controllerName}" based on the
+                implementation of <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.IModuleOdataModelBuilderConfiguration"/>
+                (via <see cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1"/> for example)
+                it found in this logical module.
+                </para>
+                <para>
+                In general, one should probably not have to define anything,
+                and just let the base class do it's thing -- but if this module
+                has esoteric odata needs, this would be the method to override
+                and append those routes.
+                </para>
+                <para>
+                    Base class invokes <see cref="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.CreateODataRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder)" />
+                </para>
+            </summary>
+            <param name="routeBuilder">The route builder.</param>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.DependencyResolution.ModuleServiceRegistry">
             <summary>
-            Discoverable (by Reflection) Module specific configuration
-            of the DependencyLocator.
-            <para>
-            Note that it is important that these common classes
-            are just called 'Module'Something and not 'ModuleXXX'Something,
-            (and just use the Namespace to distinguish between Modules)
-            so that it is easier to start new development just using Search/Replace
-            within namespaces (it's easier to find `Module1` within `.Module1`
-            than find the same thing within `Module1Something`.
-            </para>
+                Discoverable (by Reflection) Module specific configuration
+                of the DependencyLocator.
+                <para>
+                    Note that it is important that these common classes
+                    are just called 'Module'Something and not 'ModuleXXX'Something,
+                    (and just use the Namespace to distinguish between Modules)
+                    so that it is easier to start new development just using Search/Replace
+                    within namespaces (it's easier to find `Module1` within `.Module1`
+                    than find the same thing within `Module1Something`.
+                </para>
             </summary>
         </member>
         <member name="M:App.Modules.Core.AppFacade.DependencyResolution.ModuleServiceRegistry.InnerScan(Lamar.Scanning.Conventions.IAssemblyScanner)">
             <summary>
-            Scans this Module's assemblies for
-            as per specifications.
+                Scans this Module's assemblies for
+                as per specifications.
             </summary>
             <param name="assemblyScanner"></param>
         </member>
-        <member name="T:App.Modules.Core.AppFacade.Initialization.Startup.IModuleRoutes">
+        <member name="T:App.Modules.Core.AppFacade.Initialization.StartupConfigure">
             <summary>
-            Contract for defining a single Module's
-            Routes.
-            <para>
-            Invoked from Host Startup.cs
-            </para> 
             </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Initialization.IStartupConfigure" />
         </member>
-        <member name="T:App.Modules.Core.AppFacade.Initialization.Startup.IStartupConfigure">
+        <member name="M:App.Modules.Core.AppFacade.Initialization.StartupConfigure.#ctor(Lamar.IContainer)">
             <summary>
-            Contract for a class that can be invoked from 
-            Startup.cs in the host file.
-            </summary>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.IStartupConfigure.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
-            <summary>
-            Invoke from the Startup.cs in the Host app.
-            Configures the specified application.
-            </summary>
-            <param name="app">The application.</param>
-            <param name="env">The env.</param>
-        </member>
-        <member name="T:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutes">
-            <summary>
-            This Module's specific routes.
-            <para>
-            Invoked from Startup/Configure method,
-            within .AddMvc...
-            </para>
-            </summary>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutes"/> class.
-            </summary>
-            <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
-            <summary>
-            Initialize routes specific to a Module.
-            <para>
-            Invoked from app.AddMvc(routeBuilder =&gt; ...) method.
-            within App.Host's Setup/Configure method.
-            </para><para>
-            Use as required to register routes specific to a single Module.
-            </para><para>
-            Base class invokes <see cref="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.CreateODataRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder)" /></para>
-            </summary>
-            <param name="routeBuilder">The route builder.</param>
-        </member>
-        <member name="T:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase">
-            <summary>
-            Base class to simplify
-            the registration of
-            custom routes
-            individual logical Modules
-            may require.
-            </summary>
-            <seealso cref="T:App.Modules.Core.AppFacade.Initialization.Startup.IModuleRoutes" />
-        </member>
-        <member name="F:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase._routePrefix">
-            <summary>
-            The route prefix.
-            Must be unique.
-            Will  be the name of the Module.
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase._dependencyResolutionService">
-            <summary>
-            The dependency resolution service
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase._configurationStepService">
-            <summary>
-            The configuration step service
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.ModuleName">
-            <summary>
-            The Name of this Module ("Core", etc.)
-            </summary>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase"/> class.
-            </summary>
-            <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
-            <summary>
-            Initializes the specified MVC route builder.
-            </summary>
-            <param name="routeBuilder">The route builder.</param>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.CreateODataRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder)">
-            <summary>
-            
-            <para>
-            Invoked from Startup/Configure method,
-            within .AddMvc...
-            </para>
-            </summary>
-            <param name="routeBuilder"></param>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.BuildODataModelUsingReflectionAcrossAllAssembliesWithinLogicalModule">
-            <summary>
-            Builds the o data model using reflection across all assemblies within this logical module.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.RegisterRoutesToODataController(Microsoft.AspNetCore.Routing.IRouteBuilder,Microsoft.AspNet.OData.Builder.ODataConventionModelBuilder)">
-            <summary>
-            Called after <see cref="M:App.Modules.Core.AppFacade.Initialization.Startup.ModuleRoutesBase.BuildODataModelUsingReflectionAcrossAllAssembliesWithinLogicalModule"/>
-            </summary>
-            <param name="routeBuilder"></param>
-            <param name="odataModelBuilder"></param>
-        </member>
-        <member name="T:App.Modules.Core.AppFacade.Initialization.Startup.StartupConfigure">
-            <summary>
-            
-            </summary>
-            <seealso cref="T:App.Modules.Core.AppFacade.Initialization.Startup.IStartupConfigure" />
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.StartupConfigure.#ctor(Lamar.IContainer)">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Initialization.Startup.StartupConfigure"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Initialization.StartupConfigure" /> class.
             </summary>
             <param name="container">The container.</param>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.StartupConfigure.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+        <member name="M:App.Modules.Core.AppFacade.Initialization.StartupConfigure.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
             <summary>
-            Invoke from the Startup.cs in the Host app.
-            Configures the specified application.
+                Invoke from the Startup.cs in the Host app.
+                Configures the specified application.
             </summary>
             <param name="app">The application.</param>
             <param name="env">The env.</param>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Initialization.Startup.StartupConfigure.AppendAServiceRegistry">
+        <member name="M:App.Modules.Core.AppFacade.Initialization.StartupConfigure.AppendAServiceRegistry">
             <summary>
-            Some ExtensionMethods (eg: AddDbContext)
-            are expecting a ServiceRegistry (IServiceCollection)
-            of some kind. 
+                Some ExtensionMethods (eg: AddDbContext)
+                are expecting a ServiceRegistry (IServiceCollection)
+                of some kind.
             </summary>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService">
             <summary>
-            Service to inject into Controllers
-            (OData or traditional Api)
-            that return persisted records of 
-            some kind.
-            <para>
-            The purpose of the Controller is only 
-            to make the injection of services into
-            Controllers a bit less repetitive -- 
-            and the Constructors
-            easier to update if the number/type of
-            common services were changed in the future.
-            </para>
+                Service to inject into Controllers
+                (OData or traditional Api)
+                that return persisted records of
+                some kind.
+                <para>
+                    The purpose of the Controller is only
+                    to make the injection of services into
+                    Controllers a bit less repetitive --
+                    and the Constructors
+                    easier to update if the number/type of
+                    common services were changed in the future.
+                </para>
             </summary>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService.DiagnosticsTracingService">
             <summary>
-            Gets the diagnostics tracing service.
+                Gets the diagnostics tracing service.
             </summary>
             <value>
-            The diagnostics tracing service.
+                The diagnostics tracing service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService.PrincipalService">
             <summary>
-            Gets the principal service.
+                Gets the principal service.
             </summary>
             <value>
-            The principal service.
+                The principal service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService.TenantService">
             <summary>
-            Gets the tenant service.
+                Gets the tenant service.
             </summary>
             <value>
-            The tenant service.
+                The tenant service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService.ObjectMappingService">
             <summary>
-            Gets the object mapping service.
+                Gets the object mapping service.
             </summary>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService.SecureApiMessageAttribute">
             <summary>
-            Gets the secure API message service.
+                Gets the secure API message service.
             </summary>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService">
             <summary>
-            A collection of commonly used services.
-            <para>
-            Facilitates and simplifies the creation of
-            Controllers.
-            </para>
+                A collection of commonly used services.
+                <para>
+                    Facilitates and simplifies the creation of
+                    Controllers.
+                </para>
             </summary>
             <seealso cref="T:App.Modules.Core.AppFacade.Services.IControllerCommonServicesService" />
         </member>
         <member name="M:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService)">
             <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService"/> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService" /> class.
             </summary>
             <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
             <param name="principalService">The principal service.</param>
@@ -1160,42 +1497,42 @@
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.DiagnosticsTracingService">
             <summary>
-            Gets the diagnostics tracing service.
+                Gets the diagnostics tracing service.
             </summary>
             <value>
-            The diagnostics tracing service.
+                The diagnostics tracing service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.PrincipalService">
             <summary>
-            Gets the principal service.
+                Gets the principal service.
             </summary>
             <value>
-            The principal service.
+                The principal service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.TenantService">
             <summary>
-            Gets the tenant service.
+                Gets the tenant service.
             </summary>
             <value>
-            The tenant service.
+                The tenant service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.ObjectMappingService">
             <summary>
-            Gets the object mapping service.
+                Gets the object mapping service.
             </summary>
             <value>
-            The object mapping service.
+                The object mapping service.
             </value>
         </member>
         <member name="P:App.Modules.Core.AppFacade.Services.Implementations.ControllerCommonServicesService.SecureApiMessageAttribute">
             <summary>
-            Gets the secure API message attribute.
+                Gets the secure API message attribute.
             </summary>
             <value>
-            The secure API message attribute.
+                The secure API message attribute.
             </value>
         </member>
     </members>

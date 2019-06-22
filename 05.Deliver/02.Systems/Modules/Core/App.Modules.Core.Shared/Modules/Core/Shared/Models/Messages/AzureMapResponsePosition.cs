@@ -1,25 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using Newtonsoft.Json;
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
-    /// 
     /// </summary>
     public class AzureMapResponsePosition
     {
         /// <summary>
-        /// Gets or sets the latitude.
+        ///     Gets or sets the latitude.
         /// </summary>
         /// <value>
-        /// The latitude.
+        ///     The latitude.
         /// </value>
         [JsonProperty("lat")]
         public string Latitude { get; set; }
+
         /// <summary>
-        /// Gets or sets the longitude.
+        ///     Gets or sets the longitude.
         /// </summary>
         /// <value>
-        /// The longitude.
+        ///     The longitude.
         /// </value>
         [JsonProperty("lon")]
         public string Longitude { get; set; }

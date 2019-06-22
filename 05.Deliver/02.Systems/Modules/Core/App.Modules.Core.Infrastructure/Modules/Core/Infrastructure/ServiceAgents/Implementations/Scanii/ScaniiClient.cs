@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// Copyright MachineBrains, Inc. 2019
+
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Net;
 using System.Reflection;
@@ -15,26 +17,21 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly RestClient client;
 
-        public string BaseUri
-        {
-            get;
-        }
-
 
         public ScaniiClient(
             IDiagnosticsTracingService diagnosticsTracingService, string key, string secret,
             string baseUri = "https://api.scanii.com/v2.1")
         {
-            this.BaseUri = baseUri;
+            BaseUri = baseUri;
 
-            if (string.IsNullOrWhiteSpace(this.BaseUri))
+            if (string.IsNullOrWhiteSpace(BaseUri))
             {
-                this.BaseUri = "https://api.scanii.com/v2.1";
+                BaseUri = "https://api.scanii.com/v2.1";
             }
 
-            this._diagnosticsTracingService = diagnosticsTracingService;
+            _diagnosticsTracingService = diagnosticsTracingService;
 
-            this.client = new RestClient(this.BaseUri)
+            client = new RestClient(BaseUri)
             {
                 Authenticator = new HttpBasicAuthenticator(key, secret),
                 UserAgent = "scanii-csharp/v" + Assembly.GetExecutingAssembly().GetName().Version
@@ -42,16 +39,16 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
 
 
             Log("Running in debug mode " + Assembly.GetExecutingAssembly().GetName());
-            Log("Base URI: " + this.BaseUri);
+            Log("Base URI: " + BaseUri);
         }
 
+        public string BaseUri { get; }
 
 
         public bool Ping()
         {
-
-            var req = new RestRequest("/ping}") { RequestFormat = DataFormat.Json };
-            var resp = this.client.Get(req);
+            var req = new RestRequest("/ping}") {RequestFormat = DataFormat.Json};
+            var resp = client.Get(req);
 
             Log("content " + resp.Content);
             Log("status code " + resp.StatusCode);
@@ -60,6 +57,7 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
             {
                 return false;
             }
+
             return true;
         }
 
@@ -71,20 +69,21 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
             {
                 metadata = new Dictionary<string, string>();
             }
-            var restRequest = new RestRequest("files") { RequestFormat = DataFormat.Json };
+
+            var restRequest = new RestRequest("files") {RequestFormat = DataFormat.Json};
 
             // adding payload
             restRequest.AddFileBytes("file", bytes, fileName, contentMimeType);
 
             //restRequest.AddFile("file", path);
 
-            foreach (var keyValuePair in metadata)
+            foreach (KeyValuePair<string, string> keyValuePair in metadata)
             {
                 Log("medata item " + keyValuePair);
                 restRequest.AddParameter($"metadata[{keyValuePair.Key}]", keyValuePair.Value);
             }
 
-            var restResponse = this.client.Post(restRequest);
+            var restResponse = client.Post(restRequest);
             Log("content " + restResponse.Content);
             Log("status code " + restResponse.StatusCode);
 
@@ -108,9 +107,9 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
             Contract.Requires(id != null);
             Log($"loading id: {id}");
 
-            var req = new RestRequest("/files/{id}") { RequestFormat = DataFormat.Json };
+            var req = new RestRequest("/files/{id}") {RequestFormat = DataFormat.Json};
             req.AddUrlSegment("id", id);
-            var resp = this.client.Get(req);
+            var resp = client.Get(req);
 
             Log("content " + resp.Content);
             Log("status code " + resp.StatusCode);
@@ -125,10 +124,9 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations.Scanii
         }
 
 
-
         private void Log(string message)
         {
-            this._diagnosticsTracingService.Trace(TraceLevel.Verbose, "ScaniiClient: " + message);
+            _diagnosticsTracingService.Trace(TraceLevel.Verbose, "ScaniiClient: " + message);
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿//namespace App.Modules.Core.Shared.Models.Entities
+﻿// Copyright MachineBrains, Inc. 2019
+
+//namespace App.Modules.Core.Shared.Models.Entities
 //{
 //    using App.Modules.Core.Shared.Models;
 //    using App.Modules.Core.Shared.Models.Entities;
 //    using System;
 //    using System.Collections.Generic;
 //    using System.Collections.ObjectModel;
-    
+
 //    public class TenancySecurityProfileRoleGroup :TenantFKAuditedRecordStatedTimestampedGuidIdEntityBase , IHasTitle, IHasTitleAndDescription, IHasOptionalParentFK, IHasParent<TenancySecurityProfileRoleGroup>
 //    {
 //        public string Title { get; set; }

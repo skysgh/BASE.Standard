@@ -1,4 +1,5 @@
-﻿
+﻿// Copyright MachineBrains, Inc. 2019
+
 namespace App.Modules.Core.Infrastructure.Constants.IDA
 {
     public static class ClaimTitles
@@ -19,6 +20,5 @@ namespace App.Modules.Core.Infrastructure.Constants.IDA
         public const string SessionIdentifier = "SessionId";
 
         public const string UniqueSessionIdentifier = "UniqueSessionId";
-
     }
 }
