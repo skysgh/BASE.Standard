@@ -17,13 +17,18 @@ namespace App.Modules.Core.Shared.Models.Messages
         General = 1,
 
         /// <summary>
+        /// Step is for routing
+        /// </summary>
+        Routing = 2,
+
+        /// <summary>
         ///     Step is for security
         /// </summary>
-        Security = 2,
+        Security = 3,
 
         /// <summary>
         ///     Step is for performance
         /// </summary>
-        Performance = 3
+        Performance = 4
     }
 }

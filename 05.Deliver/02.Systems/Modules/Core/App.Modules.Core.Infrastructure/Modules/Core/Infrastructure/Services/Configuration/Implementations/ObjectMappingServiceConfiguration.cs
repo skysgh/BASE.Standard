@@ -33,7 +33,6 @@
 
 //        public ObjectMappingServiceConfiguration(
 //            IDiagnosticsTracingService diagnosticsTracingService,
-//            IConfigurationStepService configurationStepService,
 //            IDependencyResolutionService dependencyResolutionService
 //        )
 //        {

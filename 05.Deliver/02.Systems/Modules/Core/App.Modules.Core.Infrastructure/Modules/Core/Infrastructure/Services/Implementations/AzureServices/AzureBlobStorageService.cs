@@ -2,6 +2,7 @@
 
 using System.IO;
 using App.Modules.Core.Infrastructure.Constants.Storage;
+using App.Modules.Core.Infrastructure.Data.Db.ConfigurationStatus;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
@@ -22,7 +23,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         //public AzureBlobStorageServiceConfiguration Configuration { get; private set; }
 
-        public AzureBlobStorageService(IDiagnosticsTracingService diagnosticsTracingService
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureBlobStorageService"/> class.
+        /// </summary>
+        /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
+        public AzureBlobStorageService(
+            IDiagnosticsTracingService diagnosticsTracingService,
+            DbDatabaseConfigurationStatus configurationStatus
             /*,AzureBlobStorageServiceConfiguration configuration*/
         )
         {

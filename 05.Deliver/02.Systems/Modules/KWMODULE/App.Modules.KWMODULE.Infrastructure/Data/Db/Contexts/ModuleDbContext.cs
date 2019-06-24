@@ -2,6 +2,7 @@
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -23,20 +24,28 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts
     /// </summary>
     public class ModuleDbContext : ModuleDbContextBase
     {
+        private readonly ModuleODataConfigurationStatus _configurationStatus;
+
         //public DbSet<DataClassification> DataClassifications;
         //public DbSet<ExampleModel> Examples;
 
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
         /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
+        /// <param name="options">The options.</param>
         public ModuleDbContext(
             IConfiguration configuration,
             IAppDbContextManagementService appDbContextManagementService,
+            ModuleODataConfigurationStatus configurationStatus,
             DbContextOptions<ModuleDbContextBase> options)
             :
             base(configuration, appDbContextManagementService, options)
         {
+            this._configurationStatus = configurationStatus;
         }
 
         /// <summary>

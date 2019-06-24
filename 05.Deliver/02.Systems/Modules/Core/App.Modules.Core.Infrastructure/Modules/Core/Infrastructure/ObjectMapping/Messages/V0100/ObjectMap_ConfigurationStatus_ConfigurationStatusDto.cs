@@ -11,26 +11,32 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     ///     Create custom Maps for the Entity and its Dto.
     /// </summary>
     /// <seealso cref="MapBase{TEntity,TDto}" />
-    public class ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto
+    public class ObjectMap_ConfigurationStatus_ConfigurationStatusDto
         :
-            MapBase<ConfigurationStepRecord, ConfigurationStepRecordDto>
+            MapBase<ConfigurationStatusBase, ConfigurationStatusDto>
     {
         /// <summary>
         ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ConfigurationStepRecord, ConfigurationStepRecordDto> mappingExpression)
+            IMappingExpression<ConfigurationStatusBase, ConfigurationStatusDto> mappingExpression)
         {
+
             mappingExpression
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.DateTime, opt => opt.MapFrom(s => s.UtcDateTimeCreated))
-                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
-                .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(t => t.Title, opt => opt.MapFrom(s => s.Title))
-                .ForMember(t => t.Type, opt => opt.MapFrom(s => s.Type))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(t => t.ImageUrl, opt => opt.MapFrom(s => s.ImageUrl))
+                .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
+                .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
+                .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))
+                .ForMember(t => t.Steps, opt =>
+                {
+                    opt.ExplicitExpansion();
+                    opt.MapFrom(s => s.Steps);
+                })
                 ;
-            //base.ConfigureMapFromEntityToDto(mappingExpression);
+            ;
         }
 
         /// <summary>
@@ -38,17 +44,17 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ConfigurationStepRecordDto, ConfigurationStepRecord> mappingExpression)
+            IMappingExpression<ConfigurationStatusDto, ConfigurationStatusBase> mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.UtcDateTimeCreated, opt => opt.MapFrom(s => s.DateTime))
-                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
-                .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
                 .ForMember(t => t.Title, opt => opt.MapFrom(s => s.Title))
-                .ForMember(t => t.Type, opt => opt.MapFrom(s => s.Type))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
+                .ForMember(t => t.ImageUrl, opt => opt.MapFrom(s => s.ImageUrl))
+                .ForMember(t => t.Status, opt => opt.MapFrom(s => s.Status))
+                .ForMember(t => t.DisplayOrderHint, opt => opt.MapFrom(s => s.DisplayOrderHint))
+                .ForMember(t => t.DisplayStyleHint, opt => opt.MapFrom(s => s.DisplayStyleHint))
+                .ForMember(t => t.Steps, opt => opt.MapFrom(s => s.Steps))
                 ;
-            //base.ConfigureMapFromDtoToEntity(mappingExpression);
         }
     }
 }

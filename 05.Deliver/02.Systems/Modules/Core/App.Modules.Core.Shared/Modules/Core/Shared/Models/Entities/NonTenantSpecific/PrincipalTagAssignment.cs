@@ -6,6 +6,8 @@ using App.Modules.All.Shared.Models.Entities;
 
 namespace App.Modules.Core.Shared.Models.Entities
 {
+
+
     /// <summary>
     ///     Background:
     ///     As per https://www.learnentityframeworkcore.com/configuration/many-to-many-relationship-configuration

@@ -6,11 +6,20 @@ using App.Modules.All.Shared.Models;
 namespace App.Modules.Core.Shared.Models.Messages.API.V0100
 {
     /// <summary>
-    ///     DTO for <see cref="ConfigurationStepRecord" />
+    ///     DTO for <see cref="ConfigurationStatusStep" />
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class ConfigurationStepRecordDto /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ : IHasGuidId
+    public class ConfigurationStatusStepDto 
+        /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */ 
+        : IHasGuidId
     {
+        /// <summary>
+        ///     Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        ///     The identifier.
+        /// </value>
+        public virtual Guid Id { get; set; }
         /// <summary>
         ///     Gets or sets the date time.
         /// </summary>
@@ -27,21 +36,20 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         public virtual string Status { get; set; }
 
         /// <summary>
-        ///     Gets or sets the title.
-        /// </summary>
-        public virtual string Title { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the description.
-        /// </summary>
-        public virtual string Description { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the identifier.
+        /// Gets or sets the task.
         /// </summary>
         /// <value>
-        ///     The identifier.
+        /// The task.
         /// </value>
-        public virtual Guid Id { get; set; }
+        public virtual string Task { get; set; }
+
+        /// <summary>
+        /// Gets or sets the outcome.
+        /// </summary>
+        /// <value>
+        /// The outcome.
+        /// </value>
+        public virtual string Outcome { get; set; }
+
     }
 }

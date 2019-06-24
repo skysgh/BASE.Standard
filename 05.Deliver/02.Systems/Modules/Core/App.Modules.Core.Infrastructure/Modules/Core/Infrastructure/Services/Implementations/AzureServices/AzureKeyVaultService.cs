@@ -9,6 +9,7 @@ using App.Modules.Core.Infrastructure.Factories;
 using App.Modules.Core.Infrastructure.Services.Caches.Implementations;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Infrastructure.Services.Statuses;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.Azure.KeyVault;
@@ -46,7 +47,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     /// </summary>
     public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
     {
-        private readonly IConfigurationStepService _configurationStepService;
+        private readonly AzureKeyVaultServiceConfigurationStatus _configurationStatus;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
 
@@ -59,21 +60,22 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         private KeyVaultClient _keyVaultClient;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AzureKeyVaultService" /> class.
+        /// Initializes a new instance of the <see cref="AzureKeyVaultService" /> class.
         /// </summary>
         /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         /// <param name="hostSettingsService">The host settings service.</param>
-        /// <param name="configurationStepService"></param>
-        public AzureKeyVaultService(AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
+        public AzureKeyVaultService(
+            AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
+            AzureKeyVaultServiceConfigurationStatus configurationStatus,
             IDiagnosticsTracingService diagnosticsTracingService,
-            IHostSettingsService hostSettingsService,
-            IConfigurationStepService configurationStepService)
+            IHostSettingsService hostSettingsService)
         {
             Configuration = azureKeyVaultServiceConfiguration;
+            this._configurationStatus = configurationStatus;
             _diagnosticsTracingService = diagnosticsTracingService;
             _hostSettingsService = hostSettingsService;
-            _configurationStepService = configurationStepService;
 
             // Not sure if the Url should be in the config object. Probably should...
             _keyVaultUrl = $"https://{Configuration.ResourceName}.vault.azure.net";
@@ -122,12 +124,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                     //if ((!string.IsNullOrEmpty(msiEndpoint))&& (!string.IsNullOrEmpty(msiSecret)))
                     //{
 
-                    var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                    var azureServiceTokenProvider =
+                        new AzureServiceTokenProvider();
                     //string accessToken = azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/").Result;
                     //OR
                     _keyVaultClient =
                         new KeyVaultClient(
-                            new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                            new KeyVaultClient.AuthenticationCallback(
+                                azureServiceTokenProvider
+                                    .KeyVaultTokenCallback));
                     //}
 
                     ////Not running in MSI, so return based on ClientId or Secret:
@@ -155,14 +160,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                         color = ConfigurationStepStatus.Red;
                     }
 
-                    _configurationStepService
-                        .Register(
-                            ConfigurationStepType.General,
-                            color,
-                            "Authentication",
-                            $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}.");
+                    _configurationStatus.AddStep(
+                        ConfigurationStepType.General,
+                        color,
+                        "Authentication",
+                        $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}."
+                    );
 
-                    return _keyVaultClient;
+                return _keyVaultClient;
                 }
             }
         }

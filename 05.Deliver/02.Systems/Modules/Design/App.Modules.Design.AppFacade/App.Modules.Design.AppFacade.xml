@@ -49,6 +49,63 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.Post(App.Modules.Design.Shared.Models.Messages.RequirementDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.Put(App.Modules.Design.Shared.Models.Messages.RequirementDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Api.OData.RequirementsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes">
             <summary>
                 Defines this Module's
@@ -79,12 +136,12 @@
                 </para>
             </summary>
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
+            Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
             </summary>
             <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
+            <param name="configurationStatus">The configuration status.</param>
         </member>
         <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
             <summary>

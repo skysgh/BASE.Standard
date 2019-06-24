@@ -200,7 +200,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             _okToSave = true;
         }
 
-
+        
         /// <summary>
         ///     Invoked from Constructor.
         /// </summary>

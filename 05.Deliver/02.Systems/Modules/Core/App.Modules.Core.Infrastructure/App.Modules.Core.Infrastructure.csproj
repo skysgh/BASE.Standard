@@ -76,6 +76,7 @@
 
   <ItemGroup>
     <Folder Include="Modules\All\Infrastructure\Data\Db\Migrations\" />
+    <Folder Include="Modules\All\Infrastructure\Services\ConfigurationStatus\" />
     <Folder Include="Modules\Core\Infrastructure\Constants\Constants\" />
     <Folder Include="Modules\Core\Infrastructure\Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\" />

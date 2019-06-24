@@ -3,6 +3,7 @@
 using System;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Infrastructure.Services.Statuses;
 using CachingFramework.Redis;
 using CachingFramework.Redis.Contracts.Providers;
 
@@ -16,6 +17,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureRedisCacheService(
             IOperationContextService operationContextService,
+            AzureBlobConfigurationStatus configurationStatus,
             IAzureRedisServiceAgent azureRedisConnection)
         {
             _operationContextService = operationContextService;

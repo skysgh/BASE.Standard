@@ -24,7 +24,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
         /// <returns></returns>
         public override EntityTypeConfiguration<EmailDto> Define(ODataModelBuilder builder)
         {
-            EntityTypeConfiguration<EmailDto> entity = base.Define(builder);
+            // Call base to connect to name of a Controller:
+            EntityTypeConfiguration<EmailDto> entity = 
+                base.Define(builder);
+
+            // Finish up by defining Key:
             entity.HasKey(x => x.To);
 
             return entity;

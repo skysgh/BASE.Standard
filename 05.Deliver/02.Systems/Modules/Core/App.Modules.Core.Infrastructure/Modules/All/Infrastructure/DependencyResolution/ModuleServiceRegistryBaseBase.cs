@@ -20,6 +20,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         {
             Scan(assemblyScanner =>
             {
+                
                 ScopeToModuleAssemblies(assemblyScanner);
                 ConfigureForDefaultConventions(assemblyScanner);
                 InnerScan(assemblyScanner);

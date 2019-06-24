@@ -1,8 +1,11 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Data.Db.Contexts;
+using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
+using App.Modules.Core.Infrastructure.Data.Db.ConfigurationStatus;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
+using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -25,6 +28,8 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
     public class ModuleDbContext : ModuleDbContextBase
     {
         public DbSet<DataClassification> DataClassifications;
+        private readonly DbDatabaseConfigurationStatus _configurationStatus;
+
         //public DbSet<ExampleModel> Examples;
 
         /// <summary>
@@ -35,7 +40,8 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         ///     </para>
         /// </summary>
         public ModuleDbContext(IConfiguration configuration,
-            IAppDbContextManagementService appDbContextManagementService, DbContextOptions<ModuleDbContextBase> options)
+            IAppDbContextManagementService appDbContextManagementService, 
+            DbContextOptions<ModuleDbContextBase> options)
             :
             base(configuration, appDbContextManagementService, options)
         {
@@ -47,9 +53,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <param name="configuration"></param>
         /// <param name="appDbContextManagementService"></param>
         public ModuleDbContext(IConfiguration configuration,
+            DbDatabaseConfigurationStatus configurationStatus,
             IAppDbContextManagementService appDbContextManagementService)
             : base(configuration, appDbContextManagementService)
         {
+            this._configurationStatus = configurationStatus;
+
         }
 
         /// <summary>
@@ -74,7 +83,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
             // So do not invoke Initialize() from here.
         }
 
-
+        
         /// <summary>
         ///     <para>
         ///         Note:
@@ -88,6 +97,8 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
             // The override is not strictly required -- it's just here
             // to bring attention to the work being done in the base class.
             base.OnConfiguring(optionsBuilder);
+
+
         }
 
         /// <summary>

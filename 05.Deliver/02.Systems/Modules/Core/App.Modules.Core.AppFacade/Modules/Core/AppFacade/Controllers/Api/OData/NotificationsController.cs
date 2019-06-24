@@ -49,6 +49,28 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         {
         }
 
+        /// <summary>
+        /// Deletes the entity specified by the key.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Delete(Guid key)
+        {
+            throw new NotImplementedException();
+        }
+
 
         // GET api/values 
         //[ApplyDataContractResolver]
@@ -83,10 +105,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         /// <param name="valueObject">The value.</param>
         //[WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// POST api/values 
-        public void Post(NotificationDto valueObject)
+        public override IActionResult Post(NotificationDto valueObject)
         {
-            InternalPost(valueObject);
+            return InternalPost(valueObject);
         }
+
 
         /// <summary>
         /// Puts the specified value.
@@ -94,9 +117,9 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         /// <param name="valueObject">The value.</param>
         //[WebApiAppAuthorize(Roles = AppModuleApiScopes.WriteScope)]
         //// PUT api/values/5 
-        public void Put(NotificationDto valueObject)
+        public override IActionResult Put(NotificationDto valueObject)
         {
-            InternalPut(valueObject);
+            return InternalPut(valueObject);
         }
 
     }

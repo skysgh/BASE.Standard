@@ -157,8 +157,72 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
         /// <returns></returns>
         public abstract ActionResult<TDto> Get([FromODataUri] TId key);
 
+        /// <summary>
+        /// Creates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="InternalPost"/>
+        /// </para>
+        /// <para>
+        /// If not desired,
+        /// throw a <see cref="NotImplementedException"/>.
+        /// </para>
+        /// <para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        public abstract IActionResult Post(TDto message);
 
-        //// POST api/values 
+
+        /// <summary>
+        /// Updates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="MappedCommonODataControllerBase{TDbContext, TEntity,TDto}.InternalPut"/>
+        /// </para>
+        /// <para>
+        /// If not desired,
+        /// throw a <see cref="NotImplementedException"/>.
+        /// </para>
+        /// <para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        public abstract IActionResult Put(TDto message);
+
+
+        /// <summary>
+        /// Deletes the entity specified by the key.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="InternalDelete"/>
+        /// </para>
+        /// <para>
+        /// If not desired,
+        /// throw a <see cref="NotImplementedException"/>.
+        /// </para>
+        /// <para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public abstract IActionResult Delete(TId key);
+
+
 
         /// <summary>
         ///     Internal method that can be invoked by a subclass,
@@ -205,7 +269,7 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
             var result =
                 _objectMappingService.ProjectTo<TDto>(
                     InternalActiveRecords(recordPersistenceState),
-                    null, 
+                    (object)null, 
                     expandProperties
                 ).SingleOrDefault(x => x.Id.CompareTo(key) == 0);
 

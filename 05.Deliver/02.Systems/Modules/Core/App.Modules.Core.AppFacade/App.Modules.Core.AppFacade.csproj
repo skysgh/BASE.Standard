@@ -38,6 +38,10 @@
     <None Remove="Modules\Core\AppFacade\Controllers\Api\OData\HOLD\V0100\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="Modules\Core\AppFacade\Controllers\Api\OData\HOLD\V0100\EmailController.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
@@ -61,7 +65,6 @@
   <ItemGroup>
     <Folder Include="Modules\All\AppFacade\Controllers\View\" />
     <Folder Include="Modules\Core\AppFacade\Controllers\Api\Classic\Base\" />
-    <Folder Include="Modules\Core\AppFacade\Controllers\Api\OData\HOLD\" />
     <Folder Include="Modules\Core\AppFacade\Views\" />
   </ItemGroup>
 

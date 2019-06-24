@@ -4,6 +4,7 @@ using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.All.AppFacade.Controllers.Configuration.Routes;
 using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Statuses;
 using Microsoft.AspNetCore.Routing;
 
 namespace App.Modules.Core.AppFacade.Controllers.Configuration.Routes
@@ -39,14 +40,14 @@ namespace App.Modules.Core.AppFacade.Controllers.Configuration.Routes
     public class ModuleRoutes : ModuleRoutesBase
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleRoutes" /> class.
+        /// Initializes a new instance of the <see cref="ModuleRoutes" /> class.
         /// </summary>
         /// <param name="dependencyResolutionService">The dependency resolution service.</param>
-        /// <param name="configurationStepService">The configuration step service.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
         public ModuleRoutes(
             IDependencyResolutionService dependencyResolutionService,
-            IConfigurationStepService configurationStepService)
-            : base(dependencyResolutionService, configurationStepService)
+            ODataConfigurationStatus configurationStatus)
+            : base(dependencyResolutionService, configurationStatus)
         {
         }
 

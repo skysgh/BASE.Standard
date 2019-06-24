@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.Core.Infrastructure.Services.Statuses;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -15,9 +16,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="ISmtpService" />
     public class SmtpService : AppCoreServiceBase, ISmtpService
     {
-        public SmtpService(SMTPServiceConfiguration smtpServiceConfiguration)
+        private readonly SmtpServiceConfigurationStatus _configurationStatus;
+
+        public SmtpService(
+            SMTPServiceConfiguration smtpServiceConfiguration,
+            SmtpServiceConfigurationStatus configurationStatus)
         {
             SmtpServiceConfiguration = smtpServiceConfiguration;
+            this._configurationStatus = configurationStatus;
             // configure the smtp server
             SmtpClient = new SmtpClient(smtpServiceConfiguration.Configuration.BaseUri);
             SmtpClient.Port = smtpServiceConfiguration.Configuration.Port ?? 587;

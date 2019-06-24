@@ -6,6 +6,8 @@ using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.Shared.Constants;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Statuses;
+using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Routing.Conventions;
@@ -28,16 +30,13 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
     /// <seealso cref="IModuleRoutes" />
     public abstract class ModuleRoutesBase : IModuleRoutes
     {
-        /// <summary>
-        ///     The configuration step service
-        /// </summary>
-        protected readonly IConfigurationStepService _configurationStepService;
 
         /// <summary>
         ///     The dependency resolution service
         /// </summary>
         protected readonly IDependencyResolutionService
             _dependencyResolutionService;
+        private readonly ODataConfigurationStatus _configurationStatus;
 
         /// <summary>
         ///     The route prefix.
@@ -52,20 +51,21 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
         protected string ModuleName;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleRoutesBase" /> class.
+        /// Initializes a new instance of the <see cref="ModuleRoutesBase" /> class.
         /// </summary>
         /// <param name="dependencyResolutionService">The dependency resolution service.</param>
-        /// <param name="configurationStepService">The configuration step service.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
         protected ModuleRoutesBase(
             IDependencyResolutionService dependencyResolutionService,
-            IConfigurationStepService configurationStepService)
+            ODataConfigurationStatus configurationStatus
+            )
         {
             ModuleName = Module.Id(GetType());
 
             _routePrefix = $"{Module.GetAssemblyNamePrefix(GetType())}.";
 
             _dependencyResolutionService = dependencyResolutionService;
-            _configurationStepService = configurationStepService;
+            this._configurationStatus = configurationStatus;
         }
 
         /// <summary>
@@ -140,6 +140,13 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
             foreach (var x in modelDefinitions)
             {
                 x.Apply(odataModelBuilder, version);
+
+                _configurationStatus.AddStep(
+                    ConfigurationStepType.General,
+                    ConfigurationStepStatus.Green,
+                    $"Register OData model and Controller using {x.GetType().Name}.",
+                    "Success"
+                );
             }
 
             // return MB for this Module only

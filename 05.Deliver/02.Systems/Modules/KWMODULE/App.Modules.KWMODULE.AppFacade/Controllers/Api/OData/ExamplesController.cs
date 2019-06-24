@@ -57,6 +57,7 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Api.OData
         {
         }
 
+
         /// <summary>
         ///     Gets a queryable set of items, limited to 100 items, max.
         /// </summary>
@@ -76,6 +77,71 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Api.OData
         public override ActionResult<ExampleDto> Get([FromODataUri] Guid key)
         {
             return InternalGet(key, RecordPersistenceState.Active);
+        }
+
+        /// <summary>
+        /// Creates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Post(ExampleDto message)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Updates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Put(ExampleDto message)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Deletes the entity specified by the key.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Delete(Guid key)
+        {
+            throw new NotImplementedException();
         }
     }
 }

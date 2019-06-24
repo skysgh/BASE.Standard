@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
 {
+
     /// <summary>
     /// </summary>
     /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.Classic.AllModulesApiControllerBase" />

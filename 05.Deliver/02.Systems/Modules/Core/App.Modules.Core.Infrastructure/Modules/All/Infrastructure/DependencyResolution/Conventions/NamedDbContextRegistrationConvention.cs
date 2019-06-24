@@ -39,7 +39,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
         {
             // Register against all the interfaces implemented
             // by this concrete class
-            var name = type.GetName();
+            var name = type.GetAliasKeyIfAny();
 
             if (name != null)
             {

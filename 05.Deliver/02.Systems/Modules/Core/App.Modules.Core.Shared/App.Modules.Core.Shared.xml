@@ -813,6 +813,33 @@
                 </para>
             </summary>
         </member>
+        <member name="T:App.Modules.All.Shared.Models.IConfigurationStatus">
+            <summary>
+            Contract for an in-memory, singleton, entity,
+            summarizing whether a service have been
+            configured correctly or not (or are still
+            unknown).
+            <para>
+            Basically, applications need at the very
+            least a database service (which is technically
+            a remote service). And will also need a
+            cache service,
+            key vault service,
+            email service, etc.
+            before it can be used in production. 
+            </para>
+            <para>
+            Each service that relies on configuration
+            in turn references a singleton instance
+            of a configuration object (an named
+            instance of this object).
+            </para>
+            <para>
+            A service summarizes them and shows them
+            up on a dashboard of some kind.
+            </para>
+            </summary>
+        </member>
         <member name="T:App.Modules.All.Shared.Models.IHasChildren`1">
             <summary>
                 Contract for a model that
@@ -834,6 +861,18 @@
             <summary>
                 Gets or sets the authority's digital signature
                 of the protected attribute(s).
+            </summary>
+        </member>
+        <member name="T:App.Modules.All.Shared.Models.IHasConfigurationStatus">
+            <summary>
+            Contract for Entities that
+            expose a status as to how
+            a service has been configured or not.
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.IHasConfigurationStatus.Status">
+            <summary>
+            Gets or sets the status of the service.
             </summary>
         </member>
         <member name="T:App.Modules.All.Shared.Models.IHasDataClassification">
@@ -5486,43 +5525,111 @@
                 The contact URL.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto">
+        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto">
             <summary>
-                DTO for <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord" />
+            TODO
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IConfigurationStatus" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.ImageUrl">
+            <summary>
+            Gets or sets the image URL.
+            </summary>
+            <value>
+            The image URL.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Status">
+            <summary>
+            Gets or sets the status.
+            </summary>
+            <value>
+            The status.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.DisplayOrderHint">
+            <summary>
+            Gets or sets the display order hint.
+            </summary>
+            <value>
+            The display order hint.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.DisplayStyleHint">
+            <summary>
+            Gets or sets the display style hint.
+            </summary>
+            <value>
+            The display style hint.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Steps">
+            <summary>
+            Gets the steps.
+            </summary>
+            <value>
+            The steps.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto">
+            <summary>
+                DTO for <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep" />
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.DateTime">
-            <summary>
-                Gets or sets the date time.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.Type">
-            <summary>
-                Gets or sets the configuration type.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.Status">
-            <summary>
-                Gets or sets the status.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.Title">
-            <summary>
-                Gets or sets the title.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.Description">
-            <summary>
-                Gets or sets the description.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStepRecordDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
             <value>
                 The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.DateTime">
+            <summary>
+                Gets or sets the date time.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Type">
+            <summary>
+                Gets or sets the configuration type.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Status">
+            <summary>
+                Gets or sets the status.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Task">
+            <summary>
+            Gets or sets the task.
+            </summary>
+            <value>
+            The task.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Outcome">
+            <summary>
+            Gets or sets the outcome.
+            </summary>
+            <value>
+            The outcome.
             </value>
         </member>
         <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto">
@@ -7230,19 +7337,127 @@
                 The description.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord">
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase">
+            <summary>
+            An in-memory, singleton, entity  
+            summarizing whether a service have been
+            configured correctly or not (or are still
+            unknown).
+            <para>
+            Basically, applications need at the very
+            least a database service (which is technically
+            a remote service). And will also need a
+            cache service,
+            key vault service,
+            email service, etc.
+            before it can be used in production.
+            </para><para>
+            Each service that relies on configuration
+            in turn references a singleton instance
+            of a configuration object (an named
+            instance of this object).
+            </para><para>
+            A service summarizes them and shows them
+            up on a dashboard of some kind.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IConfigurationStatus" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasImageUrl" />
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase" /> class.
+            </summary>
+            <param name="title">The title.</param>
+            <param name="description">The description.</param>
+            <param name="configurationInstructions">The configuration instructions.</param>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Module">
+            <summary>
+            Gets or sets the name of module.
+            </summary>
+            <value>
+            The module.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.ConfigurationInstructions">
+            <summary>
+            Gets or sets basic (insecure) instructions
+            on how to go about setting up the service.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Status">
+            <summary>
+            Gets or sets the status of the service.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.ImageUrl">
+            <summary>
+            Gets or sets the image URL.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.DisplayStyleHint">
+            <summary>
+            A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.DisplayOrderHint">
+            <summary>
+            A convention based hint as to the natural order in which to display this list item
+            (note that the natural order can be superseded/influenced by MRU information, etc.)
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Steps">
+            <summary>
+            Gets a list of steps that were undertaken
+            to configure this functionality.
+            </summary>
+            <value>
+            The steps.
+            </value>
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.AddStep(App.Modules.Core.Shared.Models.Messages.ConfigurationStepType,App.Modules.Core.Shared.Models.Messages.ConfigurationStepStatus,System.String,System.String)">
+            <summary>
+            Adds a step to the <see cref="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase.Steps"/> list.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="status">The status.</param>
+            <param name="task">The task.</param>
+            <param name="outcome">The outcome.</param>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep">
             <summary>
                 A record of a configuration step that was undertaken.
                 For use by support personnel remotely reviewing configuration.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.#ctor">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.Id">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord" /> class.
+            Gets or sets the identifier.
             </summary>
+            <value>
+            The identifier.
+            </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.Type">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.Type">
             <summary>
                 Gets or sets the type.
             </summary>
@@ -7250,7 +7465,7 @@
                 The type.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.Status">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.Status">
             <summary>
                 Gets or sets the status.
             </summary>
@@ -7258,7 +7473,7 @@
                 The status.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.UtcDateTimeCreated">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.UtcDateTimeCreated">
             <summary>
                 Gets or sets the date time.
             </summary>
@@ -7266,15 +7481,7 @@
                 The date time.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.Id">
-            <summary>
-                Gets or sets the identifier.
-            </summary>
-            <value>
-                The identifier.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.Title">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.Task">
             <summary>
                 Gets or sets the title.
             </summary>
@@ -7282,13 +7489,18 @@
                 The title.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStepRecord.Description">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.Outcome">
             <summary>
                 Gets or sets the description.
             </summary>
             <value>
                 The description.
             </value>
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusStep" /> class.
+            </summary>
         </member>
         <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary">
             <summary>
@@ -7350,6 +7562,40 @@
                 Gets or sets the identifier.
             </summary>
         </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusType">
+            <summary>
+            Enumeration of possible
+            Service states.
+            <para>
+            See
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase"/>
+            </para>
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusType.Unknown">
+            <summary>
+            Configuration has not bee read.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusType.ConfigurationRead">
+            <summary>
+            Configuration ahs been read,
+            but not yet verified.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusType.ConfigurationError">
+            <summary>
+            Attempts to connect to
+            the service failed.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusType.ConfigurationVerified">
+            <summary>
+            The configuration is verified
+            as connection to the service
+            has been established.
+            </summary>
+        </member>
         <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStepStatus">
             <summary>
                 TODO
@@ -7392,6 +7638,11 @@
         <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStepType.General">
             <summary>
                 Step is for general
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStepType.Routing">
+            <summary>
+            Step is for routing
             </summary>
         </member>
         <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStepType.Security">

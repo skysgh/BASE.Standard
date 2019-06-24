@@ -11,21 +11,19 @@ namespace App.Modules.Core.Shared.Models.Messages
     ///     For use by support personnel remotely reviewing configuration.
     /// </summary>
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
-    public class ConfigurationStepRecord :
+    public class ConfigurationStatusStep :
         IHasGuidId,
-        IHasDateTimeCreatedUtc,
-        IHasTitleAndDescription
+        IHasDateTimeCreatedUtc
     {
-        // Note than although this model is not persisted in 
-        // a datastore, an Id is still required, as it is expressed
-        // via OData.
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationStepRecord" /> class.
+        /// Gets or sets the identifier.
         /// </summary>
-        public ConfigurationStepRecord()
-        {
-            Id = GuidFactory.NewGuid();
-        }
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public Guid Id { get; set; }
+
 
         /// <summary>
         ///     Gets or sets the type.
@@ -51,13 +49,6 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// </value>
         public DateTimeOffset UtcDateTimeCreated { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        ///     The identifier.
-        /// </value>
-        public Guid Id { get; set; }
 
         /// <summary>
         ///     Gets or sets the title.
@@ -65,7 +56,7 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// <value>
         ///     The title.
         /// </value>
-        public string Title { get; set; }
+        public string Task { get; set; }
 
         /// <summary>
         ///     Gets or sets the description.
@@ -73,6 +64,21 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// <value>
         ///     The description.
         /// </value>
-        public string Description { get; set; }
+        public string Outcome { get; set; }
+
+
+        // Note than although this model is not persisted in 
+        // a datastore, an Id is still required, as it is expressed
+        // via OData.
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ConfigurationStatusStep" /> class.
+        /// </summary>
+        public ConfigurationStatusStep()
+        {
+            Id = GuidFactory.NewGuid();
+
+            UtcDateTimeCreated = DateTimeOffset.UtcNow;
+        }
+
     }
 }

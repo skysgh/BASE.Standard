@@ -7,6 +7,8 @@ using App.Modules.All.AppFacade.Views.Configuration;
 using App.Modules.Core.AppFacade.ActionFilters;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Services.Statuses;
+using App.Modules.Core.Shared.Models.Messages;
 using AutoMapper;
 using Lamar;
 using Microsoft.AspNet.OData.Extensions;
@@ -222,11 +224,25 @@ namespace App.Host
             // Which in this case is the Lamar container:
             IContainer mvcContainer = (IContainer)serviceProvider;
 
+
+            var configurationStatus =
+                mvcContainer.GetInstance<ConfigurationStatus>();
+
+
             //They are not the same. What does that mean?!
             if (!Object.Equals(mvcContainer, _container))
             {
+                if (_container != null)
+                {
+                    configurationStatus.AddStep(ConfigurationStepType.General, ConfigurationStepStatus.Orange,
+                        "Verify Container",
+                        "Not the same/expected.");
+                }
                 _container = mvcContainer;
+
             }
+
+
             //Which we can register for so that everybody can get to it later:
             DependencyLocator.Current.Initialize(_container);
             // Interesting...this is not the same LamarContainer as the one
@@ -246,6 +262,11 @@ namespace App.Host
                 DemoHowToBindConfiguration();
 
                 app.UseDeveloperExceptionPage();
+                configurationStatus.AddStep(
+                    ConfigurationStepType.Security,
+                    ConfigurationStepStatus.Orange,
+                    "Enable Developer Exception Page",
+                    "Enabled (because working in Development environment). Note that Developer Exception Page may leak data if used where Production Data is used.");
 
                 // Get hands on container
                 string s1 = _container.WhatDidIScan();
@@ -254,14 +275,38 @@ namespace App.Host
                 string s2b = _container.WhatDoIHave(typeof(IMapper));
                 string s2c = _container.WhatDoIHave(typeof(LoggerFactory));
                 string s3 = s2;
+
+
             }
             else
             {
                 app.UseHsts();
+                configurationStatus.AddStep(
+                    ConfigurationStepType.Security,
+                    ConfigurationStepStatus.Green,
+                    "Enable Hsts",
+                    "Enabled (working in Production environment).");
             }
             app.UseHttpsRedirection();
+            configurationStatus.AddStep(
+                ConfigurationStepType.Security,
+                ConfigurationStepStatus.Green,
+                "Enable Https Redirection.",
+                "Enabled. (note that this does not necessarily guarantee that the Cert is correctly configured).");
+
             app.UseCors();
+            configurationStatus.AddStep(
+                ConfigurationStepType.Security,
+                ConfigurationStepStatus.Green,
+                "Enabled Cors.",
+                "Enabled.");
+
             app.UseStaticFiles();
+            configurationStatus.AddStep(
+                ConfigurationStepType.Routing,
+                ConfigurationStepStatus.Green,
+                "Enable Static File Handling.",
+                "Enabled.");
 
 
             app.UseMvc(
@@ -305,6 +350,14 @@ namespace App.Host
                 name: $"default",
                 template: "{controller=Home}/{action=Index}/{id?}");
 
+            var configurationStatus =
+                _container.GetInstance<ConfigurationStatus>();
+
+            configurationStatus.AddStep(
+                ConfigurationStepType.Routing,
+                ConfigurationStepStatus.Green,
+                "Register Default Controller Routes.",
+                "Configured.");
         }
 
 
@@ -313,10 +366,12 @@ namespace App.Host
         /// Invoked from <see cref="Configure"/>
         /// </summary>
         /// <param name="app"></param>
-        private static void SetupOpenApi(IApplicationBuilder app)
+        private void SetupOpenApi(IApplicationBuilder app)
         {
+            string routeTemplate = "api-docs/{documentName}/swagger.json";
+
             app.UseSwagger(x =>
-                x.RouteTemplate = "api-docs/{documentName}/swagger.json"
+                x.RouteTemplate = routeTemplate
             );
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
@@ -326,9 +381,16 @@ namespace App.Host
                     c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
                     // To serve the Swagger UI at the app's root:
                     //c.RoutePrefix = string.Empty;
-
-
                 });
+
+            var configurationStatus =
+                _container.GetInstance<ConfigurationStatus>();
+
+            configurationStatus.AddStep(
+                ConfigurationStepType.Routing,
+                ConfigurationStepStatus.Green,
+                "Enable Swagger.",
+                $"Enabled. Route Template: {routeTemplate}");
         }
 
 

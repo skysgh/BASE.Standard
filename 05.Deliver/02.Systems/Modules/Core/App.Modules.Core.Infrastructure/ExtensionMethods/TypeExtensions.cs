@@ -21,7 +21,7 @@ namespace App
         }
 
 
-        public static string GetName(this Type type, bool inherit = false)
+        public static string GetAliasKeyIfAny(this Type type, bool inherit = false)
         {
             // Use aliases first, as they can be richer, if there are any:
             var aliasAttribute = CustomAttributeExtensions.GetCustomAttribute<KeyAttribute>(type, inherit);

@@ -606,6 +606,69 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.Post(`2)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)"/>
+            </para>
+            <para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException"/>.
+            </para>
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.Put(`2)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)"/>
+            </para>
+            <para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException"/>.
+            </para>
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.Delete(`3)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)"/>
+            </para>
+            <para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException"/>.
+            </para>
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)">
             <summary>
                 Internal method that can be invoked by a subclass,
@@ -670,11 +733,6 @@
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.IModuleRoutes" />
         </member>
-        <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase._configurationStepService">
-            <summary>
-                The configuration step service
-            </summary>
-        </member>
         <member name="F:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase._dependencyResolutionService">
             <summary>
                 The dependency resolution service
@@ -692,12 +750,12 @@
                 The Name of this Module ("Core", etc.)
             </summary>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase" /> class.
+            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase" /> class.
             </summary>
             <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
+            <param name="configurationStatus">The configuration status.</param>
         </member>
         <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
             <summary>
@@ -909,6 +967,37 @@
             </summary>
             <param name="id">The identifier.</param>
         </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController">
+            <summary>
+            Controller to return a collection of
+            configuration elements (derived from
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase"/> and <see cref="T:App.Modules.All.Shared.Models.IConfigurationStatus"/>)
+            that describe how the system is configured.
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.IConfigurationStatusService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="configurationStatusService">The configuration status service.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController.Get">
+            <summary>
+                Return a queryable set of configuration elements.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController.Get(System.String)">
+            <summary>
+            Gets the specified element.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
@@ -916,12 +1005,25 @@
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
-        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStepRecordOdataModelBuilderConfiguration">
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusOdataModelBuilderConfiguration">
             <summary>
-                Configuration object to describe the DTO and the Controller from which to retrieve it.
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <para>
+                </para>
             </summary>
-            <seealso
-                cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusOdataModelBuilderConfiguration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
+            <summary>
+                Defines the entity set for T.
+                <para>
+                    Note that the Key is not set (it is up to a subclass to define which
+                    property of the DTO is the Key).
+                </para>
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.DataClassificationOdataModelBuilderConfiguration">
             <summary>
@@ -1140,6 +1242,63 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Delete(App.Modules.Core.Shared.Models.Entities.NZDataClassification)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController">
             <summary>
                 Controller to return DiagnosticsTrace messages
@@ -1169,6 +1328,14 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto)">
+            <summary>
+            Posts the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Put(System.String,App.Modules.Core.Shared.Models.Entities.TraceLevel)">
             <summary>
                 Record a Diagnostics Message, if authorised to do so.
@@ -1177,35 +1344,43 @@
             <param name="traceLevel"></param>
             <returns></returns>
         </member>
-        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto)">
             <summary>
-                OData Queryable REST Controller for
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" /> messages
-                for Application Support Specialists to
-                query what Exceptions have happened of late.
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
             </summary>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.#ctor(App.Modules.Core.AppFacade.Services.IControllerCommonServicesService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
-            <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController" /> class.
-            </summary>
-            <param name="controllerCommonServicesService">The controller common services service.</param>
-            <param name="dbContext">The database context.</param>
-        </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.Get">
-            <summary>
-                Invokes InternalGet
-                to return a single Dto.
-            </summary>
+            <param name="value">The message.</param>
             <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ExceptionRecordsController.Get(System.Guid)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Delete(System.Guid)">
             <summary>
-                Invokes InternalGet
-                to return a single dto object.
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
             </summary>
             <param name="key">The key.</param>
             <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController">
             <summary>
@@ -1238,6 +1413,63 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController">
             <summary>
             
@@ -1254,6 +1486,25 @@
             <param name="objectMappingService">The object mapping service.</param>
             <param name="secureApiMessageAttribute">The secure API message attribute.</param>
             <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Get">
             <summary>
@@ -1311,6 +1562,153 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Get">
+            <summary>
+            Override to
+            return a queryable set of
+            this controller's DTO entities.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Get(System.Guid)">
+            <summary>
+            Gets a single entity, from the given Id.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto)">
+            <summary>
+            Create a new entity.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)"/>
+            </para>
+            <para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException"/>.
+            </para>
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes">
             <summary>
                 Defines this Module's
@@ -1341,12 +1739,12 @@
                 </para>
             </summary>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.IConfigurationStepService)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
             </summary>
             <param name="dependencyResolutionService">The dependency resolution service.</param>
-            <param name="configurationStepService">The configuration step service.</param>
+            <param name="configurationStatus">The configuration status.</param>
         </member>
         <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.Initialize(Microsoft.AspNetCore.Routing.IRouteBuilder)">
             <summary>
@@ -1534,6 +1932,332 @@
             <value>
                 The secure API message attribute.
             </value>
+        </member>
+        <member name="T:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController">
+            <summary>
+            OData Queryable REST Controller for
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto"/> messages 
+            for Application Support Specialists to 
+            query what Exceptions have happened of late.
+            </summary>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Get">
+            <summary>
+            Override to
+            return a queryable set of
+            this controller's DTO entities.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Get(System.Guid)">
+            <summary>
+            Gets a single entity, from the given Id.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:App.Core.Application.API.Controllers.V0100.SessionOperationsController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Core.Application.API.Controllers.V0100.SessionOperationsController"/> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="dbContext">The database context.</param>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Get">
+            <summary>
+            Override to
+            return a queryable set of
+            this controller's DTO entities.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Get(System.Guid)">
+            <summary>
+            Gets a single entity, from the given Id.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:App.Core.Application.API.Controllers.V0100.SessionsController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.GuidIdCommonODataControllerBase`3" />
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ITenantService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.ISecureAPIMessageAttributeService,App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContext)">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:App.Core.Application.API.Controllers.V0100.SessionsController" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="tenantService">The tenant service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="secureApiMessageAttribute">The secure API message attribute.</param>
+            <param name="moduleDbContext">The module database context.</param>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Get">
+            <summary>
+            Override to
+            return a queryable set of
+            this controller's DTO entities.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para></summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Get(System.Guid)">
+            <summary>
+            Gets a single entity, from the given Id.
+            <para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto)">
+            <summary>
+            Creates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto)">
+            <summary>
+            Updates the specified resource.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Delete(System.Guid)">
+            <summary>
+            Deletes the entity specified by the key.
+            <para>
+            Override, and optionally invoke
+            <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+            If not desired,
+            throw a <see cref="T:System.NotImplementedException" />.
+            </para><para>
+            Important:
+            the method is abstract to force an override
+            that is to be decorated by developers with
+            a specification of the Permissions required.
+            </para>
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:App.Core.Application.API.Controllers.V0100.EmailController">
+            <summary>
+            API Controller used to send SMTP based Notifications.
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.EmailController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.ISmtpService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Core.Application.API.Controllers.V0100.EmailController" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="smtpService">The SMTP service.</param>
+        </member>
+        <member name="M:App.Core.Application.API.Controllers.V0100.EmailController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto)">
+            <summary>
+            Posts the specified email.
+            </summary>
+            <param name="email">The email.</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -4,6 +4,20 @@
         <name>App.Modules.KWMODULE.Infrastructure</name>
     </assembly>
     <members>
+        <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus">
+            <summary>
+            (Singleton) instance subclass of <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase"/>
+            used by <see cref="T:App.Modules.Core.Infrastructure.Services.IConfigurationStatusService"/>
+            to report to system admins
+            whether an essential service has been configured or not.
+            </summary>
+            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase" />
+        </member>
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus"/> class.
+            </summary>
+        </member>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext">
             <summary>
                 The DbContext to use when the entity being returned
@@ -51,10 +65,14 @@
                 </para>
             </summary>
         </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase})">
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService,App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase})">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" /> class.
+            Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" /> class.
             </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="appDbContextManagementService">The application database context management service.</param>
+            <param name="configurationStatus">The configuration status.</param>
+            <param name="options">The options.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
             <summary>

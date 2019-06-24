@@ -141,6 +141,9 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
                 secureApiMessageAttributeService,
                 dbContext)
         {
+            this._diagnosticsTracingService
+                .Trace(TraceLevel.Debug, $"{this.GetType().Name} created.");
+
         }
 
 
@@ -188,15 +191,18 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData
             RecordPersistenceState recordPersistenceState, 
             params Expression<Func<TDto, object>>[] expandProperties)
         {
-            
+
             var result =
                 _objectMappingService.ProjectTo<TDto>(
-                    InternalActiveRecords(recordPersistenceState)
+                    InternalGetDbSet(recordPersistenceState),
+                    (object)null,
+                    expandProperties
                 ).SingleOrDefault(x => x.Id == key);
 
             _secureApiMessageAttribute.Process(result);
 
-            return Ok(result);
+            var actionResult = Ok(result);
+            return actionResult;
         }
 
         /// <summary>

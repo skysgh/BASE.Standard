@@ -5,7 +5,6 @@ using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +52,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         }
 
 
+
         // GET api/values 
         //[ApplyDataContractResolver]
         //[ApplyProxyDataContractResolverAttribute]
@@ -80,10 +80,74 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         public override ActionResult<MediaMetadataDto> Get(Guid key)
         {
             return InternalGet(
-                key, 
-                RecordPersistenceState.Active, 
+                key,
+                RecordPersistenceState.Active,
                 x => x.DataClassification);
         }
 
+        /// <summary>
+        /// Creates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalPost(`2)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Post(MediaMetadataDto message)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Updates the specified resource.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.Base.MappedCommonODataControllerBase`3.InternalPut(`2)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Put(MediaMetadataDto message)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Deletes the entity specified by the key.
+        /// <para>
+        /// Override, and optionally invoke
+        /// <see cref="M:App.Modules.All.AppFacade.Controllers.Api.OData.IdCommonODataControllerBase`4.InternalDelete(`3)" /></para><para>
+        /// If not desired,
+        /// throw a <see cref="T:System.NotImplementedException" />.
+        /// </para><para>
+        /// Important:
+        /// the method is abstract to force an override
+        /// that is to be decorated by developers with
+        /// a specification of the Permissions required.
+        /// </para>
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public override IActionResult Delete(Guid key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

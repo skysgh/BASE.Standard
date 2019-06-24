@@ -251,7 +251,7 @@ namespace App.Modules.All.AppFacade.Controllers.Api.OData.Base
             results =
                 _objectMappingService.ProjectTo(
                     InternalActiveRecords(recordPersistenceState),
-                    null,
+                    (object)null,
                     expandProperties
                 );
             if (_secureApiMessageAttribute.NeedsProcessing(typeof(TDto)))

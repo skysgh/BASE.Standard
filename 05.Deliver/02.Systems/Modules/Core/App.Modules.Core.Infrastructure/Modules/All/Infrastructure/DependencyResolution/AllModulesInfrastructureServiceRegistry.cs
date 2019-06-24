@@ -1,7 +1,9 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Data.Db.CommitInterceptions;
+using App.Modules.All.Infrastructure.DependencyResolution.Conventions;
 using App.Modules.All.Infrastructure.ServiceAgents;
+using App.Modules.All.Shared.Models;
 using Lamar;
 using Lamar.Scanning.Conventions;
 
@@ -40,6 +42,8 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
                     ScanAllModulesForRequestScopedServiceClients(assemblyScanner);
 
+                    assemblyScanner.Convention<ConfigurationStatusRegistrationConvention>();
+
                     //ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     //ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);
@@ -75,6 +79,13 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
             assemblyScanner.AddAllTypesOf<IDbCommitPreCommitProcessingStrategy>();
         }
 
+        //private void ScanAllModulesForServiceStatusPackages(IAssemblyScanner assemblyScanner)
+        //{
+        //    // Add all Pre-Commit Processors (these kick in just as you
+        //    // Commit a DbContext, and ensure specific fields are 
+        //    // automatically filled in)
+        //    assemblyScanner.AddAllTypesOf<IConfigurationStatus>().NameBy(x=>x.Name).;
+        //}
 
         //private void ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(IAssemblyScanner assemblyScanner)
         //{
