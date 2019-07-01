@@ -30,7 +30,9 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         public JoinedModuleDbContext(ModuleDbContext moduleDbContext,
             IConfiguration configuration,
             IAppDbContextManagementService appDbContextManagementService)
-            : base(configuration, appDbContextManagementService,
+            : base(
+                configuration, 
+                appDbContextManagementService,
                 true)
         {
             // Not really needed, but want to trigger 

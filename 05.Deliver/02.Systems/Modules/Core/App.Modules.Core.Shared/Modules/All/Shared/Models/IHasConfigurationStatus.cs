@@ -12,6 +12,6 @@ namespace App.Modules.All.Shared.Models
         /// <summary>
         /// Gets or sets the status of the service.
         /// </summary>
-        ConfigurationStatusType Status { get; set; }
+        ConfigurationStatusComponentStatusType Status { get; set; }
     }
 }

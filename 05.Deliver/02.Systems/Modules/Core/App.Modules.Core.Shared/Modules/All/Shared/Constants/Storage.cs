@@ -10,6 +10,6 @@ namespace App.Modules.All.Shared.Constants
         /// <summary>
         ///     App Settings Key for retrieving the name of remote configuration KeyVault.
         /// </summary>
-        public const string KeyVaultName = "keyVaultName";
+        public const string KeyVaultName = "app:modules:core:AzureEnvironment:DefaultKVResourceName";
     }
 }

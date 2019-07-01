@@ -6,6 +6,7 @@ using App.Modules.Core.Infrastructure.Data.Db.ConfigurationStatus;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
+using LamarCodeGeneration.Util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -30,53 +31,67 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         public DbSet<DataClassification> DataClassifications;
         private readonly DbDatabaseConfigurationStatus _configurationStatus;
 
-        //public DbSet<ExampleModel> Examples;
-
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
-        ///     <para>
-        ///         This is the Constructor called by <see cref="ModuleDbContextFactory" />,
-        ///         which is invoked when one invokes 'dotnet' frome the commandline.
-        ///     </para>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
+        /// <para>
+        /// This is the constructor invoked from unit Tests.
+        /// </para>
         /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        /// <param name="options">The options.</param>
         public ModuleDbContext(IConfiguration configuration,
             IAppDbContextManagementService appDbContextManagementService, 
             DbContextOptions<ModuleDbContextBase> options)
             :
-            base(configuration, appDbContextManagementService, options)
+            base(
+                configuration, 
+                appDbContextManagementService, 
+                options)
         {
         }
 
         /// <summary>
-        ///     This is the constructor invoked by the system's dependency injector/creator.
+        /// This is the constructor invoked by the system's dependency injector/creator
+        /// at run time (not Unit Tests)
         /// </summary>
-        /// <param name="configuration"></param>
-        /// <param name="appDbContextManagementService"></param>
-        public ModuleDbContext(IConfiguration configuration,
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="configurationStatus">The configuration status.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        public ModuleDbContext(
+            IConfiguration configuration,
             DbDatabaseConfigurationStatus configurationStatus,
-            IAppDbContextManagementService appDbContextManagementService)
-            : base(configuration, appDbContextManagementService)
+            IAppDbContextManagementService appDbContextManagementService
+            )
+            : base(configuration, 
+                appDbContextManagementService)
         {
             this._configurationStatus = configurationStatus;
-
         }
 
         /// <summary>
-        ///     <para>
-        ///         Note:
-        ///         Whereas the other constructors are invoked during run time,
-        ///         this contructor will be called by the
-        ///         <see cref="ModuleDbContextFactory" />,
-        ///         which is invoked when the 'dotnet ef' commands are issued
-        ///         from the command line (eg, for Migrations).
-        ///     </para>
+        /// This is the constructor invoked
+        /// by a subclass of
+        /// <see cref="ModuleDbContextFactoryBase{TModuleDbContext}"/>
+        /// when invoked from a
+        /// commandline when making migrations
+        /// using the
+        /// <![CDATA[
+        /// dotnet ef migrations ...etc...
+        /// ]]>
+        /// command.
         /// </summary>
-        /// <param name="options"></param>
-        public ModuleDbContext(DbContextOptions options) : base(options)
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="options">The options.</param>
+        public ModuleDbContext(
+            IConfiguration configuration,
+            DbContextOptions options) 
+            : base(configuration, options)
         {
         }
 
-        protected ModuleDbContext(DbContextOptions<ModuleDbContext> options) : base(options)
+        protected ModuleDbContext(IConfiguration configuration,
+            DbContextOptions<ModuleDbContext> options) : base(configuration, options)
         {
             // Does not need Migration to be kicked off (should not) 
             // Nor Seeding.

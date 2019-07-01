@@ -2,7 +2,7 @@
 
 using System.Net;
 using System.Net.Mail;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Infrastructure.Services.Statuses;
 
@@ -16,22 +16,22 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="ISmtpService" />
     public class SmtpService : AppCoreServiceBase, ISmtpService
     {
-        private readonly SmtpServiceConfigurationStatus _configurationStatus;
+        private readonly SmtpServiceConfigurationStatusComponent _configurationStatus;
 
         public SmtpService(
-            SMTPServiceConfiguration smtpServiceConfiguration,
-            SmtpServiceConfigurationStatus configurationStatus)
+            SMTPServiceConfiguration configuration,
+            SmtpServiceConfigurationStatusComponent configurationStatus)
         {
-            SmtpServiceConfiguration = smtpServiceConfiguration;
+            SmtpServiceConfiguration = configuration;
             this._configurationStatus = configurationStatus;
             // configure the smtp server
-            SmtpClient = new SmtpClient(smtpServiceConfiguration.Configuration.BaseUri);
-            SmtpClient.Port = smtpServiceConfiguration.Configuration.Port ?? 587;
+            SmtpClient = new SmtpClient(configuration.BaseUri);
+            SmtpClient.Port = configuration.Port ?? 587;
             SmtpClient.EnableSsl = true;
             SmtpClient.Credentials =
                 new NetworkCredential(
-                    smtpServiceConfiguration.Configuration.Key,
-                    smtpServiceConfiguration.Configuration.Secret);
+                    configuration.ClientIdentifier,
+                    configuration.ClientSecret);
         }
 
         private SMTPServiceConfiguration SmtpServiceConfiguration { get; }
@@ -42,7 +42,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             var msg = new MailMessage();
 
-            msg.From = new MailAddress(SmtpServiceConfiguration.Configuration.From);
+            msg.From = new MailAddress(SmtpServiceConfiguration.From);
             msg.To.Add(toAddress);
             msg.Subject = subject;
             msg.IsBodyHtml = true;

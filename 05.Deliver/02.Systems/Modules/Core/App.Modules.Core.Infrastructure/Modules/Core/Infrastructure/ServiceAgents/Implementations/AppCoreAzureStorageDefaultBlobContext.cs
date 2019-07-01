@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Shared.Models.Entities;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
@@ -50,7 +50,7 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
             }
 
             ConnectionString =
-                $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName}{configuration.ResourceNameSuffix};AccountKey={configuration.Key};EndpointSuffix=core.windows.net";
+                $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName}{configuration.ResourceNameSuffix};AccountKey={configuration.ClientSecret};EndpointSuffix=core.windows.net";
 
             if (!ContainersInitialized)
             {

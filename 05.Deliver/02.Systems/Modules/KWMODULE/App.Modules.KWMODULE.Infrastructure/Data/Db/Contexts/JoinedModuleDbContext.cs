@@ -30,9 +30,13 @@ namespace App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts
         /// <param name="moduleDbContext">The module database context.</param>
         /// <param name="configuration">The configuration.</param>
         /// <param name="appDbContextManagementService">The application database context management service.</param>
-        public JoinedModuleDbContext(ModuleDbContext moduleDbContext,
-            IConfiguration configuration, IAppDbContextManagementService appDbContextManagementService)
-            : base(configuration, appDbContextManagementService,
+        public JoinedModuleDbContext(
+            ModuleDbContext moduleDbContext,
+            IConfiguration configuration, 
+            IAppDbContextManagementService appDbContextManagementService)
+            : base(
+                configuration, 
+                appDbContextManagementService,
                 true)
         {
             // Not really needed, but want to trigger 

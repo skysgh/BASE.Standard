@@ -5,11 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
 {
-    public class ConfigurationStatusRegistrationConvention : DefaultCustomRegistrationConventionBase<IConfigurationStatus> {
+    public class ConfigurationStatusRegistrationConvention : DefaultCustomRegistrationConventionBase<IConfigurationComponentStatus> {
         public ConfigurationStatusRegistrationConvention() : base(
             ServiceLifetime.Singleton,true)
         {
 
         }
     }
+
 }

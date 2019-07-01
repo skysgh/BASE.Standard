@@ -44,6 +44,8 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
                     assemblyScanner.Convention<ConfigurationStatusRegistrationConvention>();
 
+                    assemblyScanner.Convention<DbContextOptionsBuilderRegistrationConvention>();
+
                     //ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     //ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);

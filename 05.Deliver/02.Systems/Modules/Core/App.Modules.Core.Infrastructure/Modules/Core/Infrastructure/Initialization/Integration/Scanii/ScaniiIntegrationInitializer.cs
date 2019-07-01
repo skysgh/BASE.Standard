@@ -20,26 +20,26 @@ namespace App.Modules.Core.Infrastructure.Initialization.Integration.Scanii
 
         public void Initialize()
         {
-            if (string.IsNullOrWhiteSpace(_mediaMalwareDetectionService.Configuration.Key))
+            if (string.IsNullOrWhiteSpace(_mediaMalwareDetectionService.Configuration.ClientIdentifier))
             {
                 throw new ConfigurationException(
                     $"{ExceptionMessages.SystemConfigurationError}: Scanii Key not correctly configured (has no value).");
             }
 
-            if (string.IsNullOrWhiteSpace(_mediaMalwareDetectionService.Configuration.Secret))
+            if (string.IsNullOrWhiteSpace(_mediaMalwareDetectionService.Configuration.ClientSecret))
             {
                 throw new ConfigurationException(
-                    $"{ExceptionMessages.SystemConfigurationError}: Scanii Secret not correctly configured (has no value).");
+                    $"{ExceptionMessages.SystemConfigurationError}: Scanii ClientSecret not correctly configured (has no value).");
             }
 
             {
-                if (_mediaMalwareDetectionService.Configuration.Key.StartsWith(Actions.TODO))
+                if (_mediaMalwareDetectionService.Configuration.ClientIdentifier.StartsWith(Actions.TODO))
                 {
                     throw new ConfigurationException(
-                        $"{ExceptionMessages.SystemConfigurationError}: Scanii Key not correctly configured (Starts with TODO).");
+                        $"{ExceptionMessages.SystemConfigurationError}: Scanii ClientIdentifier/Key not correctly configured (Starts with TODO).");
                 }
 
-                if (_mediaMalwareDetectionService.Configuration.Secret.StartsWith(Actions.TODO))
+                if (_mediaMalwareDetectionService.Configuration.ClientSecret.StartsWith(Actions.TODO))
                 {
                     throw new ConfigurationException(
                         $"{ExceptionMessages.SystemConfigurationError}: Scanii Secret not correctly configured (Starts with TODO).");

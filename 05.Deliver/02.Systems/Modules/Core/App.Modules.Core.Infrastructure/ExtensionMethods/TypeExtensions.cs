@@ -20,6 +20,30 @@ namespace App
             return t.IsValueType ? Activator.CreateInstance(t) : null;
         }
 
+        public static string GetAliasKeyOrNameFromType(this Type type,
+            params string[] typeNameSuffixToStrip)
+        {
+            // Register against all the interfaces implemented
+            // by this concrete class
+            var name = type.GetAliasKeyIfAny();
+
+            if (name != null)
+            {
+                return name;
+            }
+
+            name = type.Name;
+
+            foreach (string tmp in typeNameSuffixToStrip)
+            {
+                if (name.Contains(tmp))
+                {
+                    return name.Substring(0, name.IndexOf(tmp));
+                }
+            }
+
+            return name;
+        }
 
         public static string GetAliasKeyIfAny(this Type type, bool inherit = false)
         {

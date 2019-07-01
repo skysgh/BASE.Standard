@@ -9,6 +9,7 @@ namespace App.Host.Middleware
     /// </summary>
     public class AppDbContextSaveAllMiddleware
     {
+
         private readonly RequestDelegate _next;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IAppDbContextManagementService _appDbContextManagementService;

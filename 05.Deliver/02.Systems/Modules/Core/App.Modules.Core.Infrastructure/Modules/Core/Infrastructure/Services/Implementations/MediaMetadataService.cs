@@ -1,6 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
@@ -37,7 +37,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             result.DataClassificationFK = dataClassification;
             result.ContentHash =
                 uploadedMedia.Stream.GetHashAsString(
-                    _metadataServiceConfiguration.MediaManagementConfiguration.HashType);
+                    _metadataServiceConfiguration.HashType);
             result.MimeType = uploadedMedia.ContentType ?? "Unknown";
 
             result.UploadedDateTimeUtc = _universalDateTimeService.NowUtc().UtcDateTime;

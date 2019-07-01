@@ -1,6 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices

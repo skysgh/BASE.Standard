@@ -6,12 +6,12 @@
     <members>
         <member name="T:App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus">
             <summary>
-            (Singleton) instance subclass of <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase"/>
+            (Singleton) instance subclass of <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase"/>
             used by <see cref="T:App.Modules.Core.Infrastructure.Services.IConfigurationStatusService"/>
             to report to system admins
             whether an essential service has been configured or not.
             </summary>
-            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase" />
+            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase" />
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus.#ctor">
             <summary>
@@ -68,6 +68,9 @@
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService,App.Modules.KWMODULE.Infrastructure.Data.Db.ConfigurationStatus.ModuleODataConfigurationStatus,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase})">
             <summary>
             Initializes a new instance of the <see cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextBase" /> class.
+            <para>
+            This is the constructor invoked from unit Tests.
+            </para>
             </summary>
             <param name="configuration">The configuration.</param>
             <param name="appDbContextManagementService">The application database context management service.</param>
@@ -81,23 +84,30 @@
             <param name="configuration"></param>
             <param name="appDbContextManagementService"></param>
         </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions)">
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions)">
             <summary>
-                <para>
-                    Note:
-                    Whereas the other constructors are invoked during run time,
-                    this constructor will be called by the
-                    <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" />,
-                    which is invoked when the 'dotnet ef' commands are issued
-                    from the command line (eg, for Migrations).
-                </para>
+            <para>
+            Note:
+            Whereas the other constructors are invoked during run time,
+            this constructor will be called by the
+            <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" />,
+            which is invoked when the 'dotnet ef' commands are issued
+            from the command line (eg, for Migrations).
+            </para>
+            <para>
+            This is the method invoked from the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" /></para>
             </summary>
+            <param name="configuration"></param>
             <param name="options"></param>
         </member>
-        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext})">
+        <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions{App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext})">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext" /> class.
+            Initializes a new instance of the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext" /> class.
+            <para>
+            This is the method invoked from the <see cref="T:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory"/>
+            </para>
             </summary>
+            <param name="configuration">The configuration.</param>
             <param name="options">The options.</param>
         </member>
         <member name="M:App.Modules.KWMODULE.Infrastructure.Data.Db.Contexts.ModuleDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
@@ -338,6 +348,18 @@
                 Does something.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContextOptionsBuilder">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:App.Modules.All.Infrastructure.Data.Db.Contexts.ModuleDbContextOptionsBuilderBase`1" />
+        </member>
+        <member name="M:App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContextOptionsBuilder.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContextOptionsBuilder"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
         </member>
     </members>
 </doc>

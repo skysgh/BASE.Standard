@@ -1235,7 +1235,7 @@
         <para>
           Note:
           Whereas the other constructors are invoked during run time,
-          this contructor will be called by the
+          this constructor will be called by the
           <see cref="T:App.Modules.Core.Infrastructure.Data.Db.Contexts.ModuleDbContextFactory" />,
           which is invoked when the 'dotnet ef' commands are issued
           from the command line (eg, for Migrations).
@@ -2236,7 +2236,7 @@
         Static cache object injected into KeyVault Service.
       </summary>
     </member>
-    <member name="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject">
+    <member name="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject">
       <summary>
         Not sure if there is any benefit being able to reflect for Configuration
         objects per Module, but just in case.
@@ -2251,7 +2251,7 @@
         implementation of <see cref="T:App.Modules.Core.Infrastructure.Services.IApplicationInformationService" />
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from
           <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
@@ -2260,7 +2260,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member
       name="T:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration.AzureKeyVaultServiceConfiguration">
@@ -2269,7 +2269,7 @@
         implementation of <see cref="T:App.Modules.Core.Infrastructure.Services.IAzureKeyVaultService" />
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2277,7 +2277,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member
       name="P:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration.AzureKeyVaultServiceConfiguration.KeyStandardNameComponentDivider">
@@ -2339,7 +2339,7 @@
       <summary>
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2347,7 +2347,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member
       name="P:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.DictionaryBasedMimeTypeServiceConfiguration.Cache">
@@ -2366,7 +2366,7 @@
 
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2374,7 +2374,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member
       name="M:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureDocumentDbServiceConfiguration.#ctor(App.Modules.Core.Infrastructure.Services.IAzureKeyVaultService)">
@@ -2389,7 +2389,7 @@
         implementation of <see cref="T:App.Modules.Core.Infrastructure.Services.IMediaMalwareDetectionService" />
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2397,7 +2397,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member
       name="T:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.MediaMetadataServiceConfiguration">
@@ -2406,7 +2406,7 @@
         implementation of <see cref="T:App.Modules.Core.Infrastructure.Services.IMediaMetadataService" />
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2414,7 +2414,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member name="T:App.Modules.Core.Infrastructure.Services.Configuration.Implementations.SMTPServiceConfiguration">
       <summary>
@@ -2422,7 +2422,7 @@
         implementation of <see cref="T:App.Modules.Core.Infrastructure.Services.ISmtpService" />
         <para>
           Inherits from
-          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+          <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
           whic inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2430,7 +2430,7 @@
           which would be rather slow.
         </para>
       </summary>
-      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.ICoreServiceConfigurationObject" />
+      <seealso cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
     </member>
     <member name="T:App.Modules.Core.Infrastructure.Services.Configuration.IServiceConfigurationObject">
       <summary>

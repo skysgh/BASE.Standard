@@ -1,6 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System.Collections.Generic;
+using System.Linq;
 using App.Modules.All.AppFacade.Controllers.Api.Classic;
 using App.Modules.Core.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,10 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
         [HttpGet("[action]")]
         public ActionResult<IEnumerable<string>> List()
         {
+
+            object o;
+            HttpContext.Items.TryGetValue((object)"Finbuckle.MultiTenant.AspNetCore.MultiTenantContext", out o);
+            var bbb = HttpContext.Items.FirstOrDefault();
             return new[] {"value1", "value2x"};
         }
 

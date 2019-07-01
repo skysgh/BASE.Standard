@@ -47,7 +47,7 @@ namespace App.Modules.KWMODULE.AppFacade.Controllers.Configuration.Routes
         /// <param name="configurationStatus">The configuration status.</param>
         public ModuleRoutes(
             IDependencyResolutionService dependencyResolutionService,
-            ODataConfigurationStatus configurationStatus)
+            ODataConfigurationStatusComponent configurationStatus)
             : base(dependencyResolutionService, configurationStatus)
         {
         }

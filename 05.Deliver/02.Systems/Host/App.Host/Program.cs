@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace App.Host
@@ -62,9 +64,24 @@ namespace App.Host
             result
                 .ConfigureAppConfiguration((context, config) =>
            {
+               
                //Use the app defined extension method to wire up a keyvault.
-               config.AddKeyVaultSettingsConfig(
-                   enabled: context.HostingEnvironment.IsProduction());
+               config
+                   //.SetBasePath(Directory.GetCurrentDirectory())
+                   .SetBasePath(context.HostingEnvironment.ContentRootPath)
+                   .AddJsonFile(
+                       $"appsettings.{context.HostingEnvironment.EnvironmentName}.json",
+                       true, true)
+                   .AddJsonFile(
+                       $"appsettings.{context.HostingEnvironment.EnvironmentName}.INSECURE.json",
+                       true, true)
+                   // Last, and most importantly, add KeyVault:
+                   .AddKeyVaultSettingsConfig(
+                       enabled: true //context.HostingEnvironment.IsProduction()
+                   );
+
+
+
            });
 
 

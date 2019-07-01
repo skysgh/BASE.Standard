@@ -26,7 +26,8 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
                 //&& (x != (typeof(DbContext)))
             ))
             {
-                var tag = GetName(implementationType);
+                // The DbContext may have an Alias/Name Attribute
+                var tag = implementationType.GetAliasKeyOrNameFromType("ModuleDbContext","DbContext");
 
                 services.For(contractType).Use(implementationType).Named(tag).Scoped();
                 services.For(implementationType).Use(implementationType).Scoped();
@@ -35,31 +36,5 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
             ;
         }
 
-        private string GetName(Type type)
-        {
-            // Register against all the interfaces implemented
-            // by this concrete class
-            var name = type.GetAliasKeyIfAny();
-
-            if (name != null)
-            {
-                return null;
-            }
-
-            name = type.Name;
-            var tmp = "ModuleDbContext";
-            if (name.Contains(tmp))
-            {
-                return name.Substring(0, name.IndexOf(tmp));
-            }
-
-            tmp = "DbContext";
-            if (name.Contains(tmp))
-            {
-                return name.Substring(0, name.IndexOf(tmp));
-            }
-
-            return name;
-        }
     }
 }

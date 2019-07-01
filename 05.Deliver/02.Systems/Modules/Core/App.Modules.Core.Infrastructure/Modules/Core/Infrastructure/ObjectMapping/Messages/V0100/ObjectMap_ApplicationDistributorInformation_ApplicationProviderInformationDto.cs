@@ -1,7 +1,7 @@
 // Copyright MachineBrains, Inc. 2019
 
+using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
-using App.Modules.Core.Shared.Configuration.Settings;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
 

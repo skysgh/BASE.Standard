@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Helpers;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Factories;
 using App.Modules.Core.Infrastructure.Services.Caches.Implementations;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Infrastructure.Services.Statuses;
 using App.Modules.Core.Shared.Models.Entities;
@@ -47,7 +47,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     /// </summary>
     public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
     {
-        private readonly AzureKeyVaultServiceConfigurationStatus _configurationStatus;
+        private readonly AzureKeyVaultServiceConfigurationStatusComponent _configurationStatus;
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
         private readonly IHostSettingsService _hostSettingsService;
 
@@ -68,7 +68,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="hostSettingsService">The host settings service.</param>
         public AzureKeyVaultService(
             AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
-            AzureKeyVaultServiceConfigurationStatus configurationStatus,
+            AzureKeyVaultServiceConfigurationStatusComponent configurationStatus,
             IDiagnosticsTracingService diagnosticsTracingService,
             IHostSettingsService hostSettingsService)
         {
@@ -149,19 +149,19 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                     _diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
 
 
-                    var color = ConfigurationStepStatus.White;
+                    var color = ConfigurationStatusComponentStepStatusType.White;
                     if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
                     {
-                        color = ConfigurationStepStatus.Orange;
+                        color = ConfigurationStatusComponentStepStatusType.Orange;
                     }
 
                     if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
                     {
-                        color = ConfigurationStepStatus.Red;
+                        color = ConfigurationStatusComponentStepStatusType.Red;
                     }
 
                     _configurationStatus.AddStep(
-                        ConfigurationStepType.General,
+                        ConfigurationStatusComponentStepType.General,
                         color,
                         "Authentication",
                         $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}."

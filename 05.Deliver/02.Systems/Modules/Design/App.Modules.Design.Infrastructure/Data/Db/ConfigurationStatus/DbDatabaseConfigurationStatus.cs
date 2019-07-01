@@ -15,8 +15,8 @@ namespace App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus
     /// as they are configuring the system for the first time.
     /// </para>
     /// </summary>
-    /// <seealso cref="ConfigurationStatusBase" />
-    public class DbDatabaseConfigurationStatus : ConfigurationStatusBase
+    /// <seealso cref="ConfigurationStatusComponentBase" />
+    public class DbDatabaseConfigurationStatus : ConfigurationStatusComponentBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DbDatabaseConfigurationStatus"/> class.

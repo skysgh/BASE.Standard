@@ -23,7 +23,7 @@ namespace App.Modules.Core.Infrastructure.Services
         /// <summary>
         /// Gets the queryable set
         /// of (mem) cached singleton instances of
-        /// <see cref="ConfigurationStatusStep" />
+        /// <see cref="ConfigurationStatusComponentStep" />
         /// that were developed throughout the app
         /// to record whether services were correctly configured or not.
         /// <para>
@@ -31,6 +31,10 @@ namespace App.Modules.Core.Infrastructure.Services
         /// </para>
         /// </summary>
         /// <returns></returns>
-        IQueryable<ConfigurationStatusBase> Get();
+        IQueryable<ConfigurationStatusComponentBase> GetComponents();
+
+
+        IQueryable<ConfigurationStatus> Get();
+
     }
 }

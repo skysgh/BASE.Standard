@@ -33,7 +33,7 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// <value>
         ///     The type.
         /// </value>
-        public ConfigurationStepType Type { get; set; }
+        public ConfigurationStatusComponentStepType Type { get; set; }
 
         /// <summary>
         ///     Gets or sets the status.
@@ -41,7 +41,7 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// <value>
         ///     The status.
         /// </value>
-        public ConfigurationStepStatus Status { get; set; }
+        public ConfigurationStatusComponentStepStatusType Status { get; set; }
 
         /// <summary>
         ///     Gets or sets the date time.

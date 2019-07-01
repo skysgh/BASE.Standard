@@ -1,9 +1,12 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 {
@@ -18,30 +21,36 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
     {
         public TModuleDbContext CreateDbContext(string[] args)
         {
-            DbContextOptionsBuilder<TModuleDbContext> optionsBuilder = new DbContextOptionsBuilder<TModuleDbContext>();
 
-            var databaseName = "BASE.JUMP.Dev";
+            var _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile("appsettings.Development.json", true, true)
+                .AddJsonFile("appsettings.INSECURE.json", true, true)
+                .AddJsonFile("appsettings.Development.INSECURE.json", true, true)
+                .Build();
 
-            optionsBuilder.UseSqlServer(
+            DbContextOptionsBuilder<TModuleDbContext> optionsBuilder
+                = new DbContextOptionsBuilder<TModuleDbContext>();
+
+            var databaseName = "BASE.4.Migrations";
+            optionsBuilder
+                .UseSqlServer(
                 $"Server=(localdb)\\mssqllocaldb;Database={databaseName};Trusted_Connection=True;");
 
-            //return Activator.CreateInstance<TModuleDbContext>(optionsBuilder.Options);
 
-
-            return (TModuleDbContext) Activator.CreateInstance(
+            // Does not work, as won't accept arguments, so use old school:
+            //return Activator.CreateInstance<TModuleDbContext>(_configuration, optionsBuilder.Options);
+            return (TModuleDbContext)Activator.CreateInstance(
                 typeof(TModuleDbContext),
                 BindingFlags.Public | BindingFlags.Instance,
                 default,
-                new object[] {optionsBuilder.Options},
+                new object[]
+                {
+                    _configuration,
+                    optionsBuilder.Options
+                },
                 default);
-
-            //var bindingFlags = BindingFlags.CreateInstance;
-            //Binder binder = new 
-            //    return Activator.CreateInstance(this, bindingFlags, binder, new[]{optionsBuilder.Options},null);
-
-
-            //    return System.Activator.CreateInstance(typeof(TModuleDbContext))
-            //return new TModuleDbContext(optionsBuilder.Options);
         }
     }
 }

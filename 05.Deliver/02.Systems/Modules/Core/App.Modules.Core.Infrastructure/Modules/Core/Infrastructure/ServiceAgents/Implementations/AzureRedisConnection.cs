@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using StackExchange.Redis;
 
 namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations

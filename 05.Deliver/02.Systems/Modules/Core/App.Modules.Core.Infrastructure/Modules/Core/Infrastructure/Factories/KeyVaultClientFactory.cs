@@ -3,7 +3,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using App.Modules.Core.Shared.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Configuration.Settings;
 using Microsoft.Azure.KeyVault;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 

@@ -15,9 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
 {
     /// <summary>
-    /// Controller to return a collection of
-    /// configuration elements (derived from
-    /// <see cref="ConfigurationStatusBase"/> and <see cref="IConfigurationStatus"/>)
+    /// Controller to return a
+    /// <see cref="ConfigurationStatusDto"/>
     /// that describe how the system is configured.
     /// </summary>
     /// <seealso cref="App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
@@ -59,8 +58,11 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
                 _objectMappingService.ProjectTo<ConfigurationStatusDto>(
                     g,
                     (object)null,
-                    x=>x.Steps
+                    x=>x.Components
                         );
+
+            var t1 = g.ToArray();
+            var t2 = results.ToArray();
             return Ok(results);
         }
 
@@ -75,7 +77,7 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.Classic
                 _objectMappingService.ProjectTo<ConfigurationStatusDto>(
                 _configurationStatusService.Get(),
                 (object)null,
-                x => x.Steps
+                x => x.Components
                 ).SingleOrDefault(x => x.Title == key);
 
             return Ok(result);

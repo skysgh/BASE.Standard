@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using App.Modules.All.AppFacade.Controllers.Configuration.Routes;
 using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.AppFacade.Initialization;
 using App.Modules.All.AppFacade.Views.Configuration;
 using App.Modules.Core.AppFacade.ActionFilters;
+using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Services.Statuses;
@@ -18,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -52,12 +56,6 @@ namespace App.Host
 
 
 
-        private void DemoHowToBindConfiguration()
-        {
-            // Example of getting custom
-            var t = new SomeCustomConfig();
-            _configuration.Bind("SomeCustomConfig", t);
-        }
 
         /// <summary>
         /// <para>
@@ -102,11 +100,11 @@ namespace App.Host
         /// <param name="serviceRegistry"></param>
         public void ConfigureContainer(ServiceRegistry serviceRegistry)
         {
-            AppDomain.CurrentDomain.LoadAllAppAssemblies();
-
-
-
-            var appAssemblies = AppDomain.CurrentDomain.GetAppAssemblies().ToArray();
+            // DI will only scan Referenced and in-mem assemblies (too little)
+            // So yuo want to bring in everything that could be related
+            // (ie, assembies that are part of this system)
+            // But not System/Microsoft assemblies (too much):
+            var assemblies = AppDomain.CurrentDomain.LoadAllAppAssemblies();
 
 
 
@@ -128,9 +126,12 @@ namespace App.Host
             // the same initialization sequence.
 
 
+
+
             // Microsoft sample took care of this in COnfigureServices 
             // and puts it before AddMvc.
             serviceRegistry.AddOData();
+
 
             serviceRegistry.AddMvc(
                     options =>
@@ -152,6 +153,15 @@ namespace App.Host
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 ;
 
+            serviceRegistry
+                .AddMultiTenant()
+                .WithInMemoryStore(
+                    _configuration.GetSection("InMemoryStoreConfig"))
+                //.WithStaticStrategy("wow")
+                //.WithHostStrategy()
+                //.WithRouteStrategy()
+                .WithBasePathStrategy()
+                .WithFallbackStrategy("tenant1");
 
             //For now (until GEt(1) works
             //serviceRegistry.AddODataQueryFilter();
@@ -198,6 +208,10 @@ namespace App.Host
 
             });
 
+
+            // Scan only our assemblies (not everything in bin) for
+            // Automapper specific mappers:
+            var appAssemblies = AppDomain.CurrentDomain.GetAppAssemblies().ToArray();
             serviceRegistry.AddAutoMapper(appAssemblies, ServiceLifetime.Singleton);
 
 
@@ -226,7 +240,7 @@ namespace App.Host
 
 
             var configurationStatus =
-                mvcContainer.GetInstance<ConfigurationStatus>();
+                mvcContainer.GetInstance<ConfigurationStatusComponent>();
 
 
             //They are not the same. What does that mean?!
@@ -234,7 +248,7 @@ namespace App.Host
             {
                 if (_container != null)
                 {
-                    configurationStatus.AddStep(ConfigurationStepType.General, ConfigurationStepStatus.Orange,
+                    configurationStatus.AddStep(ConfigurationStatusComponentStepType.General, ConfigurationStatusComponentStepStatusType.Orange,
                         "Verify Container",
                         "Not the same/expected.");
                 }
@@ -257,14 +271,17 @@ namespace App.Host
                 _container.GetInstance<IDiagnosticsTracingService>(),
                 _container.GetInstance<IAppDbContextManagementService>());
 
+            // Load settings from appsettings, and keyvault
+            ConfigureAzureCloudEnvironmentSettings();
+
+
             if (env.IsDevelopment())
             {
-                DemoHowToBindConfiguration();
 
                 app.UseDeveloperExceptionPage();
                 configurationStatus.AddStep(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Orange,
+                    ConfigurationStatusComponentStepType.Security,
+                    ConfigurationStatusComponentStepStatusType.Orange,
                     "Enable Developer Exception Page",
                     "Enabled (because working in Development environment). Note that Developer Exception Page may leak data if used where Production Data is used.");
 
@@ -278,36 +295,38 @@ namespace App.Host
 
 
             }
+            else if (env.IsEnvironment(EnvironmentName.Staging))
+            {
+                // read from the appsettings.Staging.json
+
+            }
             else
             {
                 app.UseHsts();
                 configurationStatus.AddStep(
-                    ConfigurationStepType.Security,
-                    ConfigurationStepStatus.Green,
+                    ConfigurationStatusComponentStepType.Security,
+                    ConfigurationStatusComponentStepStatusType.Green,
                     "Enable Hsts",
                     "Enabled (working in Production environment).");
             }
             app.UseHttpsRedirection();
             configurationStatus.AddStep(
-                ConfigurationStepType.Security,
-                ConfigurationStepStatus.Green,
+                ConfigurationStatusComponentStepType.Security,
+                ConfigurationStatusComponentStepStatusType.Green,
                 "Enable Https Redirection.",
                 "Enabled. (note that this does not necessarily guarantee that the Cert is correctly configured).");
 
             app.UseCors();
             configurationStatus.AddStep(
-                ConfigurationStepType.Security,
-                ConfigurationStepStatus.Green,
+                ConfigurationStatusComponentStepType.Security,
+                ConfigurationStatusComponentStepStatusType.Green,
                 "Enabled Cors.",
                 "Enabled.");
 
-            app.UseStaticFiles();
-            configurationStatus.AddStep(
-                ConfigurationStepType.Routing,
-                ConfigurationStepStatus.Green,
-                "Enable Static File Handling.",
-                "Enabled.");
 
+            ConfigureStaticFileHandler(app, configurationStatus);
+
+            app.UseMultiTenant();
 
             app.UseMvc(
                 routeBuilder =>
@@ -327,6 +346,90 @@ namespace App.Host
         }
 
 
+        //public void  ConfigureDesignTimeServices(IServiceCollection services)
+        //{
+            
+        //    //=> services.AddSingleton<EntityTypeWriter, MyEntityTypeWriter>();
+        //}
+
+        /// <summary>
+        /// Configures the azure cloud environment settings.
+        /// <para>
+        /// Note that this area of the system -- bar the handling of connection
+        /// strings -- is the one with the highest chance of
+        /// a developer making a critical security error.
+        /// </para>
+        /// <para>
+        /// How it works is that appsettings.json should only hold information
+        /// about how a system is put together, without reference to the
+        /// actual environment, or the accounts used to connect them together.
+        /// </para>
+        /// <para>
+        /// As a  rule of thumb, appsettings.json is for general non-secret
+        /// settings that don't mention any specific device or srv account.
+        /// It is checked in, so anything secret
+        /// that is put in this file is automatically a security breach
+        /// since GitHub, etc. make code so easily available.
+        /// </para>
+        /// <para>
+        /// appsettings.env.json is for general, non-secret settings like
+        /// the above, except that its environment type specific (eg: db size,
+        /// azure service SKU, etc.). It is checked in, so anything secret
+        /// that is put in this file is automatically a security breach
+        /// since GitHub, etc. make code so easily available.
+        /// </para>
+        /// <para>
+        /// appsettings.INSECURE.json and appsettings.env.INSECURE.json
+        /// follow the same as above, but are *not* checked in.
+        /// Our experience is that it was easier for use to put
+        /// developer settings in appsettings.INSECURE.json,
+        /// and let the Build Agent fill in appsettings.INSECURE.json
+        /// per target environment.
+        /// </para>
+        /// <para>
+        /// We put very few secrets in these files, putting them mostly
+        /// in the keyvault that becomes available to developers, etc.
+        /// once they have defined what subscription, resourcegroup,
+        /// keyVaultResourceName in appsettings.{env}.INSECURE.json
+        /// </para>
+        /// </summary>
+        private void ConfigureAzureCloudEnvironmentSettings()
+        {
+            var s = _container.GetInstance<IConfigurationService>();
+
+            // By this point, it better have learnt where the KeyVault is:
+            var x = s.Get<AzureEnvironmentSettings>();
+        }
+
+
+        private static void ConfigureStaticFileHandler(IApplicationBuilder app,
+            ConfigurationStatusComponent configurationStatus)
+        {
+            string staticFilePath =
+                Path.Combine(Directory.GetCurrentDirectory(), "Assets");
+            bool created = false;
+            if (System.IO.Directory.Exists(staticFilePath))
+            {
+                created = true;
+                System.IO.Directory.CreateDirectory(staticFilePath);
+            }
+
+            bool exists = System.IO.Directory.Exists(staticFilePath);
+            int count = System.IO.Directory.GetFiles(staticFilePath).Length;
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(staticFilePath),
+                RequestPath = "/Assets"
+            });
+            configurationStatus.AddStep(
+                ConfigurationStatusComponentStepType.Routing,
+                ConfigurationStatusComponentStepStatusType.Green,
+                "Enable Static File Handling.",
+                $"Enabled. Created={created}, Exists={exists}, Count={count}");
+        }
+
+
         private void ConfigureRouteBuilderForTraditionalApiRoutes(Microsoft.AspNetCore.Routing.IRouteBuilder routeBuilder)
         {
 
@@ -335,27 +438,42 @@ namespace App.Host
             // So register every else first, before falling back to default routes.
 
             // Look around for any atypical routing:
-            _container.GetAllInstances<IModuleRoutes>().ForEach(x => x.Initialize(routeBuilder));
+            _container.GetAllInstances<IModuleRoutes>()
+                .ForEach(x => x.Initialize(routeBuilder));
 
-            // ---- Area Based
+            //// ---- Tenanted
             routeBuilder.MapRoute(
-                name: $"defaultAreaRoute",
-                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-            routeBuilder.MapRoute(
-                name: $"defaultApi",
-                template: "api/{controller=Home}/{action=Index}/{id?}");
+                name: $"defaultTenantedAreaRoute",
+                template: "{first_segment=}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             routeBuilder.MapRoute(
-                name: $"default",
-                template: "{controller=Home}/{action=Index}/{id?}");
+                name: $"defaultTenantedApi",
+                template: "{first_segment=}/api/{controller=Home}/{action=Index}/{id?}");
+
+            routeBuilder.MapRoute(
+                name: $"defaultTenanted",
+                template: "{first_segment=}/{controller=Home}/{action=Index}/{id?}");
+
+
+            //// ---- Default
+            //routeBuilder.MapRoute(
+            //    name: $"defaultAreaRoute",
+            //    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            //routeBuilder.MapRoute(
+            //    name: $"defaultApi",
+            //    template: "api/{controller=Home}/{action=Index}/{id?}");
+
+            //routeBuilder.MapRoute(
+            //    name: $"default",
+            //    template: "{controller=Home}/{action=Index}/{id?}");
 
             var configurationStatus =
-                _container.GetInstance<ConfigurationStatus>();
+                _container.GetInstance<ConfigurationStatusComponent>();
 
             configurationStatus.AddStep(
-                ConfigurationStepType.Routing,
-                ConfigurationStepStatus.Green,
+                ConfigurationStatusComponentStepType.Routing,
+                ConfigurationStatusComponentStepStatusType.Green,
                 "Register Default Controller Routes.",
                 "Configured.");
         }
@@ -384,11 +502,11 @@ namespace App.Host
                 });
 
             var configurationStatus =
-                _container.GetInstance<ConfigurationStatus>();
+                _container.GetInstance<ConfigurationStatusComponent>();
 
             configurationStatus.AddStep(
-                ConfigurationStepType.Routing,
-                ConfigurationStepStatus.Green,
+                ConfigurationStatusComponentStepType.Routing,
+                ConfigurationStatusComponentStepStatusType.Green,
                 "Enable Swagger.",
                 $"Enabled. Route Template: {routeTemplate}");
         }

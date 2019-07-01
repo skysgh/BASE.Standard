@@ -17,7 +17,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureRedisCacheService(
             IOperationContextService operationContextService,
-            AzureBlobConfigurationStatus configurationStatus,
+            AzureBlobConfigurationStatusComponent configurationStatus,
             IAzureRedisServiceAgent azureRedisConnection)
         {
             _operationContextService = operationContextService;

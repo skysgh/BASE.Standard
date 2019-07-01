@@ -66,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{1D166C1A-4
 		..\00.Wiki\readme.md = ..\00.Wiki\readme.md
 		..\00.Wiki\readme.txt = ..\00.Wiki\readme.txt
 		..\00.Wiki\TextFile2.txt = ..\00.Wiki\TextFile2.txt
+		TextFile3.txt = TextFile3.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules.TKWMODULE", "Modules.TKWMODULE", "{E954A9B2-91D7-4418-9556-B145D02D4F91}"
@@ -92,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.KWMODULE.AppFacade.Tests", "Modules\KWMODULE\App.Modules.KWMODULE.AppFacade.Tests\App.Modules.KWMODULE.AppFacade.Tests.csproj", "{18E69E7F-C49A-4C51-B390-5AB5D867F39D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Modules.Core.AppFacade.Tests", "Modules\Core\App.Modules.Core.AppFacade.Tests\App.Modules.Core.AppFacade.Tests.csproj", "{4C1993C6-4322-4274-8D63-AE00EF82CFD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Modules.Core.AppFacade.Tests", "Modules\Core\App.Modules.Core.AppFacade.Tests\App.Modules.Core.AppFacade.Tests.csproj", "{4C1993C6-4322-4274-8D63-AE00EF82CFD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

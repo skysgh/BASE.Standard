@@ -2,10 +2,10 @@
 
 using System;
 using System.Linq;
+using App.Modules.All.Infrastructure.Exceptions;
 using Lamar;
 using Lamar.Scanning;
 using Lamar.Scanning.Conventions;
-using LamarCodeGeneration.Util;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
@@ -22,7 +22,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
         private readonly string[] _typeNameSuffixToStrip;
         private Type _contractType;
 
-        protected DefaultCustomRegistrationConventionBase(ServiceLifetime lifetime, bool useFactory=false, params string[] typeNameSuffixToStrip)
+        protected DefaultCustomRegistrationConventionBase(ServiceLifetime lifetime, bool useFactory = false, params string[] typeNameSuffixToStrip)
         {
             _contractType = typeof(TInterface);
             this._lifetime = lifetime;
@@ -36,20 +36,31 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
             Type[] implementationTypes =
                 types.FindTypes(TypeClassification.Concretes | TypeClassification.Closed).ToArray();
 
-            foreach (var implementationType in implementationTypes.Where(x => _contractType.IsAssignableFrom(x)
-            ))
+            var matchingTypes = implementationTypes.Where(
+                x => _contractType.IsAssignableFrom(x));
+
+            foreach (var implementationType in matchingTypes)
             {
-                var tag = GetName(implementationType);
+                var tag =
+                    implementationType.GetAliasKeyOrNameFromType(
+                        _typeNameSuffixToStrip);
                 //services.For(_contractType).UseInstance(System.Activator.CreateInstance(implementationType)).Named(tag).Lifetime = _lifetime;
 
 
 
                 if (_lifetime == ServiceLifetime.Singleton && _useFactory)
                 {
-                    var instance = Activator.CreateInstance(implementationType);
-                    services.AddSingleton( _contractType, x => instance);
+                    object instance;
+                    try
+                    {
+                        instance = Activator.CreateInstance(implementationType);
+                    }
+                    catch (SystemException e)
+                    {
+                        throw new ConfigurationException("Activator cannot create complex objects...", e);
+                    }
+                    services.AddSingleton(_contractType, x => instance);
                     services.AddSingleton(implementationType, x => instance);
-
                 }
                 else
                 {
@@ -60,31 +71,6 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
                         .Lifetime = _lifetime;
                 }
             }
-
-            ;
-        }
-
-        private string GetName(Type type)
-        {
-            // Register against all the interfaces implemented
-            // by this concrete class
-            var name = type.GetAliasKeyIfAny();
-
-            if (name != null)
-            {
-                return name;
-            }
-
-            name = type.Name;
-
-            foreach (string tmp in _typeNameSuffixToStrip)
-            {
-                if (name.Contains(tmp))
-                {
-                    return name.Substring(0, name.IndexOf(tmp));
-                }
-            }
-            return name;
         }
     }
 }

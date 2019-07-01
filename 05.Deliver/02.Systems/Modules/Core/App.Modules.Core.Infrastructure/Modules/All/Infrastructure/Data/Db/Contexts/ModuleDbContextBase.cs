@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -38,34 +39,43 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public abstract class ModuleDbContextBase : DbContext
     {
-        private static IConfiguration _configuration;
 
+        private IConfiguration _configuration;
 
         private static readonly List<Type> Migrated = new List<Type>();
         private static readonly List<Type> Seeded = new List<Type>();
 
         private readonly IAppDbContextManagementService _appDbContextManagementService;
         private readonly bool _isJointTable;
-        private string _defaultConnectionString;
-        private string _defaultConnectionStringName;
-
-        /// <summary>
-        ///     The migrations applied
-        /// </summary>
-        private bool _migrationsApplied;
-
-        private string _moduleName;
-
 
         private bool _okToSave;
 
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
-        ///     <para>
-        ///         This is the Constructor called by <see cref="ModuleDbContextFactory" />,
-        ///         which is invoked when one invokes 'dotnet' frome the commandline.
-        ///     </para>
+        /// This is the constructor invoked by the system's dependency injector/creator
+        /// at run time (not from Unit Tests).
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="appDbContextManagementService">The application database context management service.</param>
+        /// <param name="isJointTable">if set to <c>true</c> [initialize model].</param>
+        protected ModuleDbContextBase(
+            IConfiguration configuration,
+            IAppDbContextManagementService appDbContextManagementService,
+            bool isJointTable = false)
+        {
+            _configuration = configuration;
+            _appDbContextManagementService = appDbContextManagementService;
+
+            _isJointTable = isJointTable;
+
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
+        /// <para>
+        /// This is the constructor invoked from unit Tests.
+        /// </para>
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="appDbContextManagementService">The application database context management service.</param>
@@ -76,121 +86,40 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
             DbContextOptions<ModuleDbContextBase> options)
             : base(options)
         {
-            // _configuration = configuration;
-
+            _configuration = configuration;
             _appDbContextManagementService = appDbContextManagementService;
 
             Initialize();
         }
 
 
+
         /// <summary>
-        ///     This is the constructor invoked by the system's dependency injector/creator.
+        /// This is the constructor invoked
+        /// by a subclass of
+        /// <see cref="ModuleDbContextFactoryBase{TModuleDbContext}"/>
+        /// when invoked from a
+        /// commandline when making migrations
+        /// using the
+        /// <![CDATA[
+        /// dotnet ef migrations ...etc...
+        /// ]]>
+        /// command.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        /// <param name="appDbContextManagementService">The application database context management service.</param>
-        /// <param name="isJointTable">if set to <c>true</c> [initialize model].</param>
-        protected ModuleDbContextBase(
-            IConfiguration configuration,
-            IAppDbContextManagementService appDbContextManagementService,
-            bool isJointTable = false)
-        {
-            _isJointTable = isJointTable;
-            _migrationsApplied = !isJointTable;
-
-            _configuration = configuration;
-            _appDbContextManagementService = appDbContextManagementService;
-            Initialize();
-        }
-
-        /// <summary>
-        ///     This is the constructor invoked by the system's dependency injector/creator.
-        /// </summary>
-        /// <param name="configuration"></param>
-        /// <param name="appDbContextManagementService"></param>
-        protected ModuleDbContextBase(
-            IConfiguration configuration,
-            IAppDbContextManagementService appDbContextManagementService)
-        {
-            _configuration = configuration;
-            _appDbContextManagementService = appDbContextManagementService;
-
-            Initialize();
-        }
-
-        /// <summary>
-        ///     This is the constructor invoked from commandline when making migrations
-        ///     using the dotnet ef migrations etc...command.
-        /// </summary>
-        /// <param name="options"></param>
-        protected ModuleDbContextBase(DbContextOptions options) : base(options)
-        {
-            // Does not need Migration to be kicked off (should not) 
-            // Nor Seeding.
-            // So do not invoke Initialize() from here.
-        }
-
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
-        /// </summary>
         /// <param name="options">The options.</param>
-        protected ModuleDbContextBase(DbContextOptions<ModuleDbContextBase> options) : base(options)
+        protected ModuleDbContextBase(
+            IConfiguration configuration,
+            DbContextOptions options) 
+            : base(options)
         {
+            _configuration = configuration;
+
+
             // Does not need Migration to be kicked off (should not) 
             // Nor Seeding.
             // So do not invoke Initialize() from here.
         }
-
-        /// <summary>
-        ///     Gets or sets the name of the logical module.
-        ///     <para>
-        ///         Will be Core, Foo, etc.
-        ///     </para>
-        /// </summary>
-        protected string ModuleName
-        {
-            get => _moduleName ?? (_moduleName = Module.Id(GetType()));
-            set => _moduleName = value;
-        }
-
-
-        private static IConfiguration Config
-        {
-            get
-            {
-                var result = _configuration ?? (_configuration = new ConfigurationBuilder()
-                                 .SetBasePath(Directory.GetCurrentDirectory())
-                                 .AddJsonFile("appsettings.json", true, true).Build());
-                return result;
-            }
-            set => _configuration = value;
-        }
-
-        /// <summary>
-        ///     Returns the default name of the ConnectionString
-        ///     used within config settings.
-        ///     <para>
-        ///         Used by <see cref="DefaultConnectionString" />
-        ///         to find itself in the Config file.
-        ///     </para>
-        /// </summary>
-        public string DefaultConnectionStringName =>
-            _defaultConnectionStringName
-            ?? (_defaultConnectionStringName = $"{ModuleName}{GetType().Name}");
-
-
-        /// <summary>
-        ///     Gets the default connection string
-        ///     for this DbContext.
-        /// </summary>
-        /// <value>
-        ///     The default connection string.
-        /// </value>
-        public string DefaultConnectionString =>
-            _defaultConnectionString
-            ?? (_defaultConnectionString = Config
-                .GetConnectionString(DefaultConnectionStringName));
 
         /// <summary>
         ///     Prepares to save.
@@ -207,31 +136,37 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
         private void Initialize()
         {
             _appDbContextManagementService.Register(this);
+
             if (_isJointTable)
             {
                 return;
             }
-
+            
             EnsureDbContextIsMigrated();
             // Old school seeding:
             EnsureMutableDataIsSeeded();
         }
-
-        //protected AppModuleDbContextBase()
-        //{
-        //    //Old:
-        //    //Database.CommandTimeout = System.Math.Max(dbConnection.ConnectionTimeout, 30);
-        //    //this.Database.Log = s => Trace.WriteLine(s);
-        //}
 
         /// <summary>
         ///     Note: default behaviour is that it is not called by constructor by default.
         ///     But is called by Migrate.
         /// </summary>
         /// <param name="optionsBuilder"></param>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(
+            DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(DefaultConnectionString);
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                var defaultConnectionStringName =
+                    $"{Module.Id(GetType())}{GetType().Name}";
+                // Would be "Core" + "ModuleDbContext":
+                var defaultConnectionString =
+                    _configuration
+                        .GetConnectionString(
+                            defaultConnectionStringName);
+                optionsBuilder.UseSqlServer(defaultConnectionString);
+            }
 
             base.OnConfiguring(optionsBuilder);
         }

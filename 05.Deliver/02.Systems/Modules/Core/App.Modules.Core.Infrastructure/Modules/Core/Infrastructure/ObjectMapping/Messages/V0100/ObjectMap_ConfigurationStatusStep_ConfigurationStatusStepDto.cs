@@ -13,14 +13,14 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     /// <seealso cref="MapBase{TEntity,TDto}" />
     public class ObjectMap_ConfigurationStepRecord_ConfigurationStepRecordDto
         :
-            MapBase<ConfigurationStatusStep, ConfigurationStatusStepDto>
+            MapBase<ConfigurationStatusComponentStep, ConfigurationStatusStepDto>
     {
         /// <summary>
         ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ConfigurationStatusStep, ConfigurationStatusStepDto> mappingExpression)
+            IMappingExpression<ConfigurationStatusComponentStep, ConfigurationStatusStepDto> mappingExpression)
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(x=>x.Id))
@@ -38,7 +38,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ConfigurationStatusStepDto, ConfigurationStatusStep> mappingExpression)
+            IMappingExpression<ConfigurationStatusStepDto, ConfigurationStatusComponentStep> mappingExpression)
         {
             mappingExpression
                 .ForMember(t => t.Id, opt => opt.MapFrom(x => x.Id))

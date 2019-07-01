@@ -1,7 +1,7 @@
 ﻿using System.Linq;
+using App.ExtensionMethods;
 using App.Modules.All.Infrastructure.Exceptions;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Infrastructure.Services.Statuses;
 using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
@@ -30,7 +30,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// <summary>
         /// Gets the queryable set
         /// of (mem) cached singleton instances of
-        /// <see cref="ConfigurationStatusStep" />
+        /// <see cref="ConfigurationStatusComponentStep" />
         /// that were developed throughout the app
         /// to record whether services were correctly configured or not.
         /// <para>
@@ -38,14 +38,14 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// </para>
         /// </summary>
         /// <returns></returns>
-        public IQueryable<ConfigurationStatusBase> Get()
+        public IQueryable<ConfigurationStatusComponentBase> GetComponents()
         {
-            IQueryable<ConfigurationStatusBase> results;
+            IQueryable<ConfigurationStatusComponentBase> results;
             try
             {
                 results = _dependencyResolutionService
-                    .GetAllInstances<IConfigurationStatus>()
-                    .Select(x => x as ConfigurationStatusBase)
+                    .GetAllInstances<IConfigurationComponentStatus>()
+                    .Select(x => x as ConfigurationStatusComponentBase)
                     .OrderByDescending(x => x.DisplayOrderHint)
                     .ThenByDescending(x => x.Title)
                     .AsQueryable();
@@ -57,6 +57,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
 
             return results;
+        }
+
+        public IQueryable<ConfigurationStatus> Get()
+        {
+            var result = new ConfigurationStatus()
+            {
+                Title = "...",
+                Description = "..."
+            };
+            result.Components.AddRange(GetComponents());
+
+            return (new ConfigurationStatus[] { result }).AsQueryable();
         }
     }
 }

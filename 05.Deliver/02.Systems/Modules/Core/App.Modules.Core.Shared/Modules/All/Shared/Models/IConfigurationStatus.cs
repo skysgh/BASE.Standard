@@ -25,7 +25,7 @@
     /// up on a dashboard of some kind.
     /// </para>
     /// </summary>
-    public interface IConfigurationStatus :
+    public interface IConfigurationComponentStatus :
         IHasTitleAndDescription,
         IHasImageUrl,
         IHasConfigurationStatus,

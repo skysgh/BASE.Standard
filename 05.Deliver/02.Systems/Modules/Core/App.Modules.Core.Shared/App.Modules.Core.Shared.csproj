@@ -12,30 +12,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <Compile Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <EmbeddedResource Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Dtos\**" />
-    <None Remove="Modules\Core\Shared\Models\Messages\API\V0100\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <Compile Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <EmbeddedResource Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Dtos\**" />
+    <None Remove="Modules\Core\Shared\Models\DTOs\Enums\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Core\Shared\Models\Contracts\" />
     <Folder Include="Modules\Core\Shared\Models\Entities\TenancySpecific\NewFolder\" />
-    <Folder Include="Modules\Core\Shared\Models\Messages\Contracts\" />
   </ItemGroup>
 
   <ItemGroup>

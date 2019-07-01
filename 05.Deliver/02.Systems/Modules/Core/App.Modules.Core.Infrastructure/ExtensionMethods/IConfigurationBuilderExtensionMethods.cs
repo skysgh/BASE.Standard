@@ -10,7 +10,9 @@ namespace App
 {
     public static class IConfigurationBuilderExtensionMethods
     {
-        public static void AddKeyVaultSettingsConfig(this IConfigurationBuilder config, bool enabled = true)
+        public static void AddKeyVaultSettingsConfig(
+            this IConfigurationBuilder config, 
+            bool enabled = true)
         {
             var builtConfig = config.Build();
 
@@ -26,6 +28,7 @@ namespace App
             }
 
             var keyVaultName = builtConfig[Storage.KeyVaultName];
+
             if (keyVaultName.StartsWith("TODO:"))
             {
                 return;

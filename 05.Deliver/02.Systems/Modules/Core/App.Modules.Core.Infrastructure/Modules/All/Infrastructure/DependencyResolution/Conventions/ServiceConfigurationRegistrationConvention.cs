@@ -2,8 +2,8 @@
 
 using System;
 using System.Linq;
+using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.All.Infrastructure.Exceptions;
-using App.Modules.Core.Infrastructure.Services.Configuration;
 using Lamar;
 using Lamar.Scanning;
 using Lamar.Scanning.Conventions;
@@ -17,7 +17,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
     /// </summary>
     public class ServiceConfigurationRegistrationConvention : IRegistrationConvention
     {
-        private readonly Type contractType = typeof(IServiceConfigurationObject);
+        private readonly Type contractType = typeof(IConfigurationObject);
 
         public void ScanTypes(TypeSet types, ServiceRegistry services)
         {
@@ -38,41 +38,17 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
                         $"Found a `{implementationType.Name}` but it doesn't follow the convention of deriving from `{contractType.Name}`.");
                 }
 
-                var tag = GetName(implementationType);
+                var tag = implementationType
+                    .GetAliasKeyOrNameFromType(
+                        "ServiceConfiguration",
+                        "ConfigurationSettings",
+                        "Configuration");
 
                 services.For(contractType).Use(implementationType).Singleton().Named(tag).Scoped();
                 services.For(implementationType).Use(implementationType).Singleton().Scoped();
             }
 
             ;
-        }
-
-
-        private string GetName(Type type)
-        {
-            // Register against all the interfaces implemented
-            // by this concrete class
-            var name = type.GetAliasKeyIfAny();
-
-            if (name != null)
-            {
-                return null;
-            }
-
-            name = type.Name;
-            var tmp = "ServiceConfiguration";
-            if (name.Contains(tmp))
-            {
-                return name.Substring(0, name.IndexOf(tmp));
-            }
-
-            tmp = "Configuration";
-            if (name.Contains(tmp))
-            {
-                return name.Substring(0, name.IndexOf(tmp));
-            }
-
-            return name;
         }
     }
 }

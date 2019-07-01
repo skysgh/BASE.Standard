@@ -36,7 +36,7 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
         /// </summary>
         protected readonly IDependencyResolutionService
             _dependencyResolutionService;
-        private readonly ODataConfigurationStatus _configurationStatus;
+        private readonly ODataConfigurationStatusComponent _configurationStatus;
 
         /// <summary>
         ///     The route prefix.
@@ -57,7 +57,7 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
         /// <param name="configurationStatus">The configuration status.</param>
         protected ModuleRoutesBase(
             IDependencyResolutionService dependencyResolutionService,
-            ODataConfigurationStatus configurationStatus
+            ODataConfigurationStatusComponent configurationStatus
             )
         {
             ModuleName = Module.Id(GetType());
@@ -142,8 +142,8 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
                 x.Apply(odataModelBuilder, version);
 
                 _configurationStatus.AddStep(
-                    ConfigurationStepType.General,
-                    ConfigurationStepStatus.Green,
+                    ConfigurationStatusComponentStepType.General,
+                    ConfigurationStatusComponentStepStatusType.Green,
                     $"Register OData model and Controller using {x.GetType().Name}.",
                     "Success"
                 );

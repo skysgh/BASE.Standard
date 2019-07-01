@@ -136,7 +136,7 @@
                 </para>
             </summary>
         </member>
-        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
+        <member name="M:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatusComponent)">
             <summary>
             Initializes a new instance of the <see cref="T:App.Modules.Design.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
             </summary>

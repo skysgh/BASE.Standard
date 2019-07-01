@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
-using App.Modules.Core.Infrastructure.Services.Configuration.Implementations.AzureConfiguration;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Messages;
 
@@ -23,7 +23,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
         public AzureMapsSearchResponse AddressSearch(string searchTerm, string countrySetCsv, bool typeAhead = true)
         {
-            var subscriptionKey = _azureMapsServiceConfiguration.Key;
+            var subscriptionKey = _azureMapsServiceConfiguration.ClientSecret;
 
             var uri = new Uri(
                 _azureMapsServiceConfiguration.RootUri

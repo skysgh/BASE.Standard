@@ -750,7 +750,7 @@
                 The Name of this Module ("Core", etc.)
             </summary>
         </member>
-        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
+        <member name="M:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatusComponent)">
             <summary>
             Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.Controllers.Configuration.Routes.ModuleRoutesBase" /> class.
             </summary>
@@ -967,11 +967,41 @@
             </summary>
             <param name="id">The identifier.</param>
         </member>
-        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController">
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusComponentsController">
             <summary>
             Controller to return a collection of
             configuration elements (derived from
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusBase"/> and <see cref="T:App.Modules.All.Shared.Models.IConfigurationStatus"/>)
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase"/> and <see cref="T:App.Modules.All.Shared.Models.IConfigurationComponentStatus"/>)
+            that describe how the system is configured.
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusComponentsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.IObjectMappingService,App.Modules.Core.Infrastructure.Services.IConfigurationStatusService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusComponentsController" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+            <param name="configurationStatusService">The configuration status service.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusComponentsController.Get">
+            <summary>
+                Return a queryable set of configuration elements.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusComponentsController.Get(System.String)">
+            <summary>
+            Gets the specified element.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController">
+            <summary>
+            Controller to return a
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto"/>
             that describe how the system is configured.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
@@ -1004,6 +1034,26 @@
                 <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusComponentOdataModelBuilderConfiguration">
+            <summary>
+                An OData Configuration object to define the shape of an
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <para>
+                </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusComponentOdataModelBuilderConfiguration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
+            <summary>
+                Defines the entity set for T.
+                <para>
+                    Note that the Key is not set (it is up to a subclass to define which
+                    property of the DTO is the Key).
+                </para>
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusOdataModelBuilderConfiguration">
             <summary>
@@ -1739,7 +1789,7 @@
                 </para>
             </summary>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatus)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes.#ctor(App.Modules.Core.Infrastructure.Services.IDependencyResolutionService,App.Modules.Core.Infrastructure.Services.Statuses.ODataConfigurationStatusComponent)">
             <summary>
             Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Configuration.Routes.ModuleRoutes" /> class.
             </summary>

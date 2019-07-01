@@ -2,6 +2,8 @@
 
 using Lamar;
 using Lamar.Scanning.Conventions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.All.Infrastructure.DependencyResolution
 {
@@ -18,6 +20,9 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         /// </summary>
         protected ModuleServiceRegistryBaseBase()
         {
+            //this.AddDbContext<AspDbContext>(options =>
+            //    options.UseSqlServer(config.GetConnectionString("optimumDB")));
+
             Scan(assemblyScanner =>
             {
                 

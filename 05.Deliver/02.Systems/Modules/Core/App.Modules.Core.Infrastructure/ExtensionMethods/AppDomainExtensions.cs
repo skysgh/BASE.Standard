@@ -18,7 +18,7 @@ namespace App
         ///     Loads all assemblies specific to this application.
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
-        public static void LoadAllAppAssemblies(this AppDomain appDomain)
+        public static IEnumerable<Assembly> LoadAllAppAssemblies(this AppDomain appDomain)
         {
             List<Assembly> allAssemblies = new List<Assembly>();
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -27,7 +27,10 @@ namespace App
                 Directory.GetFiles(path, $"{Application.AssemblyPrefix}*.dll")
                     .ToArray();
 
-            files.ForEach(x => Assembly.LoadFile(x));
+            var results = new List<Assembly>();
+            files.ForEach(x => results.Add(Assembly.LoadFile(x)));
+
+            return results;
         }
 
 
