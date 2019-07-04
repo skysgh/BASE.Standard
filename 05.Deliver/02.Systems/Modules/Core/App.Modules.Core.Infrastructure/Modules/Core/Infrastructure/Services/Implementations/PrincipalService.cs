@@ -3,8 +3,8 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Constants.IDA;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

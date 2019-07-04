@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 using App.Modules.All.Infrastructure.Data.Db.CommitInterceptions;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

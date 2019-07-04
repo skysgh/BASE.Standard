@@ -6,7 +6,6 @@ using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.AppFacade.Initialization;
 using App.Modules.All.AppFacade.Views.Configuration;
 using App.Modules.Core.AppFacade.ActionFilters;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Services;
@@ -19,11 +18,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace App.Host
 {
@@ -34,16 +35,23 @@ namespace App.Host
     /// </summary>
     public class Startup
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
         private IContainer _container;
 
         private IConfiguration _configuration { get; }
 
         /// <summary>
-        /// Constructor invoked from <see cref="Program"/>.
+        /// Constructor invoked from <see cref="Program" />.
         /// </summary>
-        /// <param name="configuration"></param>
-        public Startup(IConfiguration configuration, IContainer container)
+        /// <param name="hostingEnvironment">The hosting environment.</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="container">The container.</param>
+        public Startup(
+            IHostingEnvironment hostingEnvironment, 
+            IConfiguration configuration, 
+            IContainer container)
         {
+            this._hostingEnvironment = hostingEnvironment;
             // Config sequence will be:
             // * appsettings.json
             // * appsettings.json / env specific
@@ -108,7 +116,6 @@ namespace App.Host
 
 
 
-
             //serviceRegistry.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists"));
             //As per https://stackoverflow.com/q/38184583
             // In order for IHttpContextAccessor to work.
@@ -132,7 +139,6 @@ namespace App.Host
             // and puts it before AddMvc.
             serviceRegistry.AddOData();
 
-
             serviceRegistry.AddMvc(
                     options =>
                     {
@@ -153,49 +159,52 @@ namespace App.Host
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 ;
 
-            serviceRegistry
-                .AddMultiTenant()
-                .WithInMemoryStore(
-                    _configuration.GetSection("InMemoryStoreConfig"))
-                //.WithStaticStrategy("wow")
-                //.WithHostStrategy()
-                //.WithRouteStrategy()
-                .WithBasePathStrategy()
-                .WithFallbackStrategy("tenant1");
 
             //For now (until GEt(1) works
             //serviceRegistry.AddODataQueryFilter();
 
-            //// Register the Swagger generator, defining 1 or more Swagger documents
-            //serviceRegistry.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", 
-            //        new Info
-            //        {
-            //            Title = "My API",
-            //            Version = "v1",
-            //            Description = "A simple example ASP.NET Core Web API",
-            //            TermsOfService = "None",
-            //            Contact = new Contact
-            //            {
-            //                Name = "Shayne Boyer",
-            //                Email = string.Empty,
-            //                Url = "https://twitter.com/skystwt"
-            //            },
-            //            License = new License
-            //            {
-            //                Name = "Use under LICX",
-            //                Url = "https://example.com/license"
-            //            }
-            //        });
-            //});
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            serviceRegistry.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = "My API",
+                        Version = "v1",
+                        Description = "A simple example ASP.NET Core Web API",
+                        TermsOfService = "None",
+                        Contact = new Contact
+                        {
+                            Name = "Shayne Boyer",
+                            Email = string.Empty,
+                            Url = "https://twitter.com/skystwt"
+                        },
+                        License = new License
+                        {
+                            Name = "Use under LICX",
+                            Url = "https://example.com/license"
+                        }
+                    });
+            });
+
+            // We place UseMultiTenant before UseMvc,
+            // But AddMultiTenant after AddMvc
+            serviceRegistry
+                .AddMultiTenant()
+                .WithInMemoryStore(
+                    _configuration.GetSection("InMemoryStoreConfig"))
+                .WithHostStrategy()
+                .WithRouteStrategy(RouteBuilder)
+            .WithFallbackStrategy("tenant1")
+            ;
 
 
             // All initialization up to this point was specific to ASP Framework
             // The rest can be moved down to a lower assembly that doesn't have
             // any Reference dependency on HTML.
             // This is so that UnitTesting can take advantage of the same setup:
-            new ApplicationDependencyResolutionInitializer().Initialize(serviceRegistry);
+            new ApplicationDependencyResolutionInitializer(_configuration)
+                .Initialize(serviceRegistry);
 
 
             serviceRegistry.Configure<RazorViewEngineOptions>(options =>
@@ -236,7 +245,7 @@ namespace App.Host
             // Register Container so we can reuse
             IServiceProvider serviceProvider = app.ApplicationServices;
             // Which in this case is the Lamar container:
-            IContainer mvcContainer = (IContainer)serviceProvider;
+            IContainer mvcContainer = (IContainer) serviceProvider;
 
 
             var configurationStatus =
@@ -248,10 +257,13 @@ namespace App.Host
             {
                 if (_container != null)
                 {
-                    configurationStatus.AddStep(ConfigurationStatusComponentStepType.General, ConfigurationStatusComponentStepStatusType.Orange,
+                    configurationStatus.AddStep(
+                        ConfigurationStatusComponentStepType.General,
+                        ConfigurationStatusComponentStepStatusType.Orange,
                         "Verify Container",
                         "Not the same/expected.");
                 }
+
                 _container = mvcContainer;
 
             }
@@ -288,7 +300,8 @@ namespace App.Host
                 // Get hands on container
                 string s1 = _container.WhatDidIScan();
                 string s2 = _container.WhatDoIHave();
-                string s2a = _container.WhatDoIHave(typeof(IObjectMappingService));
+                string s2a =
+                    _container.WhatDoIHave(typeof(IObjectMappingService));
                 string s2b = _container.WhatDoIHave(typeof(IMapper));
                 string s2c = _container.WhatDoIHave(typeof(LoggerFactory));
                 string s3 = s2;
@@ -309,6 +322,7 @@ namespace App.Host
                     "Enable Hsts",
                     "Enabled (working in Production environment).");
             }
+
             app.UseHttpsRedirection();
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Security,
@@ -325,19 +339,19 @@ namespace App.Host
 
 
             ConfigureStaticFileHandler(app, configurationStatus);
-
+            // Place UseMultiTenant before UseMvc:
             app.UseMultiTenant();
 
-            app.UseMvc(
-                routeBuilder =>
-                {
-                    // Needed to get OData running.
-                    routeBuilder.EnableDependencyInjection();
-                    //Use our helpr methods for setting up routes:
-                    ConfigureRouteBuilderForTraditionalApiRoutes(routeBuilder);
-                });
+            app.UseMvc(routeBuilder =>
+            {
+                // Needed to get OData running.
+                routeBuilder.EnableDependencyInjection();
 
-            // Use our own method for this:
+                RouteBuilder(routeBuilder);
+            }
+            );
+
+        // Use our own method for this:
             //SetupOpenApi(app);
 
             // Probably not needed, but don't want to lock in only way:
@@ -345,10 +359,16 @@ namespace App.Host
 
         }
 
+        private void RouteBuilder(IRouteBuilder routeBuilder)
+        {
+            //Use our helpr methods for setting up routes:
+            ConfigureRouteBuilderForTraditionalApiRoutes(routeBuilder);
+        }
+
 
         //public void  ConfigureDesignTimeServices(IServiceCollection services)
         //{
-            
+
         //    //=> services.AddSingleton<EntityTypeWriter, MyEntityTypeWriter>();
         //}
 
@@ -442,31 +462,18 @@ namespace App.Host
                 .ForEach(x => x.Initialize(routeBuilder));
 
             //// ---- Tenanted
-            routeBuilder.MapRoute(
-                name: $"defaultTenantedAreaRoute",
-                template: "{first_segment=}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            //routeBuilder.MapRoute(
+            //    name: $"defaultTenantedAreaRoute",
+            //    template: "{__tenant__=}/{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             routeBuilder.MapRoute(
                 name: $"defaultTenantedApi",
-                template: "{first_segment=}/api/{controller=Home}/{action=Index}/{id?}");
+                template: "{__tenant__=}/api/{controller=Home}/{action=Index}/{id?}");
 
             routeBuilder.MapRoute(
                 name: $"defaultTenanted",
-                template: "{first_segment=}/{controller=Home}/{action=Index}/{id?}");
+                template: "{__tenant__=}/{controller=Home}/{action=Index}/{id?}");
 
-
-            //// ---- Default
-            //routeBuilder.MapRoute(
-            //    name: $"defaultAreaRoute",
-            //    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-            //routeBuilder.MapRoute(
-            //    name: $"defaultApi",
-            //    template: "api/{controller=Home}/{action=Index}/{id?}");
-
-            //routeBuilder.MapRoute(
-            //    name: $"default",
-            //    template: "{controller=Home}/{action=Index}/{id?}");
 
             var configurationStatus =
                 _container.GetInstance<ConfigurationStatusComponent>();

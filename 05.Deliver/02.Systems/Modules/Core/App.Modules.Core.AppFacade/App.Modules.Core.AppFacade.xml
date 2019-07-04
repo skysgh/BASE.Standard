@@ -807,6 +807,12 @@
                 to initialize all that is not specific to HTML.
             </summary>
         </member>
+        <member name="M:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
         <member name="M:App.Modules.All.AppFacade.DependencyResolution.ApplicationDependencyResolutionInitializer.Initialize(Lamar.ServiceRegistry)">
             <summary>
                 Initializes the specified service registry.
@@ -1028,12 +1034,47 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
+        <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.ApplicationDescriptionsController">
+            <summary>
+                Controller to return DiagnosticsTrace messages
+                to authorised users.
+            </summary>
+            <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ApplicationDescriptionsController.#ctor(App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService,App.Modules.Core.Infrastructure.Services.IPrincipalService,App.Modules.Core.Infrastructure.Services.IApplicationDescriptionService,App.Modules.Core.Infrastructure.Services.IObjectMappingService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController" /> class.
+            </summary>
+            <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
+            <param name="principalService">The principal service.</param>
+            <param name="applicationInformationService">The application information service.</param>
+            <param name="objectMappingService">The object mapping service.</param>
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ApplicationDescriptionsController.Get">
+            <summary>
+                Gets a queryable set of
+                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto" />
+                objects.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
                 <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
+        </member>
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration.Define(Microsoft.AspNet.OData.Builder.ODataModelBuilder)">
+            <summary>
+                Defines the entity set for T.
+                <para>
+                    Note that the Key is not set (it is up to a subclass to define which
+                    property of the DTO is the Key).
+                </para>
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns></returns>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusComponentOdataModelBuilderConfiguration">
             <summary>

@@ -2,7 +2,7 @@
 
 using System.Globalization;
 using System.Threading;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

@@ -11,7 +11,7 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
     ///     For use by any User Agent to render on their Header View.
     /// </summary>
     /// <seealso cref="IHasGuidId" />
-    public class ApplicationDescriptionDto : IHasGuidId
+    public class ApplicationDescriptionDto : IHasKey
     {
         /// <summary>
         ///     Gets or sets the name.
@@ -51,6 +51,6 @@ namespace App.Modules.Core.Shared.Models.Messages.API.V0100
         /// <value>
         ///     The identifier.
         /// </value>
-        public Guid Id { get; set; }
+        public string Key { get; set; }
     }
 }

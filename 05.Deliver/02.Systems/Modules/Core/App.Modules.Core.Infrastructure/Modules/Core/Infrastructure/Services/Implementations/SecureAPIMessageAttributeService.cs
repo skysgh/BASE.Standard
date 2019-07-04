@@ -3,8 +3,8 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.All.Shared.Attributes;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

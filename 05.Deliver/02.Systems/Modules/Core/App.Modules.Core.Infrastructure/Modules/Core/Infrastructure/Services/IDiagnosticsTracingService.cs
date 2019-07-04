@@ -16,6 +16,13 @@ namespace App.Modules.Core.Infrastructure.Services
     /// <seealso cref="IInfrastructureService" />
     public interface IDiagnosticsTracingService : IInfrastructureService
     {
+
+        /// <summary>
+        /// Record the provided message, using the specified trace level.
+        /// </summary>
+        /// <param name="traceLevel">The trace level.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="arguments">The arguments.</param>
         void Trace(TraceLevel traceLevel, string message, params object[] arguments);
     }
 }

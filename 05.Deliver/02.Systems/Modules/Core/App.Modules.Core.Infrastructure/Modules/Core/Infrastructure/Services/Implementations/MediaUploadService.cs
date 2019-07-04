@@ -1,8 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 

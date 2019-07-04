@@ -2,6 +2,13 @@
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
+    /// <summary>
+    /// Implementation of <see cref="IConfigurationService"/>
+    /// to return configuration objects (most often developed
+    /// from <c>IConfigurationObject</c>) hydrated from
+    /// values within appsettings.json, keyvault, etc.
+    /// </summary>
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IConfigurationService" />
     public class ConfigurationService : IConfigurationService
     {
         private readonly IConfiguration _configuration;
@@ -15,6 +22,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             this._configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets a new instance of <see cref="TConfigurationObject" />,
+        /// hydrated with values from the <c>appsettings.json</c>, keyvault, etc.
+        /// </summary>
+        /// <typeparam name="TConfigurationObject">The type of the configuration object.</typeparam>
+        /// <returns></returns>
         public TConfigurationObject Get<TConfigurationObject>()
         {
             var result = System.Activator.CreateInstance<TConfigurationObject>();
@@ -23,10 +36,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         }
 
         /// <summary>
-        /// Creates this instance.
+        /// Hydrates the given<see cref="TConfigurationObject" />,
+        /// with values from the <c>appsettings.json</c>, keyvault, etc.
+        /// <para>
+        /// Often invoked within the Constructor of singleton
+        /// configuration objects
+        /// that derive from
+        /// <c>IConfigurationObject"</c>.
+        /// </para>
         /// </summary>
         /// <typeparam name="TConfigurationObject">The type of the configuration object.</typeparam>
-        /// <returns></returns>
+        /// <param name="target">The target.</param>
         public void Get<TConfigurationObject>(TConfigurationObject target)
         {
             string moduleName =

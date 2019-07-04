@@ -10,6 +10,7 @@ using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Services
 {
+
     public class AzureRedisCacheServiceConfiguration 
         : ConfigurationObjectBase
             , IHasServiceClientSecret

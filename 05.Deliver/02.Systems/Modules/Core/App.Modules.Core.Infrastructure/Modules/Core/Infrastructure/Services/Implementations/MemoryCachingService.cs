@@ -2,7 +2,8 @@
 
 using System;
 using System.Runtime.Caching;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using Microsoft.Extensions.Caching.Memory;
 using MemoryCache = System.Runtime.Caching.MemoryCache;
 
@@ -17,70 +18,66 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly IUniversalDateTimeService _dateTimeService;
         private readonly IMemoryCache _memoryCache;
+        private readonly MemoryCacheServiceConfiguration _configuration;
 
-        public MemoryCachingService(IUniversalDateTimeService dateTimeService, IMemoryCache memoryCache)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemoryCachingService"/> class.
+        /// </summary>
+        /// <param name="dateTimeService">The date time service.</param>
+        /// <param name="memoryCache">The memory cache.</param>
+        public MemoryCachingService(
+            IUniversalDateTimeService dateTimeService, 
+            IMemoryCache memoryCache,
+            MemoryCacheServiceConfiguration configuration)
         {
             _dateTimeService = dateTimeService;
             _memoryCache = memoryCache;
+            this._configuration = configuration;
         }
 
+
+        /// <summary>
+        /// Gets the specified Typed item (refreshed if it has expired).
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public T Get<T>(string key)
         {
-            ObjectCache cache = MemoryCache.Default;
-            var result = (T) cache[key];
-            // Can be null:
+            T result;
+            if (_memoryCache.TryGetValue(key, out result))
+            {
+                return result;
+            }
+
+            if (!_configuration.Exists(key))
+            {
+                return default(T);
+            }
+
+            result = _configuration.Get<T>(key).Invoke();
+            _memoryCache.Set(key,result);
             return result;
         }
 
 
-        //public TItem GetOrCreate<TItem>(this IMemoryCache cache, object key, Func<ICacheEntry, TItem> factory)
-        //{
 
-
-        //    if (!cache.TryGetValue(key, out object value))
-        //    {
-        //        ICacheEntry cacheEntry = cache.CreateEntry(key);
-        //        value = factory(cacheEntry);
-        //        cacheEntry.SetValue(value);
-        //        cacheEntry.Dispose();
-        //    }
-        //    return (TItem)value;
-        //}
-
-
-        public void Register<T>(string key, T value, TimeSpan duration, Func<T> expiredCallback)
+        /// <summary>
+        /// Registers a function to retrieve values when requested.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="expiredCallback">The expired callback.</param>
+        public void Register<T>(string key, TimeSpan duration, Func<T> expiredCallback)
         {
             if (duration.TotalSeconds < 60)
             {
                 duration = TimeSpan.FromSeconds(60);
             }
 
-            //_memoryCache.Set("someKey", "someValue");
-            //_memoryCache.Set("someKey", "SomeValue",);
-            //MemoryCacheEntryOptions o = new MemoryCacheEntryOptions();
-            //o.
-
-            //_memoryCache.Set("someKey", "SomeValue",)
-
-
-            ObjectCache cache = MemoryCache.Default;
-
-            var cacheItemPolicy =
-                new CacheItemPolicy
-                {
-                    AbsoluteExpiration = _dateTimeService.NowUtc().Add(duration)
-                };
-
-            // We want the item to be be self-invoking
-            cacheItemPolicy.RemovedCallback = arguments =>
-            {
-                //Get the current (future) value:
-                value = expiredCallback();
-                //Reset it, reusing the policy (ie, duration), and callback:
-                arguments.Source.Set(arguments.CacheItem.Key, value, cacheItemPolicy);
-            };
-
-            cache.Set(key, value, cacheItemPolicy);
+            _configuration.Register(key, expiredCallback);
+            _memoryCache.Set(key, expiredCallback.Invoke(),duration);
         }
     }
 }

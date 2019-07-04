@@ -1,22 +1,20 @@
-﻿// Copyright MachineBrains, Inc. 2019
-
-using System;
+﻿using System;
 using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    /// <summary>
-    ///     Base contract for an Infrastructure Service to
-    ///     Cache information.
-    ///     <para>
-    ///         Only suitable for Immutable information.
-    ///         Consider Redis Cache Service for Muttable information
-    ///         shared between devices.
-    ///     </para>
-    /// </summary>
-    /// <seealso cref="IInfrastructureService" />
-    public interface IMemoryCachingService : IInfrastructureService
+    public interface IDistributedCacheService : IInfrastructureService
     {
+
+        /// <summary>
+        /// Sets the specified key.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="duration">The duration.</param>
+        void Set<T>(string key, T value, TimeSpan duration);
+
         /// <summary>
         /// Gets the specified Typed item (refreshed if it has expired).
         /// </summary>
@@ -33,5 +31,8 @@ namespace App.Modules.Core.Infrastructure.Services
         /// <param name="duration">The duration.</param>
         /// <param name="expiredCallback">The expired callback.</param>
         void Register<T>(string key, TimeSpan duration, Func<T> expiredCallback);
+
+
+
     }
 }

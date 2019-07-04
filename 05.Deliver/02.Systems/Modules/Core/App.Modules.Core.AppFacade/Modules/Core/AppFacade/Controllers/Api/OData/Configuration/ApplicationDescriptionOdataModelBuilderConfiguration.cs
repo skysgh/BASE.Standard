@@ -2,6 +2,7 @@
 
 using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using Microsoft.AspNet.OData.Builder;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
 {
@@ -11,7 +12,24 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration
     /// </summary>
     /// <seealso cref="ModuleGuidIdODataModelBuilderConfigurationBase{T}" />
     public class ApplicationDescriptionOdataModelBuilderConfiguration
-        : ModuleGuidIdODataModelBuilderConfigurationBase<ApplicationDescriptionDto>
+        : ModuleODataModelBuilderConfigurationBase<ApplicationDescriptionDto>
     {
+        /// <summary>
+        ///     Defines the entity set for T.
+        ///     <para>
+        ///         Note that the Key is not set (it is up to a subclass to define which
+        ///         property of the DTO is the Key).
+        ///     </para>
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        /// <returns></returns>
+        public override EntityTypeConfiguration<ApplicationDescriptionDto> Define(ODataModelBuilder builder)
+        {
+            var entityTypeConfiguration = base.Define(builder);
+
+            entityTypeConfiguration.HasKey(x => x.Key);
+            return entityTypeConfiguration;
+
+        }
     }
 }

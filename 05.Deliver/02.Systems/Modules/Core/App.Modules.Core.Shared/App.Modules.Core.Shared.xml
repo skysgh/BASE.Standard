@@ -1900,7 +1900,7 @@
                 The distributor.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Key">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -1913,29 +1913,20 @@
                 TODO
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Key">
             <summary>
                 Gets or sets the identifier.
             </summary>
-            <value>
-                The identifier.
-            </value>
         </member>
         <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Name">
             <summary>
                 Gets or sets the name.
             </summary>
-            <value>
-                The name.
-            </value>
         </member>
         <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
-            <value>
-                The description.
-            </value>
         </member>
         <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.SiteUrl">
             <summary>

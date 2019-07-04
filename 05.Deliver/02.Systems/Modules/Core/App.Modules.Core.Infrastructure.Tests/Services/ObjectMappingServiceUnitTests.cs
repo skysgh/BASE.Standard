@@ -10,7 +10,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
     {
 
         [SelfNamingFact]
-        void CanRetrieveObjectMappingService()
+        public void CanRetrieveObjectMappingService()
         {
             var service =
                 DependencyLocator.Current
@@ -20,7 +20,7 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
         }
 
         [SelfNamingFact]
-        void MapSomethingTrivialLikeADataClassificationObject()
+        public void MapSomethingTrivialLikeADataClassificationObject()
         {
             var service =
                 DependencyLocator.Current

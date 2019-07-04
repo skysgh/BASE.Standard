@@ -1,9 +1,9 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System.Collections.Generic;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Constants.Context;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

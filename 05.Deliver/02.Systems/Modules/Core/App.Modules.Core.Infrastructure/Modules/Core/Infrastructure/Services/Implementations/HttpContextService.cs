@@ -1,6 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

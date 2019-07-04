@@ -1,32 +1,32 @@
-﻿// Copyright MachineBrains, Inc. 2019
+﻿//// Copyright MachineBrains, Inc. 2019
 
-using System;
-using App.Modules.Core.Infrastructure.ServiceAgents;
+//using System;
+//using App.Modules.Core.Infrastructure.ServiceAgents;
 
-namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
-{
-    public class AzureRedisPubSubService : IAzureRedisPubSubService
-    {
-        private readonly IAzureRedisServiceAgent _azureRedisConnection;
-
-
-        public AzureRedisPubSubService(IAzureRedisServiceAgent azureRedisConnection)
-        {
-            _azureRedisConnection = azureRedisConnection;
-        }
+//namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
+//{
+//    public class AzureRedisPubSubService : IAzureRedisPubSubService
+//    {
+//        private readonly IAzureRedisServiceAgent _azureRedisConnection;
 
 
-        public void Subscribe(string key, Action<string, string> onReceive)
-        {
-            var sub = _azureRedisConnection.ConnectionMultiplexer.GetSubscriber();
+//        public AzureRedisPubSubService(IAzureRedisServiceAgent azureRedisConnection)
+//        {
+//            _azureRedisConnection = azureRedisConnection;
+//        }
 
-            sub.Subscribe("messages", (channel, message) => { onReceive.Invoke(channel, message); });
-        }
 
-        public void Publish(string key, string message)
-        {
-            var sub = _azureRedisConnection.ConnectionMultiplexer.GetSubscriber();
-            sub.Publish(key, message);
-        }
-    }
-}
+//        public void Subscribe(string key, Action<string, string> onReceive)
+//        {
+//            var sub = _azureRedisConnection.ConnectionMultiplexer.GetSubscriber();
+
+//            sub.Subscribe("messages", (channel, message) => { onReceive.Invoke(channel, message); });
+//        }
+
+//        public void Publish(string key, string message)
+//        {
+//            var sub = _azureRedisConnection.ConnectionMultiplexer.GetSubscriber();
+//            sub.Publish(key, message);
+//        }
+//    }
+//}

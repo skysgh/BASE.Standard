@@ -58,12 +58,12 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
                 // Unit Testing has to set up it's own Container.
                 var serviceRegistry = new ServiceRegistry();
 
-                CreateConfiguration(serviceRegistry);
+                var configuration = CreateConfiguration(serviceRegistry);
 
                 // Now that the ServiceRegistry exists, 
                 // And patching of what's missing by not using ASP.Core is completed
                 // We can use the common methods to scan for Dependencies:
-                new ApplicationDependencyResolutionInitializer()
+                new ApplicationDependencyResolutionInitializer(configuration)
                     .Initialize(serviceRegistry);
 
                 RegisterFakeHttpContextForUnitTestingReasons(serviceRegistry);
@@ -117,7 +117,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         /// UnitTesting does not. So have to do this hack.</para>
         /// </summary>
         /// <param name="serviceRegistry"></param>
-        private static void CreateConfiguration(ServiceRegistry serviceRegistry)
+        private static IConfiguration CreateConfiguration(ServiceRegistry serviceRegistry)
         {
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -126,6 +126,8 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
             var check = configuration.GetChildren().Count();
 
             serviceRegistry.For<IConfiguration>().Add(configuration).Singleton();
+
+            return configuration;
         }
     }
 }

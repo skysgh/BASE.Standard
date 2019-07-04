@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

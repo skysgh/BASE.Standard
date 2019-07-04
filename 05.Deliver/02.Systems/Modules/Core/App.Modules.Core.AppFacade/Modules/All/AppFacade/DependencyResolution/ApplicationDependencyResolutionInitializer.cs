@@ -4,8 +4,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using App.Modules.All.Shared.Initialization;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using AutoMapper;
 using Lamar;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Modules.All.AppFacade.DependencyResolution
@@ -19,6 +21,17 @@ namespace App.Modules.All.AppFacade.DependencyResolution
     /// </summary>
     public class ApplicationDependencyResolutionInitializer : IHasInitialize<ServiceRegistry>
     {
+        private readonly IConfiguration _configuration;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDependencyResolutionInitializer"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        public ApplicationDependencyResolutionInitializer(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+        }
+
         /// <summary>
         ///     Initializes the specified service registry.
         /// </summary>
@@ -35,6 +48,41 @@ namespace App.Modules.All.AppFacade.DependencyResolution
             // TODO: Not yet able to invoke when coming in from design time creation of Migrations
             // unless the Factory is supposed to initialize Container.
             var currentDirectory = Environment.CurrentDirectory;
+
+
+            // Enabled IMemCache, needed to 
+            // back IMemoryCacheService:
+            serviceRegistry.AddMemoryCache();
+
+            // Enabled IDistributedCache, needed
+            // to back horizontal scalability:
+
+            var redisConfiguration = new DistributedCacheServiceConfiguration();
+
+                _configuration.Bind( "app:modules:core:distributedCacheServiceConfiguration", redisConfiguration);
+
+            try
+            {
+                if (string.IsNullOrEmpty(redisConfiguration.ConnectionString))
+                {
+                    serviceRegistry.AddDistributedMemoryCache();
+                }
+                else
+                {
+                    serviceRegistry
+                        .AddStackExchangeRedisCache(
+                            x=> { x.Configuration = redisConfiguration.CompleteConnectionString(); });
+                }
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (System.Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                serviceRegistry.AddDistributedMemoryCache();
+            }
+
+            //Depending on env:
+
 
             serviceRegistry.AddLogging();
 

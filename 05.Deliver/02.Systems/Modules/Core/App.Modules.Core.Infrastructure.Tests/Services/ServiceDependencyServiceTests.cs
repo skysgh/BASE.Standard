@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using App.Modules.Core.Common.Tests;
+using App.Modules.Core.Common.Tests.Attributes;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 
 namespace App.Modules.Core.Infrastructure.Tests.Services
@@ -14,8 +15,8 @@ namespace App.Modules.Core.Infrastructure.Tests.Services
         {
         }
 
-        [Xunit.Fact]
-        void CanWeGetADependency()
+        [SelfNamingFact()]
+        public void CanWeGetADependency()
         {
             UnitTestDependencyInjectionInitializer.Initialize();
 

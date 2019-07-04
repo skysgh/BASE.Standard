@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System.Threading.Tasks;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 using Microsoft.Azure.Services.AppAuthentication;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

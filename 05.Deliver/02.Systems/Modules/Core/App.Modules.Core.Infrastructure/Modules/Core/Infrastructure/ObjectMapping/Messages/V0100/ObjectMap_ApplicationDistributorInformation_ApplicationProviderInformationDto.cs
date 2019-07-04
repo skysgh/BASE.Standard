@@ -1,5 +1,6 @@
 // Copyright MachineBrains, Inc. 2019
 
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
@@ -11,19 +12,20 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     ///     Create custom Maps for the Entity and its Dto.
     /// </summary>
     public class ObjectMap_ApplicationDistributorInformation_ApplicationProviderInformationDto
-        : MapBase<ApplicationDistributorInformationConfigurationSettings, ApplicationProviderInformationDto>
+        : MapBase<ApplicationProviderInformation, ApplicationProviderInformationDto>
     {
         /// <summary>
         ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ApplicationDistributorInformationConfigurationSettings, ApplicationProviderInformationDto
+            IMappingExpression<ApplicationProviderInformation, ApplicationProviderInformationDto
             > mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(t => t.Key, opt => opt.MapFrom(s => s.Key))
                 .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.SiteUrl, opt => opt.MapFrom(s => s.SiteUrl))
                 .ForMember(t => t.ContactUrl, opt => opt.MapFrom(s => s.ContactUrl))
                 ;
@@ -36,12 +38,13 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ApplicationProviderInformationDto, ApplicationDistributorInformationConfigurationSettings
+            IMappingExpression<ApplicationProviderInformationDto, ApplicationProviderInformation
             > mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(t => t.Key, opt => opt.MapFrom(s=>s.Key))
                 .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s => s.Description))
                 .ForMember(t => t.SiteUrl, opt => opt.MapFrom(s => s.SiteUrl))
                 .ForMember(t => t.ContactUrl, opt => opt.MapFrom(s => s.ContactUrl))
                 ;

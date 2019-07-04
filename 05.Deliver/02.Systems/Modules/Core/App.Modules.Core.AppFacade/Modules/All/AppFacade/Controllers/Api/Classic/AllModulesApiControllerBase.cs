@@ -16,6 +16,7 @@ namespace App.Modules.All.AppFacade.Controllers.Api.Classic
     ///     </para>
     /// </summary>
     [Route(Apis.BasePath + "[controller]")]
+    [Route("{__tenant__=}/" + Apis.BasePath + "[controller]")]
     [ApiController]
     public abstract class AllModulesApiControllerBase : ControllerBase
     {

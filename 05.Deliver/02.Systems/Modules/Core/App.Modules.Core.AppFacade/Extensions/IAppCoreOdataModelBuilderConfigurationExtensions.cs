@@ -27,13 +27,14 @@ namespace App.Extensions
         {
             var className = dtoType.Name;
 
+            //Strip off DTO first:
             var pos = className.IndexOf("dto", StringComparison.InvariantCultureIgnoreCase);
-
             if (pos > -1)
             {
                 className = className.Substring(0, pos);
             }
 
+            // Then pluralise...mostly... (Person...People, anyone?!?!)
             if (pluralise)
             {
                 if (className.EndsWith("y"))

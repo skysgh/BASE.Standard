@@ -1,8 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System.Linq;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Infrastructure.Constants.IDA;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {

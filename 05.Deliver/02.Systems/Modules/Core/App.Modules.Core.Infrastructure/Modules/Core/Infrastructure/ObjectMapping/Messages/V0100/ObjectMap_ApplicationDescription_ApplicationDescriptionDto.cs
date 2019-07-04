@@ -1,5 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
 using App.Modules.Core.Shared.Models.Messages.API.V0100;
@@ -13,24 +14,24 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     /// <seealso cref="MapBase{TEntity,TDto}" />
     public class ObjectMap_ApplicationDescription_ApplicationDescriptionDto
         :
-            MapBase<ApplicationDescriptionConfigurationSettings, ApplicationDescriptionDto>
+            MapBase<ApplicationDescription, ApplicationDescriptionDto>
     {
         /// <summary>
         ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ApplicationDescriptionConfigurationSettings, ApplicationDescriptionDto>
+            IMappingExpression<ApplicationDescription, ApplicationDescriptionDto>
                 mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(t => t.Key, opt => opt.MapFrom(s => s.Key))
 
-                // TODO: Find a way to map these across
-                .ForMember(t => t.Creator, opt => opt.Ignore())
-                .ForMember(t => t.Description, opt => opt.Ignore())
-                .ForMember(t => t.Distributor, opt => opt.Ignore())
+                .ForMember(t => t.Name, opt => opt.MapFrom(s => s.Name))
+                .ForMember(t => t.Description, opt => opt.MapFrom(s=>s.Description))
+
+                .ForMember(t => t.Creator, opt => opt.MapFrom(s=>s.Creator))
+                .ForMember(t => t.Distributor, opt => opt.MapFrom(s=>s.Distributor))
                 ;
             //base.ConfigureMapFromEntityToDto(mappingExpression);
         }
@@ -41,7 +42,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ApplicationDescriptionDto, ApplicationDescriptionConfigurationSettings>
+            IMappingExpression<ApplicationDescriptionDto, ApplicationDescription>
                 mappingExpression)
         {
             //base.ConfigureMapFromDtoToEntity(mappingExpression);

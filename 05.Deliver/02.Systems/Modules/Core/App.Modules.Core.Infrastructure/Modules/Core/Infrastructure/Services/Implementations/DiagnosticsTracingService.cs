@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Threading;
-using App.Modules.Core.Infrastructure.Services.Implementations.Base;
+using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
@@ -18,6 +18,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         private static readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();
         private static TraceLevel _flushLevel;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagnosticsTracingService"/> class.
+        /// </summary>
         public DiagnosticsTracingService()
         {
             // Needs to be wired up to Application Settings to be dynamic in order to not need a restart
@@ -25,6 +28,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             _flushLevel = TraceLevel.Verbose;
         }
 
+        /// <summary>
+        /// Record the provided message, using the specified trace level.
+        /// </summary>
+        /// <param name="traceLevel">The trace level.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="arguments">The arguments.</param>
         public void Trace(TraceLevel traceLevel, string message, params object[] arguments)
         {
             _cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});

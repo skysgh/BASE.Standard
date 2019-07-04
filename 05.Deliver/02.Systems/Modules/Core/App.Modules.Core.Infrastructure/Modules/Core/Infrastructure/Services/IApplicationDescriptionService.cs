@@ -1,6 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -13,10 +14,9 @@ namespace App.Modules.Core.Infrastructure.Services
     ///         in the header of application interfaces.
     ///     </para>
     /// </summary>
-    public interface IApplicationInformationService : IInfrastructureService
+    public interface IApplicationDescriptionService : IInfrastructureService
     {
-        ApplicationDescriptionConfigurationSettings GetApplicationInformation();
-        ApplicationCreatorInformationConfigurationSettings GetApplicationCreatorInformation();
-        ApplicationDistributorInformationConfigurationSettings GetApplicationDistributorInformation();
+
+        ApplicationDescription GetApplicationInformation();
     }
 }
