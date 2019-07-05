@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
     /// <summary>
-    /// An Implementation of the <see cref="GeoIPService"/>
+    /// An Implementation of the <see cref="GeoLocationService"/>
     /// contract of a service to convert IP's to geographic
     /// information (city/country).
     /// <para>
@@ -22,16 +22,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// </para>
     /// </summary>
     /// <seealso cref="All.Infrastructure.Services.AppCoreServiceBase" />
-    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IGeoIPService" />
-    public class GeoIPService : AppCoreServiceBase, IGeoIPService
+    /// <seealso cref="App.Modules.Core.Infrastructure.Services.IGeoLocationService" />
+    public class GeoLocationService : AppCoreServiceBase, IGeoLocationService
     {
-        private readonly GeoIPServiceConfiguration _geolocationServiceConfiguration;
+        private readonly GeoLocationServiceConfiguration _geolocationServiceConfiguration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GeoIPService"/> class.
+        /// Initializes a new instance of the <see cref="GeoLocationService"/> class.
         /// </summary>
         /// <param name="geolocationServiceConfiguration">The geolocation service configuration.</param>
-        public GeoIPService(GeoIPServiceConfiguration geolocationServiceConfiguration)
+        public GeoLocationService(GeoLocationServiceConfiguration geolocationServiceConfiguration)
         {
             _geolocationServiceConfiguration = geolocationServiceConfiguration;
         }
@@ -40,7 +40,10 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         {
             using (var httpClient = new HttpClient())
             {
-                var url = _geolocationServiceConfiguration.BaseUri + CreateQueryString(ip);
+                var secret = _geolocationServiceConfiguration.ClientSecret ??
+                             _geolocationServiceConfiguration.ClientIdentifier;
+
+                var url = $"http://api.ipstack.com/{ip}?access_key={secret}";
 
                 var request = new HttpRequestMessage(HttpMethod.Get, url);
                 var response = httpClient.SendAsync(request).Result;
@@ -50,14 +53,5 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             }
         }
 
-        public string CreateQueryString(string ip)
-        {
-            var query = HttpUtility.ParseQueryString(string.Empty);
-
-            query["subscription-key"] = _geolocationServiceConfiguration.ClientIdentifier;
-            query["api-version"] = "1.0";
-            query["ip"] = ip;
-            return "?" + query;
-        }
     }
 }

@@ -5,7 +5,7 @@ using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IGeoIPService : IInfrastructureService
+    public interface IGeoLocationService : IInfrastructureService
     {
         GeoInformation Get(string ip);
     }

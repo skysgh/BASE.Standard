@@ -9,11 +9,11 @@ using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Services
 {
-    public class GeoIPServiceConfiguration 
+    public class GeoLocationServiceConfiguration 
         : ConfigurationObjectBase
             , IHasServiceClientInformation
     {
-        public GeoIPServiceConfiguration(
+        public GeoLocationServiceConfiguration(
             IConfigurationService configurationService)
         {
             configurationService.Get(this);
@@ -27,7 +27,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         ///     The base URI.
         /// </value>
         [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(ConfigurationKeys.AppCoreIntegrationGeoIPServiceBaseUri)]
+        [Alias(ConfigurationKeys.AppCoreIntegrationGeoLocationServiceBaseUri)]
         public string BaseUri { get; set; }
 
 
@@ -35,7 +35,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         ///     Gets or sets any misc configuration.
         /// </summary>
         [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientMiscConfig)]
+        [Alias(ConfigurationKeys.AppCoreIntegrationGeoLocationServiceClientMiscConfig)]
         public string MiscConfig { get; set; }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         ///     </para>
         /// </summary>
         [ConfigurationSettingSource(SourceType.AppSettingsViaDeploymentPipeline)]
-        [Alias(ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientId)]
+        [Alias(ConfigurationKeys.AppCoreIntegrationGeoLocationServiceClientId)]
         public string ClientIdentifier { get; set; }
 
 
@@ -54,7 +54,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         ///     Gets or sets the secret.
         /// </summary>
         [ConfigurationSettingSource(SourceType.KeyVault)]
-        [Alias(ConfigurationKeys.AppCoreIntegrationGeoIPServiceClientSecret)]
+        [Alias(ConfigurationKeys.AppCoreIntegrationGeoLocationServiceClientSecret)]
         public string ClientSecret { get; set; }
     }
 }

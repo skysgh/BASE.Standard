@@ -33,6 +33,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         //private readonly IAppHostNamesService _hostNamesService;
         private Guid _id;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TenantService"/> class.
+        /// </summary>
+        /// <param name="operationContextService">The operation context service.</param>
+        /// <param name="principalService">The principal service.</param>
+        /// <param name="objectMappingService">The object mapping service.</param>
+        /// <param name="repositoryService">The repository service.</param>
         public TenantService(
             IOperationContextService operationContextService,
             IPrincipalService principalService,

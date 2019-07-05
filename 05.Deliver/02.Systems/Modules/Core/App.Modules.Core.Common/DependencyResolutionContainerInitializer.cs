@@ -22,12 +22,6 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
     /// The class then invokes the same shared Services initializer that
     /// ASP.Core uses.
     /// </para>
-    /// <para>
-    /// The class is here, rather than in the UnitTests
-    /// so that it is this Assembly that References Lamar,
-    /// rather than the UnitTest Assembly (and maybe gets out of
-    /// version sequence).
-    /// </para>
     /// TODO: Migrations may one day be wired up to use this.
     /// </summary>
     public class DependencyResolutionContainerInitializer : IHasInitialize
@@ -58,12 +52,12 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
                 // Unit Testing has to set up it's own Container.
                 var serviceRegistry = new ServiceRegistry();
 
-                var configuration = CreateConfiguration(serviceRegistry);
+                var shortLivedConfiguration = CreateConfiguration(serviceRegistry);
 
                 // Now that the ServiceRegistry exists, 
                 // And patching of what's missing by not using ASP.Core is completed
                 // We can use the common methods to scan for Dependencies:
-                new ApplicationDependencyResolutionInitializer(configuration)
+                new ApplicationDependencyResolutionInitializer(shortLivedConfiguration)
                     .Initialize(serviceRegistry);
 
                 RegisterFakeHttpContextForUnitTestingReasons(serviceRegistry);
@@ -121,7 +115,9 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
         {
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile("appsettings.INSECURE.json", true, true)
+                .Build();
 
             var check = configuration.GetChildren().Count();
 

@@ -22,8 +22,8 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             IMappingExpression<GeoInformation, GeoInformationDto> mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.IPAddress, opt => opt.MapFrom(s => s.IPAddress))
-                .ForMember(t => t.CountryRegion, opt => opt.MapFrom(s => s.CountryRegion))
+                .ForMember(t => t.IPAddress, opt => opt.MapFrom(s => s.IP))
+                .ForMember(t => t.CountryRegion, opt => opt.MapFrom(s => s.RegionCode))
                 ;
             //base.ConfigureMapFromEntityToDto(mappingExpression);
         }
@@ -36,8 +36,8 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
             IMappingExpression<GeoInformationDto, GeoInformation> mappingExpression)
         {
             mappingExpression
-                .ForMember(t => t.IPAddress, opt => opt.MapFrom(s => s.IPAddress))
-                .ForMember(t => t.CountryRegion, opt => opt.MapFrom(s => s.CountryRegion))
+                .ForMember(t => t.IP, opt => opt.MapFrom(s => s.IPAddress))
+                .ForMember(t => t.RegionCode, opt => opt.MapFrom(s => s.CountryRegion))
                 ;
 
             //base.ConfigureMapFromDtoToEntity(mappingExpression);

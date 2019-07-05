@@ -2,8 +2,6 @@
 
 namespace App.Modules.Core.Infrastructure.Services.Statuses
 {
-
-
     /// <summary>
     /// An in-memory, singleton, Configuration Status 
     /// summarizing whether a service have been
@@ -17,15 +15,17 @@ namespace App.Modules.Core.Infrastructure.Services.Statuses
     /// </para>
     /// </summary>
     /// <seealso cref="App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase" />
-    public class SmtpServiceConfigurationStatusComponent : ConfigurationStatusComponentBase
+    public class
+        DistributedCacheConfigurationStatusComponent :
+            ConfigurationStatusComponentBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SmtpServiceConfigurationComponentStatus"/> class.
+        /// Initializes a new instance of the <see cref="DistributedCacheConfigurationStatusComponent" /> class.
         /// </summary>
-        public SmtpServiceConfigurationStatusComponent() 
-            : base(
-                "SMTP Service", "Service used to notify users via Email. Used to invite Users to User Groups, etc.",
-                "Settings are set in both the Host Settings(AppSettings) and KeyVault.")
+        public DistributedCacheConfigurationStatusComponent() 
+            : base("DistributedCacheService", 
+                "Service to provide Distributed Caching across dynamically horizontally scalable servers.", 
+                "Using the system's primary KeyVault, provide a ConnectionString to a remote Redis Cache instance. If no connection string provided, falls back to an in-memory implementation of IDistributedCache.")
         {
         }
     }

@@ -222,19 +222,19 @@ namespace App.Modules.Core.Shared.Constants
 
         // -----
         // Integration / [SituationSpecific] / GeoLocationService  / (Do not name as Default):
-        public const string AppCoreIntegrationGeoIPServiceEnabled =
+        public const string AppCoreIntegrationGeoLocationServiceEnabled =
             SystemIntegrationKeyPrefix + "ipgeoconversionservice-Enabled";
 
-        public const string AppCoreIntegrationGeoIPServiceBaseUri =
+        public const string AppCoreIntegrationGeoLocationServiceBaseUri =
             SystemIntegrationKeyPrefix + "ipgeoconversionservice-Uri";
 
-        public const string AppCoreIntegrationGeoIPServiceClientId =
+        public const string AppCoreIntegrationGeoLocationServiceClientId =
             SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientId";
 
-        public const string AppCoreIntegrationGeoIPServiceClientSecret =
+        public const string AppCoreIntegrationGeoLocationServiceClientSecret =
             SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientSecret";
 
-        public const string AppCoreIntegrationGeoIPServiceClientMiscConfig =
+        public const string AppCoreIntegrationGeoLocationServiceClientMiscConfig =
             SystemIntegrationKeyPrefix + "ipgeoconversionservice-ClientMisc";
         // -----
 

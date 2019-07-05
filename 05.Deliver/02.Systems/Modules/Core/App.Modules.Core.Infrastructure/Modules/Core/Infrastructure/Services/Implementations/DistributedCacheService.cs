@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Statuses;
+using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
@@ -11,15 +13,21 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly IDistributedCache _distributedCache;
         private readonly DistributedCacheServiceConfiguration _configuration;
+        private readonly DistributedCacheConfigurationStatusComponent _configurationStatus;
 
-        public DistributedCacheService(IDistributedCache distributedCache, DistributedCacheServiceConfiguration configuration)
+        public DistributedCacheService(
+            IDistributedCache distributedCache, 
+            DistributedCacheServiceConfiguration configuration,
+            DistributedCacheConfigurationStatusComponent configurationStatus)
         {
             this._distributedCache = distributedCache;
             this._configuration = configuration;
+            this._configurationStatus = configurationStatus;
         }
 
         public void Set<T>(string key, T value, TimeSpan duration)
         {
+
             if (duration.TotalSeconds < 60)
             {
                 duration = TimeSpan.FromSeconds(60);
@@ -29,9 +37,17 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
 
             var options = new DistributedCacheEntryOptions();
             options.AbsoluteExpirationRelativeToNow = duration;
-            _distributedCache.SetString(key,tmp, options);
-        }
+            try
+            {
+                _distributedCache.SetString(key, tmp, options);
+                _configurationStatus.SetToVerified();
+            }
+            catch (System.Exception e)
+            {
+                _configurationStatus.SetToError(e);
+            }
 
+        }
 
         /// <summary>
         /// Registers a function to retrieve values when requested.

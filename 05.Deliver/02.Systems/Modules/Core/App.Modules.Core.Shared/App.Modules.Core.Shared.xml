@@ -4087,15 +4087,7 @@
                 </para>
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformation.CountryRegion">
-            <summary>
-                Gets or sets the country region.
-            </summary>
-            <value>
-                The country region.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformation.IPAddress">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformation.IP">
             <summary>
                 Gets or sets the ip address.
             </summary>
