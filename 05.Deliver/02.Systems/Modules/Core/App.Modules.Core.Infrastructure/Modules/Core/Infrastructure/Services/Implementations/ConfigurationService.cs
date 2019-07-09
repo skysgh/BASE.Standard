@@ -30,9 +30,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// <returns></returns>
         public TConfigurationObject Get<TConfigurationObject>()
         {
-            var result = System.Activator.CreateInstance<TConfigurationObject>();
-            Get(result);
-            return result;
+            return _configuration.Get<TConfigurationObject>();
         }
 
         /// <summary>
@@ -49,63 +47,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// <param name="target">The target.</param>
         public void Get<TConfigurationObject>(TConfigurationObject target)
         {
-            string moduleName =
-                typeof(TConfigurationObject).GetModuleIdentifier();
-
-            string configName = typeof(TConfigurationObject).Name;
-
-            string sectionName = $"app:modules:{moduleName}:{configName}";
-
-            if (_configuration.GetSection(sectionName).Exists())
-            {
-                _configuration.Bind(sectionName, target);
-                return;
-            }
-
-            var suffix = "ConfigurationSettings";
-            if (sectionName.EndsWith(suffix))
-            {
-                configName = typeof(TConfigurationObject).Name;
-                configName =
-                    configName.Substring(0, configName.Length - suffix.Length);
-                sectionName = $"app:modules:{moduleName}:{configName}";
-
-                if (_configuration.GetSection(sectionName).Exists())
-                {
-                    _configuration.Bind(sectionName, target);
-                    return;
-                }
-            }
-
-            suffix = "Settings";
-            if (sectionName.EndsWith(suffix))
-            {
-                configName = typeof(TConfigurationObject).Name;
-                configName =
-                    configName.Substring(0, configName.Length - suffix.Length);
-                sectionName = $"app:modules:{moduleName}:{configName}";
-
-                if (_configuration.GetSection(sectionName).Exists())
-                {
-                    _configuration.Bind(sectionName, target);
-                    return;
-                }
-            }
-            suffix = "Configuration";
-            if (sectionName.EndsWith(suffix))
-            {
-                configName = typeof(TConfigurationObject).Name;
-                configName =
-                    configName.Substring(0, configName.Length - suffix.Length);
-                sectionName = $"app:modules:{moduleName}:{configName}";
-
-                if (_configuration.GetSection(sectionName).Exists())
-                {
-                    _configuration.Bind(sectionName, target);
-                    return;
-                }
-            }
-
+            _configuration.Get<TConfigurationObject>(target);
         }
     }
 }

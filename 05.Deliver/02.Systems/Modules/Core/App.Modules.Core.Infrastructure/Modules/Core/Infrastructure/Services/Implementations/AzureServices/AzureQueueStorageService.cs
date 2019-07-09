@@ -1,5 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
@@ -13,6 +15,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     /// </summary>
     public class AzureQueueStorageService : IAzureQueueStorageService
     {
+        private readonly AzureQueueStorageServiceConfiguration _configuration;
+
+        public AzureQueueStorageService(
+            AzureQueueStorageServiceConfiguration configuration)
+        {
+            this._configuration = configuration;
+        }
         /// <summary>
         ///     Use Service Locator to return specified context.
         /// </summary>
@@ -117,6 +126,24 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
             //CloudQueueClient cloudQueueClient = storageAccount.CreateCloudQueueClient();
             //CloudQueue queue = cloudQueueClient.GetQueueReference(queueName);
             //queue.Clear();
+        }
+
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+
+            try
+            {
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
         }
     }
 }

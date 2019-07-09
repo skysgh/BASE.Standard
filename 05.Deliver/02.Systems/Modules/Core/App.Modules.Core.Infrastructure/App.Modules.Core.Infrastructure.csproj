@@ -12,32 +12,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <Compile Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
     <Compile Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
     <Compile Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
     <Compile Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
     <Compile Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
-    <Compile Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
-    <Compile Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
+    <Compile Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <Compile Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
-    <EmbeddedResource Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <EmbeddedResource Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
     <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
     <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
     <EmbeddedResource Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
     <EmbeddedResource Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
-    <EmbeddedResource Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
-    <EmbeddedResource Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
+    <EmbeddedResource Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <EmbeddedResource Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
-    <None Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <None Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <None Remove="Modules\Core\Infrastructure\Data\Db\Schema\HOLD WHILE TOO COMPLICATED\**" />
     <None Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
     <None Remove="Modules\Core\Infrastructure\Initialization\Data\**" />
     <None Remove="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\**" />
     <None Remove="Modules\Core\Infrastructure\Data\Db\Seeding\MutableData\HOLD WHILE TOO COMPLICATED\**" />
-    <None Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
-    <None Remove="Modules\Core\Infrastructure\Configuration\Services\AppHostNames\**" />
+    <None Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
+    <None Remove="Modules\Core\Infrastructure\Services\Configuration\AppHostNames\**" />
     <None Remove="Modules\Core\Infrastructure\Initialization\Authorisation\**" />
   </ItemGroup>
 
@@ -79,7 +79,6 @@
 
   <ItemGroup>
     <Folder Include="Modules\All\Infrastructure\Data\Db\Migrations\" />
-    <Folder Include="Modules\All\Infrastructure\Services\ConfigurationStatus\" />
     <Folder Include="Modules\Core\Infrastructure\Constants\Constants\" />
     <Folder Include="Modules\Core\Infrastructure\Initialization\Integration\Azure\AzureStorage\" />
     <Folder Include="Modules\All\Infrastructure\Data\Db\Schema\Conventions\Fragments\" />

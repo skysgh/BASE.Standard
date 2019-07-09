@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using App.Modules.All.Shared.Models;
 
 namespace App.Modules.Core.Shared.Models.Messages
@@ -48,12 +46,12 @@ namespace App.Modules.Core.Shared.Models.Messages
         protected ConfigurationStatusComponentBase(string title, string description, string configurationInstructions)
         {
             Module = this.GetType().GetModuleIdentifier();
-
             Title = title;
             Description = description;
             ConfigurationInstructions = configurationInstructions;
 
         }
+
         /// <summary>
         /// Gets or sets the name of module.
         /// </summary>
@@ -77,6 +75,23 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// The description.
         /// </value>
         public virtual string Description { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the success count.
+        /// </summary>
+        /// <value>
+        /// The success count.
+        /// </value>
+        public int SuccessCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error count.
+        /// </summary>
+        /// <value>
+        /// The error count.
+        /// </value>
+        public int ErrorCount { get; set; }
 
         /// <summary>
         /// Gets or sets basic (insecure) instructions
@@ -131,12 +146,14 @@ namespace App.Modules.Core.Shared.Models.Messages
         {
             get
             {
-                return _steps ?? 
+                return _steps ??
                        (_steps = new Collection<ConfigurationStatusComponentStep>());
             }
             set => _steps = value;
         }
         private ICollection<ConfigurationStatusComponentStep> _steps;
+
+
 
 
         /// <summary>
@@ -149,7 +166,7 @@ namespace App.Modules.Core.Shared.Models.Messages
         public void AddStep(
             ConfigurationStatusComponentStepType type,
             ConfigurationStatusComponentStepStatusType status,
-            string task, 
+            string task,
             string outcome)
         {
             var step = new ConfigurationStatusComponentStep()
@@ -160,6 +177,12 @@ namespace App.Modules.Core.Shared.Models.Messages
                 Status = status
             };
             Steps.Add(step);
+        }
+
+
+        void Ping()
+        {
+
         }
     }
 }

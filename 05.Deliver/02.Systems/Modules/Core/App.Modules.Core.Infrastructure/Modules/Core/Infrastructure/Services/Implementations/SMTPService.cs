@@ -3,6 +3,7 @@
 using System.Net;
 using System.Net.Mail;
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services.Statuses;
 
@@ -14,42 +15,78 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     ///     Infrastructure Service Contract
     /// </summary>
     /// <seealso cref="ISmtpService" />
-    public class SmtpService : AppCoreServiceBase, ISmtpService
+    public class SmtpService 
+        : AppCoreServiceBase
+            , ISmtpService
+            , IHasPing
     {
-        private readonly SmtpServiceConfigurationStatusComponent _configurationStatus;
+        private readonly SMTPServiceConfiguration _configuration;
+        private readonly IConfigurationStatusService _configurationStatusService;
+        private SmtpClient _smtpClient;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SmtpService"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="configurationStatusService">The configuration status service.</param>
         public SmtpService(
             SMTPServiceConfiguration configuration,
-            SmtpServiceConfigurationStatusComponent configurationStatus)
+            IConfigurationStatusService configurationStatusService)
         {
-            SmtpServiceConfiguration = configuration;
-            this._configurationStatus = configurationStatus;
-            // configure the smtp server
-            SmtpClient = new SmtpClient(configuration.BaseUri);
-            SmtpClient.Port = configuration.Port ?? 587;
-            SmtpClient.EnableSsl = true;
-            SmtpClient.Credentials =
-                new NetworkCredential(
-                    configuration.ClientIdentifier,
-                    configuration.ClientSecret);
+            _configuration = configuration;
+            this._configurationStatusService = configurationStatusService;
+
+            CreateClient();
         }
 
-        private SMTPServiceConfiguration SmtpServiceConfiguration { get; }
 
-        private SmtpClient SmtpClient { get; }
 
+
+        private void CreateClient()
+        {
+            _smtpClient = new SmtpClient(_configuration.BaseUri);
+            _smtpClient.Port = _configuration.Port ?? 587;
+            _smtpClient.EnableSsl = true;
+            _smtpClient.Credentials =
+                new NetworkCredential(
+                    _configuration.ClientIdentifier,
+                    _configuration.ClientSecret);
+
+        }
         public void SendMessage(string toAddress, string subject, string body)
         {
             var msg = new MailMessage();
 
-            msg.From = new MailAddress(SmtpServiceConfiguration.From);
+            msg.From = new MailAddress(_configuration.From);
             msg.To.Add(toAddress);
             msg.Subject = subject;
             msg.IsBodyHtml = true;
             msg.Body = body;
 
             // send the message
-            SmtpClient.Send(msg);
+            _smtpClient.Send(msg);
+            //Update as needed:
+            _configurationStatusService.SetStatusToVerified<ISmtpService>();
+        }
+
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+
+            try
+            {
+                SendMessage("anyone@anywhere.com", "A simple test",
+                    "A simple <b>body</b>.");
+                return true;
+            }
+            catch
+            {
+            }
+
+            return false;
         }
     }
 }

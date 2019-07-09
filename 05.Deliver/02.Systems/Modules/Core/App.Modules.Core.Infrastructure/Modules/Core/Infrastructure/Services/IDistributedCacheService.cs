@@ -1,9 +1,13 @@
 ﻿using System;
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Attributes;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IDistributedCacheService : IInfrastructureService
+    [TitleDescription("DistributedCacheService",
+        "Service to provide Distributed Caching across dynamically horizontally scalable servers.",
+        "Using the system's primary KeyVault, provide a ConnectionString to a remote Redis Cache instance. If no connection string provided, falls back to an in-memory implementation of IDistributedCache.")]
+    public interface IDistributedCacheService : IRemoteServiceClientInfrastructureService
     {
 
         /// <summary>

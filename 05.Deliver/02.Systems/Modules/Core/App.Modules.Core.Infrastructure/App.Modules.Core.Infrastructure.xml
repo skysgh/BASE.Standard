@@ -2252,7 +2252,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from
+          which inherits from
           <see cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
@@ -2270,7 +2270,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)
@@ -2340,7 +2340,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)
@@ -2367,7 +2367,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)
@@ -2390,7 +2390,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)
@@ -2407,7 +2407,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)
@@ -2423,7 +2423,7 @@
         <para>
           Inherits from
           <see cref="T:App.Modules.Core.Infrastructure.Services.Configuration.IConfigurationObject" />
-          whic inherits from <see cref="!:IHasSingletonLifecycle" />
+          which inherits from <see cref="!:IHasSingletonLifecycle" />
           to hint at startup that the Configuration object should be
           IoC registered for the duration of the application (not the thread).
           as some configuration hits remote services (eg: Azure KeyVault)

@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Attributes;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.KeyVault.WebKey;
 
@@ -12,7 +13,12 @@ namespace App.Modules.Core.Infrastructure.Services
     ///     Base Contract for an Infrastructure Service to
     ///     to manage access to an Azure KeyVault.
     /// </summary>
-    public interface IAzureKeyVaultService : IInfrastructureService, IAzureService
+    [TitleDescription(
+        "Azure KeyVault Service",
+    "Service to store - securely - keys to 3rd party services (Host Settings (eg: 'appSettings') is only appropriate for configuration settings (eg: srv Account name), not configuration secrets (eg: passwords).",
+    "Access to the KeyVault is granted to the App's Service Account at deployment."
+    )]
+    public interface IAzureKeyVaultService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         /// <summary>
         ///     Gets or sets the standard key divider character ('-').
@@ -69,16 +75,5 @@ namespace App.Modules.Core.Infrastructure.Services
             string keyVaultUrl = null);
 
 
-        /// <summary>
-        ///     Create a Configuration object and fill properties from KeyVault Secrets with the same name.
-        ///     <para>
-        ///         Note that default values are not provided if the property value = default(T)
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="prefix">The prefix.</param>
-        /// <param name="keyVaultUrl">The key vault URL.</param>
-        /// <returns></returns>
-        T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class;
     }
 }

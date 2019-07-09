@@ -1,10 +1,12 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    [DataContract]
     public class AzureMapsSearchResponseResult
     {
         [JsonProperty("results")] private string Type { get; set; }

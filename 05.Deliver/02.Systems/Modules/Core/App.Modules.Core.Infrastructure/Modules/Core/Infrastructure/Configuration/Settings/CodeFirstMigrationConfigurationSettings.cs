@@ -1,9 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.All.Shared.Attributes;
-using App.Modules.All.Shared.Attributes.Enums;
-using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Settings
 {
@@ -23,8 +20,6 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         ///         that is occuring when invoking CodeFirst from the 'dotnet' commandline.
         ///     </para>
         /// </summary>
-        [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(ConfigurationKeys.AppCoreCodeFirstAttachDebuggerToPSSeeding)]
         public bool CodeFirstAttachDebugger { get; set; }
     }
 }

@@ -1,9 +1,10 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
 using System.IO;
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Constants.Storage;
-using App.Modules.Core.Infrastructure.Data.Db.ConfigurationStatus;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
 using App.Modules.Core.Shared.Models.Entities;
@@ -18,9 +19,13 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     ///     * WindowsAzure.Storage" version="8.6.0"
     ///     * Microsoft.sAzure.ConfigurationManager" version="3.2.3"
     /// </summary>
-    public class AzureBlobStorageService : AppCoreServiceBase, IAzureBlobStorageService
+    public class AzureBlobStorageService
+        : AppCoreServiceBase
+            , IAzureBlobStorageService
     {
         private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+        private readonly AzureBlobStorageServiceConfiguration _configuration;
+
         //public AzureBlobStorageServiceConfiguration Configuration { get; private set; }
 
         /// <summary>
@@ -30,11 +35,11 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="configurationStatus">The configuration status.</param>
         public AzureBlobStorageService(
             IDiagnosticsTracingService diagnosticsTracingService,
-            DbDatabaseConfigurationStatus configurationStatus
-            /*,AzureBlobStorageServiceConfiguration configuration*/
+            AzureBlobStorageServiceConfiguration configuration
         )
         {
             _diagnosticsTracingService = diagnosticsTracingService;
+            this._configuration = configuration;
             // In this case, the configuration doesn't have much/any settings (it's all in the Context objects).
             //Configuration = configuration;
         }
@@ -149,5 +154,32 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         //            // Create or overwrite the "myblob" blob with contents from a local file.
         //            blockBlob.UploadFromStream(contents);
         //        }
+
+
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+
+            try
+            {
+                var containerName = BlobStorageContainers.Testing;
+                var fileName = "foo.txt";
+
+                EnsureContainer(null, containerName);
+                UploadAText(null, containerName, fileName, "bar");
+                var check = DownloadAText(null, containerName, fileName);
+                return true;
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+            catch (SystemException e)
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+
+            }
+            return false;
+        }
     }
 }

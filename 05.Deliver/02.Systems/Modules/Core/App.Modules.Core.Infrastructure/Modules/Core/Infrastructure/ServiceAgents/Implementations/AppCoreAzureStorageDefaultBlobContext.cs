@@ -33,20 +33,18 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
         ///     Initializes a new instance of the <see cref="AppCoreAzureStorageDefaultBlobContext" /> class.
         /// </summary>
         /// <param name="keyVaultService">The key vault service.</param>
-        public AppCoreAzureStorageDefaultBlobContext(IAzureKeyVaultService keyVaultService,
+        public AppCoreAzureStorageDefaultBlobContext(
+            AzureEnvironmentSettings azureConfiguration,
+            AzureStorageAccountDefaultConfiguration configuration,
             IDiagnosticsTracingService diagnosticsTracingService)
         {
             _diagnosticsTracingService = diagnosticsTracingService;
-            var configuration =
-                keyVaultService.GetObject<AzureStorageAccountDefaultConfigurationSettings>();
 
 
-            var commonConfiguration =
-                keyVaultService.GetObject<AzureCommonConfigurationSettings>();
 
             if (string.IsNullOrEmpty(configuration.ResourceName))
             {
-                configuration.ResourceName = commonConfiguration.RootResourceName;
+                configuration.ResourceName = azureConfiguration.DefaultResourceName;
             }
 
             ConnectionString =

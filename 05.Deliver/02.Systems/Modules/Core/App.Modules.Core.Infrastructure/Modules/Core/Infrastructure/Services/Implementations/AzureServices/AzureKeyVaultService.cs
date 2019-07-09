@@ -6,10 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Helpers;
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Factories;
-using App.Modules.Core.Infrastructure.Services.Caches.Implementations;
-using App.Modules.Core.Infrastructure.Services.Statuses;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.Azure.KeyVault;
@@ -45,13 +44,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     ///         * No longer needed: New-AzureRmADServicePrincipal -ApplicationId {Guid}
     ///     </para>
     /// </summary>
-    public class AzureKeyVaultService : AppCoreServiceBase, IAzureKeyVaultService
+    public class AzureKeyVaultService
+        : AppCoreServiceBase,
+            IAzureKeyVaultService,
+            IHasPing
     {
-        private readonly AzureKeyVaultServiceConfigurationStatusComponent _configurationStatus;
-        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
-        private readonly IHostSettingsService _hostSettingsService;
+        private readonly AzureKeyVaultServiceConfiguration _configuration;
+        private readonly IConfigurationStatusService _configurationStatusService;
 
-        private readonly string _keyVaultUrl;
+        private readonly IDiagnosticsTracingService _diagnosticsTracingService;
+
 
         // The max number is surprisingly low:
         private readonly int _maxKeysRetrieved = 25;
@@ -65,33 +67,28 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
         /// <param name="configurationStatus">The configuration status.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
-        /// <param name="hostSettingsService">The host settings service.</param>
         public AzureKeyVaultService(
             AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
-            AzureKeyVaultServiceConfigurationStatusComponent configurationStatus,
-            IDiagnosticsTracingService diagnosticsTracingService,
-            IHostSettingsService hostSettingsService)
+            IConfigurationStatusService configurationStatusService,
+            IDiagnosticsTracingService diagnosticsTracingService
+            )
         {
-            Configuration = azureKeyVaultServiceConfiguration;
-            this._configurationStatus = configurationStatus;
-            _diagnosticsTracingService = diagnosticsTracingService;
-            _hostSettingsService = hostSettingsService;
+            _configuration = azureKeyVaultServiceConfiguration;
+            this._configurationStatusService = configurationStatusService;
 
-            // Not sure if the Url should be in the config object. Probably should...
-            _keyVaultUrl = $"https://{Configuration.ResourceName}.vault.azure.net";
+
+            _diagnosticsTracingService = diagnosticsTracingService;
+
         }
 
 
-        /// <summary>
-        ///     Gets the configuration object for this service.
-        /// </summary>
-        public AzureKeyVaultServiceConfiguration Configuration { get; }
 
         // One of the very few objects not created by Dependency Injection.
         // Lazy...but I can't think of how else to solve it right now:
         private KeyVaultConfigurationObjectFactory ConfigurationObjectFactory =>
             _configurationObjectFactory ?? (_configurationObjectFactory =
-                new KeyVaultConfigurationObjectFactory(_diagnosticsTracingService, this));
+                new KeyVaultConfigurationObjectFactory(
+                    _diagnosticsTracingService, this));
 
 
         /// <summary>
@@ -106,6 +103,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         {
             get
             {
+
+
                 if (_keyVaultClient != null)
                 {
                     return _keyVaultClient;
@@ -149,10 +148,12 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                     _diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
 
 
-                    var color = ConfigurationStatusComponentStepStatusType.White;
+                    var color = ConfigurationStatusComponentStepStatusType
+                        .White;
                     if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
                     {
-                        color = ConfigurationStatusComponentStepStatusType.Orange;
+                        color = ConfigurationStatusComponentStepStatusType
+                            .Orange;
                     }
 
                     if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
@@ -160,14 +161,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                         color = ConfigurationStatusComponentStepStatusType.Red;
                     }
 
-                    _configurationStatus.AddStep(
+                    _configurationStatusService.AddStep<IAzureKeyVaultService>(
                         ConfigurationStatusComponentStepType.General,
                         color,
                         "Authentication",
                         $"Obtaining an Azure MSI Token. Took {elapsedTime.ElapsedText}."
                     );
 
-                return _keyVaultClient;
+
+                    return _keyVaultClient;
                 }
             }
         }
@@ -182,16 +184,26 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="secretKey">The secret key.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<JsonWebKey> RetrieveKeyAsync(string secretKey, string keyVaultUrl = null)
+        public async Task<JsonWebKey> RetrieveKeyAsync(string secretKey,
+            string keyVaultUrl = null)
         {
+            if (!_configuration.Enabled)
+            {
+                return null;
+            }
+
             secretKey = CleanKeyName(secretKey);
 
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = _keyVaultUrl;
+                keyVaultUrl = this._configuration.BaseUri;
             }
 
-            var keyBundle = await KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
+            var keyBundle =
+                await KeyVaultClient.GetKeyAsync(keyVaultUrl, secretKey);
+
+            _configurationStatusService
+                .SetStatusToVerified<IAzureKeyVaultService>();
 
             return keyBundle.Key;
         }
@@ -203,19 +215,31 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        public async Task<string> RetrieveSecretAsync(string secretKey, string keyVaultUrl = null)
+        public async Task<string> RetrieveSecretAsync(string secretKey,
+            string keyVaultUrl = null)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
+            if (!_configuration.Enabled)
+            {
+                return null;
+            }
+
             secretKey = CleanKeyName(secretKey);
 
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = _keyVaultUrl;
+                keyVaultUrl = this._configuration.BaseUri;
             }
 
             try
             {
-                var secret = Task.Run(() => KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey)).Result;
+                var secret = Task.Run(() =>
+                        KeyVaultClient.GetSecretAsync(keyVaultUrl, secretKey))
+                    .Result;
+
+                _configurationStatusService
+                    .SetStatusToVerified<IAzureKeyVaultService>();
+
                 return secret.Value;
             }
             catch (Exception e)
@@ -234,16 +258,24 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="secret">The secret.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<SecretBundle> SetSecretAsync(string secretKey, string secret, string keyVaultUrl = null)
+        public async Task<SecretBundle> SetSecretAsync(string secretKey,
+            string secret, string keyVaultUrl = null)
         {
+            if (!_configuration.Enabled)
+            {
+                return null;
+            }
+
             secretKey = CleanKeyName(secretKey);
 
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = _keyVaultUrl;
+                keyVaultUrl = this._configuration.BaseUri;
             }
 
-            var secrectBundle = await KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey, secret);
+            var secrectBundle =
+                await KeyVaultClient.SetSecretAsync(keyVaultUrl, secretKey,
+                    secret);
 
             return secrectBundle;
         }
@@ -255,12 +287,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetSecretsAsync(bool returnFQIdentifier = false,
+        public async Task<IDictionary<string, string>> GetSecretsAsync(
+            bool returnFQIdentifier = false,
             int pageSize = 0, string keyVaultUrl = null)
         {
+            if (!_configuration.Enabled)
+            {
+                return new Dictionary<string, string>();
+            }
+
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = _keyVaultUrl;
+                keyVaultUrl = this._configuration.BaseUri;
             }
 
             //More than this and you get an error:
@@ -269,14 +307,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                 pageSize = _maxKeysRetrieved;
             }
 
-            IPage<SecretItem> secrets = await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+            IPage<SecretItem> secrets =
+                await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
             //return this.KeyVaultClient.GetSecretsAsync(keyVaultUrl, 500).GetAwaiter().GetResult().Select(x=>x.Id).ToArray();
 
             //    KeyValuePair<string> 
             //var x = new Tuple<string, string>("a","b;");
 
             Dictionary<string, string> results =
-                new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+                new Dictionary<string, string>(StringComparer
+                    .InvariantCultureIgnoreCase);
 
 
             foreach (var x in secrets)
@@ -285,6 +325,9 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                 var value = await RetrieveSecretAsync(x.Identifier.Name);
                 results[key] = value;
             }
+
+            _configurationStatusService
+                .SetStatusToVerified<IAzureKeyVaultService>();
 
             return results;
         }
@@ -297,12 +340,18 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="keyVaultUrl">The key vault URL.</param>
         /// <returns></returns>
-        public async Task<string[]> ListSecretKeysAsync(bool returnFQIdentifier = false, int pageSize = 0,
+        public async Task<string[]> ListSecretKeysAsync(
+            bool returnFQIdentifier = false, int pageSize = 0,
             string keyVaultUrl = null)
         {
+            if (!_configuration.Enabled)
+            {
+                return new string[0];
+            }
+
             if (string.IsNullOrWhiteSpace(keyVaultUrl))
             {
-                keyVaultUrl = _keyVaultUrl;
+                keyVaultUrl = this._configuration.BaseUri;
             }
 
             //More than this and you get an error:
@@ -311,7 +360,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
                 pageSize = _maxKeysRetrieved;
             }
 
-            IPage<SecretItem> secrets = await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
+            IPage<SecretItem> secrets =
+                await KeyVaultClient.GetSecretsAsync(keyVaultUrl, pageSize);
 
             string[] results = returnFQIdentifier
                 ? secrets.Select(x => x.Identifier.Name).ToArray()
@@ -321,69 +371,6 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         }
 
 
-        /// <summary>
-        ///     Create a Configuration object and fill properties from KeyVault Secrets with the same name.
-        ///     <para>
-        ///         Note that default values are not provided if the property value = default(T)
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="prefix"></param>
-        /// <param name="keyVaultUrl"></param>
-        /// <returns></returns>
-        public T GetObject<T>(string prefix = null, string keyVaultUrl = null) where T : class
-        {
-            if (string.IsNullOrWhiteSpace(keyVaultUrl))
-            {
-                keyVaultUrl = _keyVaultUrl;
-            }
-
-
-            // Build a unique Key to see if the object has already been created
-            // and stored in cache.
-            var key = typeof(T).FullName + ":" + prefix;
-
-
-            // Call the KeyVault specific cache:
-            if (KeyVaultServiceConfigurationObjectCache.ObjectCache.ContainsKey(key))
-            {
-                return (T) KeyVaultServiceConfigurationObjectCache.ObjectCache[key];
-            }
-
-            using (var elapsedTime = new ElapsedTime())
-            {
-                // If not, instead of making one here, 
-                // start with an object that has been processed by the HostSettings.
-                var result = _hostSettingsService.GetObject<T>(prefix);
-
-                // And override any values with KeyValues
-                ConfigurationObjectFactory.Provision(result, prefix);
-
-                // Then cache it:
-                HostSettingsServiceConfigurationObjectCache.ObjectCache[key] = result;
-
-                var msg =
-                    $"Took {elapsedTime.ElapsedText} to build and provision the {result.GetType()} configuration object (using KeyVault/AppHost settings).";
-
-                _diagnosticsTracingService.Trace(TraceLevel.Verbose, msg);
-                return result;
-            }
-        }
-
-        //public void Do()
-        //{
-
-        //    //Get the storage key as a secret in KeyVault
-        //    var storageKey = await GetStorageKey();
-        //    string storageAccountName = ConfigurationManager.AppSettings["storageAccountName"];
-        //    var creds = new StorageCredentials(storageAccountName, storageKey);
-        //    var storageAccount = new CloudStorageAccount(creds, true);
-        //    var queueClient = storageAccount.CreateCloudQueueClient();
-        //    var queue = queueClient.GetQueueReference("samplequeue");
-        //    await queue.CreateIfNotExistsAsync();
-        //    await queue.AddMessageAsync(new CloudQueueMessage("Hello keyvault"));
-
-        //}
 
 
         /// <summary>
@@ -397,12 +384,42 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// <returns></returns>
         public string CleanKeyName(string key)
         {
-            foreach (var k in Configuration.KeyIllegalCharacters)
+            foreach (var k in _configuration.KeyIllegalCharacters)
             {
-                key = key.Replace(k, Configuration.KeyStandardNameComponentDivider);
+                key = key.Replace(k,
+                    _configuration.KeyStandardNameComponentDivider);
             }
 
             return key;
+        }
+
+        /// <summary>
+        /// Verify connectivity to remote service.
+        /// </summary>
+        /// <returns></returns>
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+            try
+            {
+                IPage<KeyItem> secrets =
+                    KeyVaultClient.GetKeysAsync(this._configuration.BaseUri, 1).Result;
+                // If without error, succeeded:
+
+                return true;
+            }
+#pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable IDE0059 // Value assigned to symbol is never used
+            catch (System.Exception e)
+#pragma warning restore IDE0059 // Value assigned to symbol is never used
+#pragma warning restore CS0168 // Variable is declared but never used
+            {
+                return false;
+            }
+
         }
     }
 }

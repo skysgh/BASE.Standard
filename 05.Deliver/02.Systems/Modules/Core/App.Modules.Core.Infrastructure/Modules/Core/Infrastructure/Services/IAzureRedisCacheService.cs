@@ -5,7 +5,7 @@ using App.Modules.All.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Services
 {
-    public interface IAzureRedisCacheService : IInfrastructureService, IAzureService
+    public interface IAzureRedisCacheService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         void Set<T>(string key, T value, TimeSpan? duration = null);
 

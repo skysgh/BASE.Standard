@@ -32,5 +32,8 @@ namespace App.Modules.Core.Infrastructure.Services
         /// <param name="target">The target.</param>
         void Get<TConfigurationObject>(TConfigurationObject target);
 
+
+
+
     }
 }

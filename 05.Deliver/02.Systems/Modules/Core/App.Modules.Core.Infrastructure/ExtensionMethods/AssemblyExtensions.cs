@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using App.Diagrams.PlantUml.Uml;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.All.Shared.Constants;
 using Module = App.Modules.All.Shared.Constants.Module;
 
@@ -58,5 +60,35 @@ namespace App
 
             return null;
         }
+
+
+
+
+        public static IEnumerable<Type> GetContractsDecoratedByAttribute(this Assembly assembly, Type contractType, Type attributeType)
+        {
+            // Return only types that are subsets of the given type (or are same)
+            // that are instantiable, and not generic.
+
+            //An Alternate way of investigating whether it is an interface or not
+            //is typeof(HasDo).GetInterfaces().Any(x=>x == typeof(IHasDo)).Dump("Implements Interface");
+            try
+            {
+                return assembly.GetTypes().Where(x =>
+                    contractType.IsAssignableFrom(x)
+                    &&
+                    x.IsInterface
+                    &&
+                    (x.GetCustomAttribute(attributeType, true )!= null)
+                );
+            }
+            catch (ReflectionTypeLoadException)
+            {
+                //No biggie
+                Trace.TraceInformation($"Running 'GetInstantiableTypesImplementing', could not find {contractType.Name}");
+            }
+
+            return null;
+        }
+
     }
 }

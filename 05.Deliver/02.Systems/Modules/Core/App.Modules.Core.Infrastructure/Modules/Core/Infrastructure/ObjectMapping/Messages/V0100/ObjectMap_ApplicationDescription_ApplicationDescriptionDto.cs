@@ -14,14 +14,14 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
     /// <seealso cref="MapBase{TEntity,TDto}" />
     public class ObjectMap_ApplicationDescription_ApplicationDescriptionDto
         :
-            MapBase<ApplicationDescription, ApplicationDescriptionDto>
+            MapBase<ApplicationDescriptionServiceConfiguration, ApplicationDescriptionDto>
     {
         /// <summary>
         ///     Configures the map from entity to dto.
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromEntityToDto(
-            IMappingExpression<ApplicationDescription, ApplicationDescriptionDto>
+            IMappingExpression<ApplicationDescriptionServiceConfiguration, ApplicationDescriptionDto>
                 mappingExpression)
         {
             mappingExpression
@@ -42,7 +42,7 @@ namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100
         /// </summary>
         /// <param name="mappingExpression">The mapping expression.</param>
         protected override void ConfigureMapFromDtoToEntity(
-            IMappingExpression<ApplicationDescriptionDto, ApplicationDescription>
+            IMappingExpression<ApplicationDescriptionDto, ApplicationDescriptionServiceConfiguration>
                 mappingExpression)
         {
             //base.ConfigureMapFromDtoToEntity(mappingExpression);

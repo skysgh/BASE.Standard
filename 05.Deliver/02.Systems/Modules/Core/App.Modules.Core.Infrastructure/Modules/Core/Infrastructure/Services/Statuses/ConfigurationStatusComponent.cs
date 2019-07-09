@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using App.Modules.Core.Shared.Models.Messages;
+﻿using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services.Statuses
 {
@@ -32,6 +29,19 @@ namespace App.Modules.Core.Infrastructure.Services.Statuses
             // As OData can only serialize Instances, as opposed to Interfaces, or base classes with 
             // constructors expecting arguments, it also acts as the default base class to which
             // IConfigurationStatusService configures the object before returning the queryable set.
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConfigurationStatusComponent"/> class.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="instructions">The instructions.</param>
+        public ConfigurationStatusComponent(string title, string description,
+            string instructions) :
+            base(title, description, instructions)
+        {
+
         }
     }
 }

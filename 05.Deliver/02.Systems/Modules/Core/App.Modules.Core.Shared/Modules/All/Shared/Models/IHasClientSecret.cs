@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace App.Modules.All.Shared.Models
+﻿namespace App.Modules.All.Shared.Models
 {
 
     /// <summary>

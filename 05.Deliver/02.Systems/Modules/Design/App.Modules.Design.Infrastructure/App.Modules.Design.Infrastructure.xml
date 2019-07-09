@@ -4,26 +4,6 @@
         <name>App.Modules.Design.Infrastructure</name>
     </assembly>
     <members>
-        <member name="T:App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus.DbDatabaseConfigurationStatus">
-            <summary>
-            An in-memory, singleton, Configuration Status 
-            summarizing whether a service have been
-            configured correctly or not (or whether that is still unknown/untested).
-            <para>
-            Intended to be invoked
-            from <see cref="T:App.Modules.Core.Infrastructure.Services.IConfigurationStatusService"/>
-            to provide information to System Administrators
-            and developers
-            as they are configuring the system for the first time.
-            </para>
-            </summary>
-            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase" />
-        </member>
-        <member name="M:App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus.DbDatabaseConfigurationStatus.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus.DbDatabaseConfigurationStatus"/> class.
-            </summary>
-        </member>
         <member name="T:App.Modules.Design.Infrastructure.Data.Db.Contexts.JoinedModuleDbContext">
             <summary>
                 The Modules's Joined DbContext which
@@ -77,12 +57,11 @@
             <param name="appDbContextManagementService">The application database context management service.</param>
             <param name="options">The options.</param>
         </member>
-        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus.DbDatabaseConfigurationStatus,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
+        <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,App.Modules.Core.Infrastructure.Services.IAppDbContextManagementService)">
             <summary>
             This is the constructor invoked by the system's dependency injector/creator.
             </summary>
             <param name="configuration">The configuration.</param>
-            <param name="configurationStatus">The configuration status.</param>
             <param name="appDbContextManagementService">The application database context management service.</param>
         </member>
         <member name="M:App.Modules.Design.Infrastructure.Data.Db.Contexts.ModuleDbContext.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.EntityFrameworkCore.DbContextOptions)">

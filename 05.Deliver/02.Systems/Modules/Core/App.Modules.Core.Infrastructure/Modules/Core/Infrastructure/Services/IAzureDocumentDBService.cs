@@ -22,7 +22,7 @@ namespace App.Modules.Core.Infrastructure.Services
     ///         with `[JsonProperty(PropertyName = "id")]`
     ///     </para>
     /// </summary>
-    public interface IAzureDocumentDBService : IInfrastructureService, IAzureService
+    public interface IAzureDocumentDBService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         Task<string[]> GetDatabaseIds();
 

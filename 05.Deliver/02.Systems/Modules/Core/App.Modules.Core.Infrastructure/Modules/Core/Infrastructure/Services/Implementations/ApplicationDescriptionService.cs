@@ -14,20 +14,20 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IApplicationDescriptionService" />
     public class ApplicationDescriptionService : AppCoreServiceBase, IApplicationDescriptionService
     {
-        private readonly ApplicationDescription _applicationInformationServiceConfiguration;
+        private readonly ApplicationDescriptionServiceConfiguration _applicationInformationServiceConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDescriptionService"/> class.
         /// </summary>
         /// <param name="applicationInformationServiceConfiguration">The application information service configuration.</param>
         public ApplicationDescriptionService(
-            ApplicationDescription applicationInformationServiceConfiguration)
+            ApplicationDescriptionServiceConfiguration applicationInformationServiceConfiguration)
         {
             _applicationInformationServiceConfiguration 
                 = applicationInformationServiceConfiguration;
         }
 
-        public ApplicationDescription GetApplicationInformation()
+        public ApplicationDescriptionServiceConfiguration GetApplicationInformation()
         {
             return _applicationInformationServiceConfiguration;
         }

@@ -237,6 +237,45 @@
                 The roles.
             </value>
         </member>
+        <member name="T:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:System.Attribute" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="M:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute" /> class.
+            </summary>
+            <param name="title">The title.</param>
+            <param name="description">The description.</param>
+            <param name="instructions">The instructions.</param>
+        </member>
+        <member name="P:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.All.Shared.Attributes.TitleDescriptionAttribute.Instructions">
+            <summary>
+            Gets or sets the instructions.
+            </summary>
+            <value>
+            The instructions.
+            </value>
+        </member>
         <member name="T:App.Modules.All.Shared.Constants.Apis">
             <summary>
                 Constants regarding API development.
@@ -840,6 +879,43 @@
             </para>
             </summary>
         </member>
+        <member name="T:App.Modules.All.Shared.Models.IHasAzureResourceName">
+            <summary>
+            Contract for <c>IConfigurationObject</c>s
+            for Azure services, in order to specify
+            the resource name.
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.IHasAzureResourceName.ResourceName">
+            <summary>
+            Gets or sets the name of the resource.
+            </summary>
+            <value>
+            The name of the resource.
+            </value>
+        </member>
+        <member name="T:App.Modules.All.Shared.Models.IHasBaseUri">
+            <summary>
+            <para>
+            Contract for
+            <c>IConfigurationObject</c>s
+            to reference remote Services.
+            </para>
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.IHasBaseUri.BaseUri">
+            <summary>
+            Gets or sets the base URI.
+            <para>
+                For http based services, will start with the protocol,
+                other protocols (SMTP, Redis, etc.) might not
+                (eg: SMTP MTA's it might look like 'smtp.gmail.com')
+            </para>
+            </summary>
+            <value>
+            The base URI (depending on the service type, with or without the protocol).
+            </value>
+        </member>
         <member name="T:App.Modules.All.Shared.Models.IHasChildren`1">
             <summary>
                 Contract for a model that
@@ -911,6 +987,25 @@
         <member name="P:App.Modules.All.Shared.Models.IHasConfigurationStatus.Status">
             <summary>
             Gets or sets the status of the service.
+            </summary>
+        </member>
+        <member name="T:App.Modules.All.Shared.Models.IHasConnectionString">
+            <summary>
+            Contract for <c>IConfigurationObject</c>s
+            for Azure services, in order to specify
+            a connectionstring.
+            <para>
+            Used by configuration objects for
+            IDistributedCacheService,
+            AzureRedisCacheService,
+            etc.
+            </para>
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.IHasConnectionString.ConnectionString">
+            <summary>
+            Gets or sets the connection string
+            to connect to the remote service.
             </summary>
         </member>
         <member name="T:App.Modules.All.Shared.Models.IHasDataClassification">
@@ -1399,6 +1494,18 @@
                 Gets or sets the optional parent object.
             </summary>
         </member>
+        <member name="T:App.Modules.All.Shared.Models.IHasPing">
+            <summary>
+            Contract placed on Services
+            to handle remote services.
+            </summary>
+        </member>
+        <member name="M:App.Modules.All.Shared.Models.IHasPing.Ping">
+            <summary>
+            Verify connectivity to remote service.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:App.Modules.All.Shared.Models.IHasPrincipal">
             <summary>
                 Contract for entities that provide navigation to the Principal.
@@ -1581,11 +1688,6 @@
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasServiceClientIdentifier" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasServiceClientSecret" />
-        </member>
-        <member name="P:App.Modules.All.Shared.Models.IHasServiceClientInformation.BaseUri">
-            <summary>
-                Gets or sets the base URI.
-            </summary>
         </member>
         <member name="P:App.Modules.All.Shared.Models.IHasServiceClientInformation.MiscConfig">
             <summary>
@@ -3687,6 +3789,157 @@
                 The longitude.
             </value>
         </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress">
+            <summary>
+            A single address within a reverse search
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.BuildingNumber">
+            <summary>
+            Gets or sets the building number.
+            </summary>
+            <value>
+            The building number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNumber">
+            <summary>
+            Gets or sets the street number.
+            </summary>
+            <value>
+            The street number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Street">
+            <summary>
+            Gets or sets the street.
+            </summary>
+            <value>
+            The street.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetName">
+            <summary>
+            Gets or sets the name of the street.
+            </summary>
+            <value>
+            The name of the street.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNameAndNumber">
+            <summary>
+            Gets or sets the street name and number.
+            </summary>
+            <value>
+            The street name and number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Municipality">
+            <summary>
+            Gets or sets the municipality.
+            </summary>
+            <value>
+            The municipality.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivision">
+            <summary>
+            Gets or sets the country subdivision.
+            </summary>
+            <value>
+            The country subdivision.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivisionName">
+            <summary>
+            Gets or sets the name of the country subdivision.
+            </summary>
+            <value>
+            The name of the country subdivision.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCodeISO3">
+            <summary>
+            Gets or sets the country code is o3.
+            </summary>
+            <value>
+            The country code is o3.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCode">
+            <summary>
+            Gets or sets the country code.
+            </summary>
+            <value>
+            The country code.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Country">
+            <summary>
+            Gets or sets the country.
+            </summary>
+            <value>
+            The country.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCode">
+            <summary>
+            Gets or sets the postal code.
+            </summary>
+            <value>
+            The postal code.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCodeExtended">
+            <summary>
+            Gets or sets the postal code extended.
+            </summary>
+            <value>
+            The postal code extended.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.FreeFormAddress">
+            <summary>
+            Gets or sets the free form address.
+            </summary>
+            <value>
+            The free form address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.ExtendedFreeFormAddress">
+            <summary>
+            Gets the extended free form address.
+            </summary>
+            <value>
+            The extended free form address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.RouteNumbers">
+            <summary>
+            Gets or sets the route numbers.
+            </summary>
+            <value>
+            The route numbers.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem">
+            <summary>
+            A single item within the <see cref="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse"/>
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Address">
+            <summary>
+            Gets or sets the address for this item.
+            </summary>
+            <value>
+            The address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Position">
+            <summary>
+            Gets or sets the lat/long.
+            </summary>
+        </member>
         <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse">
             <summary>
                 Response object
@@ -3797,6 +4050,22 @@
             </summary>
             <value>
             The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.SuccessCount">
+            <summary>
+            Gets or sets the success count.
+            </summary>
+            <value>
+            The success count.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ErrorCount">
+            <summary>
+            Gets or sets the error count.
+            </summary>
+            <value>
+            The error count.
             </value>
         </member>
         <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ConfigurationInstructions">

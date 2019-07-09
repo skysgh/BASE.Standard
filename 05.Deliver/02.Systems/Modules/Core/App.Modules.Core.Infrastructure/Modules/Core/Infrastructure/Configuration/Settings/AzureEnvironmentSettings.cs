@@ -1,9 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.All.Shared.Attributes;
-using App.Modules.All.Shared.Attributes.Enums;
-using App.Modules.Core.Shared.Constants;
+using App.Modules.Core.Infrastructure.Services;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Settings
 {
@@ -14,7 +12,22 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
     public class AzureEnvironmentSettings
         : ConfigurationObjectBase
     {
+
+        public AzureEnvironmentSettings()
+        {
+
+        }
+
+        public AzureEnvironmentSettings(
+            IConfigurationService configurationService)
+        {
+            configurationService.Get(this);
+        }
+
         private string _defaultResourceName;
+
+        public string DefaultKeyVaultResourceName { get; set; }
+
 
         /// <summary>
         ///     Gets or sets the subscription identifier
@@ -27,16 +40,12 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         ///         all other Non-Production Data.
         ///     </para>
         /// </summary>
-        [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(ConfigurationKeys.AppCoreEnvironmentSubscriptionId)]
         public string SubscriptionId { get; set; }
 
         /// <summary>
         ///     Gets or sets the AAD tenant identifier
         /// (a string of the Guid).
         /// </summary>
-        [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(ConfigurationKeys.AppCoreEnvironmentTenantId)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -46,9 +55,13 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         /// eg: 'NZ-OrgA-ProjB-SysC[-0000]-UT'.
         /// </value>
         /// </summary>
-        [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(ConfigurationKeys.AppCoreEnvironmentResourceGroupName)]
-        public string ResourceGroupName { get; set; }
+        public string ResourceGroupName
+        {
+            get { return _resourceGroupName ?? ""; }
+            set { _resourceGroupName = value; }
+        }
+
+        private string _resourceGroupName = "";
 
 
         /// <summary>
@@ -63,21 +76,21 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         /// <value>
         /// eg: 'nzorgaprojbsysc0000ut' (21 chars in this case).
         /// </value>
-        public string DefaultResourceName {
+        public string DefaultResourceName
+        {
             get => _defaultResourceName
-                   ??(_defaultResourceName 
+                   ?? (_defaultResourceName
                        = ResourceGroupName
-                           .Replace("-","")
-                           .Replace("_",""))
+                           .Replace("-", "")
+                           .Replace("_", ""))
                    .ToLower();
-            set => _defaultResourceName = value; }
+            set => _defaultResourceName = value;
+        }
 
         /// <summary>
         ///     Gets or sets the resource group location
         /// (eg: "AustraliaEast")
         /// </summary>
-        [ConfigurationSettingSource(SourceType.AppSetting)]
-        [Alias(ConfigurationKeys.AppCoreEnvironmentResourceGroupLocation)]
         public string ResourceGroupLocation { get; set; }
     }
 }

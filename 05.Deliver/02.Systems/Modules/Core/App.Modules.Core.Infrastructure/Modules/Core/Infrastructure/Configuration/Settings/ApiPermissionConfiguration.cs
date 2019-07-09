@@ -1,8 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.All.Shared.Attributes;
-using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Settings
 {
@@ -28,7 +26,6 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         ///         across services with the same scope name.
         ///     </para>
         /// </summary>
-        [Alias(ModuleSpecificApiScopes.ServiceUrl)]
         public string ServiceIdentifier
         {
             get

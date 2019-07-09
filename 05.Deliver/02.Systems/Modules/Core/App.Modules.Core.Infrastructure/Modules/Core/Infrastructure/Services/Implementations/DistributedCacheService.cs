@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using App.Modules.Core.Infrastructure.Configuration.Services;
-using App.Modules.Core.Infrastructure.Services.Statuses;
-using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
@@ -13,16 +9,22 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     {
         private readonly IDistributedCache _distributedCache;
         private readonly DistributedCacheServiceConfiguration _configuration;
-        private readonly DistributedCacheConfigurationStatusComponent _configurationStatus;
+        private readonly IConfigurationStatusService _configurationStatusService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DistributedCacheService"/> class.
+        /// </summary>
+        /// <param name="distributedCache">The distributed cache.</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="configurationStatusService">The configuration status service.</param>
         public DistributedCacheService(
-            IDistributedCache distributedCache, 
+            IDistributedCache distributedCache,
             DistributedCacheServiceConfiguration configuration,
-            DistributedCacheConfigurationStatusComponent configurationStatus)
+            IConfigurationStatusService configurationStatusService)
         {
             this._distributedCache = distributedCache;
             this._configuration = configuration;
-            this._configurationStatus = configurationStatus;
+            this._configurationStatusService = configurationStatusService;
         }
 
         public void Set<T>(string key, T value, TimeSpan duration)
@@ -40,11 +42,15 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             try
             {
                 _distributedCache.SetString(key, tmp, options);
-                _configurationStatus.SetToVerified();
+                _configurationStatusService.SetStatusToVerified<IDistributedCacheService>();
             }
+#pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable IDE0059 // Value assigned to symbol is never used
             catch (System.Exception e)
+#pragma warning restore IDE0059 // Value assigned to symbol is never used
+#pragma warning restore CS0168 // Variable is declared but never used
             {
-                _configurationStatus.SetToError(e);
+                throw;
             }
 
         }
@@ -58,19 +64,38 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// <param name="expiredCallback">The expired callback.</param>
         public void Register<T>(string key, TimeSpan duration, Func<T> expiredCallback)
         {
-
             _configuration.Register(key, expiredCallback);
             Set(key, expiredCallback.Invoke(), duration);
         }
 
         public T Get<T>(string key)
         {
-            var tmp = JsonConvert.DeserializeObject(_distributedCache.GetString(key),typeof(T));
+            var tmp = JsonConvert.DeserializeObject(_distributedCache.GetString(key), typeof(T));
             if (tmp == null)
             {
                 return default(T);
             }
             return (T)tmp;
+        }
+
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+
+            try
+            {
+                return true;
+            }
+            catch
+            {
+                
+            }
+
+            return false;
+            // throw new NotImplemented();
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App.Modules.Core.Infrastructure.Services.Statuses
 {
+
+
     /// <summary>
     /// An in-memory, singleton, Configuration Status 
     /// summarizing whether a service have been

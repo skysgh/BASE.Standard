@@ -1,10 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.All.Shared.Attributes;
-using App.Modules.All.Shared.Attributes.Enums;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Shared.Constants;
 
 namespace App.Modules.Core.Infrastructure.Configuration.Settings
 {
@@ -22,7 +19,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
     ///         * That's the Client Id
     ///     </para>
     /// </summary>
-    public class AadApplicationRegistrationInformationConfigurationSettings 
+    public class AadApplicationRegistrationInformationConfigurationSettings
         : ConfigurationObjectBase,
             IHasServiceClientIdentifier,
             IHasServiceClientSecret
@@ -39,8 +36,6 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         ///         to assign rights to the KeyStore.
         ///     </para>
         /// </summary>
-        [ConfigurationSettingSource(SourceType.KeyVault)]
-        [Alias(ConfigurationKeys.AppCoreIDAAADClientId)]
         public string ClientIdentifier { get; set; }
 
         /// <summary>
@@ -49,8 +44,6 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         ///     registered the application as a client,
         ///     and have obtained an ApplicationId.
         /// </summary>
-        [ConfigurationSettingSource(SourceType.KeyVault)]
-        [Alias(ConfigurationKeys.AppCoreIDAAADClientSecret)]
         public string ClientSecret { get; set; }
     }
 }

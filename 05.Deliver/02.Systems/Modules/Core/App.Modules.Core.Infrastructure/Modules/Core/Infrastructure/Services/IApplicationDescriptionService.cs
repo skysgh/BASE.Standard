@@ -17,6 +17,6 @@ namespace App.Modules.Core.Infrastructure.Services
     public interface IApplicationDescriptionService : IInfrastructureService
     {
 
-        ApplicationDescription GetApplicationInformation();
+        ApplicationDescriptionServiceConfiguration GetApplicationInformation();
     }
 }

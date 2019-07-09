@@ -6,15 +6,12 @@
     /// <seealso cref="App.Modules.All.Shared.Models.IHasServiceClientIdentifier" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasServiceClientSecret" />
     public interface IHasServiceClientInformation :
+        IHasEnabled,
+        IHasBaseUri,
         IHasServiceClientIdentifier,
         IHasServiceClientSecret
+
     {
-
-        /// <summary>
-        ///     Gets or sets the base URI.
-        /// </summary>
-        string BaseUri { get; set; }
-
         /// <summary>
         ///     Gets or sets any misc configuration (generally as a JSON string).
         /// </summary>

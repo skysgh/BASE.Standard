@@ -12,6 +12,7 @@ using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.ImmutableData;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
 using App.Modules.All.Shared.Constants;
+using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
@@ -37,7 +38,7 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
     ///     </para>
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
-    public abstract class ModuleDbContextBase : DbContext
+    public abstract class ModuleDbContextBase : DbContext, IHasPing
     {
 
         private IConfiguration _configuration;
@@ -593,5 +594,10 @@ namespace App.Modules.All.Infrastructure.Data.Db.Contexts
 
         //    return base.SaveChangesAsync();
         //}
+
+        public bool Ping()
+        {
+            return this.Database.CanConnect();
+        }
     }
 }

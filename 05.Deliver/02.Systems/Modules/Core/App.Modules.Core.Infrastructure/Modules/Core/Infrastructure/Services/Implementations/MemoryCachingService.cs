@@ -79,5 +79,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             _configuration.Register(key, expiredCallback);
             _memoryCache.Set(key, expiredCallback.Invoke(),duration);
         }
+
+
+
     }
 }

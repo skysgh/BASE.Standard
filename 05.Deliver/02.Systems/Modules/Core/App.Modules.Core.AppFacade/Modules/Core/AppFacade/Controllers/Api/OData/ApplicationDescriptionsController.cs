@@ -53,7 +53,9 @@ namespace App.Modules.Core.AppFacade.Controllers.Api.OData
         public ActionResult<ApplicationDescriptionDto> Get()
         {
             return Ok(
-                _objectMappingService.Map<ApplicationDescription, ApplicationDescriptionDto>(
+                _objectMappingService
+                    .Map<ApplicationDescriptionServiceConfiguration, 
+                        ApplicationDescriptionDto>(
                 _applicationInformationService.GetApplicationInformation()
             ));
         }

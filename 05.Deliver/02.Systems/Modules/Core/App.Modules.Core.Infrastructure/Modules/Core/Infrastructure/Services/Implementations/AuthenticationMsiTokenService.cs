@@ -1,5 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
 using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Services;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -46,10 +47,31 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
             // a) Using Visual Studio 17.5 or higher
             // b) Visual Studio has https://marketplace.visualstudio.com/items?itemName=chrismann.MicrosoftVisualStudioAsalExtension extension installed and VS is restarted.
             // c) You have defined your
-            var accessToken = await _azureServiceTokenProvider.GetAccessTokenAsync("https://management.azure.com/")
+            var accessToken = await _azureServiceTokenProvider.GetAccessTokenAsync(
+                    "https://management.azure.com/")
                 .ConfigureAwait(false);
 
             return accessToken;
+        }
+
+        public bool Ping()
+        {
+            //if (!_configuration.Enabled)
+            //{
+            //    return false;
+            //}
+            try
+            {
+                return true;
+            }
+            catch
+            {
+
+            }
+
+            return false;
+            //throw new NotImplementedException();
+            //return false;
         }
     }
 }

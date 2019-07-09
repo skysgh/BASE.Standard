@@ -1,6 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -11,7 +12,9 @@ namespace App.Modules.Core.Infrastructure.Services
     /// </summary>
     /// <seealso cref="App.Modules.All.Infrastructure.Services.IInfrastructureService" />
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IAzureService" />
-    public interface IAzureMapsService : IInfrastructureService, IAzureService
+    [TitleDescription("Azure Maps Service",
+        "A service to convert Coordinates to Addresses, and vice versa.")]
+    public interface IAzureMapsService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         /// <summary>
         ///     Find the most appropriate address, given the search term.

@@ -19,6 +19,6 @@ namespace App.Modules.All.Infrastructure.Configuration
 /// </summary>
     public abstract class ConfigurationObjectBase : IConfigurationObject
     {
-
+        
     }
 }

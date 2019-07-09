@@ -1,6 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Services;
+using App.Modules.All.Shared.Attributes;
 using Microsoft.Azure.Storage.Blob;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -10,7 +11,11 @@ namespace App.Modules.Core.Infrastructure.Services
     ///     manage access to Azure Storage Accounts
     ///     and the Storage Containers and Blobs within.
     /// </summary>
-    public interface IAzureBlobStorageService : IInfrastructureService, IAzureService
+    [TitleDescription("Azure Blob Configuration",
+        "Service to persist media uploaded by end users (after it has been passed through a malware detection service (note that prior to the advent of cloud services, media used to be persisted to the file system).",
+        "Settings are set in both the Host Settings(AppSettings) and KeyVault."
+    )]
+    public interface IAzureBlobStorageService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         //AzureBlobStorageServiceConfiguration Configuration
         //{

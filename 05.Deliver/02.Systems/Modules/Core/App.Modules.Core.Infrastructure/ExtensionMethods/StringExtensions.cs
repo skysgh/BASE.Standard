@@ -7,6 +7,11 @@ namespace App
 {
     public static class StringExtensions
     {
+        public static bool IsNullOrEmpty(this string text)
+        {
+            return string.IsNullOrEmpty(text);
+        }
+
         public static string SplitCamelCase(this string text)
         {
             var result = new StringBuilder();

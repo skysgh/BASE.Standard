@@ -6,7 +6,7 @@ namespace App.Modules.Core.Infrastructure.Services
 {
     /// <summary>
     /// </summary>
-    public interface IAzureCognitiveServicesComputerVisionService : IInfrastructureService, IAzureService
+    public interface IAzureCognitiveServicesComputerVisionService : IRemoteServiceClientInfrastructureService, IAzureService
     {
         // 
     }

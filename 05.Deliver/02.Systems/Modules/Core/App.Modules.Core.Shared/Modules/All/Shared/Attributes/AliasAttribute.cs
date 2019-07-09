@@ -4,6 +4,8 @@ using System;
 
 namespace App.Modules.All.Shared.Attributes
 {
+
+
     /// <summary>
     ///     The name under which the Configuration name is persisted.
     ///     <para>

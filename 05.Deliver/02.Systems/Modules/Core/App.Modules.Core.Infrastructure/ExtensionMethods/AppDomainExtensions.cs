@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using App.ExtensionMethods;
 using App.Modules.All.Shared.Constants;
 
 namespace App
@@ -33,6 +34,18 @@ namespace App
             return results;
         }
 
+        public static Assembly[] GetAssemblies(this AppDomain appDomain,
+            bool allAssemblies)
+        {
+            Assembly[] assemblies
+                = allAssemblies
+                    ? appDomain.GetAssemblies()
+                    : appDomain.GetAssemblies().Where(x => x.IsSameApp())
+                        .ToArray();
+
+            return assemblies;
+
+        }
 
         /// <summary>
         ///     Gets this application assemblies
@@ -40,71 +53,101 @@ namespace App
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
         /// <returns></returns>
-        public static IEnumerable<Assembly> GetAppAssemblies(this AppDomain appDomain)
+        public static Assembly[] GetAppAssemblies(this AppDomain appDomain)
         {
-            IEnumerable<Assembly> results = appDomain.GetAssemblies().Where(x => x.IsSameApp());
+            var results = GetAssemblies(appDomain, false);
 
             return results;
         }
 
+
         /// <summary>
-        ///     Gets all derived instantiable types, instantiates them
-        ///     (using <see cref="Activator" /> - *not* <see cref="AppDependencyLocator" />!)
-        ///     then runs the new instance through the provided action.
-        ///     <para>
-        ///         Invoked at least when scanning for StructureMap scanners
-        ///         in all assemblies.
-        ///     </para>
+        /// Gets all derived instantiable types, instantiates them
+        /// (using <see cref="Activator" /> - *not* <see cref="AppDependencyLocator" />!)
+        /// then runs the new instance through the provided action.
+        /// <para>
+        /// Invoked at least when scanning for StructureMap scanners
+        /// in all assemblies.
+        /// </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appDomain">The application domain.</param>
         /// <param name="func">The function.</param>
-        public static void InvokeImplementing<T>(this AppDomain appDomain, Action<T> func)
+        /// <param name="allAssemblies">if set to <c>true</c> [all assemblies].</param>
+        public static void InvokeImplementing<T>(this AppDomain appDomain, Action<T> func, bool allAssemblies = false)
         {
-            foreach (var foundType in appDomain.GetInstantiableTypesImplementing(typeof(T)))
+            foreach (var foundType in appDomain.GetInstantiableTypesImplementing(typeof(T), allAssemblies))
             {
                 var tmp = (T) Activator.CreateInstance(foundType);
-
                 func(tmp);
             }
         }
 
-
-        /// <summary>
-        ///     Gets all derived instantiable types, within the domain.
-        ///     <para>
-        ///         An example use case would be to find all API Controllers
-        ///         in order to associate them with a specific version.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="appDomain">The application domain.</param>
-        /// <returns>
-        ///     the found types.
-        /// </returns>
-        public static IEnumerable<Type> GetInstantiableTypesImplementing<T>(this AppDomain appDomain)
+        public static IEnumerable<Type> GetContractsDecoratedByAttribute(
+            this AppDomain appDomain, 
+            Type contractType, 
+            Type attributeType, 
+            bool allBinAssemblies = false)
         {
-            return appDomain.GetInstantiableTypesImplementing(typeof(T));
+            List<Type> results = new List<Type>();
+
+            foreach (var assembly in appDomain.GetAssemblies(allBinAssemblies))
+            {
+
+                results.AddRange(assembly.GetContractsDecoratedByAttribute(
+                    contractType,
+                    attributeType));
+            }
+
+            return results;
         }
 
 
         /// <summary>
-        ///     Gets all derived instantiable types, within the domain.
-        ///     <para>
-        ///         An example use case would be to find all API Controllers
-        ///         in order to associate them with a specific version.
-        ///     </para>
-        /// </summary>
+        /// Gets all derived instantiable types, within the domain.
+        /// <para>
+        /// An example use case would be to find all API Controllers
+        /// in order to associate them with a specific version.
+        /// </para></summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="appDomain">The application domain.</param>
-        /// <param name="type">The type.</param>
-        /// <returns>the found types.</returns>
-        public static IEnumerable<Type> GetInstantiableTypesImplementing(this AppDomain appDomain, Type type)
+        /// <param name="allAssemblies">if set to <c>true</c> [all assemblies].</param>
+        /// <returns>
+        /// the found types.
+        /// </returns>
+        public static IEnumerable<Type> GetInstantiableTypesImplementing<T>(
+            this AppDomain appDomain,
+            bool allAssemblies = false)
+        {
+            return appDomain.GetInstantiableTypesImplementing(typeof(T), allAssemblies);
+        }
+
+
+        /// <summary>
+        /// Gets all derived instantiable types, within the domain.
+        /// <para>
+        /// An example use case would be to find all API Controllers
+        /// in order to associate them with a specific version.
+        /// </para></summary>
+        /// <param name="appDomain">The application domain.</param>
+        /// <param name="contractType">The type.</param>
+        /// <param name="allAssemblies">if set to <c>true</c> [all assemblies].</param>
+        /// <returns>
+        /// the found types.
+        /// </returns>
+        public static IEnumerable<Type> GetInstantiableTypesImplementing(
+            this AppDomain appDomain,
+            Type contractType,
+            bool allAssemblies = false)
         {
             List<Type> results = new List<Type>();
-            Assembly[] tmp = appDomain.GetAssemblies();
-            foreach (var assembly in tmp)
+
+            Assembly[] assemblies = appDomain.GetAssemblies(allAssemblies);
+
+            foreach (var assembly in assemblies)
             {
-                IEnumerable<Type> r = assembly.GetInstantiableTypesImplementing(type);
+
+                IEnumerable<Type> r = assembly.GetInstantiableTypesImplementing(contractType);
                 if (r == null)
                 {
                     continue;
@@ -116,6 +159,20 @@ namespace App
             return results;
         }
 
+        public static Type[] GetTypes(this AppDomain appDomain, Func<Type, bool> predicate, bool allAssemblies = false)
+        {
+            IList<Type> results = new List<Type>();
+
+            Assembly[] assemblies = appDomain.GetAssemblies(allAssemblies);
+
+            foreach (Assembly assembly in assemblies)
+            {
+                results.AddRange(assembly.GetTypes().Where(predicate));
+            }
+            return results.ToArray();
+        }
+
+        
         /// <summary>
         ///     Loads all assemblies in the bin directory.
         /// </summary>

@@ -16,7 +16,10 @@
 
 //namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 //{
-//    public class AzureDocumentDBService : AzureDocumentDbBaseService, IAzureDocumentDBService
+//    public class AzureDocumentDBService
+// : AzureDocumentDbBaseService
+// , IAzureDocumentDBService
+// , IHasPing
 //    {
 
 //        private AzureDocumentDbServiceConfiguration _configuration;

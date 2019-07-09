@@ -8,10 +8,32 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
     public class AzureCognitiveServicesComputerVisionService : AppCoreServiceBase,
         IAzureCognitiveServicesComputerVisionService
     {
+        private readonly AzureCognitiveServicesComputerVisionServiceConfiguration _configuration;
+
         public AzureCognitiveServicesComputerVisionService(
-            AzureCognitiveServicesComputerVisionServiceConfiguration
-                azureCognitiveServicesComputerVisionServiceConfiguration)
+            AzureCognitiveServicesComputerVisionServiceConfiguration configuration,
+            IConfigurationStatusService configurationStatusService)
         {
+            this._configuration = configuration;
+        }
+
+        public bool Ping()
+        {
+            if (!_configuration.Enabled)
+            {
+                return false;
+            }
+
+            try
+            {
+                return true;
+            }
+            catch
+            {
+
+            }
+            return false;
+            //throw new System.NotImplementedException();
         }
     }
 }

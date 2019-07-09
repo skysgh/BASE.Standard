@@ -2,11 +2,9 @@
 
 using App.Modules.All.Infrastructure.Data.Db.Contexts;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
-using App.Modules.Core.Infrastructure.Data.Db.ConfigurationStatus;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
-using App.Modules.Core.Shared.Models.Messages;
-using LamarCodeGeneration.Util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -26,10 +24,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
     ///         the database if and as required.
     ///     </para>
     /// </summary>
+    [TitleDescription("Core DbContext",
+        "Core Module DbContext")]
     public class ModuleDbContext : ModuleDbContextBase
     {
         public DbSet<DataClassification> DataClassifications;
-        private readonly DbDatabaseConfigurationStatus _configurationStatus;
+        private readonly IConfigurationStatusService _configurationStatusService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleDbContextBase" /> class.
@@ -41,12 +41,12 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <param name="appDbContextManagementService">The application database context management service.</param>
         /// <param name="options">The options.</param>
         public ModuleDbContext(IConfiguration configuration,
-            IAppDbContextManagementService appDbContextManagementService, 
+            IAppDbContextManagementService appDbContextManagementService,
             DbContextOptions<ModuleDbContextBase> options)
             :
             base(
-                configuration, 
-                appDbContextManagementService, 
+                configuration,
+                appDbContextManagementService,
                 options)
         {
         }
@@ -60,13 +60,13 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <param name="appDbContextManagementService">The application database context management service.</param>
         public ModuleDbContext(
             IConfiguration configuration,
-            DbDatabaseConfigurationStatus configurationStatus,
+            IConfigurationStatusService configurationStatusService,
             IAppDbContextManagementService appDbContextManagementService
             )
-            : base(configuration, 
+            : base(configuration,
                 appDbContextManagementService)
         {
-            this._configurationStatus = configurationStatus;
+            this._configurationStatusService = configurationStatusService;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
         /// <param name="options">The options.</param>
         public ModuleDbContext(
             IConfiguration configuration,
-            DbContextOptions options) 
+            DbContextOptions options)
             : base(configuration, options)
         {
         }
@@ -98,7 +98,7 @@ namespace App.Modules.Core.Infrastructure.Data.Db.Contexts
             // So do not invoke Initialize() from here.
         }
 
-        
+
         /// <summary>
         ///     <para>
         ///         Note:

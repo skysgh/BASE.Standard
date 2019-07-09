@@ -1,11 +1,13 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace App.Modules.Core.Shared.Models.Messages
 {
     /// <summary>
     /// </summary>
+    [DataContract]
     public class AzureMapsSearchResponse
     {
         [JsonProperty("results")]

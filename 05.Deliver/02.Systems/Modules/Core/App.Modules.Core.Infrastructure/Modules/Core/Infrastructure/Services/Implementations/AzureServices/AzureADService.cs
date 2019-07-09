@@ -4,7 +4,8 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {
     //using ADAL:
     //using Nuget: https://www.nuget.org/packages/Microsoft.IdentityModel.Clients.ActiveDirectory/
-    public class AzureADService : IAzureADService
+    public class AzureADService 
+        : IAzureADService
     {
         //public string GetAccessToken(string tenantId, string clientId, string clientSecret)
         //{

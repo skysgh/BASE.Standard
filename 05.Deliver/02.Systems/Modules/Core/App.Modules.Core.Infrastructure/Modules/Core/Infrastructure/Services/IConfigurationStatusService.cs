@@ -1,5 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using System;
 using System.Linq;
 using App.Modules.All.Infrastructure.Services;
 using App.Modules.All.Shared.Models;
@@ -35,6 +36,19 @@ namespace App.Modules.Core.Infrastructure.Services
 
 
         IQueryable<ConfigurationStatus> Get();
+
+
+        void SetStatusToVerified<TInterface>();
+
+        void SetStatusToError<TInterface>(Exception e);
+
+        void SetStatusToError<TInterface>(string reason);
+
+
+        void AddStep<TInterface>(ConfigurationStatusComponentStepType type,
+            ConfigurationStatusComponentStepStatusType color,
+            string title,
+            string description);
 
     }
 }

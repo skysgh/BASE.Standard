@@ -3,8 +3,8 @@
 using App.Modules.All.Infrastructure.Data.Db.Contexts;
 using App.Modules.All.Infrastructure.Data.Db.Schema;
 using App.Modules.All.Infrastructure.Data.Db.Seeding.MutableData;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Design.Infrastructure.Data.Db.ConfigurationStatus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -24,6 +24,8 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
     ///         the database if and as required.
     ///     </para>
     /// </summary>
+    [TitleDescription("ModuleDbContext",
+        "Design Module DbContext")]
     public class ModuleDbContext : ModuleDbContextBase
     {
 
@@ -49,11 +51,9 @@ namespace App.Modules.Design.Infrastructure.Data.Db.Contexts
         /// This is the constructor invoked by the system's dependency injector/creator.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        /// <param name="configurationStatus">The configuration status.</param>
         /// <param name="appDbContextManagementService">The application database context management service.</param>
         public ModuleDbContext(
             IConfiguration configuration,
-            DbDatabaseConfigurationStatus configurationStatus,
             IAppDbContextManagementService appDbContextManagementService)
             : base(configuration, appDbContextManagementService)
         {
