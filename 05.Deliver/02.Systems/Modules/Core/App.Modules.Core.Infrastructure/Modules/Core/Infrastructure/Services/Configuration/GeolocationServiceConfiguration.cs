@@ -1,9 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     public class GeoLocationServiceConfiguration
         : ServiceClientConfigurationObjectBase

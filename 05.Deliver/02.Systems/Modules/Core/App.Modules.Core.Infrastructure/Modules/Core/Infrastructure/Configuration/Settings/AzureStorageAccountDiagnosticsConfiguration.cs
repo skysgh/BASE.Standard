@@ -20,7 +20,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
         IStorageAccountConfigurationSettings
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AzureStorageAccountDefaultConfiguration" /> class.
+        ///     Initializes a new instance of the <see cref="DefaultAzureStorageAccountConfiguration" /> class.
         /// </summary>
         public AzureStorageAccountDiagnosticsConfiguration(
             AzureEnvironmentSettings azureEnvironmentSettings,

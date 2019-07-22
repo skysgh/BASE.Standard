@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using App.ExtensionMethods;
 using App.Modules.All.Shared.Constants;
 
 namespace App

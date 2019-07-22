@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using App.Modules.All.Infrastructure.Helpers;
 using App.Modules.All.Infrastructure.Services;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Factories;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using App.Modules.Core.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 using Microsoft.Azure.KeyVault;
@@ -65,7 +65,7 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
         /// Initializes a new instance of the <see cref="AzureKeyVaultService" /> class.
         /// </summary>
         /// <param name="azureKeyVaultServiceConfiguration">The azure key vault service configuration.</param>
-        /// <param name="configurationStatus">The configuration status.</param>
+        /// <param name="configurationStatusService">The configuration status service.</param>
         /// <param name="diagnosticsTracingService">The diagnostics tracing service.</param>
         public AzureKeyVaultService(
             AzureKeyVaultServiceConfiguration azureKeyVaultServiceConfiguration,
@@ -149,16 +149,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 
 
                     var color = ConfigurationStatusComponentStepStatusType
-                        .White;
+                        .Info;
                     if (elapsedTime.Elapsed.TotalMilliseconds > 5000)
                     {
                         color = ConfigurationStatusComponentStepStatusType
-                            .Orange;
+                            .Warn;
                     }
 
                     if (elapsedTime.Elapsed.TotalMilliseconds > 10000)
                     {
-                        color = ConfigurationStatusComponentStepStatusType.Red;
+                        color = ConfigurationStatusComponentStepStatusType.Fail;
                     }
 
                     _configurationStatusService.AddStep<IAzureKeyVaultService>(

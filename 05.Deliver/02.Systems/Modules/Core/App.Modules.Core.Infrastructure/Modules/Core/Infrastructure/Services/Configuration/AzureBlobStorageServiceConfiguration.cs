@@ -4,7 +4,7 @@ using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     public class AzureBlobStorageServiceConfiguration
 : AzureServiceClientConfigurationObjectBase
@@ -14,14 +14,14 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         /// </summary>
         public AzureBlobStorageServiceConfiguration(
             IConfigurationService configurationService,
-            AzureEnvironmentSettings azureEnvironmentSettings)
+            AzureEnvironmentSettings defaultAzureConfiguration)
         {
 
             configurationService.Get(this);
 
             if (string.IsNullOrEmpty(ResourceName))
             {
-                ResourceName = azureEnvironmentSettings.DefaultResourceName;
+                ResourceName = defaultAzureConfiguration.DefaultResourceName;
             }
 
 

@@ -2,7 +2,6 @@
 
 using System;
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices

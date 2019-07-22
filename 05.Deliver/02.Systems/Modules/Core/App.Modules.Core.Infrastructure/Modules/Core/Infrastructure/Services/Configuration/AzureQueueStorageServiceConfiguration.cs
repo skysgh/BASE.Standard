@@ -2,23 +2,22 @@
 
 using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
-using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     public class AzureQueueStorageServiceConfiguration : AzureServiceClientConfigurationObjectBase
     {
         public AzureQueueStorageServiceConfiguration(
-            AzureEnvironmentSettings azureConfiguration,
+            AzureEnvironmentSettings defaultAzureConfiguration,
             IConfigurationService configurationService
         )
         {
             configurationService.Get(this);
 
-            if (string.IsNullOrEmpty(this.ResourceName))
+            if (string.IsNullOrEmpty(ResourceName))
             {
-                this.ResourceName =
-                    azureConfiguration.DefaultResourceName;
+                ResourceName =
+                    defaultAzureConfiguration.DefaultResourceName;
             }
 
         }

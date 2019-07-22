@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using App.Modules.All.Infrastructure.Services;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using App.Modules.Core.Infrastructure.Services.Statuses;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations

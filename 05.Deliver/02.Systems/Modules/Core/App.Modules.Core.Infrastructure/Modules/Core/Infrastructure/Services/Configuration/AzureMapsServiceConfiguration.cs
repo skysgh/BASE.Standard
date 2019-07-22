@@ -4,7 +4,7 @@ using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
 
     public class AzureMapsServiceConfiguration
@@ -13,21 +13,21 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
 
 
         public AzureMapsServiceConfiguration(
-            AzureEnvironmentSettings azureConfiguration,
+            AzureEnvironmentSettings defaultAzureConfiguration,
             IConfigurationService configurationService
             )
         {
             configurationService.Get(this);
 
-            if (string.IsNullOrEmpty(this.ResourceName))
+            if (string.IsNullOrEmpty(ResourceName))
             {
-                this.ResourceName =
-                    azureConfiguration.DefaultResourceName;
+                ResourceName =
+                    defaultAzureConfiguration.DefaultResourceName;
             }
 
-            if (this.BaseUri.IsNullOrEmpty())
+            if (BaseUri.IsNullOrEmpty())
             {
-                this.BaseUri =
+                BaseUri =
                     "https://atlas.microsoft.com"; // /search/address/reverse/json?subscription-key={subscription-key}&api-version=1.0&query={query}"
             }
         }

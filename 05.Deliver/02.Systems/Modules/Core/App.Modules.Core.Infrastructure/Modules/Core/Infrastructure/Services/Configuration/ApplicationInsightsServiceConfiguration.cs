@@ -4,7 +4,7 @@ using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     /// <summary>
     ///     An immutable host configuration object

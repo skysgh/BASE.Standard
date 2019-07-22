@@ -15,7 +15,8 @@ namespace App.Modules.All.Infrastructure.Configuration
         /// </summary>
         protected AzureServiceClientConfigurationObjectBase()
         {
-            Enabled = true;
+            Enabled = false;
+            Timeout = 30;
         }
 
         /// <summary>
@@ -35,7 +36,9 @@ namespace App.Modules.All.Infrastructure.Configuration
         /// The base URI (depending on the service type, with or without the protocol).
         /// </value>
         public string BaseUri { get; set; }
+
         public string ResourceName { get; set; }
+
         /// <summary>
         /// Gets or sets the client secret/key
         /// used by this system to authenticate and authorise
@@ -52,5 +55,10 @@ namespace App.Modules.All.Infrastructure.Configuration
         /// </summary>
         public string ClientSecret { get; set; }
 
+        /// <summary>
+        /// Gets or sets the acceptable timeout(in seconds)
+        /// before the connection is deemed as failure.
+        /// </summary>
+        public int Timeout { get; set; }
     }
 }

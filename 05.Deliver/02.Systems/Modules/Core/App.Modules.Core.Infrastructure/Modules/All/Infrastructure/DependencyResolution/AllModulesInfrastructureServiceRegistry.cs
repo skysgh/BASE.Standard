@@ -46,6 +46,8 @@ namespace App.Modules.All.Infrastructure.DependencyResolution
 
                     assemblyScanner.Convention<DbContextOptionsBuilderRegistrationConvention>();
 
+                    assemblyScanner.Convention<AzureStorageBlobContextRegistrationConvention>();
+
                     //ScanAllModulesAndRegisterNamedInstancesOfStorageAccountContexts(assemblyScanner);
 
                     //ScanAllModulesAndRegisterNamedInstancesOfNamedCacheInitializers(assemblyScanner);

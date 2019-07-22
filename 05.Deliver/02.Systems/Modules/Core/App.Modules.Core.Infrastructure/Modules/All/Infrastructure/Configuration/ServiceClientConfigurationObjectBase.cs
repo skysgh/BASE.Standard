@@ -37,6 +37,7 @@ namespace App.Modules.All.Infrastructure.Configuration
         {
 
             Enabled = true;
+            Timeout = 30;
 
             configurationService.Get(this);
         }
@@ -83,11 +84,18 @@ namespace App.Modules.All.Infrastructure.Configuration
         /// </para>
         /// </summary>
         public string ClientSecret { get; set; }
+
         /// <summary>
-        /// Gets or sets any misc configuration (generally as a JSON string).
+        /// Gets or sets any misc configuration (generally as a JSON string)
+        /// (depends on service).
         /// </summary>
         public string MiscConfig { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets the acceptable timeout (in seconds)
+        /// before the connection is deemed as failure.
+        /// </summary>
+        public int Timeout { get; set; }
     }
 }

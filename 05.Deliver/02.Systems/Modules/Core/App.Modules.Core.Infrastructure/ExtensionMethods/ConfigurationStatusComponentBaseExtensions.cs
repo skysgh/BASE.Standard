@@ -28,7 +28,7 @@ namespace App
 
                 configurationStatus.AddStep(
                     ConfigurationStatusComponentStepType.General,
-                    ConfigurationStatusComponentStepStatusType.Red, reason,
+                    ConfigurationStatusComponentStepStatusType.Fail, reason,
                     "Error");
             }
             configurationStatus.Status =

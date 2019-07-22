@@ -1,6 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-namespace App.Modules.Core.Shared.Models.Messages.API.V0100
+using App.Modules.Core.Shared.Models.Messages;
+
+namespace App.Modules.Core.Shared.Models.DTOs
 {
     /// <summary>
     ///     DTO for <see cref="GeoInformation" />

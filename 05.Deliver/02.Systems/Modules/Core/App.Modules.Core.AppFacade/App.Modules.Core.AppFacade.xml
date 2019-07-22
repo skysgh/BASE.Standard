@@ -1007,7 +1007,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.Classic.ConfigurationStatusesController">
             <summary>
             Controller to return a
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto"/>
+            <see cref="T:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto"/>
             that describe how the system is configured.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Base.CommonODataControllerBase" />
@@ -1053,7 +1053,7 @@
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.ApplicationDescriptionsController.Get">
             <summary>
                 Gets a queryable set of
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto" />
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto" />
                 objects.
             </summary>
             <returns></returns>
@@ -1061,7 +1061,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ApplicationDescriptionOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
@@ -1079,7 +1079,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusComponentOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.SessionDto" />, and relate it to a Controller.
                 <para>
                 </para>
             </summary>
@@ -1099,7 +1099,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ConfigurationStatusOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.SessionDto" />, and relate it to a Controller.
                 <para>
                 </para>
             </summary>
@@ -1136,7 +1136,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.EmailODataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.EmailDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
@@ -1154,7 +1154,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.ExceptionRecordOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1162,7 +1162,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.GeoInformationODataMOdelBuilderConfighuration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.GeoInformationDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleODataModelBuilderConfigurationBase`1" />
@@ -1178,7 +1178,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.MediaMetadataOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1186,7 +1186,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.NotificationOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.NotificationDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1194,7 +1194,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalCategoryOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1202,7 +1202,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalClaimOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1210,7 +1210,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1218,7 +1218,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalPropertyOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1226,7 +1226,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.PrincipalTagOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1234,7 +1234,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.RoleOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.RoleDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1242,7 +1242,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.SessionOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.SessionDto" />, and relate it to a Controller.
                 <para>
                 </para>
             </summary>
@@ -1251,7 +1251,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.SessionOperationOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.SessionOperationDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1259,20 +1259,20 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantClaimOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto" />, and relate it to a Controller.
             </summary>
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.TenantPropertyOdataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto" />, and relate it to a Controller.
             </summary>
             <seealso
                 cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
@@ -1280,14 +1280,14 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration.UserProfileODataModelBuilderConfiguration">
             <summary>
                 An OData Configuration object to define the shape of an
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto" />, and relate it to a Controller.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.UserProfileDto" />, and relate it to a Controller.
             </summary>
             <seealso cref="T:App.Modules.All.AppFacade.Controllers.Api.OData.Configuration.ModuleGuidIdODataModelBuilderConfigurationBase`1" />
         </member>
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController">
             <summary>
                 OData Queryable REST Controller for
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto" /> messages
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto" /> messages
                 for Application Support Specialists to
                 query what Exceptions have happened of late.
             </summary>
@@ -1333,7 +1333,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Post(App.Modules.Core.Shared.Models.DTOs.DataClassificationDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -1352,7 +1352,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DataClassificationsController.Put(App.Modules.Core.Shared.Models.DTOs.DataClassificationDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -1407,7 +1407,7 @@
         <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Get">
             <summary>
                 Gets a queryable set of
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto" />
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto" />
                 objects.
             </summary>
             <returns></returns>
@@ -1419,7 +1419,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Post(App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto)">
             <summary>
             Posts the specified value.
             </summary>
@@ -1435,7 +1435,7 @@
             <param name="traceLevel"></param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.DiagnosticsTracesController.Put(App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -1476,7 +1476,7 @@
         <member name="T:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController">
             <summary>
             OData Queryable REST Controller for
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto"/> messages 
+            <see cref="T:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto"/> messages 
             
             </summary>
         </member>
@@ -1504,7 +1504,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Post(App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -1523,7 +1523,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.MediaMetadatasController.Put(App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -1610,13 +1610,13 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Post(App.Modules.Core.Shared.Models.DTOs.NotificationDto)">
             <summary>
             Posts the specified value.
             </summary>
             <param name="valueObject">The value.</param>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.NotificationsController.Put(App.Modules.Core.Shared.Models.DTOs.NotificationDto)">
             <summary>
             Puts the specified value.
             </summary>
@@ -1653,7 +1653,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Post(App.Modules.Core.Shared.Models.DTOs.PrincipalDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -1672,7 +1672,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.PrincipalsController.Put(App.Modules.Core.Shared.Models.DTOs.PrincipalDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -1754,14 +1754,14 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Post(App.Modules.Core.Shared.Models.DTOs.TenantDto)">
             <summary>
             Create a new entity.
             </summary>
             <param name="value">The value.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto)">
+        <member name="M:App.Modules.Core.AppFacade.Controllers.Api.OData.HOLD.V0100.TenantsController.Put(App.Modules.Core.Shared.Models.DTOs.TenantDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -2027,7 +2027,7 @@
         <member name="T:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController">
             <summary>
             OData Queryable REST Controller for
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto"/> messages 
+            <see cref="T:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto"/> messages 
             for Application Support Specialists to 
             query what Exceptions have happened of late.
             </summary>
@@ -2070,7 +2070,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Post(App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -2089,7 +2089,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.ExceptionRecordsController.Put(App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -2171,7 +2171,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Post(App.Modules.Core.Shared.Models.DTOs.SessionOperationDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -2190,7 +2190,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionOperationsController.Put(App.Modules.Core.Shared.Models.DTOs.SessionOperationDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -2272,7 +2272,7 @@
             <param name="key">The key.</param>
             <returns></returns>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Post(App.Modules.Core.Shared.Models.DTOs.SessionDto)">
             <summary>
             Creates the specified resource.
             <para>
@@ -2291,7 +2291,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Put(App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.SessionsController.Put(App.Modules.Core.Shared.Models.DTOs.SessionDto)">
             <summary>
             Updates the specified resource.
             <para>
@@ -2343,7 +2343,7 @@
             <param name="principalService">The principal service.</param>
             <param name="smtpService">The SMTP service.</param>
         </member>
-        <member name="M:App.Core.Application.API.Controllers.V0100.EmailController.Post(App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto)">
+        <member name="M:App.Core.Application.API.Controllers.V0100.EmailController.Post(App.Modules.Core.Shared.Models.DTOs.EmailDto)">
             <summary>
             Posts the specified email.
             </summary>

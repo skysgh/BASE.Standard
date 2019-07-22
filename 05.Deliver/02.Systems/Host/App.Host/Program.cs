@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using App.Modules.Core.Infrastructure.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -34,15 +36,12 @@ namespace App.Host
 
 
 
-
             var result =
                 WebHost.CreateDefaultBuilder(args)
                  // Look how early we define that Dependency Injection is First Class Citizen:
                  .UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
                  //.CaptureStartupErrors(true)
                  .UseShutdownTimeout(TimeSpan.FromSeconds(1))
-                 // Enable extended DependencyLocation as soon as possible:
-                 .UseLamar()
                  .UseKestrel(x =>
                  {
                      // For Security reasons:
@@ -52,37 +51,52 @@ namespace App.Host
                      x.Limits.MaxRequestBodySize = (6 * 1024 * 1024);
                  }
                  )
-                .ConfigureLogging(logging =>
-                 {
-                     //logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                     logging.AddConsole();
-                     logging.AddDebug();
-                     logging.AddEventSourceLogger();
-                 });
+                 // Enable extended DependencyLocation as soon as possible:
+                 // Ensure it is before UseStartup.
+                 .UseLamar()
+                ;
 
 
             result
                 .ConfigureAppConfiguration((context, config) =>
-           {
-               
-               //Use the app defined extension method to wire up a keyvault.
-               config
-                   //.SetBasePath(Directory.GetCurrentDirectory())
-                   .SetBasePath(context.HostingEnvironment.ContentRootPath)
-                   .AddJsonFile(
-                       $"appsettings.{context.HostingEnvironment.EnvironmentName}.json",
-                       true, true)
-                   .AddJsonFile(
-                       $"appsettings.{context.HostingEnvironment.EnvironmentName}.INSECURE.json",
-                       true, true)
-                   // Last, and most importantly, add KeyVault:
-                   .AddKeyVaultSettingsConfig(
-                       enabled: true //context.HostingEnvironment.IsProduction()
-                   );
+                {
+                    // Need a first fake one, in order 
+                    // to determine whether to 
+                    config
+                        //.SetBasePath(Directory.GetCurrentDirectory())
+                        .SetBasePath(context.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile(
+                            $"appsettings.{context.HostingEnvironment.EnvironmentName}.json",
+                            true, true)
+                        .AddJsonFile(
+                            $"appsettings.{context.HostingEnvironment.EnvironmentName}.INSECURE.json",
+                            true, true)
+                        .Build();
+
+                    var tmpConfigRoot = config.Build();
+                    var useKeyVaultEvenIfSlowsStartupConsiderably =
+                        !string.IsNullOrWhiteSpace(
+                            tmpConfigRoot.Get<AzureEnvironmentSettings>()
+                                .DefaultKeyVaultResourceName);
+                    //Use the app defined extension method to wire up a keyvault.
+                    config
+                        // Last, and most importantly, add KeyVault:
+                        .AddKeyVaultSettingsConfig(
+                            enabled: useKeyVaultEvenIfSlowsStartupConsiderably
+                        );
 
 
 
-           });
+                })
+                .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.AddConfiguration(
+                            hostingContext.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                        logging.AddEventSourceLogger();
+                    }
+                );
 
 
             result

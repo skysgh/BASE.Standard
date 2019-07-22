@@ -1,10 +1,9 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
-using App.Modules.All.Shared.Models;
 using App.Modules.Core.Shared.Models.Entities;
 
-namespace App.Modules.Core.Shared.Models.Messages
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
     ///     Base class for DTO objects.

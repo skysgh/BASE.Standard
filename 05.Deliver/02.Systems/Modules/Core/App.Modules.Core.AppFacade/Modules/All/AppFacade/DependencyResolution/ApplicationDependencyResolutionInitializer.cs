@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using App.Modules.All.Shared.Initialization;
-using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using AutoMapper;
 using Lamar;
 using Microsoft.Extensions.Configuration;

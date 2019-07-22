@@ -2,8 +2,9 @@
 
 using System;
 using App.Modules.All.Shared.Models;
+using App.Modules.Core.Shared.Models.Messages;
 
-namespace App.Modules.Core.Shared.Models.Messages.API.V0100
+namespace App.Modules.Core.Shared.Models.DTOs
 {
     /// <summary>
     ///     DTO for <see cref="ConfigurationStatusComponentStep" />

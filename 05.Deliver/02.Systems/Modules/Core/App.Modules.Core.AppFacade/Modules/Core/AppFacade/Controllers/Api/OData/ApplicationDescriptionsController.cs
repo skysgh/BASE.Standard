@@ -1,9 +1,9 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.AppFacade.Controllers.Api.OData.Base;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using App.Modules.Core.Infrastructure.Services.Configuration;
+using App.Modules.Core.Shared.Models.DTOs;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 

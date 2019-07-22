@@ -2,9 +2,8 @@
 
 using System;
 using App.Modules.All.Shared.Factories;
-using App.Modules.All.Shared.Models;
 
-namespace App.Modules.Core.Shared.Models.Messages
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
     ///     Base class for DTO objects.
@@ -13,7 +12,7 @@ namespace App.Modules.Core.Shared.Models.Messages
     ///         will inherit from this base class.
     ///     </para>
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Shared.Models.Messages.TenantedRecordStatedDtoBase" />
+    /// <seealso cref="TenantedRecordStatedDtoBase" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
     public abstract class
         TenantedRecordStateGuidIdDtoBase : /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */

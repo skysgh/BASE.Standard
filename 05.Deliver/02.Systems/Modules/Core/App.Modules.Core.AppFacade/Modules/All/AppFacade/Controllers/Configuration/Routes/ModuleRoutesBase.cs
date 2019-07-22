@@ -143,7 +143,7 @@ namespace App.Modules.All.AppFacade.Controllers.Configuration.Routes
 
                 _configurationStatus.AddStep(
                     ConfigurationStatusComponentStepType.General,
-                    ConfigurationStatusComponentStepStatusType.Green,
+                    ConfigurationStatusComponentStepStatusType.Pass,
                     $"Register OData model and Controller using {x.GetType().Name}.",
                     "Success"
                 );

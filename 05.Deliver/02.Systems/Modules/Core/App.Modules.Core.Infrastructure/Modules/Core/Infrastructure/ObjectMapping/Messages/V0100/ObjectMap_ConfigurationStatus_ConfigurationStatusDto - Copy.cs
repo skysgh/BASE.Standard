@@ -2,8 +2,8 @@
 
 using System;
 using App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100.Base;
+using App.Modules.Core.Shared.Models.DTOs;
 using App.Modules.Core.Shared.Models.Messages;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using AutoMapper;
 
 namespace App.Modules.Core.Infrastructure.ObjectMapping.Messages.V0100

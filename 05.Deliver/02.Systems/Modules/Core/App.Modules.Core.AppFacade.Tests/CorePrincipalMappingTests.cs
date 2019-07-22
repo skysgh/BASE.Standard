@@ -3,8 +3,8 @@ using System.Linq;
 using App.Modules.Core.Common.Tests.Attributes;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.Tests;
+using App.Modules.Core.Shared.Models.DTOs;
 using App.Modules.Core.Shared.Models.Entities;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using FluentAssertions;
 
 namespace App.Modules.Core.AppFacade.Tests

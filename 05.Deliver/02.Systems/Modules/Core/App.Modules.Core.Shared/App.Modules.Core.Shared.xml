@@ -426,6 +426,92 @@
                 Initializes this instance.
             </summary>
         </member>
+        <member name="T:App.Modules.All.Shared.Models.TenantedRecordStatedDtoBase">
+            <summary>
+                Base class for DTO objects.
+                <para>
+                    Most DTO messages developed in Modules -- bar Core --
+                    will inherit from this base class.
+                </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.TenantedRecordStatedDtoBase.RecordState">
+            <summary>
+                Gets or sets the logical state of the record:
+            </summary>
+            <value>
+                The state of the record.
+            </value>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.TenantedRecordStatedDtoBase.TenantFK">
+            <summary>
+                Gets or sets the FK of the Tenancy this mutable model belongs to.
+                <para>
+                    When referenced from within the Core Module's DbContext
+                    the TenantFK is logically enforced by the database (normalized),
+                    whereas from other DbContexts it is not.
+                    The Logic behind this choice stems from the understanding that
+                    a Business Model (eg: Foo) has no need to Navigate to a Tenant to which
+                    the Business Model belongs. It's actually a different Domain Context (System).
+                    The above logic is actually enforced in EF's natural constraint that a Model
+                    belong to only one DbContext (one Bounded Context).
+                    The advantage is natural Domain Separation. In the same way as we trust external
+                    IdP Services to manage Users.
+                    THe consideration is that Application logic is required to ensure TenantId
+                    is applied at the Application Logic tier, as it is not enforced at the database.
+                    TenantFK is not required on anything else but the TenantProperties entity, and Users
+                    in order to know which Tenant a user is allowed to be a member of.
+                </para>
+            </summary>
+            <value>
+                The tenant fk.
+            </value>
+        </member>
+        <member name="T:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdDtoBase">
+            <summary>
+                Base class for DTO objects.
+                <para>
+                    Most DTO messages developed in Modules -- bar Core --
+                    will inherit from this base class.
+                </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.TenantedRecordStatedDtoBase" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+        </member>
+        <member name="M:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdDtoBase.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdDtoBase" /> class.
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdDtoBase.Id">
+            <summary>
+                Gets or sets the identifier.
+            </summary>
+            <value>
+                The identifier.
+            </value>
+        </member>
+        <member name="T:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdReferenceDtoBase">
+            <summary>
+                Base class for Reference data item DTO/Messages.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdDtoBase" />
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdReferenceDtoBase.Title">
+            <summary>
+                Gets or sets the text.
+            </summary>
+        </member>
+        <member name="P:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdReferenceDtoBase.Description">
+            <summary>
+                Gets or sets the description.
+            </summary>
+            <value>
+                The description.
+            </value>
+        </member>
         <member name="T:App.Modules.All.Shared.Models.Entities.TenantFKKeyedRecordStatedTimestampedCustomIdReferenceDataEntityBase`1">
             <summary>
                 Whereas <see cref="T:App.Modules.All.Shared.Models.Entities.TenantFKRecordStatedTimestampedCustomIdReferenceDataEntityBase`1" />
@@ -1876,93 +1962,42 @@
             </summary>
             <seealso cref="T:App.Modules.All.Shared.DependencyResolution.Lifecycles.IHasSingletonLifecycle" />
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStatedDtoBase">
+        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms">
             <summary>
-                Base class for DTO objects.
-                <para>
-                    Most DTO messages developed in Modules -- bar Core --
-                    will inherit from this base class.
-                </para>
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.TenantedRecordStatedDtoBase.RecordState">
-            <summary>
-                Gets or sets the logical state of the record:
-            </summary>
-            <value>
-                The state of the record.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.TenantedRecordStatedDtoBase.TenantFK">
-            <summary>
-                Gets or sets the FK of the Tenancy this mutable model belongs to.
-                <para>
-                    When referenced from within the Core Module's DbContext
-                    the TenantFK is logically enforced by the database (normalized),
-                    whereas from other DbContexts it is not.
-                    The Logic behind this choice stems from the understanding that
-                    a Business Model (eg: Foo) has no need to Navigate to a Tenant to which
-                    the Business Model belongs. It's actually a different Domain Context (System).
-                    The above logic is actually enforced in EF's natural constraint that a Model
-                    belong to only one DbContext (one Bounded Context).
-                    The advantage is natural Domain Separation. In the same way as we trust external
-                    IdP Services to manage Users.
-                    THe consideration is that Application logic is required to ensure TenantId
-                    is applied at the Application Logic tier, as it is not enforced at the database.
-                    TenantFK is not required on anything else but the TenantProperties entity, and Users
-                    in order to know which Tenant a user is allowed to be a member of.
-                </para>
-            </summary>
-            <value>
-                The tenant fk.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase">
-            <summary>
-                Base class for DTO objects.
-                <para>
-                    Most DTO messages developed in Modules -- bar Core --
-                    will inherit from this base class.
-                </para>
-            </summary>
-            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStatedDtoBase" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
-        </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase.#ctor">
-            <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase" /> class.
+                To organize XUnit tests
+                they should be decorated with 'TraitAttribute'.
+                The Trait key can be anything -- so it's best
+                to create a convention.
+                The following static words are this system's
+                convention.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase.Id">
+        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Traits">
             <summary>
-                Gets or sets the identifier.
-            </summary>
-            <value>
-                The identifier.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdReferenceDtoBase">
-            <summary>
-                Base class for Reference data item DTO/Messages.
-            </summary>
-            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdReferenceDtoBase.Title">
-            <summary>
-                Gets or sets the text.
+                TODO
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdReferenceDtoBase.Description">
+        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Features">
             <summary>
-                Gets or sets the description.
+                TODO
             </summary>
-            <value>
-                The description.
-            </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto">
+        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Qualities">
+            <summary>
+                Qualities that can be assigned to systems and data.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Qualities.ISO25010Terms">
+            <summary>
+                Qualities that can be assigned to Systems.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Constants.ModuleSpecificApiScopes">
+            <summary>
+                TODO
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto">
             <summary>
                 DTO Message for ApplicationDescriptionConfigurationSettings
                 summarizing the Application's Name, Description, Creator, Distributor.
@@ -1970,7 +2005,7 @@
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Name">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto.Name">
             <summary>
                 Gets or sets the name.
             </summary>
@@ -1978,7 +2013,7 @@
                 The name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -1986,7 +2021,7 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Creator">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto.Creator">
             <summary>
                 Gets or sets the creator.
             </summary>
@@ -1994,7 +2029,7 @@
                 The creator.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Distributor">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto.Distributor">
             <summary>
                 Gets or sets the distributor.
             </summary>
@@ -2002,7 +2037,7 @@
                 The distributor.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationDescriptionDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationDescriptionDto.Key">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2010,27 +2045,27 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto">
             <summary>
                 TODO
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto.Key">
             <summary>
                 Gets or sets the identifier.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Name">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto.Name">
             <summary>
                 Gets or sets the name.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.SiteUrl">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto.SiteUrl">
             <summary>
                 Gets or sets the site URL.
             </summary>
@@ -2038,7 +2073,7 @@
                 The site URL.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ApplicationProviderInformationDto.ContactUrl">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ApplicationProviderInformationDto.ContactUrl">
             <summary>
                 Gets or sets the contact URL.
             </summary>
@@ -2046,13 +2081,13 @@
                 The contact URL.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto">
             <summary>
             TODO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IConfigurationComponentStatus" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.Title">
             <summary>
             Gets or sets the title.
             </summary>
@@ -2060,7 +2095,7 @@
             The title.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.Description">
             <summary>
             Gets or sets the description.
             </summary>
@@ -2068,7 +2103,7 @@
             The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.ImageUrl">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.ImageUrl">
             <summary>
             Gets or sets the image URL.
             </summary>
@@ -2076,7 +2111,7 @@
             The image URL.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.Status">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.Status">
             <summary>
             Gets or sets the status.
             </summary>
@@ -2084,7 +2119,7 @@
             The status.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.DisplayOrderHint">
             <summary>
             Gets or sets the display order hint.
             </summary>
@@ -2092,7 +2127,7 @@
             The display order hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.DisplayStyleHint">
             <summary>
             Gets or sets the display style hint.
             </summary>
@@ -2100,7 +2135,7 @@
             The display style hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusComponentDto.Steps">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusComponentDto.Steps">
             <summary>
             Gets the steps.
             </summary>
@@ -2108,13 +2143,13 @@
             The steps.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep" />
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2122,22 +2157,22 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.DateTime">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.DateTime">
             <summary>
                 Gets or sets the date time.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Type">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.Type">
             <summary>
                 Gets or sets the configuration type.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Status">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.Status">
             <summary>
                 Gets or sets the status.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Task">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.Task">
             <summary>
             Gets or sets the task.
             </summary>
@@ -2145,7 +2180,7 @@
             The task.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusStepDto.Outcome">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusStepDto.Outcome">
             <summary>
             Gets or sets the outcome.
             </summary>
@@ -2153,13 +2188,13 @@
             The outcome.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto">
             <summary>
             
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto.Title">
             <summary>
             Gets or sets the title.
             </summary>
@@ -2167,7 +2202,7 @@
             The title.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto.Description">
             <summary>
             Gets or sets the description.
             </summary>
@@ -2175,31 +2210,31 @@
             The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Status">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto.Status">
             <summary>
             Gets or sets the status.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ConfigurationStatusDto.Components">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ConfigurationStatusDto.Components">
             <summary>
             Gets the individual status of
             individual components.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto">
             <summary>
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasId`1" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.Enabled">
             <summary>
-                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto" /> is enabled.
+                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto" /> is enabled.
             </summary>
             <value>
                 <c>true</c> if enabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.Title">
             <summary>
                 Gets or sets the title.
             </summary>
@@ -2207,7 +2242,7 @@
                 The title.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -2215,7 +2250,7 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.DisplayOrderHint">
             <summary>
                 Gets or sets the display order hint.
             </summary>
@@ -2223,7 +2258,7 @@
                 The display order hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.DisplayStyleHint">
             <summary>
                 Gets or sets the display style hint.
             </summary>
@@ -2231,7 +2266,7 @@
                 The display style hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DataClassificationDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DataClassificationDto.Id">
             <summary>
                 Gets or sets the identifier.
                 <para>
@@ -2244,13 +2279,13 @@
                 </para>
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.DateTimeCreatedUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.DateTimeCreatedUtc">
             <summary>
                 Gets or sets the date time created UTC.
             </summary>
@@ -2258,7 +2293,7 @@
                 The date time created UTC.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.Level">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.Level">
             <summary>
                 Gets or sets the level.
             </summary>
@@ -2266,7 +2301,7 @@
                 The level.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.ThreadId">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.ThreadId">
             <summary>
                 Gets or sets the thread identifier.
             </summary>
@@ -2274,7 +2309,7 @@
                 The thread identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.ClientId">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.ClientId">
             <summary>
                 Gets or sets the client identifier.
             </summary>
@@ -2282,7 +2317,7 @@
                 The client identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.Message">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.Message">
             <summary>
                 Gets or sets the message.
             </summary>
@@ -2290,7 +2325,7 @@
                 The message.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.DiagnosticsTraceRecordDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.DiagnosticsTraceRecordDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2298,17 +2333,17 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.EmailDto">
             <summary>
                 A DTO for EMail entities.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto.To">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.EmailDto.To">
             <summary>
                 Gets or sets whom the message is to.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto.Subject">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.EmailDto.Subject">
             <summary>
                 Gets or sets message subject.
             </summary>
@@ -2316,27 +2351,27 @@
                 The subject.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.EmailDto.Body">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.EmailDto.Body">
             <summary>
                 Gets or sets the message body.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExampleReferenceTypeDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ExampleReferenceTypeDto">
             <summary>
                 TODO
             </summary>
-            <seealso cref="T:App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdReferenceDtoBase" />
+            <seealso cref="T:App.Modules.All.Shared.Models.TenantedRecordStateGuidIdReferenceDtoBase" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto">
             <summary>
                 Creates a DTO of the <see cref="T:App.Modules.Core.Shared.Models.Entities.ExceptionRecord" />
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.CreatedOnUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.CreatedOnUtc">
             <summary>
                 Gets or sets the UTC the record was created on.
             </summary>
@@ -2344,32 +2379,32 @@
                 The created on UTC.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.Level">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.Level">
             <summary>
                 Gets or sets the level.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.ThreadId">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.ThreadId">
             <summary>
                 Gets or sets the thread identifier.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.ClientId">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.ClientId">
             <summary>
                 Gets or sets the client identifier.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.Title">
             <summary>
                 Gets or sets the title.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.Stack">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.Stack">
             <summary>
                 Gets or sets the stack.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.ExceptionRecordDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.ExceptionRecordDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2377,22 +2412,22 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationCountryRegionDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.GeoInformationCountryRegionDto">
             <summary>
                 TODO
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationCountryRegionDto.IsoCode">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.GeoInformationCountryRegionDto.IsoCode">
             <summary>
                 Gets or sets the iso code.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.GeoInformationDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Messages.GeoInformation" />
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto.CountryRegion">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.GeoInformationDto.CountryRegion">
             <summary>
                 Gets or sets the country region.
             </summary>
@@ -2400,7 +2435,7 @@
                 The country region.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.GeoInformationDto.IPAddress">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.GeoInformationDto.IPAddress">
             <summary>
                 Gets or sets the ip address.
             </summary>
@@ -2408,19 +2443,19 @@
                 The ip address.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.MediaMetadata" /> entities.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2428,7 +2463,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.MediaMetadataDto.TenantFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.MediaMetadataDto.TenantFK">
             <summary>
                 Gets or sets the FK of the Tenancy this mutable model belongs to.
                 <para>
@@ -2452,21 +2487,21 @@
                 The tenant fk.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.NavigationRoute" /> entities.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.Enabled">
             <summary>
-                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto" /> is enabled.
+                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto" /> is enabled.
             </summary>
             <value>
                 <c>true</c> if enabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.OwnerFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.OwnerFK">
             <summary>
                 TODO: Gets or sets the owner fk.
             </summary>
@@ -2474,7 +2509,7 @@
                 The owner fk.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.Text">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.Text">
             <summary>
                 Gets or sets the text.
             </summary>
@@ -2482,7 +2517,7 @@
                 The text.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.DisplayOrderHint">
             <summary>
                 Gets or sets the display order hint.
             </summary>
@@ -2490,7 +2525,7 @@
                 The display order hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.DisplayStyleHint">
             <summary>
                 Gets or sets the display style hint.
             </summary>
@@ -2498,7 +2533,7 @@
                 The display style hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.Children">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.Children">
             <summary>
                 Gets the children.
             </summary>
@@ -2506,12 +2541,12 @@
                 The children.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.Description">
             <summary>
                 Gets or sets the optional displayed description.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NavigationRouteDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NavigationRouteDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2519,24 +2554,24 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.NotificationDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.Notification" /> entities.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.NotificationDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.NotificationDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Type">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Type">
             <summary>
                 Gets or sets the type.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.From">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.From">
             <summary>
                 Gets or sets from.
             </summary>
@@ -2544,7 +2579,7 @@
                 From.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.ImageUrl">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.ImageUrl">
             <summary>
                 Gets or sets the image URL.
             </summary>
@@ -2552,7 +2587,7 @@
                 The image URL.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Class">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Class">
             <summary>
                 Gets or sets the rendering class.
             </summary>
@@ -2560,7 +2595,7 @@
                 The class.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.DateTimeCreatedUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.DateTimeCreatedUtc">
             <summary>
                 Gets or sets the date time created UTC.
             </summary>
@@ -2568,7 +2603,7 @@
                 The date time created UTC.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.DateTimeReadUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.DateTimeReadUtc">
             <summary>
                 Gets or sets the date time read UTC.
             </summary>
@@ -2576,17 +2611,17 @@
                 The date time read UTC.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.IsRead">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.IsRead">
             <summary>
                 Status whether Message has been read.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Value">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Value">
             <summary>
                 1-100% complete.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Text">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Text">
             <summary>
                 Gets or sets the text.
             </summary>
@@ -2594,7 +2629,7 @@
                 The text.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2602,7 +2637,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.TenantFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.TenantFK">
             <summary>
                 Gets or sets the FK of the Tenancy this mutable model belongs to.
                 <para>
@@ -2626,7 +2661,7 @@
                 The tenant fk.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationDto.Level">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationDto.Level">
             <summary>
                 Gets or sets the level.
             </summary>
@@ -2634,23 +2669,23 @@
                 The level.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationUpdateDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.NotificationUpdateDto">
             <summary>
                 DTO for updating the status of Notifications.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationUpdateDto.Read">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationUpdateDto.Read">
             <summary>
                 Status whether Message has been read.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationUpdateDto.DateTimeModifiedUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationUpdateDto.DateTimeModifiedUtc">
             <summary>
                 The time the client read the message (if offline, will be different than time server records it).
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.NotificationUpdateDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.NotificationUpdateDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2658,21 +2693,21 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.PrincipalCategory" />
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.Enabled">
             <summary>
-                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto" /> is enabled.
+                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto" /> is enabled.
             </summary>
             <value>
                 <c>true</c> if enabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.Text">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.Text">
             <summary>
                 Gets or sets the text.
             </summary>
@@ -2680,7 +2715,7 @@
                 The text.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -2688,7 +2723,7 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.DisplayOrderHint">
             <summary>
                 Gets or sets the display order hint.
             </summary>
@@ -2696,7 +2731,7 @@
                 The display order hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.DisplayStyleHint">
             <summary>
                 Gets or sets the display style hint.
             </summary>
@@ -2704,7 +2739,7 @@
                 The display style hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalCategoryDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalCategoryDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2712,7 +2747,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.PrincipalClaim" />
             </summary>
@@ -2722,7 +2757,7 @@
             <seealso cref="T:App.Modules.All.Shared.Models.IHasKey" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasValue`1" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.Authority">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.Authority">
             <summary>
                 Gets or sets the authority key.
             </summary>
@@ -2730,7 +2765,7 @@
                 The authority key.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.AuthoritySignature">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.AuthoritySignature">
             <summary>
                 Gets or sets the signature.
             </summary>
@@ -2738,7 +2773,7 @@
                 The signature.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2746,7 +2781,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -2757,7 +2792,7 @@
                 .
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.PrincipalFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.PrincipalFK">
             <summary>
                 Gets or sets the FK of the
                 <see cref="T:App.Modules.Core.Shared.Models.Entities.Principal" />
@@ -2766,7 +2801,7 @@
                 The principal fk.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.RecordState">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.RecordState">
             <summary>
                 Gets or sets the logical state of the record:
             </summary>
@@ -2774,12 +2809,12 @@
                 The state of the record.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalClaimDto.Value">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalClaimDto.Value">
             <summary>
                 Gets or sets the value.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.Principal" />
                 objects.
@@ -2787,7 +2822,7 @@
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasEnabled" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.FullName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.FullName">
             <summary>
                 Gets or sets the full name.
             </summary>
@@ -2795,7 +2830,7 @@
                 The full name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.DisplayName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.DisplayName">
             <summary>
                 Gets or sets the display name.
             </summary>
@@ -2803,7 +2838,7 @@
                 The display name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.DataClassification">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.DataClassification">
             <summary>
                 Gets or sets the data classification.
             </summary>
@@ -2811,7 +2846,7 @@
                 The data classification.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Category">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Category">
             <summary>
                 Gets or sets the category.
             </summary>
@@ -2819,7 +2854,7 @@
                 The category.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Roles">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Roles">
             <summary>
                 Gets or sets the roles.
             </summary>
@@ -2827,7 +2862,7 @@
                 The roles.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Logins">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Logins">
             <summary>
                 Gets or sets the logins associated to this Principal.
             </summary>
@@ -2835,17 +2870,17 @@
                 The logins.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Tags">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Tags">
             <summary>
                 Gets or sets the tags associated to this entity.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Properties">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Properties">
             <summary>
                 Gets or sets the properties associated to this entity.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Claims">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Claims">
             <summary>
                 Gets or sets the claims.
             </summary>
@@ -2853,7 +2888,7 @@
                 The claims.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Enabled">
             <summary>
                 Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
                 <para>
@@ -2862,7 +2897,7 @@
                 </para>
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2870,13 +2905,13 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.PrincipalLogin" />
                 entities
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2884,33 +2919,33 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.PrincipalFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.PrincipalFK">
             <summary>
                 Gets or sets the principal fk.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.Enabled">
             <summary>
                 Can be used to disallow an external IdP login that was previously trusted.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.IdPLogin">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.IdPLogin">
             <summary>
                 The Credential Name/Login the external IdP uses to distinguish users by (eg: google.com, sts, etc.).
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.SubLogin">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.SubLogin">
             <summary>
                 The Subject Identifier the external IdP uses to distinguish users by (eg: 'some guid, joeblow',
                 'joeblow@google.com', etc.).
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalLoginDto.LastLoggedInUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalLoginDto.LastLoggedInUtc">
             <summary>
                 Last datetime the user signed in via this login.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto">
             <summary>
                 DTO for <see cref="T:App.Modules.Core.Shared.Models.Entities.PrincipalProperty" />
             </summary>
@@ -2918,7 +2953,7 @@
             <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasKey" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -2926,7 +2961,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -2937,13 +2972,13 @@
                 .
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto.PrincipalFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto.PrincipalFK">
             <summary>
                 Gets or sets the FK of the
                 <see cref="T:App.Modules.Core.Shared.Models.Entities.Principal" />
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto.RecordState">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto.RecordState">
             <summary>
                 Gets or sets the logical state of the record:
             </summary>
@@ -2951,26 +2986,26 @@
                 The state of the record.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalPropertyDto.Value">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalPropertyDto.Value">
             <summary>
                 Gets or sets the value.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagAssignmentDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalTagAssignmentDto">
             <summary>
                 Gets or sets the child Tag DTO associated to a parent
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto" />.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalDto" />.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagAssignmentDto.Principal">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagAssignmentDto.Principal">
             <summary>
-            Gets or sets the parent <see cref="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagAssignmentDto.Principal"/>.
+            Gets or sets the parent <see cref="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagAssignmentDto.Principal"/>.
             </summary>
             <value>
             The principal.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagAssignmentDto.Tag">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagAssignmentDto.Tag">
             <summary>
             Gets or sets the tag.
             </summary>
@@ -2978,14 +3013,14 @@
             The tag.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto">
             <summary>
                 Gets or sets the child Tag associated to a parent
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalDto" />.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalDto" />.
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.Text">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.Text">
             <summary>
                 Gets or sets the text.
             </summary>
@@ -2993,7 +3028,7 @@
                 The text.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.DisplayOrderHint">
             <summary>
                 Gets or sets the display order hint.
             </summary>
@@ -3001,7 +3036,7 @@
                 The display order hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.DisplayStyleHint">
             <summary>
                 Gets or sets the display style hint.
             </summary>
@@ -3009,7 +3044,7 @@
                 The display style hint.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -3017,15 +3052,15 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.Enabled">
             <summary>
-                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto" /> is enabled.
+                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto" /> is enabled.
             </summary>
             <value>
                 <c>true</c> if enabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.PrincipalTagDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.PrincipalTagDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3033,14 +3068,14 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.RoleDto">
             <summary>
                 DTO for Roles
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.ModuleKey">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.ModuleKey">
             <summary>
                 TODO: Gets or sets the module key.
             </summary>
@@ -3048,15 +3083,15 @@
                 The module key.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.Enabled">
             <summary>
-                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto" /> is enabled.
+                Gets or sets a value indicating whether this <see cref="T:App.Modules.Core.Shared.Models.DTOs.RoleDto" /> is enabled.
             </summary>
             <value>
                 <c>true</c> if enabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.Key">
             <summary>
                 Gets or sets the key.
             </summary>
@@ -3064,7 +3099,7 @@
                 The key.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.DataClassification">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.DataClassification">
             <summary>
                 Gets or sets the data classification.
             </summary>
@@ -3072,7 +3107,7 @@
                 The data classification.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3080,7 +3115,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.RoleDto.RecordState">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.RoleDto.RecordState">
             <summary>
                 Gets or sets the logical state of the record:
             </summary>
@@ -3088,14 +3123,14 @@
                 The state of the record.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto">
             <summary>
                 DTO of a <see cref="T:App.Modules.Core.Shared.Models.Messages.SearchResponseItem" />
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTitle" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasDescription" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto.SourceTypeKey">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto.SourceTypeKey">
             <summary>
                 Gets or sets the source type key.
             </summary>
@@ -3103,7 +3138,7 @@
                 The source type key.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto.SourceIdentifier">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto.SourceIdentifier">
             <summary>
                 Gets or sets the source identifier.
             </summary>
@@ -3111,7 +3146,7 @@
                 The source identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto.ImageUrl">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto.ImageUrl">
             <summary>
                 Gets or sets the image URL.
             </summary>
@@ -3119,7 +3154,7 @@
                 The image URL.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -3127,7 +3162,7 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SearchResponseItemDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SearchResponseItemDto.Title">
             <summary>
                 Gets or sets the title.
             </summary>
@@ -3135,18 +3170,18 @@
                 The title.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.AccountGroups">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.AccountGroups">
             <summary>
                 Gets or sets the account groups.
             </summary>
@@ -3154,7 +3189,7 @@
                 The account groups.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.Roles">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.Roles">
             <summary>
                 Gets or sets the roles.
             </summary>
@@ -3162,7 +3197,7 @@
                 The roles.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.PermissionsAssignments">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.PermissionsAssignments">
             <summary>
                 Gets or sets the permissions assignments.
             </summary>
@@ -3170,7 +3205,7 @@
                 The permissions assignments.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3178,7 +3213,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -3189,18 +3224,18 @@
                 .
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto.Description">
             <summary>
                 Gets or sets the description.
             </summary>
@@ -3208,7 +3243,7 @@
                 The description.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3216,7 +3251,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfilePermissionDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfilePermissionDto.Title">
             <summary>
                 Gets or sets the title.
             </summary>
@@ -3224,18 +3259,18 @@
                 The title.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto">
             <summary>
                 TODO: DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto.Permissions">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto.Permissions">
             <summary>
                 Gets or sets the permissions.
             </summary>
@@ -3243,12 +3278,12 @@
                 The permissions.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto.Description">
             <summary>
                 Gets or sets the optional displayed description.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3256,23 +3291,23 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleDto.Title">
             <summary>
                 Gets or sets the title of the model.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.#ctor">
+        <member name="M:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.#ctor">
             <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto" /> class.
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto" /> class.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.Groups">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.Groups">
             <summary>
                 Gets or sets the groups.
             </summary>
@@ -3280,7 +3315,7 @@
                 The groups.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.Roles">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.Roles">
             <summary>
                 Gets or sets the roles.
             </summary>
@@ -3288,12 +3323,12 @@
                 The roles.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.Description">
             <summary>
                 Gets or sets the optional displayed description.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3301,17 +3336,17 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileRoleGroupDto.Title">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileRoleGroupDto.Title">
             <summary>
                 Gets or sets the title of the model.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileSecurityProfilePermissionAssignmentDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SecurityProfileSecurityProfilePermissionAssignmentDto">
             <summary>
                 DTO
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileSecurityProfilePermissionAssignmentDto.Permission">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileSecurityProfilePermissionAssignmentDto.Permission">
             <summary>
                 Gets or sets the permission assigned to a PRofile.
             </summary>
@@ -3319,7 +3354,7 @@
                 The permission.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SecurityProfileSecurityProfilePermissionAssignmentDto.AssignmentType">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SecurityProfileSecurityProfilePermissionAssignmentDto.AssignmentType">
             <summary>
                 Gets or sets the type of the assignment.
             </summary>
@@ -3327,14 +3362,14 @@
                 The type of the assignment.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SessionDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasEnabled" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto.StartDateTimeUtc">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionDto.StartDateTimeUtc">
             <summary>
                 Gets or sets the start date time UTC.
             </summary>
@@ -3342,7 +3377,7 @@
                 The start date time UTC.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto.Principal">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionDto.Principal">
             <summary>
                 Gets or sets the principal.
             </summary>
@@ -3350,7 +3385,7 @@
                 The principal.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto.Operations">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionDto.Operations">
             <summary>
                 Gets or sets the operations.
             </summary>
@@ -3358,7 +3393,7 @@
                 The operations.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionDto.Enabled">
             <summary>
                 Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
                 <para>
@@ -3367,7 +3402,7 @@
                 </para>
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3375,13 +3410,13 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.SessionOperationDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.SessionOperationDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.SessionOperationDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3389,7 +3424,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto">
             <summary>
                 DTO
             </summary>
@@ -3397,7 +3432,7 @@
             <seealso cref="T:App.Modules.All.Shared.Models.IHasTenantFK" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordState" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.Authority">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.Authority">
             <summary>
                 Gets or sets the authority key.
             </summary>
@@ -3405,7 +3440,7 @@
                 The authority key.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.AuthoritySignature">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.AuthoritySignature">
             <summary>
                 Gets or sets the signature.
             </summary>
@@ -3413,7 +3448,7 @@
                 The signature.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3421,7 +3456,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -3432,7 +3467,7 @@
                 .
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.RecordState">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.RecordState">
             <summary>
                 Gets or sets the logical state of the record:
             </summary>
@@ -3440,7 +3475,7 @@
                 The state of the record.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.TenantFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.TenantFK">
             <summary>
                 Gets or sets the FK of the Tenancy this mutable model belongs to.
                 <para>
@@ -3464,19 +3499,19 @@
                 The tenant fk.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantClaimDto.Value">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantClaimDto.Value">
             <summary>
                 Gets or sets the value.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.TenantDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasEnabled" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.HostName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.HostName">
             <summary>
                 Gets or sets the name of the host.
             </summary>
@@ -3484,7 +3519,7 @@
                 The name of the host.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.DisplayName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.DisplayName">
             <summary>
                 Gets or sets the display name.
             </summary>
@@ -3492,7 +3527,7 @@
                 The display name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.IsDefault">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.IsDefault">
             <summary>
                 Gets or sets a value indicating whether this instance is default.
             </summary>
@@ -3500,7 +3535,7 @@
                 <c>true</c> if this instance is default; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.DataClassification">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.DataClassification">
             <summary>
                 Gets or sets the data classification.
             </summary>
@@ -3508,7 +3543,7 @@
                 The data classification.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.Properties">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.Properties">
             <summary>
                 Gets or sets the properties.
             </summary>
@@ -3516,7 +3551,7 @@
                 The properties.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.Claims">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.Claims">
             <summary>
                 Gets or sets the claims.
             </summary>
@@ -3524,7 +3559,7 @@
                 The claims.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.Enabled">
             <summary>
                 Gets or sets a value indicating whether this <see cref="T:App.Modules.All.Shared.Models.IHasEnabled" /> is enabled.
                 <para>
@@ -3533,7 +3568,7 @@
                 </para>
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3541,7 +3576,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -3552,7 +3587,7 @@
                 .
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto">
             <summary>
                 A message/Dto defining
                 a default set of navigation routes.
@@ -3563,29 +3598,29 @@
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.Enabled">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.Enabled">
             <summary>
                 Gets or sets a value indicating whether this
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto" /> is enabled.
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto" /> is enabled.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.OwnerFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.OwnerFK">
             <summary>
                 Gets or sets the
                 FK of the owner record.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.Text">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.Text">
             <summary>
                 Gets or sets the navigation title.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.Description">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.Description">
             <summary>
                 Gets or sets the optional displayed description.
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.DisplayOrderHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.DisplayOrderHint">
             <summary>
                 Gets or sets a hint as to the order in which to display this order.
                 <para>
@@ -3593,25 +3628,25 @@
                 </para>
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.DisplayStyleHint">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.DisplayStyleHint">
             <summary>
                 A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.Children">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.Children">
             <summary>
                 Gets the collection of
                 child
-                <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto" />
-                under this <see cref="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto" />
+                <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto" />
+                under this <see cref="T:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto" />
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantedNavigationRouteDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantedNavigationRouteDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto">
             <summary>
                 DTO
             </summary>
@@ -3621,7 +3656,7 @@
             <seealso cref="T:App.Modules.All.Shared.Models.IHasKey" />
             <seealso cref="T:App.Modules.All.Shared.Models.IHasValue`1" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
@@ -3629,7 +3664,7 @@
                 The identifier.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto.Key">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto.Key">
             <summary>
                 Gets or sets the unique key of the object,
                 by which it is indexed when persisted
@@ -3640,7 +3675,7 @@
                 .
             </summary>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto.RecordState">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto.RecordState">
             <summary>
                 Gets or sets the logical state of the record:
             </summary>
@@ -3648,7 +3683,7 @@
                 The state of the record.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto.TenantFK">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto.TenantFK">
             <summary>
                 Gets or sets the FK of the Tenancy this mutable model belongs to.
                 <para>
@@ -3672,18 +3707,18 @@
                 The tenant fk.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.TenantPropertyDto.Value">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.TenantPropertyDto.Value">
             <summary>
                 Gets or sets the value.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto">
+        <member name="T:App.Modules.Core.Shared.Models.DTOs.UserProfileDto">
             <summary>
                 DTO
             </summary>
             <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto.FullName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.UserProfileDto.FullName">
             <summary>
                 Gets or sets the full name.
             </summary>
@@ -3691,7 +3726,7 @@
                 The full name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto.DisplayName">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.UserProfileDto.DisplayName">
             <summary>
                 Gets or sets the display name.
             </summary>
@@ -3699,780 +3734,13 @@
                 The display name.
             </value>
         </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.API.V0100.UserProfileDto.Id">
+        <member name="P:App.Modules.Core.Shared.Models.DTOs.UserProfileDto.Id">
             <summary>
                 Gets or sets the identifier.
             </summary>
             <value>
                 The identifier.
             </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.Error">
-            <summary>
-                Gets or sets the error.
-            </summary>
-            <value>
-                The error.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.ErrorDescription">
-            <summary>
-                Gets or sets the error description.
-            </summary>
-            <value>
-                The error description.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.ErrorUri">
-            <summary>
-                Gets or sets the error URI.
-            </summary>
-            <value>
-                The error URI.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage">
-            <summary>
-                A response object
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage.UserId">
-            <summary>
-                Gets or sets the user identifier.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage.Identity">
-            <summary>
-                The Identity created from the claims, but not
-                yet set on the thread.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage">
-            <summary>
-                TODO
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasName" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage.SignedInUserNameIdentifier">
-            <summary>
-                The NameIdentifier of the Identity built from the returned IdP Credentials
-                But not yet turned into an Thread Identity (certainly not yet turned into
-                a BearerToken or older style cookie.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage.Name">
-            <summary>
-                Gets or sets the unique Name
-                of the object
-                <para>
-                    See difference with <see cref="T:App.Modules.All.Shared.Models.IHasKey" />.
-                </para>
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition.Latitude">
-            <summary>
-                Gets or sets the latitude.
-            </summary>
-            <value>
-                The latitude.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition.Longitude">
-            <summary>
-                Gets or sets the longitude.
-            </summary>
-            <value>
-                The longitude.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress">
-            <summary>
-            A single address within a reverse search
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.BuildingNumber">
-            <summary>
-            Gets or sets the building number.
-            </summary>
-            <value>
-            The building number.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNumber">
-            <summary>
-            Gets or sets the street number.
-            </summary>
-            <value>
-            The street number.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Street">
-            <summary>
-            Gets or sets the street.
-            </summary>
-            <value>
-            The street.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetName">
-            <summary>
-            Gets or sets the name of the street.
-            </summary>
-            <value>
-            The name of the street.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNameAndNumber">
-            <summary>
-            Gets or sets the street name and number.
-            </summary>
-            <value>
-            The street name and number.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Municipality">
-            <summary>
-            Gets or sets the municipality.
-            </summary>
-            <value>
-            The municipality.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivision">
-            <summary>
-            Gets or sets the country subdivision.
-            </summary>
-            <value>
-            The country subdivision.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivisionName">
-            <summary>
-            Gets or sets the name of the country subdivision.
-            </summary>
-            <value>
-            The name of the country subdivision.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCodeISO3">
-            <summary>
-            Gets or sets the country code is o3.
-            </summary>
-            <value>
-            The country code is o3.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCode">
-            <summary>
-            Gets or sets the country code.
-            </summary>
-            <value>
-            The country code.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Country">
-            <summary>
-            Gets or sets the country.
-            </summary>
-            <value>
-            The country.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCode">
-            <summary>
-            Gets or sets the postal code.
-            </summary>
-            <value>
-            The postal code.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCodeExtended">
-            <summary>
-            Gets or sets the postal code extended.
-            </summary>
-            <value>
-            The postal code extended.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.FreeFormAddress">
-            <summary>
-            Gets or sets the free form address.
-            </summary>
-            <value>
-            The free form address.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.ExtendedFreeFormAddress">
-            <summary>
-            Gets the extended free form address.
-            </summary>
-            <value>
-            The extended free form address.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.RouteNumbers">
-            <summary>
-            Gets or sets the route numbers.
-            </summary>
-            <value>
-            The route numbers.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem">
-            <summary>
-            A single item within the <see cref="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse"/>
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Address">
-            <summary>
-            Gets or sets the address for this item.
-            </summary>
-            <value>
-            The address.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Position">
-            <summary>
-            Gets or sets the lat/long.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse">
-            <summary>
-                Response object
-                from a reverse search
-                done using Azure Maps service.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse.Addresses">
-            <summary>
-                Gets a list of nearest addresses.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsSearchResponse">
-            <summary>
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus">
-            <summary>
-            Default Configuration Status
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Title">
-            <summary>
-            Gets or sets the title.
-            </summary>
-            <value>
-            The title.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Description">
-            <summary>
-            Gets or sets the description.
-            </summary>
-            <value>
-            The description.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Status">
-            <summary>
-            Gets the status.
-            </summary>
-            <value>
-            The status.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Components">
-            <summary>
-            Gets the individual status of
-            individual components.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase">
-            <summary>
-            An in-memory, singleton, entity  
-            summarizing whether a service have been
-            configured correctly or not (or are still
-            unknown).
-            <para>
-            Basically, applications need at the very
-            least a database service (which is technically
-            a remote service). And will also need a
-            cache service,
-            key vault service,
-            email service, etc.
-            before it can be used in production.
-            </para><para>
-            Each service that relies on configuration
-            in turn references a singleton instance
-            of a configuration object (an named
-            instance of this object).
-            </para><para>
-            A service summarizes them and shows them
-            up on a dashboard of some kind.
-            </para>
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IConfigurationComponentStatus" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasImageUrl" />
-        </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase" /> class.
-            </summary>
-            <param name="title">The title.</param>
-            <param name="description">The description.</param>
-            <param name="configurationInstructions">The configuration instructions.</param>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Module">
-            <summary>
-            Gets or sets the name of module.
-            </summary>
-            <value>
-            The module.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Title">
-            <summary>
-            Gets or sets the title.
-            </summary>
-            <value>
-            The title.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Description">
-            <summary>
-            Gets or sets the description.
-            </summary>
-            <value>
-            The description.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.SuccessCount">
-            <summary>
-            Gets or sets the success count.
-            </summary>
-            <value>
-            The success count.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ErrorCount">
-            <summary>
-            Gets or sets the error count.
-            </summary>
-            <value>
-            The error count.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ConfigurationInstructions">
-            <summary>
-            Gets or sets basic (insecure) instructions
-            on how to go about setting up the service.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Status">
-            <summary>
-            Gets or sets the status of the service.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ImageUrl">
-            <summary>
-            Gets or sets the image URL.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.DisplayStyleHint">
-            <summary>
-            A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.DisplayOrderHint">
-            <summary>
-            A convention based hint as to the natural order in which to display this list item
-            (note that the natural order can be superseded/influenced by MRU information, etc.)
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Steps">
-            <summary>
-            Gets a list of steps that were undertaken
-            to configure this functionality.
-            </summary>
-            <value>
-            The steps.
-            </value>
-        </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.AddStep(App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType,App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType,System.String,System.String)">
-            <summary>
-            Adds a step to the <see cref="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Steps"/> list.
-            </summary>
-            <param name="type">The type.</param>
-            <param name="status">The status.</param>
-            <param name="task">The task.</param>
-            <param name="outcome">The outcome.</param>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep">
-            <summary>
-                A record of a configuration step that was undertaken.
-                For use by support personnel remotely reviewing configuration.
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Id">
-            <summary>
-            Gets or sets the identifier.
-            </summary>
-            <value>
-            The identifier.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Type">
-            <summary>
-                Gets or sets the type.
-            </summary>
-            <value>
-                The type.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Status">
-            <summary>
-                Gets or sets the status.
-            </summary>
-            <value>
-                The status.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.UtcDateTimeCreated">
-            <summary>
-                Gets or sets the date time.
-            </summary>
-            <value>
-                The date time.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Task">
-            <summary>
-                Gets or sets the title.
-            </summary>
-            <value>
-                The title.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Outcome">
-            <summary>
-                Gets or sets the description.
-            </summary>
-            <value>
-                The description.
-            </value>
-        </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.#ctor">
-            <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep" /> class.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary">
-            <summary>
-                A model to hold the results of a
-                self debasement of integration, etc.
-                Again, this is to provide to support
-                stakeholders a way of ensuring the system
-                is up and running.    ///
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
-        </member>
-        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.#ctor">
-            <summary>
-                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary" /> class.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Type">
-            <summary>
-                Gets or sets the type.
-            </summary>
-            <value>
-                The type.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Status">
-            <summary>
-                Gets or sets the status.
-            </summary>
-            <value>
-                The status.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.DateTime">
-            <summary>
-                Gets or sets the date time.
-            </summary>
-            <value>
-                The date time.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Title">
-            <summary>
-                Gets or sets the title.
-            </summary>
-            <value>
-                The title.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Description">
-            <summary>
-                Gets or sets the description.
-            </summary>
-            <value>
-                The description.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Id">
-            <summary>
-                Gets or sets the identifier.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType">
-            <summary>
-            Enumeration of possible
-            Service states.
-            <para>
-            See
-            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase"/>
-            </para>
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.Unknown">
-            <summary>
-            Configuration has not bee read.
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationRead">
-            <summary>
-            Configuration ahs been read,
-            but not yet verified.
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationVerified">
-            <summary>
-            The configuration is verified
-            as connection to the service
-            has been established.
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationError">
-            <summary>
-            Attempts to connect to
-            the service failed.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType">
-            <summary>
-                TODO
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Undefined">
-            <summary>
-                Unidentified (Error state)
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.White">
-            <summary>
-                Step
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Green">
-            <summary>
-                Green (Ok)
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Orange">
-            <summary>
-                Orange (warning)
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Red">
-            <summary>
-                Red (error)
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType">
-            <summary>
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Undefined">
-            <summary>
-                Step is for undefined
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.General">
-            <summary>
-                Step is for general
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Routing">
-            <summary>
-            Step is for routing
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Security">
-            <summary>
-                Step is for security
-            </summary>
-        </member>
-        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Performance">
-            <summary>
-                Step is for performance
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoCoordinates">
-            <summary>
-                Entity to record coordinates on a map.
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasLatitudeAndLongitude" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoCoordinates.Latitude">
-            <summary>
-                Gets or sets the latitude of the coordinate.
-            </summary>
-            <value>
-                The latitude.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoCoordinates.Longitude">
-            <summary>
-                Gets or sets the longitude of the coordinate.
-            </summary>
-            <value>
-                The longitude.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoInformation">
-            <summary>
-                A model of geo coordinates.
-                <para>
-                    Used as a Query object by the IGeoLocationService. Or part of the Response.
-                </para>
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformation.IP">
-            <summary>
-                Gets or sets the ip address.
-            </summary>
-            <value>
-                The ip address.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoInformationCountryRegion">
-            <summary>
-                TODO
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformationCountryRegion.IsoCode">
-            <summary>
-                Gets or sets the iso code.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult">
-            <summary>
-                Model of the response from a malware check.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult.LatestScanMalwareDetected">
-            <summary>
-                Gets or sets a value indicating whether malware was detected.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult.LatestScanResults">
-            <summary>
-                Gets or sets the latest scan results.
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.ODataResponse`1">
-            <summary>
-                TODO
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.ODataResponse`1.Value">
-            <summary>
-                TODO
-            </summary>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.SearchResponseItem">
-            <summary>
-                A returned Search object.
-            </summary>
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordIdentifier" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
-            <seealso cref="T:App.Modules.All.Shared.Models.IHasImageUrl" />
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.ImageUrl">
-            <summary>
-                Gets or sets the image URL.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.RecordTypeIdentifier">
-            <summary>
-                Gets or sets the identifier of the record identifier.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.RecordIdentifier">
-            <summary>
-                Gets or sets id of the record.
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.Title">
-            <summary>
-                Gets or sets the title.
-            </summary>
-            <value>
-                The title.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.Description">
-            <summary>
-                Gets or sets the description.
-            </summary>
-            <value>
-                The description.
-            </value>
-        </member>
-        <member name="T:App.Modules.Core.Shared.Models.Messages.UploadedMedia">
-            <summary>
-                A model to summarize what has been uploaded by an end user.
-                Not persistable (see MediaMetadata).
-            </summary>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.Length">
-            <summary>
-                Gets or sets the length of the media.
-            </summary>
-            <value>
-                The length.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.Stream">
-            <summary>
-                Gets or sets the stream.
-            </summary>
-            <value>
-                The stream.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.ContentType">
-            <summary>
-                Gets or sets the type of the content.
-            </summary>
-            <value>
-                The type of the content.
-            </value>
-        </member>
-        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.FileName">
-            <summary>
-                Gets or sets the given name of the file.
-            </summary>
         </member>
         <member name="T:App.Modules.Core.Shared.Models.Entities.SettingBase">
             <summary>
@@ -7461,39 +6729,771 @@
                 An allocation can be disabled (eg: Payment not received).
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.Error">
             <summary>
-                To organize XUnit tests
-                they should be decorated with 'TraitAttribute'.
-                The Trait key can be anything -- so it's best
-                to create a convention.
-                The following static words are this system's
-                convention.
+                Gets or sets the error.
+            </summary>
+            <value>
+                The error.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.ErrorDescription">
+            <summary>
+                Gets or sets the error description.
+            </summary>
+            <value>
+                The error description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationErrorMessage.ErrorUri">
+            <summary>
+                Gets or sets the error URI.
+            </summary>
+            <value>
+                The error URI.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage">
+            <summary>
+                A response object
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Traits">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage.UserId">
+            <summary>
+                Gets or sets the user identifier.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthenticationSuccessMessage.Identity">
+            <summary>
+                The Identity created from the claims, but not
+                yet set on the thread.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage">
+            <summary>
+                TODO
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasName" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage.SignedInUserNameIdentifier">
+            <summary>
+                The NameIdentifier of the Identity built from the returned IdP Credentials
+                But not yet turned into an Thread Identity (certainly not yet turned into
+                a BearerToken or older style cookie.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AuthorizationCodeReceivedMessage.Name">
+            <summary>
+                Gets or sets the unique Name
+                of the object
+                <para>
+                    See difference with <see cref="T:App.Modules.All.Shared.Models.IHasKey" />.
+                </para>
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition.Latitude">
+            <summary>
+                Gets or sets the latitude.
+            </summary>
+            <value>
+                The latitude.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapResponsePosition.Longitude">
+            <summary>
+                Gets or sets the longitude.
+            </summary>
+            <value>
+                The longitude.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress">
+            <summary>
+            A single address within a reverse search
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.BuildingNumber">
+            <summary>
+            Gets or sets the building number.
+            </summary>
+            <value>
+            The building number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNumber">
+            <summary>
+            Gets or sets the street number.
+            </summary>
+            <value>
+            The street number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Street">
+            <summary>
+            Gets or sets the street.
+            </summary>
+            <value>
+            The street.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetName">
+            <summary>
+            Gets or sets the name of the street.
+            </summary>
+            <value>
+            The name of the street.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.StreetNameAndNumber">
+            <summary>
+            Gets or sets the street name and number.
+            </summary>
+            <value>
+            The street name and number.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Municipality">
+            <summary>
+            Gets or sets the municipality.
+            </summary>
+            <value>
+            The municipality.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivision">
+            <summary>
+            Gets or sets the country subdivision.
+            </summary>
+            <value>
+            The country subdivision.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountrySubdivisionName">
+            <summary>
+            Gets or sets the name of the country subdivision.
+            </summary>
+            <value>
+            The name of the country subdivision.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCodeISO3">
+            <summary>
+            Gets or sets the country code is o3.
+            </summary>
+            <value>
+            The country code is o3.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.CountryCode">
+            <summary>
+            Gets or sets the country code.
+            </summary>
+            <value>
+            The country code.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.Country">
+            <summary>
+            Gets or sets the country.
+            </summary>
+            <value>
+            The country.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCode">
+            <summary>
+            Gets or sets the postal code.
+            </summary>
+            <value>
+            The postal code.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.PostalCodeExtended">
+            <summary>
+            Gets or sets the postal code extended.
+            </summary>
+            <value>
+            The postal code extended.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.FreeFormAddress">
+            <summary>
+            Gets or sets the free form address.
+            </summary>
+            <value>
+            The free form address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.ExtendedFreeFormAddress">
+            <summary>
+            Gets the extended free form address.
+            </summary>
+            <value>
+            The extended free form address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddress.RouteNumbers">
+            <summary>
+            Gets or sets the route numbers.
+            </summary>
+            <value>
+            The route numbers.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem">
+            <summary>
+            A single item within the <see cref="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse"/>
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Address">
+            <summary>
+            Gets or sets the address for this item.
+            </summary>
+            <value>
+            The address.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsResponseAddressItem.Position">
+            <summary>
+            Gets or sets the lat/long.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse">
+            <summary>
+                Response object
+                from a reverse search
+                done using Azure Maps service.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.AzureMapsReverseSearchResponse.Addresses">
+            <summary>
+                Gets a list of nearest addresses.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.AzureMapsSearchResponse">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus">
+            <summary>
+            Default Configuration Status
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Status">
+            <summary>
+            Gets the status.
+            </summary>
+            <value>
+            The status.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatus.Components">
+            <summary>
+            Gets the individual status of
+            individual components.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase">
+            <summary>
+            An in-memory, singleton, entity  
+            summarizing whether a service have been
+            configured correctly or not (or are still
+            unknown).
+            <para>
+            Basically, applications need at the very
+            least a database service (which is technically
+            a remote service). And will also need a
+            cache service,
+            key vault service,
+            email service, etc.
+            before it can be used in production.
+            </para><para>
+            Each service that relies on configuration
+            in turn references a singleton instance
+            of a configuration object (an named
+            instance of this object).
+            </para><para>
+            A service summarizes them and shows them
+            up on a dashboard of some kind.
+            </para>
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IConfigurationComponentStatus" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasImageUrl" />
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase" /> class.
+            </summary>
+            <param name="title">The title.</param>
+            <param name="description">The description.</param>
+            <param name="configurationInstructions">The configuration instructions.</param>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Module">
+            <summary>
+            Gets or sets the name of module.
+            </summary>
+            <value>
+            The module.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+            <value>
+            The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.SuccessCount">
+            <summary>
+            Gets or sets the success count.
+            </summary>
+            <value>
+            The success count.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ErrorCount">
+            <summary>
+            Gets or sets the error count.
+            </summary>
+            <value>
+            The error count.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ConfigurationInstructions">
+            <summary>
+            Gets or sets basic (insecure) instructions
+            on how to go about setting up the service.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Status">
+            <summary>
+            Gets or sets the status of the service.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.ImageUrl">
+            <summary>
+            Gets or sets the image URL.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.DisplayStyleHint">
+            <summary>
+            A convention based hint as to display (could be a class name, or icon, CSV or both, DSL, etc.)
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.DisplayOrderHint">
+            <summary>
+            A convention based hint as to the natural order in which to display this list item
+            (note that the natural order can be superseded/influenced by MRU information, etc.)
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Steps">
+            <summary>
+            Gets a list of steps that were undertaken
+            to configure this functionality.
+            </summary>
+            <value>
+            The steps.
+            </value>
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.AddStep(App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType,App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType,System.String,System.String)">
+            <summary>
+            Adds a step to the <see cref="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase.Steps"/> list.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="status">The status.</param>
+            <param name="task">The task.</param>
+            <param name="outcome">The outcome.</param>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep">
+            <summary>
+                A record of a configuration step that was undertaken.
+                For use by support personnel remotely reviewing configuration.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Type">
+            <summary>
+                Gets or sets the type.
+            </summary>
+            <value>
+                The type.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Status">
+            <summary>
+                Gets or sets the status.
+            </summary>
+            <value>
+                The status.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.UtcDateTimeCreated">
+            <summary>
+                Gets or sets the date time.
+            </summary>
+            <value>
+                The date time.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Task">
+            <summary>
+                Gets or sets the title.
+            </summary>
+            <value>
+                The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.Outcome">
+            <summary>
+                Gets or sets the description.
+            </summary>
+            <value>
+                The description.
+            </value>
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStep" /> class.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary">
+            <summary>
+                A model to hold the results of a
+                self debasement of integration, etc.
+                Again, this is to provide to support
+                stakeholders a way of ensuring the system
+                is up and running.    ///
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasGuidId" />
+        </member>
+        <member name="M:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary" /> class.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Type">
+            <summary>
+                Gets or sets the type.
+            </summary>
+            <value>
+                The type.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Status">
+            <summary>
+                Gets or sets the status.
+            </summary>
+            <value>
+                The status.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.DateTime">
+            <summary>
+                Gets or sets the date time.
+            </summary>
+            <value>
+                The date time.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Title">
+            <summary>
+                Gets or sets the title.
+            </summary>
+            <value>
+                The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Description">
+            <summary>
+                Gets or sets the description.
+            </summary>
+            <value>
+                The description.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ConfigurationTestStepSummary.Id">
+            <summary>
+                Gets or sets the identifier.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType">
+            <summary>
+            Enumeration of possible
+            Service states.
+            <para>
+            See
+            <see cref="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentBase"/>
+            </para>
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.Unknown">
+            <summary>
+            Configuration has not bee read.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationRead">
+            <summary>
+            Configuration ahs been read,
+            but not yet verified.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationVerified">
+            <summary>
+            The configuration is verified
+            as connection to the service
+            has been established.
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStatusType.ConfigurationError">
+            <summary>
+            Attempts to connect to
+            the service failed.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType">
             <summary>
                 TODO
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Features">
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Undefined">
+            <summary>
+                Unidentified (Error state)
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Info">
+            <summary>
+                Step
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Warn">
+            <summary>
+                Step
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Fail">
+            <summary>
+                Red (error)
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepStatusType.Pass">
+            <summary>
+                Green (Ok)
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Undefined">
+            <summary>
+                Step is for undefined
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.General">
+            <summary>
+                Step is for general
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Routing">
+            <summary>
+            Step is for routing
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Security">
+            <summary>
+                Step is for security
+            </summary>
+        </member>
+        <member name="F:App.Modules.Core.Shared.Models.Messages.ConfigurationStatusComponentStepType.Performance">
+            <summary>
+                Step is for performance
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoCoordinates">
+            <summary>
+                Entity to record coordinates on a map.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasLatitudeAndLongitude" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoCoordinates.Latitude">
+            <summary>
+                Gets or sets the latitude of the coordinate.
+            </summary>
+            <value>
+                The latitude.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoCoordinates.Longitude">
+            <summary>
+                Gets or sets the longitude of the coordinate.
+            </summary>
+            <value>
+                The longitude.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoInformation">
+            <summary>
+                A model of geo coordinates.
+                <para>
+                    Used as a Query object by the IGeoLocationService. Or part of the Response.
+                </para>
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformation.IP">
+            <summary>
+                Gets or sets the ip address.
+            </summary>
+            <value>
+                The ip address.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.GeoInformationCountryRegion">
             <summary>
                 TODO
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Qualities">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.GeoInformationCountryRegion.IsoCode">
             <summary>
-                Qualities that can be assigned to systems and data.
+                Gets or sets the iso code.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.All.SystemOutcomeTypeTerms.Qualities.ISO25010Terms">
+        <member name="T:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult">
             <summary>
-                Qualities that can be assigned to Systems.
+                Model of the response from a malware check.
             </summary>
         </member>
-        <member name="T:App.Modules.Core.Shared.Constants.ModuleSpecificApiScopes">
+        <member name="P:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult.LatestScanMalwareDetected">
+            <summary>
+                Gets or sets a value indicating whether malware was detected.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.MediaMalwareScanResult.LatestScanResults">
+            <summary>
+                Gets or sets the latest scan results.
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.ODataResponse`1">
             <summary>
                 TODO
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.ODataResponse`1.Value">
+            <summary>
+                TODO
+            </summary>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.SearchResponseItem">
+            <summary>
+                A returned Search object.
+            </summary>
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasRecordIdentifier" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasTitleAndDescription" />
+            <seealso cref="T:App.Modules.All.Shared.Models.IHasImageUrl" />
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.ImageUrl">
+            <summary>
+                Gets or sets the image URL.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.RecordTypeIdentifier">
+            <summary>
+                Gets or sets the identifier of the record identifier.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.RecordIdentifier">
+            <summary>
+                Gets or sets id of the record.
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.Title">
+            <summary>
+                Gets or sets the title.
+            </summary>
+            <value>
+                The title.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.SearchResponseItem.Description">
+            <summary>
+                Gets or sets the description.
+            </summary>
+            <value>
+                The description.
+            </value>
+        </member>
+        <member name="T:App.Modules.Core.Shared.Models.Messages.UploadedMedia">
+            <summary>
+                A model to summarize what has been uploaded by an end user.
+                Not persistable (see MediaMetadata).
+            </summary>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.Length">
+            <summary>
+                Gets or sets the length of the media.
+            </summary>
+            <value>
+                The length.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.Stream">
+            <summary>
+                Gets or sets the stream.
+            </summary>
+            <value>
+                The stream.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.ContentType">
+            <summary>
+                Gets or sets the type of the content.
+            </summary>
+            <value>
+                The type of the content.
+            </value>
+        </member>
+        <member name="P:App.Modules.Core.Shared.Models.Messages.UploadedMedia.FileName">
+            <summary>
+                Gets or sets the given name of the file.
             </summary>
         </member>
     </members>

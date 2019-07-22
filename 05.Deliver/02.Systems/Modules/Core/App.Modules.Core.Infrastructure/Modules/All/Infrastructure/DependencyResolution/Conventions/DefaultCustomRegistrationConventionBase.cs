@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
 {
 
+
     /// <summary>
     ///     A Custom Lamar initialization convention used
     ///     to register Databases under their name.
@@ -42,7 +43,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
             foreach (var implementationType in matchingTypes)
             {
                 var tag =
-                    implementationType.GetAliasKeyOrNameFromType(
+                    implementationType.GetKeyOrNameFromType(
                         _typeNameSuffixToStrip);
                 //services.For(_contractType).UseInstance(System.Activator.CreateInstance(implementationType)).Named(tag).Lifetime = _lifetime;
 

@@ -5,7 +5,7 @@ using App.Modules.All.Shared.DependencyResolution.Lifecycles;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     /// <summary>
     ///     Configuration object to be injected into the
@@ -104,9 +104,9 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
     /// <summary>
     /// Creator or Distributor information.
     /// </summary>
-    /// <seealso cref="App.Modules.All.Shared.Models.IHasKey" />
-    /// <seealso cref="App.Modules.All.Shared.Models.IHasName" />
-    /// <seealso cref="App.Modules.All.Shared.Models.IHasDescription" />
+    /// <seealso cref="IHasKey" />
+    /// <seealso cref="IHasName" />
+    /// <seealso cref="IHasDescription" />
     public class ApplicationProviderInformation :
         IHasKey,
         IHasName,

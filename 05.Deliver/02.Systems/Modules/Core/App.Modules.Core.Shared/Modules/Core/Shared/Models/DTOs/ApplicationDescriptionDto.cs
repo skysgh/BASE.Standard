@@ -1,9 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using System;
 using App.Modules.All.Shared.Models;
 
-namespace App.Modules.Core.Shared.Models.Messages.API.V0100
+namespace App.Modules.Core.Shared.Models.DTOs
 {
     /// <summary>
     ///     DTO Message for ApplicationDescriptionConfigurationSettings

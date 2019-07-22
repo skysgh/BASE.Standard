@@ -3,7 +3,7 @@
 using System.Net.Http;
 using App.Modules.All.Infrastructure.Services;
 using App.Modules.All.Shared.Models;
-using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using App.Modules.Core.Shared.Models.Messages;
 using Newtonsoft.Json;
 

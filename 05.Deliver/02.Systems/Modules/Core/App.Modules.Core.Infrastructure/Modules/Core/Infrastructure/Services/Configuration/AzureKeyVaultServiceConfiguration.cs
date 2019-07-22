@@ -3,9 +3,8 @@
 using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.All.Shared.DependencyResolution.Lifecycles;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
-using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     /// <summary>
     ///     Configuration object to be injected into the
@@ -26,6 +25,21 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         //public readonly AadApplicationRegistrationInformationHostConfiguration AADClientInfo;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="AzureKeyVaultServiceConfiguration"/> class.
+        /// <para>
+        /// Constructor only used from within
+        /// Program, when checking whether to use
+        /// KeyVault for configuration (as it slows
+        /// startup considerably).
+        /// </para>
+        /// </summary>
+        public AzureKeyVaultServiceConfiguration()
+        {
+
+        }
+
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="AzureKeyVaultServiceConfiguration" /> class.
         ///     <para>
         ///         Note that this one of the only settings that goes directly to HostSettingsService.
@@ -33,7 +47,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
         /// </summary>
         /// <param name="hostSettingsService">The host settings service.</param>
         public AzureKeyVaultServiceConfiguration(
-            AzureEnvironmentSettings azureConfiguration,
+            AzureEnvironmentSettings defaultAzureConfiguration,
             IConfigurationService configurationService)
         {
             KeyStandardNameComponentDivider = "-";
@@ -43,16 +57,16 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
 
             //Get the resourceName for the KeyVault
 
-            if (string.IsNullOrEmpty(this.ResourceName))
+            if (string.IsNullOrEmpty(ResourceName))
             {
                 // Get the configuration for this service:
-                this.ResourceName =
-                    azureConfiguration.DefaultResourceName;
+                ResourceName =
+                    defaultAzureConfiguration.DefaultResourceName;
             }
 
-            if (this.BaseUri.IsNullOrEmpty())
+            if (BaseUri.IsNullOrEmpty())
             {
-                this.BaseUri=
+                BaseUri =
                     $"https://{ResourceName}.vault.azure.net";
             }
 

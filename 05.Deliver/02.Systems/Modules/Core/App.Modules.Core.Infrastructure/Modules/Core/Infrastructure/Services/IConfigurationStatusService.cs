@@ -2,9 +2,9 @@
 
 using System;
 using System.Linq;
+using App.Modules.All.Infrastructure.Contracts;
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.All.Shared.Models;
-using App.Modules.Core.Infrastructure.Services.Statuses;
+using App.Modules.All.Shared.Initialization;
 using App.Modules.Core.Shared.Models.Messages;
 
 namespace App.Modules.Core.Infrastructure.Services
@@ -18,8 +18,10 @@ namespace App.Modules.Core.Infrastructure.Services
     ///     Support Specialists, via appropriate APIs.
     /// </summary>
     /// <seealso cref="IInfrastructureService" />
-    public interface IConfigurationStatusService : IInfrastructureService
+    public interface IConfigurationStatusService : IInfrastructureService, IHasInitialize, IHasInitialized
     {
+
+
 
         /// <summary>
         /// Gets the queryable set

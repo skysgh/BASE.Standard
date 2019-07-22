@@ -1,6 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-namespace App.Modules.Core.Shared.Models.Messages.API.V0100
+namespace App.Modules.Core.Shared.Models.DTOs
 {
     /// <summary>
     ///     Gets or sets the child Tag DTO associated to a parent

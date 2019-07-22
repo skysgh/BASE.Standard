@@ -1,10 +1,10 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using System;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations.AzureServices
 {

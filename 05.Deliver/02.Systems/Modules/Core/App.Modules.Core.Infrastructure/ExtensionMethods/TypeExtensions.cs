@@ -20,12 +20,12 @@ namespace App
             return t.IsValueType ? Activator.CreateInstance(t) : null;
         }
 
-        public static string GetAliasKeyOrNameFromType(this Type type,
+        public static string GetKeyOrNameFromType(this Type type,
             params string[] typeNameSuffixToStrip)
         {
             // Register against all the interfaces implemented
             // by this concrete class
-            var name = type.GetAliasKeyIfAny();
+            var name = type.GetKeyIfAny();
 
             if (name != null)
             {
@@ -45,7 +45,7 @@ namespace App
             return name;
         }
 
-        public static string GetAliasKeyIfAny(this Type type, bool inherit = false)
+        public static string GetKeyIfAny(this Type type, bool inherit = false)
         {
             // Use aliases first, as they can be richer, if there are any:
             var aliasAttribute = CustomAttributeExtensions.GetCustomAttribute<KeyAttribute>(type, inherit);

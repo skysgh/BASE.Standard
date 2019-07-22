@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
-using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     public class DistributedCacheServiceConfiguration
         : ConfigurationObjectBase
@@ -38,23 +37,24 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
             configurationService.Get(this);
 
 
-            if (this.ResourceName.IsNullOrEmpty())
+            if (ResourceName.IsNullOrEmpty())
             {
-                this.ResourceName = azureEnvironmentSettings.DefaultResourceName;
+                ResourceName = azureEnvironmentSettings.DefaultResourceName;
             }
 
-            if (this.ConnectionString.IsNullOrEmpty())
+            if (ConnectionString.IsNullOrEmpty())
             {
-                this.ConnectionString = this.BaseUri;
+                ConnectionString = BaseUri;
             }
-            if (this.ConnectionString.IsNullOrEmpty()) { 
-                this.ConnectionString =
+            if (ConnectionString.IsNullOrEmpty())
+            {
+                ConnectionString =
                     $"{ResourceName}.redis.cache.windows.net:6380,ssl=True,abortConnect=False";
             }
             //For good measure:
-            if (this.BaseUri.IsNullOrEmpty())
+            if (BaseUri.IsNullOrEmpty())
             {
-                this.BaseUri = this.ConnectionString;
+                BaseUri = ConnectionString;
             }
         }
 

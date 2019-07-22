@@ -1,8 +1,8 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 
 namespace App.Modules.Core.Infrastructure.Services
 {

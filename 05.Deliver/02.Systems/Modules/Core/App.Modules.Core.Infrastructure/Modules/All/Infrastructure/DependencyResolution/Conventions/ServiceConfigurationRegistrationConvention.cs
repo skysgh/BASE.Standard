@@ -39,7 +39,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
                 }
 
                 var tag = implementationType
-                    .GetAliasKeyOrNameFromType(
+                    .GetKeyOrNameFromType(
                         "ServiceConfiguration",
                         "ConfigurationSettings",
                         "Configuration");

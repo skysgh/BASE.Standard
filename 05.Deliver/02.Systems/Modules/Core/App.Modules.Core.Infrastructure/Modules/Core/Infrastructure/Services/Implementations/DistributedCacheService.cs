@@ -1,5 +1,5 @@
 ﻿using System;
-using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 

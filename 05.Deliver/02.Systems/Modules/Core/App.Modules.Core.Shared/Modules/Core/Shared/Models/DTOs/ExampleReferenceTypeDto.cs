@@ -2,12 +2,12 @@
 
 using App.Modules.All.Shared.Models;
 
-namespace App.Modules.Core.Shared.Models.Messages.API.V0100
+namespace App.Modules.Core.Shared.Models.DTOs
 {
     /// <summary>
     ///     TODO
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdReferenceDtoBase" />
+    /// <seealso cref="TenantedRecordStateGuidIdReferenceDtoBase" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasGuidId" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasTenantFK" />
     /// <seealso cref="App.Modules.All.Shared.Models.IHasRecordState" />

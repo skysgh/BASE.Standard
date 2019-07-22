@@ -15,21 +15,22 @@ namespace App.Modules.Core.Shared.Models.Messages
         /// <summary>
         ///     Step
         /// </summary>
-        White = 1,
+        Info = 1,
 
         /// <summary>
-        ///     Green (Ok)
+        ///     Step
         /// </summary>
-        Green = 2,
-
-        /// <summary>
-        ///     Orange (warning)
-        /// </summary>
-        Orange = 3,
+        Warn = 2,
 
         /// <summary>
         ///     Red (error)
         /// </summary>
-        Red = 4
+        Fail = 3,
+
+        /// <summary>
+        ///     Green (Ok)
+        /// </summary>
+        Pass = 4
+
     }
 }

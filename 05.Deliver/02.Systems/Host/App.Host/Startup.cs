@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using App.Modules.All.AppFacade.Controllers.Configuration.Routes;
 using App.Modules.All.AppFacade.DependencyResolution;
 using App.Modules.All.AppFacade.Initialization;
@@ -47,8 +48,8 @@ namespace App.Host
         /// <param name="configuration">The configuration.</param>
         /// <param name="container">The container.</param>
         public Startup(
-            IHostingEnvironment hostingEnvironment, 
-            IConfiguration configuration, 
+            IHostingEnvironment hostingEnvironment,
+            IConfiguration configuration,
             IContainer container)
         {
             this._hostingEnvironment = hostingEnvironment;
@@ -60,6 +61,7 @@ namespace App.Host
             // So it's a bit surprising that env is *after* appsettings?
             _configuration = configuration;
             _container = container;
+
         }
 
 
@@ -75,17 +77,6 @@ namespace App.Host
         /// <param name="serviceRegistry"></param>
         public void ConfigureServices(IServiceCollection serviceRegistry)
         {
-            //serviceRegistry.AddSingleton<ILoggerFactory>(x =>
-            //    new LoggerFactory(
-            //        x.GetServices<ILoggerProvider>(),
-            //        x.GetRequiredService<IOptionsMonitor<LoggerFilterOptions>>()
-            //    ));
-
-            //serviceRegistry.AddSingleton<LoggerFactory>(x =>
-            //    new LoggerFactory(
-            //        x.GetServices<ILoggerProvider>(),
-            //        x.GetRequiredService<IOptionsMonitor<LoggerFilterOptions>>()
-            //    ));
 
             // Note: invoked *before* ConfigureContainer (see below)
             // Note: Services that are registered here are available later,
@@ -114,6 +105,10 @@ namespace App.Host
             // But not System/Microsoft assemblies (too much):
             var assemblies = AppDomain.CurrentDomain.LoadAllAppAssemblies();
 
+
+            // By default, ILogger<T> is registered, but ILogger (non generic)
+            // is not... So you have to create a factory for it.
+            CreateDefaultNonGenericLogger(serviceRegistry);
 
 
             //serviceRegistry.AddDbContext<BookStoreContext>(opt => opt.UseInMemoryDatabase("BookLists"));
@@ -245,7 +240,7 @@ namespace App.Host
             // Register Container so we can reuse
             IServiceProvider serviceProvider = app.ApplicationServices;
             // Which in this case is the Lamar container:
-            IContainer mvcContainer = (IContainer) serviceProvider;
+            IContainer mvcContainer = (IContainer)serviceProvider;
 
 
             var configurationStatus =
@@ -259,7 +254,7 @@ namespace App.Host
                 {
                     configurationStatus.AddStep(
                         ConfigurationStatusComponentStepType.General,
-                        ConfigurationStatusComponentStepStatusType.Orange,
+                        ConfigurationStatusComponentStepStatusType.Warn,
                         "Verify Container",
                         "Not the same/expected.");
                 }
@@ -293,20 +288,14 @@ namespace App.Host
                 app.UseDeveloperExceptionPage();
                 configurationStatus.AddStep(
                     ConfigurationStatusComponentStepType.Security,
-                    ConfigurationStatusComponentStepStatusType.Orange,
+                    ConfigurationStatusComponentStepStatusType.Info,
                     "Enable Developer Exception Page",
                     "Enabled (because working in Development environment). Note that Developer Exception Page may leak data if used where Production Data is used.");
 
                 // Get hands on container
-                string s1 = _container.WhatDidIScan();
-                string s2 = _container.WhatDoIHave();
-                string s2a =
-                    _container.WhatDoIHave(typeof(IObjectMappingService));
-                string s2b = _container.WhatDoIHave(typeof(IMapper));
-                string s2c = _container.WhatDoIHave(typeof(LoggerFactory));
-                string s3 = s2;
+                TraceRegisteredServices(env);
 
-
+                EnsureDiagnosticsTracingWorks(env);
             }
             else if (env.IsEnvironment(EnvironmentName.Staging))
             {
@@ -318,7 +307,7 @@ namespace App.Host
                 app.UseHsts();
                 configurationStatus.AddStep(
                     ConfigurationStatusComponentStepType.Security,
-                    ConfigurationStatusComponentStepStatusType.Green,
+                    ConfigurationStatusComponentStepStatusType.Pass,
                     "Enable Hsts",
                     "Enabled (working in Production environment).");
             }
@@ -326,14 +315,14 @@ namespace App.Host
             app.UseHttpsRedirection();
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Security,
-                ConfigurationStatusComponentStepStatusType.Green,
+                ConfigurationStatusComponentStepStatusType.Info,
                 "Enable Https Redirection.",
                 "Enabled. (note that this does not necessarily guarantee that the Cert is correctly configured).");
 
             app.UseCors();
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Security,
-                ConfigurationStatusComponentStepStatusType.Green,
+                ConfigurationStatusComponentStepStatusType.Info,
                 "Enabled Cors.",
                 "Enabled.");
 
@@ -351,12 +340,60 @@ namespace App.Host
             }
             );
 
-        // Use our own method for this:
+            // Use our own method for this:
             //SetupOpenApi(app);
 
             // Probably not needed, but don't want to lock in only way:
             InvokeAnyCustomConfigurationInOtherModulesFoundByReflection(app, env);
 
+        }
+
+        private void TraceRegisteredServices(IHostingEnvironment env)
+        {
+            if (!env.IsDevelopment())
+            {
+                return;
+            }
+            var logger = _container.GetService<ILogger<Startup>>();
+            string s1 = _container.WhatDidIScan();
+            logger.LogDebug(s1);
+
+            string s2 = _container.WhatDoIHave();
+            logger.LogDebug(s2);
+        }
+
+        private void EnsureDiagnosticsTracingWorks(IHostingEnvironment env)
+        {
+            if (!env.IsDevelopment())
+            {
+                return;
+            }
+            string s2c = _container.WhatDoIHave(typeof(LoggerFactory));
+            string s2d = _container.WhatDoIHave(typeof(ILoggerFactory));
+
+            var loggerX = _container.GetService<ILogger>();
+            var logger = _container.GetService<ILogger<Startup>>();
+
+            logger.Log(LogLevel.Debug, "Startup constructed.");
+            logger.Log(LogLevel.Information, "Startup constructed.");
+            logger.Log(LogLevel.Warning, "Startup constructed.");
+            logger.Log(LogLevel.Error, "Startup constructed.");
+
+            LogLevel s =
+                _configuration.GetValue<LogLevel>(
+                    "Logging:LogLevel:Default");
+            LogLevel s3 =
+                _configuration.GetValue<LogLevel>(
+                    "Logging:LogLevel:Missing");
+
+            System.Diagnostics.Trace.TraceInformation("Old School...");
+            var name = System.Reflection.Assembly.GetEntryAssembly()
+                .GetName().Name;
+            var threadId = Thread.CurrentThread.Name ??
+                           Thread.CurrentThread.ManagedThreadId.ToString();
+            var level = "Information";
+            System.Diagnostics.Trace.WriteLine(
+                $"{name}:{threadId}:{level}:Real Old School...");
         }
 
         private void RouteBuilder(IRouteBuilder routeBuilder)
@@ -444,7 +481,7 @@ namespace App.Host
             });
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Routing,
-                ConfigurationStatusComponentStepStatusType.Green,
+                ConfigurationStatusComponentStepStatusType.Pass,
                 "Enable Static File Handling.",
                 $"Enabled. Created={created}, Exists={exists}, Count={count}");
         }
@@ -480,7 +517,7 @@ namespace App.Host
 
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Routing,
-                ConfigurationStatusComponentStepStatusType.Green,
+                ConfigurationStatusComponentStepStatusType.Pass,
                 "Register Default Controller Routes.",
                 "Configured.");
         }
@@ -513,7 +550,7 @@ namespace App.Host
 
             configurationStatus.AddStep(
                 ConfigurationStatusComponentStepType.Routing,
-                ConfigurationStatusComponentStepStatusType.Green,
+                ConfigurationStatusComponentStepStatusType.Pass,
                 "Enable Swagger.",
                 $"Enabled. Route Template: {routeTemplate}");
         }
@@ -523,6 +560,18 @@ namespace App.Host
         {
             //May be zero or more custom configuration needed:
             _container.GetAllInstances<IStartupConfigure>().ForEach(x => x.Configure(app, env));
+        }
+
+
+
+        private static void CreateDefaultNonGenericLogger(
+            ServiceRegistry serviceRegistry)
+        {
+            serviceRegistry
+                .AddSingleton<ILogger>(sp =>
+                    sp.GetService<ILoggerFactory>().CreateLogger(
+                        "Default")
+                );
         }
 
 

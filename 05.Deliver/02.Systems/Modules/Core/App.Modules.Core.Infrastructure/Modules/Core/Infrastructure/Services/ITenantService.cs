@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using App.Modules.Core.Shared.Models.DTOs;
 
 namespace App.Modules.Core.Infrastructure.Services
 {

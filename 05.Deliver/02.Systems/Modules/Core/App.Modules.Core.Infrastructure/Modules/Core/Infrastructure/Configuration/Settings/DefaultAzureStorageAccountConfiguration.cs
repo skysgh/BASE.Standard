@@ -13,16 +13,16 @@ namespace App.Modules.Core.Infrastructure.Configuration.Settings
     ///     access the
     ///     Media Azure Storage Account Service.
     /// </summary>
-    public class AzureStorageAccountDefaultConfiguration
+    public class DefaultAzureStorageAccountConfiguration
         : AzureServiceClientConfigurationObjectBase,
         IStorageAccountConfigurationSettings
     {
         private readonly AzureEnvironmentSettings _azureEnvironmentSettings;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AzureStorageAccountDefaultConfiguration" /> class.
+        ///     Initializes a new instance of the <see cref="DefaultAzureStorageAccountConfiguration" /> class.
         /// </summary>
-        public AzureStorageAccountDefaultConfiguration(
+        public DefaultAzureStorageAccountConfiguration(
             AzureEnvironmentSettings azureEnvironmentSettings,
             IConfigurationService configurationService)
         {

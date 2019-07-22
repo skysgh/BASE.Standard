@@ -1,8 +1,8 @@
 ﻿using App.Modules.All.AppFacade.Controllers.Api.OData;
 using App.Modules.Core.Infrastructure.Data.Db.Contexts;
 using App.Modules.Core.Infrastructure.Services;
+using App.Modules.Core.Shared.Models.DTOs;
 using App.Modules.Core.Shared.Models.Entities;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -3,10 +3,10 @@
 using System;
 using System.IO;
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Configuration.Services;
 using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.DependencyResolution;
 using App.Modules.Core.Infrastructure.ServiceAgents;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using App.Modules.Core.Shared.Models.Entities;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;

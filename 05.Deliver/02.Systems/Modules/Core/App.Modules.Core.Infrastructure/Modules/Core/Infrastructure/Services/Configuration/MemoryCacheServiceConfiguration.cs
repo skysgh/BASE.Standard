@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using App.Modules.All.Infrastructure.Configuration;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     /// <summary>
     /// Singleton configuration for the implementation
     /// of <c>IMemoryCachingService</c>.
     /// </summary>
-    /// <seealso cref="App.Modules.All.Infrastructure.Configuration.ConfigurationObjectBase" />
-    public class MemoryCacheServiceConfiguration 
+    /// <seealso cref="ConfigurationObjectBase" />
+    public class MemoryCacheServiceConfiguration
         : ConfigurationObjectBase
     {
         static readonly IDictionary<string, object> functions;

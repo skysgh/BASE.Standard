@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using App.Modules.All.Shared.Attributes;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
 using App.Modules.Core.Infrastructure.Constants.Storage;
 using App.Modules.Core.Infrastructure.Services;
@@ -15,8 +16,8 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
     // An App keeps most of its containers in one Service Account.
     // A Container Context
 
-    //[Key(Constants.Storage.StorageAccountNames.Default)]
-    public class AppCoreAzureStorageDefaultBlobContext : IAzureStorageBlobContext
+    [Key(/*StorageAccountNames.Default*/"Core.Default")]
+    public class DefaultAppCoreAzureStorageBlobContext : IAzureStorageBlobContext
     {
         private static readonly object _lock = new object();
 
@@ -30,12 +31,12 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
 
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AppCoreAzureStorageDefaultBlobContext" /> class.
+        ///     Initializes a new instance of the <see cref="DefaultAppCoreAzureStorageBlobContext" /> class.
         /// </summary>
         /// <param name="keyVaultService">The key vault service.</param>
-        public AppCoreAzureStorageDefaultBlobContext(
+        public DefaultAppCoreAzureStorageBlobContext(
             AzureEnvironmentSettings azureConfiguration,
-            AzureStorageAccountDefaultConfiguration configuration,
+            DefaultAzureStorageAccountConfiguration configuration,
             IDiagnosticsTracingService diagnosticsTracingService)
         {
             _diagnosticsTracingService = diagnosticsTracingService;
@@ -48,7 +49,7 @@ namespace App.Modules.Core.Infrastructure.ServiceAgents.Implementations
             }
 
             ConnectionString =
-                $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName}{configuration.ResourceNameSuffix};AccountKey={configuration.ClientSecret};EndpointSuffix=core.windows.net";
+                $"DefaultEndpointsProtocol=https;AccountName={configuration.ResourceName};AccountKey={configuration.ClientSecret};EndpointSuffix=core.windows.net";
 
             if (!ContainersInitialized)
             {

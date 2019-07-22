@@ -3,10 +3,9 @@
 using App.Modules.All.Infrastructure.Configuration;
 using App.Modules.All.Shared.Models;
 using App.Modules.Core.Infrastructure.Configuration.Settings;
-using App.Modules.Core.Infrastructure.Services;
 using App.Modules.Core.Shared.Constants;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
 
     public class AzureRedisCacheServiceConfiguration
@@ -15,20 +14,20 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
     , IHasConnectionString
     {
         public AzureRedisCacheServiceConfiguration(
-            AzureEnvironmentSettings azureConfiguration,
+            AzureEnvironmentSettings defaultAzureConfiguration,
             IConfigurationService configurationService)
         {
 
             configurationService.Get(this);
 
-            if (string.IsNullOrEmpty(this.ResourceName))
+            if (string.IsNullOrEmpty(ResourceName))
             {
-                this.ResourceName = azureConfiguration.DefaultResourceName;
+                ResourceName = defaultAzureConfiguration.DefaultResourceName;
             }
 
-            if (this.BaseUri.IsNullOrEmpty())
+            if (BaseUri.IsNullOrEmpty())
             {
-                this.BaseUri = $"{ResourceName}.redis.cache.windows.net";
+                BaseUri = $"{ResourceName}.redis.cache.windows.net";
             }
 
         }

@@ -1,13 +1,11 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using App.Modules.All.Shared.Models;
-
-namespace App.Modules.Core.Shared.Models.Messages
+namespace App.Modules.All.Shared.Models
 {
     /// <summary>
     ///     Base class for Reference data item DTO/Messages.
     /// </summary>
-    /// <seealso cref="App.Modules.Core.Shared.Models.Messages.TenantedRecordStateGuidIdDtoBase" />
+    /// <seealso cref="TenantedRecordStateGuidIdDtoBase" />
     public abstract class TenantedRecordStateGuidIdReferenceDtoBase
         /* Avoid CONTRACTS on DTOs: UNDUE RISK OF INADVERTENT CHANGE */
         : TenantedRecordStateGuidIdDtoBase, IHasTitleAndDescription

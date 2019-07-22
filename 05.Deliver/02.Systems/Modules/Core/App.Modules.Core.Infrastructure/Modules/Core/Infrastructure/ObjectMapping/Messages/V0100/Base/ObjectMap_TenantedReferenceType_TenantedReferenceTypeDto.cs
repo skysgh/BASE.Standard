@@ -1,5 +1,6 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
+using App.Modules.All.Shared.Models;
 using App.Modules.All.Shared.Models.Entities;
 using App.Modules.Core.Shared.Models.Messages;
 using AutoMapper;

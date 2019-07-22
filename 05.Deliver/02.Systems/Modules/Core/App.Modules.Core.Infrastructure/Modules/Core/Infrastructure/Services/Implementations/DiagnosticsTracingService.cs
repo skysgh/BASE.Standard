@@ -1,9 +1,10 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
-using System.Collections.Generic;
 using System.Threading;
 using App.Modules.All.Infrastructure.Services;
 using App.Modules.Core.Shared.Models.Entities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace App.Modules.Core.Infrastructure.Services.Implementations
 {
@@ -15,17 +16,16 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
     /// <seealso cref="App.Modules.Core.Infrastructure.Services.IDiagnosticsTracingService" />
     public class DiagnosticsTracingService : AppCoreServiceBase, IDiagnosticsTracingService
     {
-        private static readonly Queue<TraceEntry> _cache = new Queue<TraceEntry>();
-        private static TraceLevel _flushLevel;
+        private LogLevel _minLogLevel;
+        private readonly IConfiguration _configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosticsTracingService"/> class.
         /// </summary>
-        public DiagnosticsTracingService()
+        public DiagnosticsTracingService(IConfiguration configuration)
         {
-            // Needs to be wired up to Application Settings to be dynamic in order to not need a restart
-            // when errors start happening.
-            _flushLevel = TraceLevel.Verbose;
+            this._configuration = configuration;
+            _minLogLevel = _configuration.GetValue<LogLevel>("Logging:LogLevel:Default");
         }
 
         /// <summary>
@@ -36,100 +36,52 @@ namespace App.Modules.Core.Infrastructure.Services.Implementations
         /// <param name="arguments">The arguments.</param>
         public void Trace(TraceLevel traceLevel, string message, params object[] arguments)
         {
-            _cache.Enqueue(new TraceEntry {TracelLevel = traceLevel, Message = message, Args = arguments});
-            if (_cache.Count > 100)
+
+            //LogLevel:
+            //Trace = 0,
+            //Debug = 1,
+            //Information = 2,
+            //Warning = 3,
+            //Error = 4,
+            //Critical = 5,
+            //None = 6,
+
+            //TraceLevel:
+            //Critical = 0, 5-0=5
+            //Error = 1,    5-1=4
+            //Warn = 2,     5-2=3
+            //Info = 3,     5-3=2
+            //Debug = 4,    5-4=1
+            //Verbose = 5   5-5=0
+
+            if ((5-(int)traceLevel) < (int)_minLogLevel)
             {
-                lock (this)
-                {
-                    while (_cache.Count > 100)
-                    {
-                        _cache.Dequeue();
-                    }
-                }
+                return;
             }
-
-            if (traceLevel <= _flushLevel)
-            {
-                lock (this)
-                {
-                    while (_cache.Count > 0)
-                    {
-                        var x = _cache.Dequeue();
-                        if (x != null)
-                        {
-                            DirectTrace(x.TracelLevel, x.Message, x.Args);
-                        }
-                    }
-                }
-            }
-        }
-
-
-        private void DirectTrace(TraceLevel traceLevel, string message, params object[] arguments)
-        {
-            const string lineEnding = "\r\n";
 
             if (arguments != null && arguments.Length > 0)
             {
                 message = string.Format(message, arguments);
             }
 
-
+            var name = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
             var threadId = Thread.CurrentThread.Name ?? Thread.CurrentThread.ManagedThreadId.ToString();
+            string level;
 
             switch (traceLevel)
             {
-                // The trouble with TraceError/TraceWarning is that they don't just add one line, 
-                // they add multiple lines,
-                // a Header, then the Line, then Footer.
-                // The header has a format of "{source} {type}: {id} :"
-                // The footer adds one or more indented lines:
-                //   "ProcessId={processId}"
-                //   "LogicalOperationStack={....}
-                //   ""ThreadId=" + eventCache.ThreadId);
-                //   "DateTime="
-                //   "Timestamp="
-                //   "Callstack="
-                // In other words, it will be slower than just writing one line using WriteLine.
-
-                // That said, WriteLine will be prefixed with "Verbose"
-                // So you can use plain old Write, terminated with "\r\n"
-                case TraceLevel.Critical:
-                    //System.Diagnostics.Trace.TraceError(message);
-                    //System.Diagnostics.Trace.WriteLine($"CRITICAL: {message}");
-                    System.Diagnostics.Trace.Write($"CRITICAL: {threadId}: {message}{lineEnding}");
-                    break;
-                case TraceLevel.Error:
-                    // System.Diagnostics.Trace.TraceError(message);
-                    //System.Diagnostics.Trace.WriteLine($"ERROR...: {message}");
-                    System.Diagnostics.Trace.Write($"ERROR...: {threadId}: {message}{lineEnding}");
+                case TraceLevel.Info:
+                    level = "Information";
                     break;
                 case TraceLevel.Warn:
-                    //System.Diagnostics.Trace.TraceWarning(message);
-                    //System.Diagnostics.Trace.WriteLine($"WARN....: {message}");
-                    System.Diagnostics.Trace.Write($"WARN....: {threadId}: {message}{lineEnding}");
+                    level = "Warning";
                     break;
-                case TraceLevel.Info:
-                    //System.Diagnostics.Trace.TraceInformation(message);
-                    // System.Diagnostics.Trace.WriteLine($"INFO....: {message}");
-                    System.Diagnostics.Trace.Write($"INFO....: {threadId}: {message}{lineEnding}");
-                    break;
-                case TraceLevel.Debug:
-                    // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
-                    System.Diagnostics.Trace.Write($"DEBUG: {threadId}: {message}{lineEnding}");
-                    break;
-                case TraceLevel.Verbose:
-                    // System.Diagnostics.Trace.WriteLine($"DEBUG...: {message}");
-                    System.Diagnostics.Trace.Write($"VERBOSE: {threadId}: {message}{lineEnding}");
+                default:
+                    level = traceLevel.ToString();
                     break;
             }
-        }
-
-        private class TraceEntry
-        {
-            public object[] Args;
-            public string Message;
-            public TraceLevel TracelLevel;
+            
+            System.Diagnostics.Trace.WriteLine($"{name}:{threadId}:{level}:{message}");
         }
     }
 }

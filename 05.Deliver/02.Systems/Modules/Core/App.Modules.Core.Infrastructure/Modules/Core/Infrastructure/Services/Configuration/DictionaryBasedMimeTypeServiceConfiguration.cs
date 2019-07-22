@@ -3,9 +3,8 @@
 using System;
 using System.Collections.Generic;
 using App.Modules.All.Infrastructure.Configuration;
-using App.Modules.Core.Infrastructure.Services;
 
-namespace App.Modules.Core.Infrastructure.Configuration.Services
+namespace App.Modules.Core.Infrastructure.Services.Configuration
 {
     /// <summary>
     ///     <para>
@@ -18,7 +17,7 @@ namespace App.Modules.Core.Infrastructure.Configuration.Services
     ///     </para>
     /// </summary>
     /// <seealso cref="IConfigurationObject" />
-    public class DictionaryBasedMimeTypeServiceConfiguration 
+    public class DictionaryBasedMimeTypeServiceConfiguration
         : ConfigurationObjectBase
     {
         public DictionaryBasedMimeTypeServiceConfiguration(IConfigurationService configurationService)

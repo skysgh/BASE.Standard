@@ -180,9 +180,5 @@ namespace App.Modules.Core.Shared.Models.Messages
         }
 
 
-        void Ping()
-        {
-
-        }
     }
 }

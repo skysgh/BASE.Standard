@@ -1,7 +1,7 @@
 ﻿// Copyright MachineBrains, Inc. 2019
 
 using App.Modules.All.AppFacade.Controllers.Api.OData.Configuration;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using App.Modules.Core.Shared.Models.DTOs;
 using Microsoft.AspNet.OData.Builder;
 
 namespace App.Modules.Core.AppFacade.Controllers.Api.OData.Configuration

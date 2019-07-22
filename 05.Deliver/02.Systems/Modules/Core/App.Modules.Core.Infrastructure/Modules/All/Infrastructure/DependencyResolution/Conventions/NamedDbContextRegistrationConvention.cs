@@ -27,7 +27,7 @@ namespace App.Modules.All.Infrastructure.DependencyResolution.Conventions
             ))
             {
                 // The DbContext may have an Alias/Name Attribute
-                var tag = implementationType.GetAliasKeyOrNameFromType("ModuleDbContext","DbContext");
+                var tag = implementationType.GetKeyOrNameFromType("ModuleDbContext","DbContext");
 
                 services.For(contractType).Use(implementationType).Named(tag).Scoped();
                 services.For(implementationType).Use(implementationType).Scoped();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using App.Modules.Core.Shared.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace App.Core.Application.API.Controllers.V0100
 {
@@ -8,7 +9,6 @@ namespace App.Core.Application.API.Controllers.V0100
     using App.Modules.Core.Infrastructure.Data.Db.Contexts;
     using App.Modules.Core.Infrastructure.Services;
     using App.Modules.Core.Shared.Models.Entities;
-    using App.Modules.Core.Shared.Models.Messages.API.V0100;
     using AutoMapper.QueryableExtensions;
     using Microsoft.AspNet.OData;
     using Microsoft.EntityFrameworkCore;

@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.Caching;
 using App.Modules.All.Infrastructure.Services;
-using App.Modules.Core.Infrastructure.Configuration.Services;
+using App.Modules.Core.Infrastructure.Services.Configuration;
 using Microsoft.Extensions.Caching.Memory;
 using MemoryCache = System.Runtime.Caching.MemoryCache;
 

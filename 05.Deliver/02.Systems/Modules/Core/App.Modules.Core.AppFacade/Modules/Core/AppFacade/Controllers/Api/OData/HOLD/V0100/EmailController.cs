@@ -1,7 +1,7 @@
 ﻿using System;
 using App.Modules.All.AppFacade.Controllers.Api.OData.Base;
 using App.Modules.Core.Infrastructure.Services;
-using App.Modules.Core.Shared.Models.Messages.API.V0100;
+using App.Modules.Core.Shared.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Core.Application.API.Controllers.V0100
